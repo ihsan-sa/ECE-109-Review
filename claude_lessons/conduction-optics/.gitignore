@@ -1,0 +1,5 @@
+server/.isolated/
+server/.uploads/
+server/.proxy-port
+server/chat.log
+node_modules/

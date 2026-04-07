@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Server runtime artifacts
+server/.isolated/
+server/.uploads/
+server/.proxy-port
+server/chat.log
+
+# Build / cache
+__pycache__/
+*.pyc
+.vite/
+dist/
+
+# Development screenshots
+*.png
+
+# Lock files
+package-lock.json
+
+# Course materials (copyrighted PDFs, large binaries)
+course_materials/
+
+# Manim generated media (videos, Tex renders, text SVGs)
+media/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
