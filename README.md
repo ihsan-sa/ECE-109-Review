@@ -117,3 +117,7 @@ node test_lesson.cjs src/<slug_with_underscores>.jsx
 ## Tech Stack
 
 React 19, Vite 6, KaTeX (CDN), Express, inline SVG. Dark theme, gold accent `#c8a45a`, IBM Plex Sans/Mono.
+
+## Suggestions?
+
+Email [me@ihsan.cc](mailto:me@ihsan.cc) or DM me on [Instagram](https://instagram.com/ihsan) or [LinkedIn](https://www.linkedin.com/in/ihsan-sa/).
