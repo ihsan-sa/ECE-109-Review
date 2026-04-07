@@ -48,6 +48,7 @@ cat > "$OUT/index.html" <<'HTML'
 <div style="margin-top: 32px; padding: 12px 16px; border: 1px solid #333; border-radius: 6px; font-size: 13px; color: #9498ac;">
   Suggestions? Email <a href="mailto:me@ihsan.cc" style="color: #4a90d9;">me@ihsan.cc</a> or DM me on Instagram or <a href="https://www.linkedin.com/in/ihsan-sa/" style="color: #4a90d9;">LinkedIn</a>.
 </div>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a0352d88c30140ec8bd0972184f2009f"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 HTML
