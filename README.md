@@ -120,4 +120,4 @@ React 19, Vite 6, KaTeX (CDN), Express, inline SVG. Dark theme, gold accent `#c8
 
 ## Suggestions?
 
-Email [me@ihsan.cc](mailto:me@ihsan.cc) or DM me on [Instagram](https://instagram.com/ihsan) or [LinkedIn](https://www.linkedin.com/in/ihsan-sa/).
+Email [me@ihsan.cc](mailto:me@ihsan.cc) or DM me on [LinkedIn](https://www.linkedin.com/in/ihsan-sa/).

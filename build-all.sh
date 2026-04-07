@@ -46,7 +46,7 @@ cat > "$OUT/index.html" <<'HTML'
   <li><a href="/photonics/">Photonics</a><div class="note">Lasers, waveguides, modulators, photodetectors (not on the exam)</div></li>
 </ul>
 <div style="margin-top: 32px; padding: 12px 16px; border: 1px solid #333; border-radius: 6px; font-size: 13px; color: #9498ac;">
-  Suggestions? Email <a href="mailto:me@ihsan.cc" style="color: #4a90d9;">me@ihsan.cc</a> or DM me on <a href="https://instagram.com/ihsan" style="color: #4a90d9;">Instagram</a> or <a href="https://www.linkedin.com/in/ihsan-sa/" style="color: #4a90d9;">LinkedIn</a>.
+  Suggestions? Email <a href="mailto:me@ihsan.cc" style="color: #4a90d9;">me@ihsan.cc</a> or DM me on <a href="https://www.linkedin.com/in/ihsan-sa/" style="color: #4a90d9;">LinkedIn</a>.
 </div>
 </body>
 </html>
