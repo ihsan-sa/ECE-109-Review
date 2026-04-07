@@ -974,7 +974,7 @@ const TOPICS = [
           <div className="eq-block" style={{ padding: 16, textAlign: "center" }}>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: "var(--accent)", marginBottom: 8, fontWeight: 600 }}>Micro-Ring Modulator -- Manim Animation</div>
             <video controls style={{ maxWidth: "100%", borderRadius: 6, border: "1px solid var(--border)" }} preload="metadata">
-              <source src="/videos/MicroRingModulator.mp4" type="video/mp4" />
+              <source src="videos/MicroRingModulator.mp4" type="video/mp4" />
             </video>
             <div style={{ fontSize: 11, color: "var(--text-dim)", marginTop: 6, fontFamily: "'IBM Plex Mono', monospace", fontStyle: "italic" }}>
               Shows ring resonator coupling, on/off-resonance behavior, voltage-induced resonance shift, and OOK digital modulation.
@@ -1026,7 +1026,7 @@ const TOPICS = [
           <div className="eq-block" style={{ padding: 16, textAlign: "center" }}>
             <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: "var(--accent)", marginBottom: 8, fontWeight: 600 }}>MRM Transmission Spectrum Shift -- Manim Animation</div>
             <video controls style={{ maxWidth: "100%", borderRadius: 6, border: "1px solid var(--border)" }} preload="metadata">
-              <source src="/videos/MRMTransmissionShift.mp4" type="video/mp4" />
+              <source src="videos/MRMTransmissionShift.mp4" type="video/mp4" />
             </video>
             <div style={{ fontSize: 11, color: "var(--text-dim)", marginTop: 6, fontFamily: "'IBM Plex Mono', monospace", fontStyle: "italic" }}>
               Shows the Lorentzian transmission dip shifting under applied voltage, with CW laser operating point switching between low and high transmission (OOK modulation).

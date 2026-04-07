@@ -1360,15 +1360,15 @@ const TOPICS = [
           <div style={{display: "flex", flexDirection: "column", gap: "1.2rem", margin: "1.2rem 0"}}>
             <div>
               <P><b>Animation: Double-Slit Geometry</b> -- paths r1, r2 from each slit to point P, and how the path difference changes as P moves along the screen.</P>
-              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="/videos/DoubleSlitGeometry.mp4" />
+              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="videos/DoubleSlitGeometry.mp4" />
             </div>
             <div>
               <P><b>Animation: Wave Superposition</b> -- two waves adding constructively (phase diff = 0), destructively (phase diff = pi), and everything in between.</P>
-              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="/videos/WaveSuperposition.mp4" />
+              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="videos/WaveSuperposition.mp4" />
             </div>
             <div>
               <P><b>Animation: Interference Pattern</b> -- expanding wavefronts from each slit and the resulting intensity distribution on the screen.</P>
-              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="/videos/InterferencePattern.mp4" />
+              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="videos/InterferencePattern.mp4" />
             </div>
           </div>
           <KeyConcept label="Electron Double-Slit Experiment">
