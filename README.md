@@ -1,5 +1,7 @@
 # ECE 109 Interactive Lessons
 
+![Lesson screenshot](images/Screenshot%202026-04-07%20163944.png)
+
 Tabbed React apps for ECE 109 (Principles of Electronic Materials), Winter 2026. KaTeX equations, inline SVG graphs, animations, and an embedded Claude tutor chatbot.
 
 **Requires:** Node.js 18+
@@ -14,7 +16,7 @@ Tabbed React apps for ECE 109 (Principles of Electronic Materials), Winter 2026.
 | `band-theory` | Band theory, semiconductors, Fermi-Dirac |
 | `conduction-optics` | Metallic conduction, thermoelectrics, optics |
 | `dielectrics` | Polarization, piezoelectricity |
-| `photonics` | Lasers, waveguides, modulators, photodetectors |
+| `photonics` | Lasers, waveguides, modulators, photodetectors -- **NOT ON THE EXAM; built for personal curiosity only** |
 
 ## Standalone (no Claude Code)
 

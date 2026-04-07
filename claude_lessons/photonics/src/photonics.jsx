@@ -2991,6 +2991,9 @@ export default function LessonApp() {
           <button key={t.id} className={`tab-btn ${i === activeIdx ? "active" : ""}`} onClick={() => setActiveIdx(i)}>{t.tab}</button>
         ))}
       </div>
+      <div style={{ background: "#c8a45a", color: "#13151c", textAlign: "center", padding: "8px 24px", fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 700, letterSpacing: "0.04em" }}>
+        NOT ON THE EXAM -- This lesson was built purely out of curiosity and is not part of the ECE 109 syllabus.
+      </div>
       <div className="content-area">
         <div style={{ marginBottom: 8, padding: "16px 24px 0" }}>
           <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: "var(--text-primary)" }}>{active.title}</h2>
