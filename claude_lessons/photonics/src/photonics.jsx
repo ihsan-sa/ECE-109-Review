@@ -2633,7 +2633,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
 
   return (
     <>
-      {!open && <button className="chat-toggle" onClick={() => setOpen(true)}>
+      {!open && !import.meta.env.PROD && <button className="chat-toggle" onClick={() => setOpen(true)}>
         {"?"}
         {contextSnippets.length > 0 && <span className="chat-badge">{contextSnippets.length}</span>}
       </button>}
@@ -2986,6 +2986,7 @@ export default function LessonApp() {
           {theme === "dark" ? "Light" : "Dark"}
         </button>
       </div>
+      {import.meta.env.PROD && <div style={{ background: "var(--bg-card)", color: "var(--text-dim)", textAlign: "center", padding: "6px 24px", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", borderBottom: "1px solid var(--border)" }}>The AI chatbot is only available when running locally. See the <a href="https://github.com/ihsan-sa/ECE-109-Review" style={{ color: "var(--accent)" }}>README</a> for setup instructions.</div>}
       <div className="tab-bar">
         {TOPICS.map((t, i) => (
           <button key={t.id} className={`tab-btn ${i === activeIdx ? "active" : ""}`} onClick={() => setActiveIdx(i)}>{t.tab}</button>
