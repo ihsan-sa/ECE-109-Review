@@ -907,34 +907,34 @@ const TOPICS = [
             <div className="compare-card">
               <h4>Simple Cubic (SC)</h4>
               <figure style={{ textAlign: "center", margin: "8px 0" }}>
-                <img src="/images/crystal-sc.png" alt="Simple cubic unit cell with 8 corner atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
+                <img src="images/crystal-sc.png" alt="Simple cubic unit cell with 8 corner atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
               </figure>
               <P>Atoms at cube corners only. Coordination number = 6. Atomic packing fraction (APF) = 0.52. Rare in nature (only Po).</P>
             </div>
             <div className="compare-card">
               <h4>Body-Centered Cubic (BCC)</h4>
               <figure style={{ textAlign: "center", margin: "8px 0" }}>
-                <img src="/images/crystal-bcc.png" alt="BCC unit cell with 8 corner atoms and 1 body-center atom" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
+                <img src="images/crystal-bcc.png" alt="BCC unit cell with 8 corner atoms and 1 body-center atom" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
               </figure>
               <P>Atoms at corners + 1 atom at body center. Coordination number = 8. APF = 0.68. Examples: Fe (alpha), W, Cr, Mo.</P>
             </div>
             <div className="compare-card">
               <h4>Face-Centered Cubic (FCC)</h4>
               <figure style={{ textAlign: "center", margin: "8px 0" }}>
-                <img src="/images/crystal-fcc.png" alt="FCC unit cell with 8 corner atoms and 6 face-center atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
+                <img src="images/crystal-fcc.png" alt="FCC unit cell with 8 corner atoms and 6 face-center atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
               </figure>
               <P>Atoms at corners + atoms at each face center. Coordination number = 12. APF = 0.74 (close-packed). Examples: Cu, Al, Au, Ag, Ni.</P>
             </div>
             <div className="compare-card">
               <h4>Diamond Structure</h4>
               <figure style={{ textAlign: "center", margin: "8px 0" }}>
-                <img src="/images/crystal-diamond.png" alt="Diamond cubic unit cell with corner, face-center, and interior tetrahedral atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
+                <img src="images/crystal-diamond.png" alt="Diamond cubic unit cell with corner, face-center, and interior tetrahedral atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
               </figure>
               <P>FCC lattice with a 2-atom basis: one atom at (0,0,0) and another at (a/4, a/4, a/4). Each atom is tetrahedrally bonded to 4 neighbors. Examples: C (diamond), Si, Ge. Coordination number = 4, APF = 0.34.</P>
             </div>
           </div>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px", marginTop: 12 }}>
-            <img src="/images/wiki-diamond-exploded.svg" alt="Decomposition of diamond cubic: two interpenetrating FCC lattices combine into diamond structure, shown as individual tetrahedra (1), assembled unit cell (2), and 3x3x3 lattice (3)" style={{ maxWidth: "100%", maxHeight: 500, borderRadius: 6, background: "white", padding: 8 }} />
+            <img src="images/wiki-diamond-exploded.svg" alt="Decomposition of diamond cubic: two interpenetrating FCC lattices combine into diamond structure, shown as individual tetrahedra (1), assembled unit cell (2), and 3x3x3 lattice (3)" style={{ maxWidth: "100%", maxHeight: 500, borderRadius: 6, background: "white", padding: 8 }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Diamond cubic decomposition: (1) individual tetrahedral building blocks from two offset FCC sub-lattices, (2) assembled unit cell, (3) extended 3x3x3 lattice. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0, Cmglee</span></figcaption>
           </figure>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", marginTop: 16 }}>
@@ -956,20 +956,20 @@ const TOPICS = [
           <P>Atoms at corners, faces, and edges of a unit cell are shared with neighboring cells. Understanding this sharing is essential for counting atoms per unit cell correctly.</P>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", margin: "12px 0" }}>
             <figure style={{ textAlign: "center", flex: "1 1 280px", maxWidth: 400 }}>
-              <img src="/images/sharing-corner.png" alt="8 unit cells sharing a single corner atom, each getting 1/8" style={{ width: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
+              <img src="images/sharing-corner.png" alt="8 unit cells sharing a single corner atom, each getting 1/8" style={{ width: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
               <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 6 }}>A corner atom sits where 8 unit cells meet. Each cell claims 1/8 of the atom.</figcaption>
             </figure>
             <figure style={{ textAlign: "center", flex: "1 1 280px", maxWidth: 400 }}>
-              <img src="/images/sharing-face.png" alt="2 unit cells sharing a face atom, each getting 1/2" style={{ width: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
+              <img src="images/sharing-face.png" alt="2 unit cells sharing a face atom, each getting 1/2" style={{ width: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
               <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 6 }}>A face atom is shared by 2 adjacent cells. Each cell claims 1/2 of the atom.</figcaption>
             </figure>
           </div>
           <figure style={{ textAlign: "center", margin: "16px 0" }}>
-            <img src="/images/sharing-summary.png" alt="Side-by-side atom counting for SC, BCC, and FCC unit cells" style={{ maxWidth: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/sharing-summary.png" alt="Side-by-side atom counting for SC, BCC, and FCC unit cells" style={{ maxWidth: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 6 }}>Atom counting summary: corner atoms contribute 1/8 each, face atoms 1/2 each, body-center atoms 1 each.</figcaption>
           </figure>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px", marginTop: 12 }}>
-            <img src="/images/wiki-fcc-counting.png" alt="Space-filling model of FCC unit cell showing corner atoms cut to 1/8 and face atoms cut to 1/2" style={{ maxWidth: "100%", maxHeight: 380, borderRadius: 6, background: "white", padding: 8 }} />
+            <img src="images/wiki-fcc-counting.png" alt="Space-filling model of FCC unit cell showing corner atoms cut to 1/8 and face atoms cut to 1/2" style={{ maxWidth: "100%", maxHeight: 380, borderRadius: 6, background: "white", padding: 8 }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>FCC space-filling model: corner atoms (1/8 each) and face atoms (1/2 each) are physically cut at the unit cell boundary, showing exactly how much of each atom belongs to one cell. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0, Cdang</span></figcaption>
           </figure>
         </Section>
@@ -985,7 +985,7 @@ const TOPICS = [
         </Section>
 
         <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-          <img src="/images/nacl-unit-cell.png" alt="Ball-and-stick model of NaCl unit cell showing alternating sodium and chlorine ions in a face-centered cubic arrangement" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+          <img src="images/nacl-unit-cell.png" alt="Ball-and-stick model of NaCl unit cell showing alternating sodium and chlorine ions in a face-centered cubic arrangement" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
           <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>NaCl (rock salt) unit cell: alternating Na+ and Cl- ions in an FCC arrangement with coordination number 6. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, Public Domain</span></figcaption>
         </figure>
       </div>
@@ -1105,7 +1105,7 @@ const TOPICS = [
           </KeyConcept>
 
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="/images/tem-dislocations.jpg" alt="Transmission electron microscopy micrograph showing dislocations and precipitates in austenitic stainless steel" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/tem-dislocations.jpg" alt="Transmission electron microscopy micrograph showing dislocations and precipitates in austenitic stainless steel" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>TEM micrograph of dislocations and precipitates in stainless steel. Line defects appear as dark curved lines. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 2.5</span></figcaption>
           </figure>
         </Section>

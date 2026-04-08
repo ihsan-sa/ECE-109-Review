@@ -1332,12 +1332,12 @@ const TOPICS = [
           </KeyConcept>
 
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="/images/double_slit_tonomura.jpg" alt="Buildup of electron interference pattern in double-slit experiment by Tonomura, showing individual electron hits forming wave-like fringes over time" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/double_slit_tonomura.jpg" alt="Buildup of electron interference pattern in double-slit experiment by Tonomura, showing individual electron hits forming wave-like fringes over time" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Tonomura double-slit experiment: individual electron hits (a-e) gradually build an interference pattern, proving wave-particle duality. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
 
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="/images/double_slit_diffraction_photo.jpg" alt="Photograph of laser light diffraction through two adjacent slits showing interference fringes" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/double_slit_diffraction_photo.jpg" alt="Photograph of laser light diffraction through two adjacent slits showing interference fringes" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Laser light diffraction through two slits, showing the characteristic interference fringe pattern. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY 4.0</span></figcaption>
           </figure>
         </Section>

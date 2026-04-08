@@ -855,7 +855,7 @@ const TOPICS = [
           </KeyConcept>
 
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="/images/stm_gold_atomic_resolution.jpg" alt="Scanning tunneling microscope image of gold Au(100) surface at atomic resolution showing individual atoms" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/stm_gold_atomic_resolution.jpg" alt="Scanning tunneling microscope image of gold Au(100) surface at atomic resolution showing individual atoms" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>STM image of Au(100) surface at atomic resolution. The STM itself operates via quantum tunneling. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, Public Domain</span></figcaption>
           </figure>
 
@@ -974,7 +974,7 @@ const TOPICS = [
           <HydrogenEnergyLevels params={gp.hydrogenLevels} mid="t4" />
 
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="/images/hydrogen_spectrum_photo.jpg" alt="Photograph of hydrogen gas discharge tube emission spectrum showing Balmer series visible spectral lines" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/hydrogen_spectrum_photo.jpg" alt="Photograph of hydrogen gas discharge tube emission spectrum showing Balmer series visible spectral lines" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Hydrogen emission spectrum: discrete Balmer series lines (H-alpha 656nm red, H-beta 486nm cyan, H-gamma 434nm blue-violet) from quantized energy transitions. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC0 (Public Domain)</span></figcaption>
           </figure>
         </Section>

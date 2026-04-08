@@ -913,11 +913,11 @@ const TOPICS = [
             </table>
           </div>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="/images/thermoelectric_seebeck_module.jpg" alt="Thermoelectric Seebeck power module showing the hot side ceramic plate with electrical leads" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/thermoelectric_seebeck_module.jpg" alt="Thermoelectric Seebeck power module showing the hot side ceramic plate with electrical leads" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Thermoelectric generator (TEG) module: converts temperature differences directly to voltage via the Seebeck effect. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="/images/peltier_element.jpg" alt="Peltier thermoelectric cooler showing ice formation on the cold side with a copper heat sink beneath" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/peltier_element.jpg" alt="Peltier thermoelectric cooler showing ice formation on the cold side with a copper heat sink beneath" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Peltier cooler in operation: ice forms on the cold side (-8C) while the hot side reaches +30C. The reverse Seebeck (Peltier) effect. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
         </Section>
@@ -985,7 +985,7 @@ const TOPICS = [
           <Eq>{"n^2(\\lambda) = 1 + \\sum_i \\frac{B_i \\lambda^2}{\\lambda^2 - C_i}"}</Eq>
           <P>where <M>{"B_i"}</M> and <M>{"C_i"}</M> are material-specific constants. The refractive index decreases with increasing wavelength in normal dispersion (away from absorption bands).</P>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="/images/dispersive_prism.jpg" alt="Glass prism refracting white light into a visible spectrum showing dispersion" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src="images/dispersive_prism.jpg" alt="Glass prism refracting white light into a visible spectrum showing dispersion" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Optical dispersion: a glass prism separates white light into its component wavelengths due to wavelength-dependent refractive index. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
           <RefractiveIndexDispersion params={gp.refractiveIndex} mid="t" interactive />

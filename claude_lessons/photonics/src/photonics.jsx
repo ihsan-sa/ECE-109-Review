@@ -800,11 +800,11 @@ const TOPICS = [
           </KeyConcept>
         </Section>
         <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-          <img src="/images/laser_diode_chip.jpg" alt="Tunable diode laser chip next to a sewing needle for scale, showing the miniature size of semiconductor lasers" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+          <img src="images/laser_diode_chip.jpg" alt="Tunable diode laser chip next to a sewing needle for scale, showing the miniature size of semiconductor lasers" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
           <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Semiconductor laser diode chip next to a sewing needle for scale. The active region is only micrometers thick. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, Public Domain (NASA/JPL)</span></figcaption>
         </figure>
         <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-          <img src="/images/laser_diode_sem_cutaway.jpg" alt="SEM image of a laser diode with metal case cut away, showing the semiconductor chip and wire bonds" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+          <img src="images/laser_diode_sem_cutaway.jpg" alt="SEM image of a laser diode with metal case cut away, showing the semiconductor chip and wire bonds" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
           <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Commercial laser diode with case cut away (SEM), revealing the semiconductor chip and wire bond connections inside. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 4.0</span></figcaption>
         </figure>
         <Section title="Quantum Well Lasers">
@@ -896,7 +896,7 @@ const TOPICS = [
           </KeyConcept>
         </Section>
         <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-          <img src="/images/ingaas_quantum_dot_stem.jpg" alt="Atomic-resolution STEM image of an InGaAs quantum dot in a GaAs matrix showing lattice structure" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+          <img src="images/ingaas_quantum_dot_stem.jpg" alt="Atomic-resolution STEM image of an InGaAs quantum dot in a GaAs matrix showing lattice structure" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
           <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>STEM image of a self-assembled InGaAs quantum dot buried in GaAs. Individual atomic columns are resolved, showing the strained dot structure (~5nm high, ~20nm wide). <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 4.0</span></figcaption>
         </figure>
         <Section title="QD Laser Advantages">

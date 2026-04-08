@@ -878,7 +878,7 @@ const TOPICS = [
         </Section>
 
         <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-          <img src="/images/silicon-wafer-iridescence.jpg" alt="Multicrystalline silicon wafer showing iridescent colors from thin-film interference, with visible crystal grain boundaries" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+          <img src="images/silicon-wafer-iridescence.jpg" alt="Multicrystalline silicon wafer showing iridescent colors from thin-film interference, with visible crystal grain boundaries" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
           <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Multicrystalline silicon wafer with anti-reflection coating. Visible grain boundaries show where different crystal orientations meet. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 4.0</span></figcaption>
         </figure>
 
