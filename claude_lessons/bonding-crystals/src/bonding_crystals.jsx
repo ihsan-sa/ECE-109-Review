@@ -1881,8 +1881,8 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
   const [tabs, setTabs] = useState([]);
   const [activeTabIdx, setActiveTabIdx] = useState(0);
   const [input, setInput] = useState("");
-  const [model, setModel] = useState(MODELS[0].model);
-  const [effort, setEffort] = useState("medium");
+  const [model, setModel] = useState(MODELS[1].model);
+  const [effort, setEffort] = useState("max");
   const [expanded, setExpanded] = useState(false);
   const [chatSize, setChatSize] = useState(null);
   const resizeRef = useRef(null);
