@@ -1200,11 +1200,102 @@ const TOPICS = [
   },
   {
     id: "graph-preview",
-    tab: "Graph Preview",
+    tab: "Key Variables/Equations/Graphs",
     title: "All Graphs",
     subtitle: "Screenshot this tab and send to the chatbot for visual review",
     content: (gp) => (
       <div className="lesson-body">
+        <Section title="Variable Reference">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px", fontSize: 13, fontFamily: "'IBM Plex Mono', monospace", lineHeight: 1.7 }}>
+            <div>
+              <div style={{ color: "#c8a45a", fontWeight: 600, marginBottom: 4, fontSize: 12, letterSpacing: 0.5, marginTop: 8 }}>LASER &amp; CAVITY</div>
+              <div><M>{"B_{12}, B_{21}"}</M> &mdash; Einstein B coefficients (stim. absorption/emission)</div>
+              <div><M>{"A_{21}"}</M> &mdash; Einstein A coefficient (spontaneous emission rate)</div>
+              <div><M>{"N_1, N_2"}</M> &mdash; population of lower/upper energy levels</div>
+              <div><M>{"R_1, R_2"}</M> &mdash; mirror reflectivities</div>
+              <div><M>{"g"}</M> &mdash; optical gain; <M>{"g_{th}"}</M> &mdash; threshold gain</div>
+              <div><M>{"\\alpha_i"}</M> &mdash; internal (absorption/scattering) loss</div>
+              <div><M>{"\\alpha_m"}</M> &mdash; mirror loss <M>{"= \\frac{1}{2L}\\ln\\!\\left(\\frac{1}{R_1 R_2}\\right)"}</M></div>
+              <div><M>{"L"}</M> &mdash; cavity length</div>
+              <div><M>{"\\Gamma"}</M> &mdash; optical confinement factor</div>
+              <div><M>{"S"}</M> &mdash; photon density; <M>{"\\tau_p"}</M> &mdash; photon lifetime</div>
+              <div><M>{"N"}</M> &mdash; carrier density; <M>{"\\tau"}</M> &mdash; carrier lifetime</div>
+              <div><M>{"\\tau_r"}</M> &mdash; radiative lifetime; <M>{"\\beta"}</M> &mdash; spont. emission factor</div>
+              <div><M>{"v_g"}</M> &mdash; group velocity of light in medium</div>
+              <div><M>{"J"}</M> &mdash; injected current density; <M>{"d"}</M> &mdash; active layer thickness</div>
+              <div><M>{"n"}</M> &mdash; refractive index; <M>{"\\lambda"}</M> &mdash; wavelength</div>
+              <div style={{ color: "#c8a45a", fontWeight: 600, marginBottom: 4, fontSize: 12, letterSpacing: 0.5, marginTop: 12 }}>SEMICONDUCTOR LASER</div>
+              <div><M>{"E_g"}</M> &mdash; bandgap energy</div>
+              <div><M>{"J_{th}"}</M> &mdash; threshold current density; <M>{"I_{th}"}</M> &mdash; threshold current</div>
+              <div><M>{"\\eta_i"}</M> &mdash; internal quantum efficiency</div>
+              <div><M>{"\\eta_d"}</M> &mdash; differential quantum efficiency</div>
+              <div><M>{"\\eta_s"}</M> &mdash; slope efficiency (W/A)</div>
+              <div><M>{"T_0"}</M> &mdash; characteristic temperature (higher = less T-sensitive)</div>
+              <div><M>{"\\alpha_H"}</M> &mdash; linewidth enhancement (Henry) factor</div>
+            </div>
+            <div>
+              <div style={{ color: "#c8a45a", fontWeight: 600, marginBottom: 4, fontSize: 12, letterSpacing: 0.5, marginTop: 8 }}>SILICON PHOTONICS &amp; WAVEGUIDES</div>
+              <div><M>{"n_{\\text{eff}}"}</M> &mdash; effective index of guided mode</div>
+              <div><M>{"n_g"}</M> &mdash; group index <M>{"= n_{\\text{eff}} - \\lambda\\,\\frac{dn_{\\text{eff}}}{d\\lambda}"}</M></div>
+              <div><M>{"\\kappa"}</M> &mdash; power coupling coefficient (ring/coupler)</div>
+              <div><M>{"R"}</M> &mdash; ring radius</div>
+              <div><M>{"Q"}</M> &mdash; quality factor of resonator</div>
+              <div><M>{"\\text{FSR}"}</M> &mdash; free spectral range</div>
+              <div><M>{"T"}</M> &mdash; transmission (through-port)</div>
+              <div style={{ color: "#c8a45a", fontWeight: 600, marginBottom: 4, fontSize: 12, letterSpacing: 0.5, marginTop: 12 }}>MODULATORS</div>
+              <div><M>{"\\Delta n"}</M> &mdash; refractive index change</div>
+              <div><M>{"r"}</M> &mdash; electro-optic (Pockels) coefficient</div>
+              <div><M>{"V_\\pi"}</M> &mdash; half-wave voltage (MZ modulator)</div>
+              <div><M>{"V_\\pi L"}</M> &mdash; modulator figure of merit (V&middot;cm)</div>
+              <div style={{ color: "#c8a45a", fontWeight: 600, marginBottom: 4, fontSize: 12, letterSpacing: 0.5, marginTop: 12 }}>PHOTODETECTORS</div>
+              <div><M>{"\\mathcal{R}"}</M> &mdash; responsivity (A/W)</div>
+              <div><M>{"\\eta"}</M> &mdash; quantum efficiency</div>
+              <div><M>{"M"}</M> &mdash; APD multiplication factor</div>
+              <div><M>{"F(M)"}</M> &mdash; excess noise factor</div>
+              <div><M>{"w"}</M> &mdash; depletion width</div>
+              <div><M>{"v_{\\text{sat}}"}</M> &mdash; carrier saturation velocity</div>
+              <div><M>{"\\tau_{tr}"}</M> &mdash; transit time; <M>{"\\tau_{RC}"}</M> &mdash; RC time constant</div>
+              <div style={{ color: "#c8a45a", fontWeight: 600, marginBottom: 4, fontSize: 12, letterSpacing: 0.5, marginTop: 12 }}>UNIVERSAL CONSTANTS</div>
+              <div><M>{"h"}</M> &mdash; Planck's constant; <M>{"\\hbar = h/2\\pi"}</M></div>
+              <div><M>{"e"}</M> &mdash; electron charge; <M>{"c"}</M> &mdash; speed of light</div>
+              <div><M>{"k_B"}</M> &mdash; Boltzmann constant</div>
+            </div>
+          </div>
+        </Section>
+        <Section title="Key Equations">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 32px" }}>
+            <KeyConcept label="Lasing Threshold Condition">
+              <Eq>{"R_1 R_2 \\, e^{\\,2(g_{th} - \\alpha_i)L} = 1"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Einstein A/B Relation">
+              <Eq>{"\\frac{A_{21}}{B_{21}} = \\frac{8\\pi h f^3}{c^3}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Carrier Rate Equation">
+              <Eq>{"\\frac{dN}{dt} = \\frac{J}{ed} - \\frac{N}{\\tau} - v_g \\, g \\, S"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Photon Rate Equation">
+              <Eq>{"\\frac{dS}{dt} = \\Gamma \\, v_g \\, g \\, S - \\frac{S}{\\tau_p} + \\Gamma \\beta \\frac{N}{\\tau_r}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Slope Efficiency">
+              <Eq>{"\\eta_s = \\eta_d \\cdot \\frac{hf}{e} \\quad \\text{[W/A]}, \\qquad \\eta_d = \\eta_i \\, \\frac{\\alpha_m}{\\alpha_m + \\alpha_i}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Longitudinal Mode Spacing">
+              <Eq>{"\\Delta\\lambda = \\frac{\\lambda^2}{2nL}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Ring Resonator FSR">
+              <Eq>{"\\text{FSR} = \\frac{\\lambda^2}{n_g \\cdot 2\\pi R}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Pockels Effect">
+              <Eq>{"\\Delta n = -\\frac{n^3 \\, r \\, E}{2}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Responsivity">
+              <Eq>{"\\mathcal{R} = \\frac{\\eta \\, e}{h f} \\quad \\text{[A/W]}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Transit Time Bandwidth">
+              <Eq>{"\\tau_{tr} = \\frac{w}{v_{\\text{sat}}}"}</Eq>
+            </KeyConcept>
+          </div>
+        </Section>
         <Section title="1. Laser L-I Curve">
           <LaserLICurve params={gp.laserLICurve} mid="gp1" />
         </Section>

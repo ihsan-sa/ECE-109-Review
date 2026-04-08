@@ -786,13 +786,48 @@ const TOPICS = [
 
         <Section title="Homework Problems">
           <HWQuestion hw="HW4" number="6" title="Ionic polarizability in KCl (bonus)" points="15 pts">
-            <P>KCl (NaCl structure, a = 0.629 nm). Electronic polarizabilities: <M>{"\\alpha_e(K^+) = 0.92 \\times 10^{-40}"}</M> F m<M>{"^2"}</M>, <M>{"\\alpha_e(Cl^-) = 4.0 \\times 10^{-40}"}</M> F m<M>{"^2"}</M>. Dielectric constant at 1 MHz: <M>{"\\varepsilon_0 = 4.80"}</M>.</P>
+            <P>KCl (NaCl structure, a = 0.629 nm). Electronic polarizabilities: <M>{"\\alpha_e(K^+) = 0.92 \\times 10^{-40}"}</M> F m<M>{"^2"}</M>, <M>{"\\alpha_e(Cl^-) = 4.0 \\times 10^{-40}"}</M> F m<M>{"^2"}</M>. Dielectric constant at 1 MHz: <M>{"\\varepsilon_r = 4.80"}</M>.</P>
             <P>Find mean ionic polarizability <M>{"\\alpha_i"}</M> and <M>{"\\varepsilon_{rop}"}</M> at optical frequencies.</P>
             <CollapsibleBlock title="Solution">
-              <P><M>{"N = 4/a^3 = 1.607 \\times 10^{28}"}</M> m<M>{"^{-3}"}</M> (4 ion pairs per FCC cell)</P>
-              <P>From Clausius-Mossotti at 1 MHz: <M>{"\\alpha = 3\\varepsilon_0(\\varepsilon_r - 1)/(N(\\varepsilon_r + 2)) = 9.235 \\times 10^{-40}"}</M> F m<M>{"^2"}</M></P>
-              <P><M>{"\\alpha_i = \\alpha - \\alpha_e(K^+) - \\alpha_e(Cl^-) = 4.315 \\times 10^{-40}"}</M> F m<M>{"^2"}</M></P>
-              <P>At optical frequencies (only electronic): <M>{"\\varepsilon_{rop} \\approx 2.27"}</M></P>
+              <P><b>Step 1: Number density.</b> KCl has the NaCl (rock salt) structure: FCC lattice with 4 K<M>{"^+"}</M>-Cl<M>{"^-"}</M> ion pairs per conventional unit cell (see <b>Bonding and Crystals</b> lesson for FCC packing).</P>
+              <Eq>{"N = \\frac{4}{a^3} = \\frac{4}{(0.629 \\times 10^{-9})^3} = 1.607 \\times 10^{28} \\text{ m}^{-3}"}</Eq>
+              <P><b>Step 2: Total polarizability via Clausius-Mossotti.</b> At 1 MHz, both electronic and ionic mechanisms are active (ionic resonance is at ~10<M>{"^{12}"}</M> Hz, far above 1 MHz). The Clausius-Mossotti relation (see above in this tab) maps macroscopic <M>{"\\varepsilon_r"}</M> to microscopic polarizability:</P>
+              <Eq>{"\\frac{\\varepsilon_r - 1}{\\varepsilon_r + 2} = \\frac{N \\alpha_{\\text{total}}}{3\\varepsilon_0} \\quad\\Longrightarrow\\quad \\alpha_{\\text{total}} = \\frac{3\\varepsilon_0(\\varepsilon_r - 1)}{N(\\varepsilon_r + 2)}"}</Eq>
+              <Eq>{"\\alpha_{\\text{total}} = \\frac{3(8.854 \\times 10^{-12})(3.80)}{(1.607 \\times 10^{28})(6.80)} = 9.235 \\times 10^{-40} \\text{ F m}^2"}</Eq>
+              <P><b>Step 3: Extract ionic polarizability.</b> Per ion pair, total = electronic (both ions) + ionic:</P>
+              <Eq>{"\\alpha_i = \\alpha_{\\text{total}} - \\alpha_e(K^+) - \\alpha_e(Cl^-) = 9.235 - 0.92 - 4.0 = 4.315 \\times 10^{-40} \\text{ F m}^2"}</Eq>
+              <P>The ionic contribution (4.32) is comparable to the total electronic (4.92), typical for strongly ionic crystals.</P>
+              <P><b>Step 4: Optical permittivity.</b> At optical frequencies (~10<M>{"^{14}"}</M>-10<M>{"^{15}"}</M> Hz), ionic polarization has frozen out. Only electronic contributions survive (see the stepwise drop in the <b>Frequency Dependence</b> tab):</P>
+              <Eq>{"\\alpha_{\\text{opt}} = \\alpha_e(K^+) + \\alpha_e(Cl^-) = 4.92 \\times 10^{-40} \\text{ F m}^2"}</Eq>
+              <P>Apply Clausius-Mossotti again with electronic polarizability only:</P>
+              <Eq>{"\\frac{\\varepsilon_{rop} - 1}{\\varepsilon_{rop} + 2} = \\frac{N \\alpha_{\\text{opt}}}{3\\varepsilon_0} = 0.298 \\quad\\Longrightarrow\\quad \\varepsilon_{rop} = \\frac{1 + 2(0.298)}{1 - 0.298} \\approx 2.27"}</Eq>
+              <svg viewBox="0 0 460 200" style={{ width: "100%", maxWidth: 460, display: "block", margin: "14px auto" }}>
+                <text x="230" y="15" fill={G.ltxt} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">Polarizability Breakdown (units: x10^-40 F m^2)</text>
+                <text x="120" y="40" fill={G.gold} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">At 1 MHz</text>
+                <text x="120" y="52" fill={G.txt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">er = 4.80</text>
+                <rect x="80" y={160 - 9.2} width="80" height={9.2} fill={G.blue} opacity={0.8} rx="2" />
+                <rect x="80" y={160 - 49.2} width="80" height={40} fill={G.grn} opacity={0.7} rx="2" />
+                <rect x="80" y={160 - 92.4} width="80" height={43.2} fill={G.gold} opacity={0.35} rx="2" stroke={G.gold} strokeWidth="1.5" strokeDasharray="5,3" />
+                <text x="168" y={160 - 2} fill={G.blue} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="start">K+ 0.92</text>
+                <text x="168" y={160 - 27} fill={G.grn} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="start">Cl- 4.00</text>
+                <text x="168" y={160 - 68} fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start" fontWeight="600">ai = 4.32</text>
+                <text x="340" y="40" fill={G.red} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">At Optical</text>
+                <text x="340" y="52" fill={G.txt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">erop = 2.27</text>
+                <rect x="300" y={160 - 9.2} width="80" height={9.2} fill={G.blue} opacity={0.8} rx="2" />
+                <rect x="300" y={160 - 49.2} width="80" height={40} fill={G.grn} opacity={0.7} rx="2" />
+                <text x="388" y={160 - 2} fill={G.blue} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="start">K+ 0.92</text>
+                <text x="388" y={160 - 27} fill={G.grn} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="start">Cl- 4.00</text>
+                <line x1="70" y1="160" x2="420" y2="160" stroke={G.ax} strokeWidth="0.75" />
+                <rect x="80" y="175" width="10" height="10" fill={G.blue} opacity={0.8} rx="1" />
+                <text x="94" y="184" fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'">Electronic (ae)</text>
+                <rect x="215" y="175" width="10" height="10" fill={G.grn} opacity={0.7} rx="1" />
+                <text x="229" y="184" fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'">Electronic (ae)</text>
+                <rect x="340" y="175" width="10" height="10" fill={G.gold} opacity={0.35} rx="1" stroke={G.gold} strokeDasharray="2,1" />
+                <text x="354" y="184" fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'">Ionic (solve for)</text>
+              </svg>
+              <KeyConcept label="Connections">
+                This problem ties together three lesson themes. (1) <b>Clausius-Mossotti</b> (this tab) bridges microscopic polarizability and macroscopic <M>{"\\varepsilon_r"}</M>. (2) <b>Frequency dependence</b> (Tab 3): ionic polarization freezes out above ~10<M>{"^{12}"}</M> Hz, so the optical measurement isolates electronic contributions; the drop from 4.80 to 2.27 is the "step" in the <M>{"\\varepsilon_r'"}</M> vs. frequency graph. (3) <b>Optics</b>: the refractive index <M>{"n = \\sqrt{\\varepsilon_{rop}} \\approx 1.51"}</M> connects dielectric properties to optical behavior (Kasap Ch. 9).
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -918,9 +953,61 @@ const TOPICS = [
           <HWQuestion hw="HW4" number="4" title="Wave attenuation in lossy dielectric" points="15 pts">
             <P>830 nm laser through atmosphere modeled as <M>{"\\varepsilon_r = 1 + i\\,1.14 \\times 10^{-11}"}</M>, thickness 8.5 km. Estimate power fraction delivered.</P>
             <CollapsibleBlock title="Solution">
-              <P>For a low-loss dielectric (<M>{"\\varepsilon'' \\ll \\varepsilon'"}</M>): <M>{"\\alpha \\approx \\pi\\varepsilon''/\\lambda\\varepsilon'"}</M></P>
-              <P><M>{"\\alpha = \\pi \\times 1.14 \\times 10^{-11}/(830 \\times 10^{-9} \\times 1) = 4.47 \\times 10^{-5}"}</M> Np/m</P>
-              <P>Power: <M>{"e^{-2\\alpha z} = e^{-0.76} \\approx 0.47"}</M> (47% transmitted)</P>
+              <P><b>Step 1: Identify the regime.</b> The imaginary part <M>{"\\varepsilon_r'' = 1.14 \\times 10^{-11}"}</M> is negligible compared to <M>{"\\varepsilon_r' = 1"}</M>. This is a <b>low-loss dielectric</b> (<M>{"\\varepsilon_r'' \\ll \\varepsilon_r'"}</M>), so we use the simplified attenuation formula.</P>
+              <P><b>Step 2: Derive the attenuation constant.</b> From the complex wave vector (see "Wave Attenuation from Complex Permittivity" collapsible above), in the low-loss limit:</P>
+              <Eq>{"k = \\frac{\\omega}{c}\\sqrt{\\varepsilon_r' - j\\varepsilon_r''} \\;\\approx\\; \\frac{\\omega}{c}\\sqrt{\\varepsilon_r'}\\left(1 - \\frac{j\\varepsilon_r''}{2\\varepsilon_r'}\\right)"}</Eq>
+              <P>The imaginary part of <M>{"k"}</M> gives the field attenuation coefficient. Substituting <M>{"\\omega/c = 2\\pi/\\lambda"}</M>:</P>
+              <Eq>{"\\alpha = \\text{Im}(k) = \\frac{\\pi \\varepsilon_r''}{\\lambda \\sqrt{\\varepsilon_r'}}"}</Eq>
+              <P><b>Step 3: Calculate <M>{"\\alpha"}</M>.</b> With <M>{"\\varepsilon_r' = 1"}</M> (air):</P>
+              <Eq>{"\\alpha = \\frac{\\pi \\times 1.14 \\times 10^{-11}}{830 \\times 10^{-9}} = 4.31 \\times 10^{-5} \\text{ Np/m}"}</Eq>
+              <P><b>Step 4: Power fraction.</b> The electric field decays as <M>{"e^{-\\alpha z}"}</M>. Power is proportional to <M>{"E^2"}</M>, so it decays as <M>{"e^{-2\\alpha z}"}</M>:</P>
+              <Eq>{"\\frac{P_{\\text{out}}}{P_{\\text{in}}} = e^{-2\\alpha z} = e^{-2(4.31 \\times 10^{-5})(8500)} = e^{-0.733} \\approx 0.48"}</Eq>
+              <P>About <b>48% of the laser power</b> reaches the target after 8.5 km.</P>
+              {(() => {
+                const ox = 55, oy = 120, pw = 380, ph = 90;
+                const xOf = (z) => ox + (z / 10000) * pw;
+                const yOf = (p) => oy - p * ph;
+                const curve = [];
+                const area = [`M${ox},${oy}`];
+                for (let z = 0; z <= 10000; z += 200) {
+                  const x = xOf(z).toFixed(1);
+                  const y = yOf(Math.exp(-2 * 4.315e-5 * z)).toFixed(1);
+                  curve.push(`${z === 0 ? "M" : "L"}${x},${y}`);
+                  area.push(`L${x},${y}`);
+                }
+                area.push(`L${xOf(10000).toFixed(1)},${oy} Z`);
+                const zMark = 8500, pMark = Math.exp(-2 * 4.315e-5 * zMark);
+                return (
+                  <svg viewBox="0 0 480 155" style={{ width: "100%", maxWidth: 480, display: "block", margin: "14px auto" }}>
+                    <text x="240" y="14" fill={G.ltxt} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">Power Transmission Through Atmosphere</text>
+                    <path d={area.join(" ")} fill={G.gold} opacity={0.08} />
+                    <path d={curve.join(" ")} fill="none" stroke={G.gold} strokeWidth="2" />
+                    <line x1={ox} y1={oy} x2={ox + pw} y2={oy} stroke={G.ax} strokeWidth="1" />
+                    <line x1={ox} y1={oy} x2={ox} y2={oy - ph - 5} stroke={G.ax} strokeWidth="1" />
+                    {[0, 2, 4, 6, 8, 10].map(km => (
+                      <g key={km}>
+                        <line x1={xOf(km * 1000)} y1={oy} x2={xOf(km * 1000)} y2={oy + 4} stroke={G.ax} strokeWidth="0.75" />
+                        <text x={xOf(km * 1000)} y={oy + 14} fill={G.txt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono'">{km}</text>
+                      </g>
+                    ))}
+                    <text x={ox + pw / 2} y={oy + 26} fill={G.txt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono'">Distance z (km)</text>
+                    {[0, 0.25, 0.5, 0.75, 1.0].map(p => (
+                      <g key={p}>
+                        <line x1={ox - 4} y1={yOf(p)} x2={ox} y2={yOf(p)} stroke={G.ax} strokeWidth="0.75" />
+                        <text x={ox - 8} y={yOf(p) + 3} fill={G.txt} fontSize="8" textAnchor="end" fontFamily="'IBM Plex Mono'">{p.toFixed(2)}</text>
+                      </g>
+                    ))}
+                    <text x={ox - 30} y={oy - ph / 2} fill={G.txt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono'" transform={`rotate(-90,${ox - 30},${oy - ph / 2})`}>P / P0</text>
+                    <line x1={xOf(zMark)} y1={oy} x2={xOf(zMark)} y2={yOf(pMark)} stroke={G.red} strokeWidth="1" strokeDasharray="4,3" />
+                    <line x1={ox} y1={yOf(pMark)} x2={xOf(zMark)} y2={yOf(pMark)} stroke={G.red} strokeWidth="1" strokeDasharray="4,3" />
+                    <circle cx={xOf(zMark)} cy={yOf(pMark)} r="3.5" fill={G.red} />
+                    <text x={xOf(zMark) + 6} y={yOf(pMark) - 6} fill={G.red} fontSize="9" fontFamily="'IBM Plex Mono'" fontWeight="600">0.48 at 8.5 km</text>
+                  </svg>
+                );
+              })()}
+              <KeyConcept label="Connections">
+                Even with <M>{"\\varepsilon_r'' \\approx 10^{-11}"}</M> (loss tangent <M>{"\\tan\\delta \\approx 10^{-11}"}</M>), half the power is lost over 8.5 km. This illustrates why long-distance fiber optics demand ultra-low-loss materials. The derivation uses the <b>low-loss approximation</b> of the complex wave vector discussed in the collapsible section above. Key subtlety: <M>{"\\alpha"}</M> is the <b>field</b> attenuation constant; the power attenuation constant is <M>{"2\\alpha"}</M> because power goes as <M>{"E^2"}</M>. This connects to the <b>Polarization Mechanisms</b> tab: at 830 nm (3.6 x 10<M>{"^{14}"}</M> Hz), only electronic polarization is active; the tiny <M>{"\\varepsilon_r''"}</M> comes from residual electronic absorption, not orientational or ionic mechanisms.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1125,11 +1212,83 @@ const TOPICS = [
   // REQUIRED: last entry is always the graph-preview tab
   {
     id: "graph-preview",
-    tab: "Graph Preview",
+    tab: "Key Variables/Equations/Graphs",
     title: "All Graphs",
     subtitle: "Screenshot this tab and send to the chatbot for visual review",
     content: (gp) => (
       <div className="lesson-body">
+        <Section title="Variable Reference">
+          <div className="data-table" style={{ fontSize: "12px" }}>
+            <table>
+              <thead><tr><th>Symbol</th><th>Name</th><th>Units</th></tr></thead>
+              <tbody>
+                <tr><td><M>{"\\mathbf{P}"}</M></td><td>Electric polarization (dipole moment / volume)</td><td>C/m<M>{"^2"}</M></td></tr>
+                <tr><td><M>{"\\mathbf{D}"}</M></td><td>Electric displacement field</td><td>C/m<M>{"^2"}</M></td></tr>
+                <tr><td><M>{"\\mathbf{E}"}</M></td><td>Electric field</td><td>V/m</td></tr>
+                <tr><td><M>{"\\varepsilon_0"}</M></td><td>Permittivity of free space (8.854 x 10<M>{"^{-12}"}</M>)</td><td>F/m</td></tr>
+                <tr><td><M>{"\\varepsilon_r"}</M></td><td>Relative permittivity (dielectric constant)</td><td>--</td></tr>
+                <tr><td><M>{"\\chi_e"}</M></td><td>Electric susceptibility</td><td>--</td></tr>
+                <tr><td><M>{"\\alpha_e,\\;\\alpha_i,\\;\\alpha_d"}</M></td><td>Electronic / ionic / orientational polarizability</td><td>F m<M>{"^2"}</M></td></tr>
+                <tr><td><M>{"N"}</M></td><td>Number density of polarizable entities</td><td>m<M>{"^{-3}"}</M></td></tr>
+                <tr><td><M>{"\\mathbf{p}"}</M></td><td>Electric dipole moment</td><td>C m</td></tr>
+                <tr><td><M>{"E_{\\text{loc}}"}</M></td><td>Local field (Lorentz)</td><td>V/m</td></tr>
+                <tr><td><M>{"\\varepsilon_r',\\;\\varepsilon_r''"}</M></td><td>Real (storage) / imaginary (loss) permittivity</td><td>--</td></tr>
+                <tr><td><M>{"\\varepsilon_{rs},\\;\\varepsilon_{r\\infty}"}</M></td><td>Static (DC) / high-frequency permittivity</td><td>--</td></tr>
+                <tr><td><M>{"\\tau"}</M></td><td>Relaxation time</td><td>s</td></tr>
+                <tr><td><M>{"\\tan\\delta"}</M></td><td>Loss tangent (<M>{"\\varepsilon_r''/\\varepsilon_r'"}</M>)</td><td>--</td></tr>
+                <tr><td><M>{"C"}</M></td><td>Capacitance</td><td>F</td></tr>
+                <tr><td><M>{"E_{\\text{br}}"}</M></td><td>Dielectric breakdown field</td><td>V/m</td></tr>
+                <tr><td><M>{"d"}</M></td><td>Piezoelectric coefficient</td><td>C/N = m/V</td></tr>
+                <tr><td><M>{"T,\\;S"}</M></td><td>Mechanical stress / strain</td><td>Pa / --</td></tr>
+                <tr><td><M>{"Q"}</M></td><td>Quality factor (<M>{"f_{\\text{res}}/\\Delta f"}</M>)</td><td>--</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </Section>
+        <Section title="Key Equations">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 24px" }}>
+            <div>
+              <P><b>Displacement field</b></P>
+              <Eq>{"\\mathbf{D} = \\varepsilon_0 \\mathbf{E} + \\mathbf{P} = \\varepsilon_r \\varepsilon_0 \\mathbf{E}"}</Eq>
+            </div>
+            <div>
+              <P><b>Susceptibility</b></P>
+              <Eq>{"\\varepsilon_r = 1 + \\chi_e \\quad P = \\chi_e \\varepsilon_0 E"}</Eq>
+            </div>
+            <div>
+              <P><b>Clausius-Mossotti</b></P>
+              <Eq>{"\\frac{\\varepsilon_r - 1}{\\varepsilon_r + 2} = \\frac{N\\alpha_e}{3\\varepsilon_0}"}</Eq>
+            </div>
+            <div>
+              <P><b>Debye relaxation</b></P>
+              <Eq>{"\\varepsilon_r(\\omega) = \\varepsilon_{r\\infty} + \\frac{\\varepsilon_{rs} - \\varepsilon_{r\\infty}}{1 + j\\omega\\tau}"}</Eq>
+            </div>
+            <div>
+              <P><b>Loss tangent</b></P>
+              <Eq>{"\\tan\\delta = \\frac{\\varepsilon_r''}{\\varepsilon_r'}"}</Eq>
+            </div>
+            <div>
+              <P><b>Capacitance</b></P>
+              <Eq>{"C = \\frac{\\varepsilon_r \\varepsilon_0 A}{d}"}</Eq>
+            </div>
+            <div>
+              <P><b>Piezoelectric (direct / converse)</b></P>
+              <Eq>{"P = d \\cdot T \\qquad S = d \\cdot E"}</Eq>
+            </div>
+            <div>
+              <P><b>Quartz resonator</b></P>
+              <Eq>{"f = \\frac{v}{2L}"}</Eq>
+            </div>
+            <div>
+              <P><b>Orientational polarizability</b></P>
+              <Eq>{"\\alpha_d = \\frac{p^2}{3kT}"}</Eq>
+            </div>
+            <div>
+              <P><b>Lorentz local field</b></P>
+              <Eq>{"E_{\\text{loc}} = E + \\frac{P}{3\\varepsilon_0}"}</Eq>
+            </div>
+          </div>
+        </Section>
         <Section title="1. Dielectric Permittivity vs Frequency">
           <DielectricVsFrequency params={gp.dielectricVsFrequency} mid="gp1" />
         </Section>

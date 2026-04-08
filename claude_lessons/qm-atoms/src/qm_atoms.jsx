@@ -808,11 +808,58 @@ const TOPICS = [
             <P>(b) Are the finite well levels higher or lower than the infinite well levels?</P>
             <P>(c) Find the penetration depth for each energy level.</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(b)</b> Finite well levels are <b>lower</b> than infinite well levels because the wavefunction can penetrate into the barrier, effectively increasing the well width and lowering energies.</P>
-              <P><b>(c)</b> Penetration depth <M>{"\\delta = \\hbar/\\sqrt{2m_e(V_0 - E)}"}</M>:</P>
-              <P><M>{"\\delta_1 = 1.054 \\times 10^{-34}/\\sqrt{2(9.109 \\times 10^{-31})(2.0 - 0.23)(1.6 \\times 10^{-19})} \\approx 0.147"}</M> nm</P>
-              <P><M>{"\\delta_2 \\approx 0.185"}</M> nm, <M>{"\\delta_3 \\approx 0.448"}</M> nm</P>
-              <P>Note: <M>{"\\delta \\to 0"}</M> as <M>{"V_0 \\to \\infty"}</M> (recovers infinite well).</P>
+              <P><b>(b) Finite well levels are lower than infinite well levels.</b></P>
+              <P>In an infinite well, <M>{"\\psi"}</M> is forced to zero at the walls. In a finite well, the wavefunction penetrates into the barriers as evanescent tails (<M>{"\\psi \\sim e^{-\\alpha x}"}</M>), effectively increasing the wavelength of each standing-wave mode. Since <M>{"E_n \\propto 1/\\lambda^2"}</M>, longer wavelength means lower energy.</P>
+              <P>Infinite well comparison (<M>{"E_n^\\infty = n^2 h^2/(8m_e a^2) = n^2 \\times 0.377"}</M> eV for <M>{"a = 1"}</M> nm):</P>
+              <div className="data-table">
+                <table>
+                  <thead><tr><th>State</th><th><M>{"E_n^\\infty"}</M></th><th><M>{"E_n"}</M> (finite)</th><th>Reduction</th></tr></thead>
+                  <tbody>
+                    <tr><td><M>{"n=1"}</M></td><td>0.377 eV</td><td>0.23 eV</td><td>39%</td></tr>
+                    <tr><td><M>{"n=2"}</M></td><td>1.508 eV</td><td>0.89 eV</td><td>41%</td></tr>
+                    <tr><td><M>{"n=3"}</M></td><td>3.393 eV</td><td>1.81 eV</td><td>47%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <P>Higher states are reduced more because they penetrate further into the barriers. Note <M>{"E_3^\\infty = 3.39"}</M> eV exceeds <M>{"V_0 = 2.0"}</M> eV; this state is barely confined in the finite well.</P>
+
+              <svg viewBox="0 0 480 220" style={{ width: "100%", maxWidth: 480, display: "block", margin: "14px auto" }}>
+                <text x="115" y="14" fill={G.ltxt} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"Infinite Well"}</text>
+                <line x1="30" y1="20" x2="30" y2="200" stroke={G.ax} strokeWidth="2" />
+                <line x1="30" y1="200" x2="200" y2="200" stroke={G.ax} strokeWidth="1" />
+                <line x1="200" y1="20" x2="200" y2="200" stroke={G.ax} strokeWidth="2" />
+                <line x1="50" y1="183" x2="180" y2="183" stroke={G.blue} strokeWidth="2" strokeDasharray="5,3" />
+                <text x="184" y="187" fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'">{"0.38 eV"}</text>
+                <line x1="50" y1="132" x2="180" y2="132" stroke={G.blue} strokeWidth="2" strokeDasharray="5,3" />
+                <text x="184" y="136" fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'">{"1.51 eV"}</text>
+                <line x1="50" y1="47" x2="180" y2="47" stroke={G.blue} strokeWidth="2" strokeDasharray="5,3" />
+                <text x="184" y="51" fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'">{"3.39 eV"}</text>
+                <text x="365" y="14" fill={G.ltxt} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"Finite Well (V\u2080=2 eV)"}</text>
+                <line x1="280" y1="110" x2="280" y2="200" stroke={G.ax} strokeWidth="2" />
+                <line x1="280" y1="200" x2="450" y2="200" stroke={G.ax} strokeWidth="1" />
+                <line x1="450" y1="110" x2="450" y2="200" stroke={G.ax} strokeWidth="2" />
+                <line x1="265" y1="110" x2="280" y2="110" stroke={G.ax} strokeWidth="1" strokeDasharray="4,3" />
+                <line x1="450" y1="110" x2="465" y2="110" stroke={G.ax} strokeWidth="1" strokeDasharray="4,3" />
+                <text x="260" y="108" fill={G.txt} fontSize="9" textAnchor="end" fontFamily="'IBM Plex Mono'">{"V\u2080"}</text>
+                <line x1="290" y1="190" x2="440" y2="190" stroke={G.gold} strokeWidth="2" />
+                <text x="444" y="194" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'">{"0.23 eV"}</text>
+                <line x1="290" y1="160" x2="440" y2="160" stroke={G.gold} strokeWidth="2" />
+                <text x="444" y="164" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'">{"0.89 eV"}</text>
+                <line x1="290" y1="119" x2="440" y2="119" stroke={G.gold} strokeWidth="2" />
+                <text x="444" y="123" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'">{"1.81 eV"}</text>
+                <line x1="200" y1="183" x2="280" y2="190" stroke={G.txt} strokeWidth="0.7" strokeDasharray="3,3" opacity="0.4" />
+                <line x1="200" y1="132" x2="280" y2="160" stroke={G.txt} strokeWidth="0.7" strokeDasharray="3,3" opacity="0.4" />
+                <line x1="200" y1="47" x2="280" y2="119" stroke={G.txt} strokeWidth="0.7" strokeDasharray="3,3" opacity="0.4" />
+              </svg>
+
+              <P><b>(c)</b> Penetration depth <M>{"\\delta = \\hbar / \\sqrt{2m_e(V_0 - E_n)}"}</M>:</P>
+              <Eq>{"\\delta_1 = \\frac{1.054 \\times 10^{-34}}{\\sqrt{2(9.109 \\times 10^{-31})(1.77)(1.602 \\times 10^{-19})}} = \\frac{1.054 \\times 10^{-34}}{7.18 \\times 10^{-25}} = 0.147 \\text{ nm}"}</Eq>
+              <Eq>{"\\delta_2 = \\frac{1.054 \\times 10^{-34}}{\\sqrt{2(9.109 \\times 10^{-31})(1.11)(1.602 \\times 10^{-19})}} = \\frac{1.054 \\times 10^{-34}}{5.69 \\times 10^{-25}} = 0.185 \\text{ nm}"}</Eq>
+              <Eq>{"\\delta_3 = \\frac{1.054 \\times 10^{-34}}{\\sqrt{2(9.109 \\times 10^{-31})(0.19)(1.602 \\times 10^{-19})}} = \\frac{1.054 \\times 10^{-34}}{2.35 \\times 10^{-25}} = 0.448 \\text{ nm}"}</Eq>
+              <P><b>Trend:</b> <M>{"\\delta_3 \\gg \\delta_2 > \\delta_1"}</M>. As <M>{"E_n \\to V_0"}</M>, <M>{"\\delta \\to \\infty"}</M> (state barely bound, wavefunction extends far into barrier). As <M>{"V_0 \\to \\infty"}</M>, <M>{"\\delta \\to 0"}</M> (recovers infinite well).</P>
+              <KeyConcept label="Connection to Tunneling">
+                The decay constant <M>{"\\alpha = 1/\\delta"}</M> is the same parameter controlling tunneling transmission: <M>{"T \\propto e^{-2\\alpha a}"}</M> (see <b>Quantum Tunneling</b> tab). In a well it describes evanescent decay outside; in a barrier it determines exponential attenuation through the barrier. Same physics, different geometry.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
 
@@ -822,11 +869,42 @@ const TOPICS = [
             <P>(b) How do <M>{"E_1(b)"}</M> and <M>{"E_2(b)"}</M> vary as <M>{"b"}</M> goes from 0 to infinity?</P>
             <P>(c) Does the electron tend to draw the nuclei together or push them apart?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> For <M>{"b \\ll a"}</M>: effectively one wide well of width <M>{"\\sim 2a"}</M>. <M>{"\\psi_1"}</M> has one peak, <M>{"\\psi_2"}</M> has a node in the center.</P>
-              <P>For <M>{"b \\approx a"}</M>: tunneling couples the two wells. <M>{"\\psi_1"}</M> (symmetric) has equal peaks in both wells; <M>{"\\psi_2"}</M> (antisymmetric) has opposite-sign peaks.</P>
-              <P>For <M>{"b \\gg a"}</M>: two isolated finite wells. <M>{"\\psi_1"}</M> and <M>{"\\psi_2"}</M> are degenerate, each localized in one well.</P>
-              <P><b>(b)</b> As <M>{"b"}</M> increases: <M>{"E_1"}</M> increases (effective well width decreases from <M>{"2a"}</M> to <M>{"a"}</M>). <M>{"E_2"}</M> starts higher and decreases. Both converge to the single-well value as <M>{"b \\to \\infty"}</M>.</P>
-              <P><b>(c)</b> To minimize energy, the electron wants <M>{"E_1"}</M> as low as possible, which means small <M>{"b"}</M>. The electron tends to <b>draw the nuclei together</b>, forming a bond.</P>
+              <P><b>(a)</b> The double well has mirror symmetry, so states are classified as symmetric (<M>{"\\psi_1"}</M>) or antisymmetric (<M>{"\\psi_2"}</M>).</P>
+
+              <P><b>(i) <M>{"b \\ll a"}</M> (merged well):</b> The barrier is negligible; the system is a single well of width <M>{"\\approx 2a"}</M>. <M>{"\\psi_1"}</M> is the ground state: single broad sinusoidal peak. <M>{"\\psi_2"}</M> is the first excited state: full sine wave with a node at center and peaks of opposite sign in each half.</P>
+
+              <P><b>(ii) <M>{"b \\approx a"}</M> (coupled wells):</b> The barrier is significant but tunneling connects the wells. <M>{"\\psi_1"}</M> (symmetric) has equal positive peaks in both wells, with exponential decay <M>{"\\psi \\sim e^{-\\alpha x}"}</M> through the barrier. <M>{"\\psi_2"}</M> (antisymmetric) has opposite-sign peaks with a node at the barrier center. The decay rate <M>{"\\alpha = \\sqrt{2m(V_0 - E)/\\hbar^2}"}</M> is the same parameter governing tunneling and penetration depth in the <b>Finite Well</b> and <b>Tunneling</b> tabs.</P>
+
+              <P><b>(iii) <M>{"b \\gg a"}</M> (isolated wells):</b> Tunneling is negligible. Both states become degenerate (<M>{"E_1 \\approx E_2"}</M>), each equivalent to the ground state of an isolated well. Any linear combination is a valid solution, so the electron can be localized in either well.</P>
+
+              <P><b>(b)</b> At <M>{"b = 0"}</M>, the merged well of width <M>{"2a"}</M> gives <M>{"E_1(0) \\approx E_0/4"}</M> (where <M>{"E_0"}</M> is the single-well ground state, since <M>{"E \\propto 1/a^2"}</M>). As <M>{"b"}</M> increases, the effective width shrinks, so <M>{"E_1"}</M> rises toward <M>{"E_0"}</M>. Meanwhile, <M>{"E_2"}</M> starts near <M>{"E_0"}</M> and converges to it from above. The tunnel splitting decreases exponentially:</P>
+              <Eq>{"\\Delta E = E_2 - E_1 \\propto e^{-2\\alpha b}"}</Eq>
+
+              <svg viewBox="0 0 460 200" style={{ width: "100%", maxWidth: 460, display: "block", margin: "14px auto" }}>
+                <line x1="55" y1="180" x2="420" y2="180" stroke={G.ax} strokeWidth="1" />
+                <line x1="55" y1="30" x2="55" y2="180" stroke={G.ax} strokeWidth="1" />
+                <text x="240" y="198" fill={G.txt} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"Barrier width b"}</text>
+                <text x="15" y="110" fill={G.txt} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'" transform="rotate(-90,15,110)">{"Energy"}</text>
+                <text x="62" y="195" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'">{"0"}</text>
+                <text x="410" y="195" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="end">{"\u221E"}</text>
+                <line x1="55" y1="100" x2="420" y2="100" stroke={G.ax} strokeWidth="1" strokeDasharray="6,4" />
+                <text x="425" y="104" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'">{"E\u2080"}</text>
+                <polyline points="60,160 80,148 100,138 120,130 140,124 160,118 180,114 200,110 220,108 250,105 280,103 310,102 350,101 400,100" fill="none" stroke={G.gold} strokeWidth="2.5" />
+                <text x="65" y="175" fill={G.gold} fontSize="10" fontFamily="'IBM Plex Mono'">{"E\u2081 (symmetric)"}</text>
+                <polyline points="60,50 80,59 100,67 120,74 140,79 160,83 180,87 200,90 220,92 250,95 280,97 310,98 350,99 400,100" fill="none" stroke={G.blue} strokeWidth="2.5" />
+                <text x="65" y="44" fill={G.blue} fontSize="10" fontFamily="'IBM Plex Mono'">{"E\u2082 (antisymmetric)"}</text>
+                <line x1="140" y1="79" x2="140" y2="124" stroke={G.red} strokeWidth="1.5" />
+                <polygon points="140,82 137,88 143,88" fill={G.red} />
+                <polygon points="140,121 137,115 143,115" fill={G.red} />
+                <text x="148" y="105" fill={G.red} fontSize="10" fontFamily="'IBM Plex Mono'">{"\u0394E"}</text>
+              </svg>
+
+              <P><b>(c)</b> The electron in <M>{"\\psi_1"}</M> has lower energy when <M>{"b"}</M> is small (larger splitting pushes <M>{"E_1"}</M> further below <M>{"E_0"}</M>). To minimize energy, the system prefers small <M>{"b"}</M>, so the electron tends to <b>draw the nuclei together</b>.</P>
+              <P>Physically, the symmetric wavefunction has enhanced probability density between the two wells (nuclei). This shared electron density screens nuclear repulsion and provides the attractive force holding the bond together.</P>
+
+              <KeyConcept label="Connection to Molecular Bonding">
+                The symmetric state <M>{"\\psi_1"}</M> is the <b>bonding orbital</b>; the antisymmetric <M>{"\\psi_2"}</M> is the <b>antibonding orbital</b>. The splitting <M>{"\\Delta E(b)"}</M> determines bond energy. This is the quantum mechanical origin of the covalent bond, developed further in the <b>Bonding and Crystal Structures</b> lesson where the double-well model extends to the LCAO (linear combination of atomic orbitals) approach.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
 
@@ -834,9 +912,70 @@ const TOPICS = [
             <P>A particle of mass <M>{"m"}</M> in potential: <M>{"V = \\infty"}</M> for <M>{"x \\lt 0"}</M>, <M>{"V = -32\\hbar^2/(ma^2)"}</M> for <M>{"0 \\le x \\le a"}</M>, <M>{"V = 0"}</M> for <M>{"x > a"}</M>.</P>
             <P>(a) How many bound states? (b) Probability of particle being outside the well in the highest-energy bound state?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> Setting up the transcendental equation from boundary conditions at <M>{"x = a"}</M>: <M>{"z\\cot(z) = -\\sqrt{64 - z^2}"}</M> where <M>{"z = ka"}</M>.</P>
-              <P>Solving numerically (or graphically): intercepts at <M>{"z_1 = 2.786"}</M>, <M>{"z_2 = 5.521"}</M>, <M>{"z_3 = 7.957"}</M>. There are <b>3 bound states</b>.</P>
-              <P><b>(b)</b> For the highest state (<M>{"z_3 = 7.957"}</M>): <M>{"P_{outside} \\approx 0.53"}</M> (53% probability outside the well). The particle is barely bound.</P>
+              <P><b>(a) Deriving the transcendental equation:</b></P>
+              <P>The infinite wall at <M>{"x = 0"}</M> enforces <M>{"\\psi(0) = 0"}</M>, so only sine solutions survive inside:</P>
+              <ul className="info-list">
+                <li><b>Inside</b> (<M>{"0 \\le x \\le a"}</M>): <M>{"\\psi = A\\sin(kx)"}</M>, where <M>{"k^2 = 2m(E + V_0)/\\hbar^2"}</M></li>
+                <li><b>Outside</b> (<M>{"x > a"}</M>): <M>{"\\psi = Be^{-\\alpha x}"}</M>, where <M>{"\\alpha^2 = 2m|E|/\\hbar^2"}</M></li>
+              </ul>
+              <P>Define <M>{"z = ka"}</M>. Then <M>{"z^2 + (\\alpha a)^2 = 2mV_0 a^2/\\hbar^2 = 64"}</M> (since <M>{"V_0 = 32\\hbar^2/(ma^2)"}</M>). Matching <M>{"\\psi"}</M> and <M>{"\\psi'"}</M> at <M>{"x = a"}</M> and dividing:</P>
+              <Eq>{"k\\cot(ka) = -\\alpha \\quad \\Longrightarrow \\quad z\\cot(z) = -\\sqrt{64 - z^2}"}</Eq>
+              <P>Bound states require <M>{"0 \\lt z \\lt 8"}</M>. Each intersection of the LHS and RHS curves is a bound state:</P>
+
+              {(() => {
+                const W = 480, H = 260;
+                const zMax = 8.5, vLo = -10, vHi = 3;
+                const px = z => 50 + z / zMax * 410;
+                const py = v => 30 + (vHi - v) / (vHi - vLo) * 210;
+                const br = (z0, z1) => {
+                  const p = [];
+                  for (let z = z0; z <= z1; z += 0.025) {
+                    const s = Math.sin(z);
+                    if (Math.abs(s) < 0.015) continue;
+                    const v = z * Math.cos(z) / s;
+                    if (v < vLo || v > vHi) continue;
+                    p.push(px(z).toFixed(1) + "," + py(v).toFixed(1));
+                  }
+                  return p.join(" ");
+                };
+                const cp = [];
+                for (let z = 0; z <= 8.01; z += 0.04) cp.push(px(z).toFixed(1) + "," + py(-Math.sqrt(Math.max(0, 64 - z * z))).toFixed(1));
+                const zs = [{ z: 2.786, lbl: "z\u2081=2.79" }, { z: 5.521, lbl: "z\u2082=5.52" }, { z: 7.957, lbl: "z\u2083=7.96" }];
+                return (
+                  <svg viewBox={"0 0 " + W + " " + H} style={{ width: "100%", maxWidth: W, display: "block", margin: "14px auto" }}>
+                    <line x1={px(0)} y1={py(vLo)} x2={px(zMax)} y2={py(vLo)} stroke={G.ax} strokeWidth="1" />
+                    <line x1={px(0)} y1={py(vLo)} x2={px(0)} y2={py(vHi)} stroke={G.ax} strokeWidth="1" />
+                    <line x1={px(0)} y1={py(0)} x2={px(zMax)} y2={py(0)} stroke={G.ax} strokeWidth="0.5" strokeDasharray="4,4" />
+                    {[2, 4, 6, 8].map(t => <g key={t}><line x1={px(t)} y1={py(0) - 3} x2={px(t)} y2={py(0) + 3} stroke={G.ax} strokeWidth="1" /><text x={px(t)} y={py(0) + 15} fill={G.txt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono'">{t}</text></g>)}
+                    <text x={px(Math.PI)} y={py(0) + 27} fill={G.txt} fontSize="8" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"\u03C0"}</text>
+                    <text x={px(2 * Math.PI)} y={py(0) + 27} fill={G.txt} fontSize="8" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"2\u03C0"}</text>
+                    <polyline points={br(0.06, Math.PI - 0.06)} fill="none" stroke={G.gold} strokeWidth="2" />
+                    <polyline points={br(Math.PI + 0.06, 2 * Math.PI - 0.06)} fill="none" stroke={G.gold} strokeWidth="2" />
+                    <polyline points={br(2 * Math.PI + 0.06, 8)} fill="none" stroke={G.gold} strokeWidth="2" />
+                    <polyline points={cp.join(" ")} fill="none" stroke={G.blue} strokeWidth="2" />
+                    {zs.map((p, i) => {
+                      const yv = -Math.sqrt(64 - p.z * p.z);
+                      return <g key={i}><circle cx={px(p.z)} cy={py(yv)} r="5" fill={G.red} /><text x={px(p.z) + (i < 2 ? 9 : -9)} y={py(yv) - 8} fill={G.red} fontSize="10" textAnchor={i < 2 ? "start" : "end"} fontFamily="'IBM Plex Mono'">{p.lbl}</text></g>;
+                    })}
+                    <line x1={px(0.5)} y1={py(1.5)} x2={px(1.3)} y2={py(1.5)} stroke={G.gold} strokeWidth="2" />
+                    <text x={px(1.4)} y={py(1.5) + 4} fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'">{"z cot(z)"}</text>
+                    <line x1={px(3)} y1={py(1.5)} x2={px(3.8)} y2={py(1.5)} stroke={G.blue} strokeWidth="2" />
+                    <text x={px(3.9)} y={py(1.5) + 4} fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'">{"-\u221A(64\u2212z\u00B2)"}</text>
+                    <text x={px(zMax) - 5} y={py(vLo) + 15} fill={G.txt} fontSize="10" textAnchor="end" fontFamily="'IBM Plex Mono'">{"z = ka"}</text>
+                  </svg>
+                );
+              })()}
+
+              <P>Three intersections at <M>{"z_1 = 2.786"}</M>, <M>{"z_2 = 5.521"}</M>, <M>{"z_3 = 7.957"}</M> give <b>3 bound states</b>. No fourth exists because <M>{"z_0 = \\sqrt{64} = 8 \\lt 3\\pi \\approx 9.42"}</M> (the next branch starts at <M>{"z = 2\\pi"}</M> but the circle reaches zero at <M>{"z = 8"}</M>).</P>
+
+              <P><b>(b)</b> For the highest state (<M>{"z_3 = 7.957"}</M>):</P>
+              <Eq>{"\\alpha a = \\sqrt{64 - z_3^2} = \\sqrt{64 - 63.31} = \\sqrt{0.69} \\approx 0.83"}</Eq>
+              <P>This very small <M>{"\\alpha a"}</M> means slow evanescent decay: <M>{"\\delta = 1/\\alpha = a/0.83 \\approx 1.2a"}</M>. The wavefunction extends roughly one well-width into the classically forbidden region.</P>
+              <P>Computing the probability from the normalized wavefunction: <M>{"P_{\\text{in}} = \\int_0^a |\\psi|^2\\,dx"}</M> and <M>{"P_{\\text{out}} = \\int_a^\\infty |\\psi|^2\\,dx"}</M>. After normalization, <M>{"P_{\\text{outside}} \\approx 0.54"}</M> (54%). The particle spends more time outside the well than inside; characteristic of a barely-bound state (<M>{"E_3"}</M> very close to the continuum at <M>{"E = 0"}</M>).</P>
+
+              <KeyConcept label="Barely-Bound States and Tunneling">
+                When <M>{"\\alpha a \\ll 1"}</M>, the state is on the verge of becoming unbound. A small decrease in <M>{"V_0"}</M> would push <M>{"z_3"}</M> past <M>{"z_0"}</M>, eliminating the state entirely. The same evanescent decay that confines a particle in a well also permits transmission through a barrier (see <b>Quantum Tunneling</b> tab). Barely-bound states exhibit maximal penetration, bridging confinement and tunneling physics.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1070,10 +1209,46 @@ const TOPICS = [
             <P>(a) Using virial theorem with <M>{"Z_{eff} = 1"}</M> (perfect shielding by 1s electrons), estimate ionization energy. Compare to experimental 5.39 eV.</P>
             <P>(b) Repeat with <M>{"Z_{eff} = 1.25"}</M> (imperfect shielding).</P>
             <CollapsibleBlock title="Solution">
-              <P>By the virial theorem: <M>{"\\langle T \\rangle = -E"}</M>, <M>{"\\langle V \\rangle = 2E"}</M>. Ionization energy <M>{"I = -E = Z_{eff}^2 e^2/(8\\pi\\varepsilon_0 r_0)"}</M>.</P>
-              <P><b>(a)</b> With <M>{"Z_{eff} = 1"}</M>, <M>{"r_0 = 0.17"}</M> nm: <M>{"I \\approx 4.24"}</M> eV (lower than experimental 5.39 eV).</P>
-              <P><b>(b)</b> With <M>{"Z_{eff} = 1.25"}</M>: <M>{"I \\approx 5.25"}</M> eV, much closer to experimental value.</P>
-              <P>Conclusion: the 1s electrons do not perfectly shield the nuclear charge; the 2s electron feels <M>{"Z_{eff} \\approx 1.25"}</M>, not 1.0.</P>
+              <P><b>Setup:</b> The virial theorem for a Coulomb potential (<M>{"V \\propto 1/r"}</M>) states:</P>
+              <Eq>{"\\langle T \\rangle = -E, \\quad \\langle V \\rangle = 2E"}</Eq>
+              <P>The potential energy of the 2s electron at average radius <M>{"r_0"}</M> from a nucleus of effective charge <M>{"Z_{\\text{eff}}"}</M>:</P>
+              <Eq>{"\\langle V \\rangle = \\frac{-Z_{\\text{eff}}\\,e^2}{4\\pi\\varepsilon_0\\,r_0}"}</Eq>
+              <P>Since <M>{"E = \\langle V \\rangle / 2"}</M> by the virial theorem, the ionization energy is:</P>
+              <Eq>{"I = -E = \\frac{Z_{\\text{eff}}\\,e^2}{8\\pi\\varepsilon_0\\,r_0}"}</Eq>
+              <P>Using <M>{"e^2/(4\\pi\\varepsilon_0) = 1.44"}</M> eV nm:</P>
+              <Eq>{"I = Z_{\\text{eff}} \\times \\frac{1.44}{2 \\times 0.17} = Z_{\\text{eff}} \\times 4.24 \\text{ eV}"}</Eq>
+
+              <svg viewBox="0 0 420 200" style={{ width: "100%", maxWidth: 420, display: "block", margin: "14px auto" }}>
+                <circle cx="140" cy="100" r="18" fill="rgba(224,108,117,0.15)" stroke={G.red} strokeWidth="1.5" />
+                <text x="140" y="105" fill={G.red} fontSize="13" textAnchor="middle" fontFamily="'IBM Plex Mono'" fontWeight="600">{"+3e"}</text>
+                <circle cx="140" cy="100" r="50" fill="none" stroke={G.blue} strokeWidth="1.5" strokeDasharray="5,3" />
+                <circle cx="108" cy="72" r="7" fill={G.blue} opacity="0.6" />
+                <text x="108" y="76" fill={G.ltxt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"\u2212e"}</text>
+                <circle cx="172" cy="72" r="7" fill={G.blue} opacity="0.6" />
+                <text x="172" y="76" fill={G.ltxt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"\u2212e"}</text>
+                <text x="140" y="162" fill={G.blue} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"1s\u00B2 shell"}</text>
+                <circle cx="140" cy="100" r="90" fill="none" stroke={G.gold} strokeWidth="1.5" strokeDasharray="8,4" />
+                <circle cx="230" cy="100" r="7" fill={G.gold} opacity="0.7" />
+                <text x="230" y="104" fill={G.ltxt} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"\u2212e"}</text>
+                <text x="140" y="202" fill={G.gold} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">{"2s\u00B9 valence"}</text>
+                <text x="300" y="42" fill={G.ltxt} fontSize="11" fontFamily="'IBM Plex Mono'">{"Perfect shielding:"}</text>
+                <text x="300" y="58" fill={G.txt} fontSize="11" fontFamily="'IBM Plex Mono'">{"Z_eff = 3\u22122 = 1"}</text>
+                <text x="300" y="84" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'">{"Actual:"}</text>
+                <text x="300" y="100" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'">{"Z_eff \u2248 1.25"}</text>
+                <text x="300" y="126" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'">{"(2s penetrates 1s shell)"}</text>
+              </svg>
+
+              <P><b>(a)</b> With <M>{"Z_{\\text{eff}} = 1"}</M> (perfect shielding: two 1s electrons fully cancel 2 of 3 protons):</P>
+              <Eq>{"I = 1 \\times 4.24 = 4.24 \\text{ eV}"}</Eq>
+              <P>This is 21% below the experimental 5.39 eV, indicating shielding is not perfect.</P>
+
+              <P><b>(b)</b> With <M>{"Z_{\\text{eff}} = 1.25"}</M> (imperfect shielding):</P>
+              <Eq>{"I = 1.25 \\times 4.24 = 5.30 \\text{ eV}"}</Eq>
+              <P>Only 2% below experimental. The 2s orbital penetrates inside the 1s shell, so it "sees" more of the bare nuclear charge than perfect shielding predicts.</P>
+
+              <KeyConcept label="Connection to Periodic Trends">
+                This imperfect shielding is exactly the mechanism that breaks <M>{"\\ell"}</M>-degeneracy in multi-electron atoms (see <b>Atoms and Periodic Table</b> tab). Low-<M>{"\\ell"}</M> orbitals (s, p) penetrate closer to the nucleus and feel larger <M>{"Z_{\\text{eff}}"}</M> than high-<M>{"\\ell"}</M> orbitals (d, f). This is why 4s fills before 3d: despite higher <M>{"n"}</M>, the 4s orbital penetrates more and has lower energy.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1166,11 +1341,64 @@ const TOPICS = [
   },
   {
     id: "graph-preview",
-    tab: "Graph Preview",
+    tab: "Key Variables/Equations/Graphs",
     title: "All Graphs",
     subtitle: "Screenshot this tab and send to the chatbot for visual review",
     content: (gp) => (
       <div className="lesson-body">
+        <Section title="Quick Reference: Key Variables">
+          <div className="data-table">
+            <table>
+              <thead>
+                <tr><th>Symbol</th><th>Name</th><th>Meaning / Value</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><M>{"V_0"}</M></td><td>Well/barrier depth</td><td>Potential energy height (eV)</td></tr>
+                <tr><td><M>{"a"}</M></td><td>Well/barrier width</td><td>Spatial extent (nm)</td></tr>
+                <tr><td><M>{"\\psi"}</M></td><td>Wavefunction</td><td><M>{"|\\psi|^2"}</M> = probability density</td></tr>
+                <tr><td><M>{"k"}</M></td><td>Wavenumber (inside well)</td><td><M>{"k = \\sqrt{2m_e E}/\\hbar"}</M></td></tr>
+                <tr><td><M>{"\\alpha"}</M></td><td>Decay constant (outside well / in barrier)</td><td><M>{"\\alpha = \\sqrt{2m_e(V_0 - E)}/\\hbar"}</M></td></tr>
+                <tr><td><M>{"\\delta"}</M></td><td>Penetration depth</td><td><M>{"1/\\alpha"}</M>; distance to 1/e decay</td></tr>
+                <tr><td><M>{"T"}</M></td><td>Transmission coefficient</td><td>Tunneling probability through barrier</td></tr>
+                <tr><td><M>{"R"}</M></td><td>Reflection coefficient</td><td><M>{"R = 1 - T"}</M></td></tr>
+                <tr><td><M>{"\\Delta x,\\,\\Delta p"}</M></td><td>Position / momentum uncertainty</td><td>Standard deviations of measurements</td></tr>
+                <tr><td><M>{"n"}</M></td><td>Principal quantum number</td><td>Energy shell / size; <M>{"n = 1, 2, 3, \\ldots"}</M></td></tr>
+                <tr><td><M>{"\\ell"}</M></td><td>Orbital angular momentum QN</td><td>Shape (s,p,d,f); <M>{"\\ell = 0, \\ldots, n{-}1"}</M></td></tr>
+                <tr><td><M>{"m_\\ell"}</M></td><td>Magnetic quantum number</td><td>Orientation; <M>{"m_\\ell = -\\ell, \\ldots, +\\ell"}</M></td></tr>
+                <tr><td><M>{"m_s"}</M></td><td>Spin quantum number</td><td><M>{"\\pm\\tfrac{1}{2}"}</M></td></tr>
+                <tr><td><M>{"Z_{\\text{eff}}"}</M></td><td>Effective nuclear charge</td><td>Screened charge felt by outer electrons</td></tr>
+                <tr><td><M>{"a_0"}</M></td><td>Bohr radius</td><td>0.0529 nm</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <P style={{ marginTop: 4, fontSize: 11, opacity: 0.7 }}>Constants: <M>{"m_e = 9.109 \\times 10^{-31}"}</M> kg, <M>{"\\hbar = 1.055 \\times 10^{-34}"}</M> J s, <M>{"e = 1.602 \\times 10^{-19}"}</M> C</P>
+        </Section>
+
+        <Section title="Essential Equations">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "10px" }}>
+            <KeyConcept label="Tunneling">
+              <Eq>{"T = \\frac{1}{1 + D\\,\\sinh^2(\\alpha a)}, \\quad D = \\frac{V_0^2}{4E(V_0 - E)}"}</Eq>
+              <P>Thick barrier: <M>{"T \\approx T_0\\,e^{-2\\alpha a}"}</M></P>
+            </KeyConcept>
+            <KeyConcept label="Penetration Depth">
+              <Eq>{"\\delta = \\frac{1}{\\alpha} = \\frac{\\hbar}{\\sqrt{2m_e(V_0 - E)}}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Uncertainty Relations">
+              <Eq>{"\\Delta x \\cdot \\Delta p \\geq \\frac{\\hbar}{2}, \\qquad \\Delta E \\cdot \\Delta t \\geq \\frac{\\hbar}{2}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Hydrogen Energy Levels">
+              <Eq>{"E_n = \\frac{-13.6 \\text{ eV}}{n^2}"}</Eq>
+              <P>Degeneracy: <M>{"n^2"}</M> orbitals, <M>{"2n^2"}</M> states</P>
+            </KeyConcept>
+            <KeyConcept label="Angular Momentum">
+              <Eq>{"L = \\hbar\\sqrt{\\ell(\\ell+1)}, \\quad L_z = m_\\ell\\hbar"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Selection Rules">
+              <Eq>{"\\Delta \\ell = \\pm 1, \\quad \\Delta m_\\ell = 0, \\pm 1"}</Eq>
+            </KeyConcept>
+          </div>
+        </Section>
+
         <Section title="1. Finite Well Wavefunctions">
           <FiniteWellWavefunctions params={gp.finiteWell} mid="gp1" />
           <FiniteWellProbDensity params={gp.finiteWell} mid="gp1pd" />

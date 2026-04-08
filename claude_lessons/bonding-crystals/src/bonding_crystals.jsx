@@ -743,9 +743,59 @@ const TOPICS = [
             <P>CsCl crystal: <M>{"E(r) = -e^2M/(4\\pi\\varepsilon_0 r) + B/r^m"}</M> with <M>{"M = 1.763"}</M>, <M>{"B = 1.192 \\times 10^{-104}"}</M> J m<M>{"^9"}</M>, <M>{"m = 9"}</M>.</P>
             <P>Find <M>{"r_0"}</M>, ionic bonding energy, and compare to experimental 657 kJ/mol. Calculate atomic cohesive energy given Cs ionization energy 3.89 eV and Cl electron affinity 3.61 eV.</P>
             <CollapsibleBlock title="Solution">
-              <P>At equilibrium: <M>{"dE/dr = 0 \\implies r_0 = (mB \\cdot 4\\pi\\varepsilon_0/(e^2M))^{1/(m-1)} \\approx 0.257"}</M> nm</P>
-              <P><M>{"E(r_0) \\approx -6.32"}</M> eV <M>{"\\implies"}</M> 609.3 kJ/mol (within ~7% of 657 kJ/mol)</P>
-              <P>Atomic cohesive energy: <M>{"U_{atomic} = |E(r_0)| - (IE_{Cs} - EA_{Cl}) = 6.32 - (3.89 - 3.61) = 6.04"}</M> eV/pair = 582.9 kJ/mol</P>
+              <P><b>Step 1: Find <M>{"r_0"}</M> by minimizing <M>{"E(r)"}</M>.</b></P>
+              <P>Differentiate and set to zero:</P>
+              <Eq>{"\\frac{dE}{dr} = \\frac{e^2 M}{4\\pi\\varepsilon_0\\, r^2} - \\frac{mB}{r^{m+1}} = 0"}</Eq>
+              <P>Solve for the equilibrium separation:</P>
+              <Eq>{"r_0^{\\,m-1} = \\frac{mB \\cdot 4\\pi\\varepsilon_0}{e^2 M} \\quad\\Rightarrow\\quad r_0 = \\left(\\frac{mB \\cdot 4\\pi\\varepsilon_0}{e^2 M}\\right)^{\\!1/(m-1)}"}</Eq>
+              <P>Substituting <M>{"m=9"}</M>, <M>{"B=1.192\\times10^{-104}"}</M> J m<M>{"^9"}</M>, <M>{"M=1.763"}</M>:</P>
+              <Eq>{"r_0 = \\left(\\frac{9 \\times 1.192\\times10^{-104} \\times 4\\pi(8.854\\times10^{-12})}{(1.6\\times10^{-19})^2 \\times 1.763}\\right)^{\\!1/8} \\approx 0.357 \\text{ nm}"}</Eq>
+
+              <P><b>Step 2: Evaluate the ionic bond energy <M>{"E(r_0)"}</M>.</b></P>
+              <P>A useful shortcut: at equilibrium, the repulsive term equals <M>{"1/m"}</M> of the attractive term's magnitude (from the dE/dr = 0 condition), so:</P>
+              <Eq>{"E(r_0) = -\\frac{e^2 M}{4\\pi\\varepsilon_0\\, r_0}\\left(1 - \\frac{1}{m}\\right) = -\\frac{e^2 M}{4\\pi\\varepsilon_0\\, r_0}\\cdot\\frac{8}{9} \\approx -6.32 \\text{ eV}"}</Eq>
+              <P>Converting: <M>{"|E(r_0)|\\times N_A = 6.32 \\times 96.485 = 609.8"}</M> kJ/mol, about 7% below the experimental 657 kJ/mol. The pair-potential model neglects van der Waals attraction, zero-point vibration, and many-body polarization effects in the real crystal.</P>
+
+              <P><b>Step 3: Atomic cohesive energy.</b></P>
+              <P>The ionic energy <M>{"|E(r_0)|"}</M> is the energy to separate Cs<M>{"^+"}</M> and Cl<M>{"^-"}</M> ions, but forming those ions from neutral atoms costs energy. Subtract the net ionization cost (ionization energy of Cs minus electron affinity of Cl):</P>
+              <Eq>{"U_{\\text{atomic}} = |E(r_0)| - (IE_{\\text{Cs}} - EA_{\\text{Cl}}) = 6.32 - (3.89 - 3.61) = 6.04 \\text{ eV/pair} = 582.9 \\text{ kJ/mol}"}</Eq>
+
+              <svg viewBox="0 0 400 230" style={{width:"100%",maxWidth:420,display:"block",margin:"14px auto",background:G.bg,borderRadius:6,border:`1px solid ${G.ax}30`}}>
+                <defs>
+                  <marker id="cscl-arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4" fill={G.ax}/></marker>
+                </defs>
+                {/* Axes */}
+                <line x1="60" y1="20" x2="60" y2="210" stroke={G.ax} strokeWidth={1} markerEnd="url(#cscl-arr)"/>
+                <line x1="55" y1="105" x2="385" y2="105" stroke={G.ax} strokeWidth={1} markerEnd="url(#cscl-arr)"/>
+                <text x="390" y="108" fill={G.txt} fontSize="11" fontFamily="IBM Plex Mono">r</text>
+                <text x="50" y="16" fill={G.txt} fontSize="11" fontFamily="IBM Plex Mono" textAnchor="middle">E(r)</text>
+                <text x="70" y="100" fill={G.txt} fontSize="9" fontFamily="IBM Plex Mono">0</text>
+                {/* Repulsive component B/r^m (dashed red) */}
+                <path d={`M 75,20 C 85,40 95,85 110,100 Q 140,105 200,105`} fill="none" stroke={G.red} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.7}/>
+                <text x="82" y="32" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono" opacity={0.8}>+B/r⁹</text>
+                {/* Attractive component -e²M/(4πε₀r) (dashed blue) */}
+                <path d={`M 75,210 C 95,200 120,180 155,168 Q 200,155 260,145 Q 320,138 385,133`} fill="none" stroke={G.blue} strokeWidth={1.5} strokeDasharray="4,3" opacity={0.7}/>
+                <text x="300" y="128" fill={G.blue} fontSize="9" fontFamily="IBM Plex Mono" opacity={0.8}>{"-e²M/(4πε₀r)"}</text>
+                {/* Net E(r) curve (solid gold) */}
+                <path d={`M 75,20 C 82,60 90,100 100,120 Q 110,170 125,190 Q 135,195 150,188 Q 180,170 220,155 Q 270,140 330,125 Q 360,118 385,114`} fill="none" stroke={G.gold} strokeWidth={2.2}/>
+                <text x="340" y="108" fill={G.gold} fontSize="10" fontFamily="IBM Plex Mono" fontWeight="600">E(r)</text>
+                {/* r₀ marker */}
+                <line x1="125" y1="105" x2="125" y2="190" stroke={G.grn} strokeWidth={1} strokeDasharray="3,2"/>
+                <circle cx="125" cy="190" r="3.5" fill={G.gold} stroke={G.bg} strokeWidth={1}/>
+                <text x="125" y="215" fill={G.grn} fontSize="10" fontFamily="IBM Plex Mono" textAnchor="middle">r₀</text>
+                {/* E(r₀) marker */}
+                <line x1="60" y1="190" x2="125" y2="190" stroke={G.grn} strokeWidth={1} strokeDasharray="3,2"/>
+                <text x="18" y="194" fill={G.grn} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="start">E(r₀)</text>
+                <text x="18" y="205" fill={G.txt} fontSize="8" fontFamily="IBM Plex Mono" textAnchor="start">= -6.32 eV</text>
+                {/* Bond energy annotation */}
+                <line x1="52" y1="105" x2="52" y2="190" stroke={G.orange} strokeWidth={1.5} markerEnd="url(#cscl-arr)"/>
+                <line x1="52" y1="190" x2="52" y2="105" stroke={G.orange} strokeWidth={1.5} markerEnd="url(#cscl-arr)"/>
+                <text x="15" y="150" fill={G.orange} fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle" transform="rotate(-90,15,150)">Bond energy</text>
+              </svg>
+
+              <div style={{margin:"10px 0",padding:"8px 12px",borderLeft:"3px solid #c8a45a",background:"rgba(200,164,90,0.06)",borderRadius:"0 4px 4px 0"}}>
+                <P style={{margin:0,fontSize:13}}><b style={{color:"#c8a45a"}}>Connections:</b> The Madelung constant <M>{"M = 1.763"}</M> for CsCl reflects its BCC-like geometry (Cs<M>{"^+"}</M> at body center, 8 nearest Cl<M>{"^-"}</M> neighbors), slightly higher than NaCl's <M>{"M = 1.748"}</M> with its FCC-based rock salt structure and coordination number 6 (see <b>Crystal Structures</b> tab). The <M>{"(1-1/m)"}</M> shortcut above comes directly from the equilibrium condition on the <M>{"E(r)"}</M> curve explored in the <b>Interatomic Forces</b> tab. The atomic cohesive energy concept connects to <b>Bond Types</b>: forming ionic bonds requires an initial investment (ionization) repaid by the much larger Coulomb attraction.</P>
+              </div>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -862,18 +912,92 @@ const TOPICS = [
             <P>(a) For CdSe: find weight fractions and grams of Cd and Se needed for 100 g.</P>
             <P>(b) Se-Te-P glass alloy (77 wt% Se, 20 wt% Te, 3 wt% P): find atomic fractions.</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> <M>{"M_{CdSe} = 112.41 + 78.96 = 191.37"}</M> g/mol. Cd: 58.7% (58.7 g), Se: 41.3% (41.3 g).</P>
-              <P><b>(b)</b> Convert wt% to moles: Se: 77/78.96 = 0.975, Te: 20/127.6 = 0.157, P: 3/30.97 = 0.097. Total = 1.229 mol.</P>
-              <P>Atomic fractions: Se = 0.794, Te = 0.128, P = 0.079.</P>
+              <P><b>(a) Weight fractions in a stoichiometric compound.</b></P>
+              <P>For a compound A<M>{"_x"}</M>B<M>{"_y"}</M>, the weight fraction of element A is:</P>
+              <Eq>{"w_A = \\frac{x\\, M_A}{x\\, M_A + y\\, M_B}"}</Eq>
+              <P>For CdSe (1:1 stoichiometry): <M>{"M_{\\text{CdSe}} = 112.41 + 78.96 = 191.37"}</M> g/mol</P>
+              <Eq>{"w_{\\text{Cd}} = \\frac{112.41}{191.37} = 0.587 \\;(58.7\\%) \\quad\\Rightarrow\\quad 58.7 \\text{ g of Cd}"}</Eq>
+              <Eq>{"w_{\\text{Se}} = \\frac{78.96}{191.37} = 0.413 \\;(41.3\\%) \\quad\\Rightarrow\\quad 41.3 \\text{ g of Se}"}</Eq>
+
+              <P><b>(b) Converting weight fractions to atomic fractions.</b></P>
+              <P>The general method: for each element <M>{"i"}</M>, divide its weight fraction by its atomic mass to get a molar amount, then normalize:</P>
+              <Eq>{"n_i = \\frac{w_i}{M_i} \\qquad\\text{then}\\qquad x_i = \\frac{n_i}{\\sum_j n_j}"}</Eq>
+              <div style={{overflowX:"auto",margin:"10px 0"}}>
+                <table style={{borderCollapse:"collapse",fontSize:13,fontFamily:"'IBM Plex Mono',monospace",color:"var(--text-secondary)",margin:"0 auto"}}>
+                  <thead><tr style={{borderBottom:"1px solid var(--border)"}}>
+                    <th style={{padding:"4px 12px",textAlign:"left"}}>Element</th>
+                    <th style={{padding:"4px 12px"}}>wt%</th>
+                    <th style={{padding:"4px 12px"}}><M>{"M_i"}</M> (g/mol)</th>
+                    <th style={{padding:"4px 12px"}}><M>{"n_i = w_i/M_i"}</M></th>
+                    <th style={{padding:"4px 12px"}}>Atomic fraction</th>
+                  </tr></thead>
+                  <tbody>
+                    <tr><td style={{padding:"4px 12px"}}>Se</td><td style={{padding:"4px 12px",textAlign:"center"}}>77</td><td style={{padding:"4px 12px",textAlign:"center"}}>78.96</td><td style={{padding:"4px 12px",textAlign:"center"}}>0.975</td><td style={{padding:"4px 12px",textAlign:"center",color:"#c8a45a"}}>0.794</td></tr>
+                    <tr><td style={{padding:"4px 12px"}}>Te</td><td style={{padding:"4px 12px",textAlign:"center"}}>20</td><td style={{padding:"4px 12px",textAlign:"center"}}>127.60</td><td style={{padding:"4px 12px",textAlign:"center"}}>0.157</td><td style={{padding:"4px 12px",textAlign:"center",color:"#c8a45a"}}>0.128</td></tr>
+                    <tr style={{borderBottom:"1px solid var(--border)"}}><td style={{padding:"4px 12px"}}>P</td><td style={{padding:"4px 12px",textAlign:"center"}}>3</td><td style={{padding:"4px 12px",textAlign:"center"}}>30.97</td><td style={{padding:"4px 12px",textAlign:"center"}}>0.097</td><td style={{padding:"4px 12px",textAlign:"center",color:"#c8a45a"}}>0.079</td></tr>
+                    <tr><td style={{padding:"4px 12px"}}></td><td style={{padding:"4px 12px"}}></td><td style={{padding:"4px 12px"}}></td><td style={{padding:"4px 12px",textAlign:"center",fontWeight:600}}>{"\\Sigma"}=1.229</td><td style={{padding:"4px 12px",textAlign:"center",fontWeight:600}}>1.000</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <P>Key insight: heavy elements (Te, <M>{"M=127.6"}</M>) have smaller atomic fractions than their weight fractions because each atom contributes more mass. Light elements (P, <M>{"M=31.0"}</M>) show the opposite.</P>
+
+              <div style={{margin:"10px 0",padding:"8px 12px",borderLeft:"3px solid #c8a45a",background:"rgba(200,164,90,0.06)",borderRadius:"0 4px 4px 0"}}>
+                <P style={{margin:0,fontSize:13}}><b style={{color:"#c8a45a"}}>Connections:</b> CdSe is a II-VI semiconductor used in quantum dots and solar cells; its bonding is a mix of ionic and covalent character (see <b>Bond Types</b> tab). The Se-Te-P glass is <b>amorphous</b>, not crystalline, contrasting with the ordered structures in the <b>Crystal Structures</b> tab. Chalcogenide glasses like this are used in phase-change memory and infrared optics.</P>
+              </div>
             </CollapsibleBlock>
           </HWQuestion>
 
           <HWQuestion hw="HW3" number="6" title="Diamond bandgap estimate" points="10 pts">
             <P>Ge, Si, diamond all have the diamond crystal structure with sp<M>{"^3"}</M> hybridization. Bonding energies: diamond 3.60 eV, Si 1.84 eV, Ge 1.7 eV. Si bandgap 1.12 eV, Ge 0.77 eV. Estimate diamond's bandgap.</P>
             <CollapsibleBlock title="Solution">
-              <P>Ratio <M>{"E_g(Si)/E_b(Si) = 1.12/1.84 = 0.609"}</M>. If proportional:</P>
-              <P><M>{"E_g(diamond) = E_b(diamond) \\times 0.609 = 3.60 \\times 0.609 = 2.19"}</M> eV</P>
-              <P>Actual experimental value: 5.5 eV. The estimate is low because 2p orbitals in carbon are smaller and closer to the nucleus, causing less band dispersion and a larger gap.</P>
+              <P><b>Assumption:</b> Since Ge, Si, and diamond share the same crystal structure (diamond cubic) and sp<M>{"^3"}</M> hybridization, we assume the bandgap scales linearly with bonding energy:</P>
+              <Eq>{"\\frac{E_g}{E_b} \\approx \\text{const.}"}</Eq>
+              <P><b>Calibration from Si:</b></P>
+              <Eq>{"\\frac{E_g(\\text{Si})}{E_b(\\text{Si})} = \\frac{1.12}{1.84} = 0.609"}</Eq>
+              <P>Check with Ge: <M>{"E_g(\\text{Ge})/E_b(\\text{Ge}) = 0.77/1.70 = 0.453"}</M>. The ratio is not truly constant (0.609 vs 0.453), but averaging gives a rough proportionality.</P>
+              <P><b>Extrapolation to diamond:</b></P>
+              <Eq>{"E_g(\\text{diamond}) \\approx 3.60 \\times 0.609 = 2.19 \\text{ eV}"}</Eq>
+              <P><b>Actual value: 5.5 eV</b>, more than 2.5x higher than the estimate.</P>
+
+              <svg viewBox="0 0 380 240" style={{width:"100%",maxWidth:400,display:"block",margin:"14px auto",background:G.bg,borderRadius:6,border:`1px solid ${G.ax}30`}}>
+                <defs>
+                  <marker id="bgap-arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4" fill={G.ax}/></marker>
+                </defs>
+                {/* Axes */}
+                <line x1="60" y1="200" x2="340" y2="200" stroke={G.ax} strokeWidth={1} markerEnd="url(#bgap-arr)"/>
+                <line x1="60" y1="210" x2="60" y2="20" stroke={G.ax} strokeWidth={1} markerEnd="url(#bgap-arr)"/>
+                <text x="200" y="228" fill={G.txt} fontSize="11" fontFamily="IBM Plex Mono" textAnchor="middle">Bond energy E_b (eV)</text>
+                <text x="16" y="110" fill={G.txt} fontSize="11" fontFamily="IBM Plex Mono" textAnchor="middle" transform="rotate(-90,16,110)">Bandgap E_g (eV)</text>
+                {/* Axis ticks: E_b = 1,2,3,4 mapped to x = 60+70*(E_b-0.5)/3.5 */}
+                {/* E_b scale: 0.5 to 4.0 -> x 60 to 320; E_g scale: 0 to 6.0 -> y 200 to 20 */}
+                {[1,2,3,4].map(v => <g key={`xt${v}`}><line x1={60+(v-0.5)*74.3} y1="200" x2={60+(v-0.5)*74.3} y2="204" stroke={G.ax}/><text x={60+(v-0.5)*74.3} y="214" fill={G.txt} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">{v}</text></g>)}
+                {[1,2,3,4,5,6].map(v => <g key={`yt${v}`}><line x1="56" y1={200-v*30} x2="60" y2={200-v*30} stroke={G.ax}/><text x="50" y={200-v*30+3} fill={G.txt} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="end">{v}</text></g>)}
+                {/* Linear extrapolation line (dashed) from origin through Si */}
+                <line x1="60" y1="200" x2={60+3.1*74.3} y2={200-3.6*0.609*30} stroke={G.gold} strokeWidth={1.2} strokeDasharray="5,3" opacity={0.5}/>
+                <text x="280" y="148" fill={G.gold} fontSize="8" fontFamily="IBM Plex Mono" opacity={0.6}>linear model</text>
+                {/* Ge point: E_b=1.70, E_g=0.77 -> x=60+1.2*74.3=149, y=200-0.77*30=177 */}
+                <circle cx={60+1.2*74.3} cy={200-0.77*30} r="5" fill={G.blue} stroke={G.bg} strokeWidth={1.5}/>
+                <text x={60+1.2*74.3+8} y={200-0.77*30+4} fill={G.blue} fontSize="10" fontFamily="IBM Plex Sans" fontWeight="600">Ge</text>
+                {/* Si point: E_b=1.84, E_g=1.12 -> x=60+1.34*74.3=160, y=200-1.12*30=166 */}
+                <circle cx={60+1.34*74.3} cy={200-1.12*30} r="5" fill={G.grn} stroke={G.bg} strokeWidth={1.5}/>
+                <text x={60+1.34*74.3+8} y={200-1.12*30+4} fill={G.grn} fontSize="10" fontFamily="IBM Plex Sans" fontWeight="600">Si</text>
+                {/* Diamond predicted: E_b=3.60, E_g=2.19 -> x=60+3.1*74.3=290, y=200-2.19*30=134 */}
+                <circle cx={60+3.1*74.3} cy={200-2.19*30} r="5" fill={G.gold} stroke={G.bg} strokeWidth={1.5} strokeDasharray="2,2"/>
+                <text x={60+3.1*74.3-12} y={200-2.19*30-10} fill={G.gold} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">predicted</text>
+                <text x={60+3.1*74.3-12} y={200-2.19*30-1} fill={G.gold} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">2.19 eV</text>
+                {/* Diamond actual: E_b=3.60, E_g=5.5 -> x=290, y=200-5.5*30=35 */}
+                <circle cx={60+3.1*74.3} cy={200-5.5*30} r="5" fill={G.red} stroke={G.bg} strokeWidth={1.5}/>
+                <text x={60+3.1*74.3+8} y={200-5.5*30+4} fill={G.red} fontSize="10" fontFamily="IBM Plex Sans" fontWeight="600">Diamond</text>
+                <text x={60+3.1*74.3+8} y={200-5.5*30+15} fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">5.5 eV (actual)</text>
+                {/* Arrow from predicted to actual */}
+                <line x1={60+3.1*74.3} y1={200-2.19*30-5} x2={60+3.1*74.3} y2={200-5.5*30+8} stroke={G.red} strokeWidth={1.2} strokeDasharray="3,2" markerEnd="url(#bgap-arr)"/>
+              </svg>
+
+              <P><b>Why does the linear model fail so badly?</b> Carbon's 2p valence orbitals are much smaller and closer to the nucleus than Si's 3p or Ge's 4p. This means: (1) the bonding-antibonding splitting is much larger relative to the bond energy, and (2) there is minimal overlap with higher-energy bands. The result is a disproportionately large gap. The linear model implicitly assumes that orbital size scales uniformly with bond strength, which breaks down across different principal quantum numbers.</P>
+
+              <div style={{margin:"10px 0",padding:"8px 12px",borderLeft:"3px solid #c8a45a",background:"rgba(200,164,90,0.06)",borderRadius:"0 4px 4px 0"}}>
+                <P style={{margin:0,fontSize:13}}><b style={{color:"#c8a45a"}}>Connections:</b> The bandgap concept is central to the <b>Band Theory</b> lesson, where bonding and antibonding levels broaden into bands as atoms are brought together. The sp<M>{"^3"}</M> hybridization that gives all three materials the diamond cubic structure is discussed in the <b>Bond Types</b> tab (covalent bonding). Diamond's enormous bandgap (5.5 eV) makes it an electrical insulator despite its strong covalent bonds.</P>
+              </div>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1067,18 +1191,138 @@ const TOPICS = [
             <P>(a) Tungsten (BCC, R = 0.1371 nm, M = 183.8 g/mol): atoms per unit volume and density.</P>
             <P>(b) Platinum (FCC, R = 0.1386 nm, M = 195.09 g/mol): atoms per unit volume and density.</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a) W (BCC):</b> <M>{"a = 4R/\\sqrt{3} = 0.3166"}</M> nm. 2 atoms/cell.</P>
-              <P><M>{"n = 2/a^3 = 6.30 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M>. Density: <M>{"\\rho = n \\times M/N_A = 19.23"}</M> g/cm<M>{"^3"}</M>.</P>
-              <P><b>(b) Pt (FCC):</b> <M>{"a = 2\\sqrt{2}R = 0.3922"}</M> nm. 4 atoms/cell.</P>
-              <P><M>{"n = 6.64 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M>. Density: <M>{"\\rho = 21.51"}</M> g/cm<M>{"^3"}</M>.</P>
+              <P><b>General density formula.</b> For a unit cell with <M>{"n_c"}</M> atoms, lattice parameter <M>{"a"}</M>, and atomic mass <M>{"M_a"}</M>:</P>
+              <Eq>{"\\rho = \\frac{n_c\\, M_a}{N_A\\, a^3}"}</Eq>
+
+              <P><b>(a) Tungsten (BCC): relating <M>{"R"}</M> to <M>{"a"}</M>.</b></P>
+              <P>In BCC, atoms touch along the body diagonal, which has length <M>{"a\\sqrt{3}"}</M>. Two corner atoms and one center atom sit along this diagonal, with 4 radii fitting end to end:</P>
+              <Eq>{"4R = a\\sqrt{3} \\quad\\Rightarrow\\quad a = \\frac{4R}{\\sqrt{3}} = \\frac{4(0.1371)}{\\sqrt{3}} = 0.3166 \\text{ nm}"}</Eq>
+
+              <svg viewBox="0 0 440 170" style={{width:"100%",maxWidth:460,display:"block",margin:"12px auto",background:G.bg,borderRadius:6,border:`1px solid ${G.ax}30`}}>
+                {/* BCC unit cell - left side */}
+                <text x="110" y="14" fill={G.txt} fontSize="12" fontFamily="IBM Plex Sans" fontWeight="600" textAnchor="middle">BCC: body diagonal</text>
+                {/* Cube outline */}
+                <g stroke={G.ax} strokeWidth={0.8} fill="none" opacity={0.4}>
+                  <polygon points="50,40 170,40 170,130 50,130"/>
+                  <polygon points="80,25 200,25 200,115 80,115"/>
+                  <line x1="50" y1="40" x2="80" y2="25"/><line x1="170" y1="40" x2="200" y2="25"/>
+                  <line x1="170" y1="130" x2="200" y2="115"/><line x1="50" y1="130" x2="80" y2="115"/>
+                </g>
+                {/* Body diagonal */}
+                <line x1="50" y1="130" x2="200" y2="25" stroke={G.gold} strokeWidth={1.8} strokeDasharray="4,2"/>
+                {/* Corner atoms */}
+                <circle cx="50" cy="130" r="12" fill={G.blue} opacity={0.5} stroke={G.blue} strokeWidth={1}/>
+                <circle cx="200" cy="25" r="12" fill={G.blue} opacity={0.5} stroke={G.blue} strokeWidth={1}/>
+                {/* Center atom */}
+                <circle cx="125" cy="77" r="12" fill={G.gold} opacity={0.7} stroke={G.gold} strokeWidth={1}/>
+                {/* R labels */}
+                <text x="78" y="112" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">R</text>
+                <text x="100" y="100" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">R</text>
+                <text x="140" y="65" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">R</text>
+                <text x="165" y="48" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">R</text>
+                {/* Label */}
+                <text x="110" y="158" fill={G.gold} fontSize="10" fontFamily="IBM Plex Mono" textAnchor="middle">4R = a{"\\u221A"}3</text>
+
+                {/* FCC unit cell - right side */}
+                <text x="330" y="14" fill={G.txt} fontSize="12" fontFamily="IBM Plex Sans" fontWeight="600" textAnchor="middle">FCC: face diagonal</text>
+                {/* Cube face outline */}
+                <g stroke={G.ax} strokeWidth={0.8} fill="none" opacity={0.4}>
+                  <rect x="260" y="30" width="140" height="120" rx="1"/>
+                </g>
+                {/* Face diagonal */}
+                <line x1="260" y1="150" x2="400" y2="30" stroke={G.gold} strokeWidth={1.8} strokeDasharray="4,2"/>
+                {/* Corner atoms */}
+                <circle cx="260" cy="150" r="12" fill={G.blue} opacity={0.5} stroke={G.blue} strokeWidth={1}/>
+                <circle cx="400" cy="30" r="12" fill={G.blue} opacity={0.5} stroke={G.blue} strokeWidth={1}/>
+                {/* Face-center atom */}
+                <circle cx="330" cy="90" r="12" fill={G.grn} opacity={0.7} stroke={G.grn} strokeWidth={1}/>
+                {/* R labels */}
+                <text x="285" y="138" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">R</text>
+                <text x="308" y="118" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">R</text>
+                <text x="345" y="75" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">R</text>
+                <text x="370" y="52" fill={G.red} fontSize="9" fontFamily="IBM Plex Mono">R</text>
+                {/* Label */}
+                <text x="330" y="158" fill={G.gold} fontSize="10" fontFamily="IBM Plex Mono" textAnchor="middle">4R = a{"\\u221A"}2</text>
+                {/* a label on side */}
+                <text x="252" y="95" fill={G.ax} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="end">a</text>
+              </svg>
+
+              <P>BCC has 2 atoms per unit cell (8 corners x 1/8 + 1 center):</P>
+              <Eq>{"n = \\frac{2}{a^3} = \\frac{2}{(0.3166 \\times 10^{-7})^3} = 6.30 \\times 10^{22} \\text{ atoms/cm}^3"}</Eq>
+              <Eq>{"\\rho_W = \\frac{2 \\times 183.8}{6.022 \\times 10^{23} \\times (0.3166 \\times 10^{-7})^3} = 19.23 \\text{ g/cm}^3"}</Eq>
+
+              <P><b>(b) Platinum (FCC):</b></P>
+              <P>In FCC, atoms touch along the face diagonal (<M>{"a\\sqrt{2}"}</M>):</P>
+              <Eq>{"4R = a\\sqrt{2} \\quad\\Rightarrow\\quad a = 2\\sqrt{2}\\,R = 2\\sqrt{2}(0.1386) = 0.3922 \\text{ nm}"}</Eq>
+              <P>FCC has 4 atoms per unit cell (8 corners x 1/8 + 6 faces x 1/2):</P>
+              <Eq>{"n = \\frac{4}{a^3} = 6.64 \\times 10^{22} \\text{ atoms/cm}^3"}</Eq>
+              <Eq>{"\\rho_{Pt} = \\frac{4 \\times 195.09}{6.022 \\times 10^{23} \\times (0.3922 \\times 10^{-7})^3} = 21.51 \\text{ g/cm}^3"}</Eq>
+
+              <div style={{margin:"10px 0",padding:"8px 12px",borderLeft:"3px solid #c8a45a",background:"rgba(200,164,90,0.06)",borderRadius:"0 4px 4px 0"}}>
+                <P style={{margin:0,fontSize:13}}><b style={{color:"#c8a45a"}}>Connections:</b> Pt is denser despite a larger unit cell because FCC packs 4 atoms per cell (vs 2 for BCC), and Pt has higher atomic mass (195 vs 184). Both metals exemplify the high packing efficiency of BCC (APF 0.68) and FCC (APF 0.74) discussed in the <b>Crystal Structures</b> tab. The atom-counting rules (corner = 1/8, face = 1/2, body center = 1) reappear in <b>HW3 Q4</b> for planar density calculations.</P>
+              </div>
             </CollapsibleBlock>
           </HWQuestion>
 
           <HWQuestion hw="HW3" number="3" title="Diamond and zinc blende" points="20 pts">
             <P>Si (diamond, a = 0.543 nm) and GaAs (zinc blende, a = 0.565 nm). Calculate density and atomic concentration.</P>
             <CollapsibleBlock title="Solution">
-              <P><b>Si:</b> 8 atoms/cell. <M>{"\\rho = 8 \\times 28.08/(N_A \\times a^3) = 2.33"}</M> g/cm<M>{"^3"}</M>. Atomic conc: <M>{"4.99 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M>.</P>
-              <P><b>GaAs:</b> 4 Ga + 4 As per cell. <M>{"\\rho = 4(69.73 + 74.92)/(N_A \\times a^3) = 5.33"}</M> g/cm<M>{"^3"}</M>. Atomic conc: <M>{"4.44 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M>.</P>
+              <P><b>Si (diamond cubic, a = 0.543 nm):</b></P>
+              <P>The diamond structure is an FCC lattice with a 2-atom basis: one atom at (0,0,0) and one at (a/4, a/4, a/4). This gives:</P>
+              <Eq>{"n_c = \\underbrace{8 \\times \\tfrac{1}{8}}_{\\text{corners}} + \\underbrace{6 \\times \\tfrac{1}{2}}_{\\text{faces}} + \\underbrace{4}_{\\text{interior tetrahedral}} = 8 \\text{ atoms/cell}"}</Eq>
+              <P>The 4 interior atoms sit at tetrahedral interstitial sites, each bonded to 4 nearest neighbors with sp<M>{"^3"}</M> hybridization (coordination number = 4).</P>
+              <Eq>{"\\rho_{Si} = \\frac{8 \\times 28.08}{6.022 \\times 10^{23} \\times (0.543 \\times 10^{-7})^3} = 2.33 \\text{ g/cm}^3"}</Eq>
+              <Eq>{"n_{Si} = \\frac{8}{a^3} = \\frac{8}{(0.543 \\times 10^{-7})^3} = 4.99 \\times 10^{22} \\text{ atoms/cm}^3"}</Eq>
+
+              <P><b>GaAs (zinc blende, a = 0.565 nm):</b></P>
+              <P>Zinc blende is identical to diamond cubic except the two basis atoms are different species: Ga occupies the FCC lattice points, As fills the 4 tetrahedral sites (or vice versa). Each Ga is tetrahedrally bonded to 4 As neighbors.</P>
+              <Eq>{"n_c = 4 \\text{ Ga} + 4 \\text{ As} = 8 \\text{ atoms/cell (4 pairs)}"}</Eq>
+              <P>For the density, each unit cell contains 4 formula units of GaAs:</P>
+              <Eq>{"\\rho_{GaAs} = \\frac{4(69.73 + 74.92)}{6.022 \\times 10^{23} \\times (0.565 \\times 10^{-7})^3} = 5.33 \\text{ g/cm}^3"}</Eq>
+              <Eq>{"n_{GaAs} = \\frac{8}{(0.565 \\times 10^{-7})^3} = 4.44 \\times 10^{22} \\text{ atoms/cm}^3"}</Eq>
+
+              <svg viewBox="0 0 440 140" style={{width:"100%",maxWidth:460,display:"block",margin:"12px auto",background:G.bg,borderRadius:6,border:`1px solid ${G.ax}30`}}>
+                {/* Diamond structure - left */}
+                <text x="110" y="14" fill={G.txt} fontSize="11" fontFamily="IBM Plex Sans" fontWeight="600" textAnchor="middle">Diamond (Si)</text>
+                {/* FCC atoms (blue) */}
+                <circle cx="40" cy="110" r="7" fill={G.blue} opacity={0.4}/><circle cx="40" cy="40" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="110" cy="110" r="7" fill={G.blue} opacity={0.4}/><circle cx="110" cy="40" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="155" cy="85" r="7" fill={G.blue} opacity={0.4}/><circle cx="155" cy="25" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="85" cy="85" r="7" fill={G.blue} opacity={0.4}/><circle cx="85" cy="25" r="7" fill={G.blue} opacity={0.4}/>
+                {/* Face centers */}
+                <circle cx="75" cy="75" r="7" fill={G.blue} opacity={0.6}/><circle cx="75" cy="32" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="120" cy="55" r="7" fill={G.blue} opacity={0.5}/>
+                {/* Tetrahedral interior atoms (same color = diamond) */}
+                <circle cx="62" cy="57" r="6" fill={G.blue} stroke={G.gold} strokeWidth={1.5}/>
+                <circle cx="98" cy="92" r="6" fill={G.blue} stroke={G.gold} strokeWidth={1.5}/>
+                <circle cx="130" cy="42" r="6" fill={G.blue} stroke={G.gold} strokeWidth={1.5}/>
+                <circle cx="98" cy="42" r="6" fill={G.blue} stroke={G.gold} strokeWidth={1.5}/>
+                {/* Legend */}
+                <circle cx="40" cy="132" r="4" fill={G.blue}/><text x="48" y="135" fill={G.txt} fontSize="8" fontFamily="IBM Plex Mono">FCC sites</text>
+                <circle cx="110" cy="132" r="4" fill={G.blue} stroke={G.gold} strokeWidth={1.5}/><text x="118" y="135" fill={G.txt} fontSize="8" fontFamily="IBM Plex Mono">tetrahedral</text>
+
+                {/* Zinc blende - right */}
+                <text x="330" y="14" fill={G.txt} fontSize="11" fontFamily="IBM Plex Sans" fontWeight="600" textAnchor="middle">Zinc Blende (GaAs)</text>
+                {/* Ga atoms on FCC sites (blue) */}
+                <circle cx="260" cy="110" r="7" fill={G.blue} opacity={0.4}/><circle cx="260" cy="40" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="330" cy="110" r="7" fill={G.blue} opacity={0.4}/><circle cx="330" cy="40" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="375" cy="85" r="7" fill={G.blue} opacity={0.4}/><circle cx="375" cy="25" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="305" cy="85" r="7" fill={G.blue} opacity={0.4}/><circle cx="305" cy="25" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="295" cy="75" r="7" fill={G.blue} opacity={0.6}/><circle cx="295" cy="32" r="7" fill={G.blue} opacity={0.4}/>
+                <circle cx="340" cy="55" r="7" fill={G.blue} opacity={0.5}/>
+                {/* As atoms at tetrahedral sites (red = different species) */}
+                <circle cx="282" cy="57" r="6" fill={G.red} stroke={G.red} strokeWidth={1}/>
+                <circle cx="318" cy="92" r="6" fill={G.red} stroke={G.red} strokeWidth={1}/>
+                <circle cx="350" cy="42" r="6" fill={G.red} stroke={G.red} strokeWidth={1}/>
+                <circle cx="318" cy="42" r="6" fill={G.red} stroke={G.red} strokeWidth={1}/>
+                {/* Legend */}
+                <circle cx="260" cy="132" r="4" fill={G.blue}/><text x="268" y="135" fill={G.txt} fontSize="8" fontFamily="IBM Plex Mono">Ga (FCC)</text>
+                <circle cx="330" cy="132" r="4" fill={G.red}/><text x="338" y="135" fill={G.txt} fontSize="8" fontFamily="IBM Plex Mono">As (tetra.)</text>
+              </svg>
+
+              <div style={{margin:"10px 0",padding:"8px 12px",borderLeft:"3px solid #c8a45a",background:"rgba(200,164,90,0.06)",borderRadius:"0 4px 4px 0"}}>
+                <P style={{margin:0,fontSize:13}}><b style={{color:"#c8a45a"}}>Connections:</b> The diamond structure's low APF (0.34, see <b>Crystal Structures</b> tab) explains why Si is much less dense than close-packed metals like Pt (21.5 g/cm<M>{"^3"}</M>) despite being packed in a cubic cell. The value <M>{"N_{Si} = 4.99 \\times 10^{22}"}</M>/cm<M>{"^3"}</M> reappears in the <b>Crystal Defects</b> tab when calculating vacancy concentrations (HW3 Q5). GaAs's zinc blende structure gives it a direct bandgap (unlike Si's indirect gap), critical for optoelectronics in the <b>Band Theory</b> and <b>Photonics</b> lessons.</P>
+              </div>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1149,10 +1393,82 @@ const TOPICS = [
           <HWQuestion hw="HW3" number="4" title="Si and SiO2 planar densities" points="20 pts">
             <P>(a) Si atoms per unit volume (a = 0.543 nm). (b) Planar density on (100), (110), (111). Which has most? (c) SiO<M>{"_2"}</M> density 2.27 g/cm<M>{"^{-3}"}</M>: molecules per unit volume?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> <M>{"n = 8/a^3 = 4.997 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M></P>
-              <P><b>(b)</b> (100): area <M>{"a^2"}</M>, 2 atoms <M>{"\\implies 6.78 \\times 10^{14}"}</M>/cm<M>{"^2"}</M>. (110): area <M>{"\\sqrt{2}a^2"}</M>, 4 atoms <M>{"\\implies 9.59 \\times 10^{14}"}</M>/cm<M>{"^2"}</M>. (111): 2 atoms <M>{"\\implies 7.83 \\times 10^{14}"}</M>/cm<M>{"^2"}</M>.</P>
-              <P><b>(110) has the highest planar density.</b></P>
-              <P><b>(c)</b> <M>{"n_{SiO_2} = \\rho N_A/M = 2.27 \\times 6.022 \\times 10^{23}/(28.09 + 32) = 2.28 \\times 10^{22}"}</M> molecules/cm<M>{"^3"}</M>. Fewer Si atoms than crystal Si; each Si is surrounded by O, spreading atoms apart.</P>
+              <P><b>(a) Atoms per unit volume</b> (diamond cubic, 8 atoms/cell):</P>
+              <Eq>{"n = \\frac{8}{a^3} = \\frac{8}{(0.543 \\times 10^{-7})^3} = 4.997 \\times 10^{22} \\text{ atoms/cm}^3"}</Eq>
+
+              <P><b>(b) Planar density</b> = atoms on the plane per unit area. Count the fraction of each atom that lies within a single repeat unit of the plane.</P>
+
+              <svg viewBox="0 0 480 175" style={{width:"100%",maxWidth:500,display:"block",margin:"12px auto",background:G.bg,borderRadius:6,border:`1px solid ${G.ax}30`}}>
+                {/* (100) plane */}
+                <text x="80" y="14" fill={G.txt} fontSize="11" fontFamily="IBM Plex Sans" fontWeight="600" textAnchor="middle">(100)</text>
+                {/* Square a x a */}
+                <rect x="20" y="22" width="120" height="120" fill="none" stroke={G.ax} strokeWidth={0.8}/>
+                <text x="80" y="155" fill={G.ax} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">area = a{"\\u00B2"}</text>
+                {/* Corner atoms (1/4 each) */}
+                {[[20,22],[140,22],[20,142],[140,142]].map(([cx,cy],i) =>
+                  <g key={`p100c${i}`}><circle cx={cx} cy={cy} r="10" fill={G.blue} opacity={0.35} stroke={G.blue} strokeWidth={1}/><text x={cx} y={cy+3} fill="#fff" fontSize="7" fontFamily="IBM Plex Mono" textAnchor="middle">{"\\u00BC"}</text></g>
+                )}
+                {/* Face-center atom (1/1) from tetrahedral site projects onto face */}
+                <circle cx="80" cy="82" r="10" fill={G.gold} opacity={0.7} stroke={G.gold} strokeWidth={1}/>
+                <text x="80" y="85" fill={G.bg} fontSize="7" fontFamily="IBM Plex Mono" textAnchor="middle">1</text>
+                {/* Count */}
+                <text x="80" y="170" fill={G.gold} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">4(1/4) + 1 = 2 atoms</text>
+
+                {/* (110) plane */}
+                <text x="270" y="14" fill={G.txt} fontSize="11" fontFamily="IBM Plex Sans" fontWeight="600" textAnchor="middle">(110)</text>
+                {/* Rectangle a x a√2 */}
+                <rect x="195" y="22" width="150" height="120" fill="none" stroke={G.ax} strokeWidth={0.8}/>
+                <text x="270" y="155" fill={G.ax} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">area = {"\\u221A"}2 a{"\\u00B2"}</text>
+                {/* Corner atoms (1/4 each) */}
+                {[[195,22],[345,22],[195,142],[345,142]].map(([cx,cy],i) =>
+                  <g key={`p110c${i}`}><circle cx={cx} cy={cy} r="9" fill={G.blue} opacity={0.35} stroke={G.blue} strokeWidth={1}/><text x={cx} y={cy+3} fill="#fff" fontSize="7" fontFamily="IBM Plex Mono" textAnchor="middle">{"\\u00BC"}</text></g>
+                )}
+                {/* Edge-center atoms (1/2 each) */}
+                {[[270,22],[270,142]].map(([cx,cy],i) =>
+                  <g key={`p110e${i}`}><circle cx={cx} cy={cy} r="9" fill={G.blue} opacity={0.5} stroke={G.blue} strokeWidth={1}/><text x={cx} y={cy+3} fill="#fff" fontSize="7" fontFamily="IBM Plex Mono" textAnchor="middle">{"\\u00BD"}</text></g>
+                )}
+                {/* Interior atoms from diamond basis */}
+                <circle cx="232" cy="52" r="9" fill={G.gold} opacity={0.7} stroke={G.gold} strokeWidth={1}/>
+                <circle cx="307" cy="112" r="9" fill={G.gold} opacity={0.7} stroke={G.gold} strokeWidth={1}/>
+                <text x="232" y="55" fill={G.bg} fontSize="7" fontFamily="IBM Plex Mono" textAnchor="middle">1</text>
+                <text x="307" y="115" fill={G.bg} fontSize="7" fontFamily="IBM Plex Mono" textAnchor="middle">1</text>
+                {/* Count */}
+                <text x="270" y="170" fill={G.gold} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">4(1/4)+2(1/2)+2 = 4 atoms</text>
+
+                {/* (111) plane */}
+                <text x="435" y="14" fill={G.txt} fontSize="11" fontFamily="IBM Plex Sans" fontWeight="600" textAnchor="middle">(111)</text>
+                {/* Equilateral-ish triangle */}
+                <polygon points="435,30 380,140 490,140" fill="none" stroke={G.ax} strokeWidth={0.8}/>
+                <text x="435" y="155" fill={G.ax} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">area = {"\\u221A"}3/2 a{"\\u00B2"}</text>
+                {/* Corner atoms (1/6 each for 60-degree sectors in hex tiling) */}
+                {[[435,30],[380,140],[490,140]].map(([cx,cy],i) =>
+                  <g key={`p111c${i}`}><circle cx={cx} cy={cy} r="9" fill={G.blue} opacity={0.35} stroke={G.blue} strokeWidth={1}/><text x={cx} y={cy+3} fill="#fff" fontSize="7" fontFamily="IBM Plex Mono" textAnchor="middle">{"\\u00BD"}</text></g>
+                )}
+                {/* Interior atom from diamond basis */}
+                <circle cx="435" cy="103" r="9" fill={G.gold} opacity={0.7} stroke={G.gold} strokeWidth={1}/>
+                <text x="435" y="106" fill={G.bg} fontSize="7" fontFamily="IBM Plex Mono" textAnchor="middle">{"\\u00BD"}</text>
+                {/* Count */}
+                <text x="435" y="170" fill={G.gold} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="middle">3(1/2)+1(1/2) = 2 atoms</text>
+              </svg>
+
+              <P><b>(100):</b> Area = <M>{"a^2"}</M>. Four corner atoms (each shared among 4 adjacent squares, contributing 1/4) plus 1 projected tetrahedral atom:</P>
+              <Eq>{"\\sigma_{100} = \\frac{2}{a^2} = \\frac{2}{(0.543 \\times 10^{-7})^2} = 6.78 \\times 10^{14} \\text{ cm}^{-2}"}</Eq>
+
+              <P><b>(110):</b> Area = <M>{"\\sqrt{2}\\,a^2"}</M>. Four corners (1/4 each) + two edge-center atoms (1/2 each) + 2 interior tetrahedral atoms:</P>
+              <Eq>{"\\sigma_{110} = \\frac{4}{\\sqrt{2}\\,a^2} = \\frac{2\\sqrt{2}}{a^2} = 9.59 \\times 10^{14} \\text{ cm}^{-2}"}</Eq>
+
+              <P><b>(111):</b> Area = <M>{"\\frac{\\sqrt{3}}{2}a^2"}</M>. Three corner atoms (1/2 each in the triangular tiling) + 1/2 tetrahedral atom:</P>
+              <Eq>{"\\sigma_{111} = \\frac{2}{\\frac{\\sqrt{3}}{2}a^2} = \\frac{4}{\\sqrt{3}\\,a^2} = 7.83 \\times 10^{14} \\text{ cm}^{-2}"}</Eq>
+
+              <P><b>(110) has the highest planar density</b> in diamond cubic. This contrasts with FCC metals where (111) is densest; the tetrahedral basis atoms in diamond preferentially populate the (110) planes.</P>
+
+              <P><b>(c) SiO<M>{"_2"}</M> molecular concentration:</b></P>
+              <Eq>{"n_{SiO_2} = \\frac{\\rho\\, N_A}{M_{SiO_2}} = \\frac{2.27 \\times 6.022 \\times 10^{23}}{28.09 + 2(16.00)} = \\frac{2.27 \\times 6.022 \\times 10^{23}}{60.09} = 2.28 \\times 10^{22} \\text{ molecules/cm}^3"}</Eq>
+              <P>This gives <M>{"2.28 \\times 10^{22}"}</M> Si atoms/cm<M>{"^3"}</M> in SiO<M>{"_2"}</M>, compared to <M>{"4.997 \\times 10^{22}"}</M> in crystalline Si. The factor of ~2.2x reduction occurs because each Si atom in SiO<M>{"_2"}</M> is tetrahedrally bonded to 4 oxygen atoms, which increases the average interatomic spacing.</P>
+
+              <div style={{margin:"10px 0",padding:"8px 12px",borderLeft:"3px solid #c8a45a",background:"rgba(200,164,90,0.06)",borderRadius:"0 4px 4px 0"}}>
+                <P style={{margin:0,fontSize:13}}><b style={{color:"#c8a45a"}}>Connections:</b> Planar densities determine which planes are preferred cleavage surfaces and which planes grow fastest during crystal growth. In Si device fabrication, the (100) orientation is standard for MOSFETs because the Si/SiO<M>{"_2"}</M> interface has the lowest defect density on that plane. The interplanar spacing <M>{"d_{hkl} = a/\\sqrt{h^2+k^2+l^2}"}</M> from the <b>Miller Indices</b> section directly determines Bragg diffraction angles, connecting crystal geometry to X-ray characterization. The SiO<M>{"_2"}</M> result in (c) is important for the <b>Dielectrics</b> lesson: SiO<M>{"_2"}</M> is the primary gate dielectric in CMOS technology.</P>
+              </div>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1262,9 +1578,94 @@ const TOPICS = [
           <HWQuestion hw="HW3" number="5" title="Vacancies in silicon" points="10 pts">
             <P>Si vacancy formation energy <M>{"E_v = 3.6"}</M> eV. Find equilibrium vacancy concentration at 1000 C.</P>
             <CollapsibleBlock title="Solution">
-              <P><M>{"n_v/N = \\exp(-E_v/(k_BT))"}</M> with <M>{"T = 1273"}</M> K:</P>
-              <P><M>{"n_v/N = \\exp(-3.6/(8.617 \\times 10^{-5} \\times 1273)) = \\exp(-32.8) \\approx 5.6 \\times 10^{-15}"}</M></P>
-              <P>With <M>{"N = 4.996 \\times 10^{22}"}</M>/cm<M>{"^3"}</M>: <M>{"n_v \\approx 2.8 \\times 10^8"}</M> vacancies/cm<M>{"^3"}</M></P>
+              <P><b>The vacancy equation</b> comes from Boltzmann statistics: at thermal equilibrium, the fraction of lattice sites that are vacant depends exponentially on the formation energy <M>{"E_v"}</M> relative to the thermal energy <M>{"k_BT"}</M>:</P>
+              <Eq>{"\\frac{n_v}{N} = \\exp\\!\\left(-\\frac{E_v}{k_B T}\\right)"}</Eq>
+              <P>This is the same Arrhenius form that governs all thermally activated processes: diffusion, chemical reactions, and semiconductor carrier generation.</P>
+
+              <P><b>Step 1: Convert temperature.</b> <M>{"T = 1000\\,^\\circ\\text{C} + 273 = 1273"}</M> K</P>
+
+              <P><b>Step 2: Evaluate the exponent.</b></P>
+              <Eq>{"\\frac{E_v}{k_B T} = \\frac{3.6\\text{ eV}}{8.617 \\times 10^{-5}\\text{ eV/K} \\times 1273\\text{ K}} = \\frac{3.6}{0.1097} = 32.8"}</Eq>
+              <P>A large exponent means the vacancy fraction is extremely small:</P>
+              <Eq>{"\\frac{n_v}{N} = e^{-32.8} = 5.6 \\times 10^{-15}"}</Eq>
+
+              <P><b>Step 3: Get the absolute concentration.</b></P>
+              <P><M>{"N"}</M> is the atomic concentration of Si, which we computed in HW3 Q3: <M>{"N = 8/a^3 = 4.996 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M> (diamond cubic, <M>{"a = 0.543"}</M> nm).</P>
+              <Eq>{"n_v = N \\times 5.6 \\times 10^{-15} = 4.996 \\times 10^{22} \\times 5.6 \\times 10^{-15} \\approx 2.8 \\times 10^{8} \\text{ vacancies/cm}^3"}</Eq>
+
+              <P><b>Putting this in context:</b> 280 million vacancies per cm<M>{"^3"}</M> sounds large, but compared to the 5 x 10<M>{"^{22}"}</M> total atoms, only about 1 in every 180 trillion atoms is missing. For comparison, Si is typically doped at 10<M>{"^{15}"}</M>-10<M>{"^{18}"}</M> dopant atoms/cm<M>{"^3"}</M>, so vacancy concentrations at this temperature are far below dopant levels.</P>
+
+              <svg viewBox="0 0 400 230" style={{width:"100%",maxWidth:420,display:"block",margin:"14px auto",background:G.bg,borderRadius:6,border:`1px solid ${G.ax}30`}}>
+                <defs>
+                  <marker id="vac-arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4" fill={G.ax}/></marker>
+                </defs>
+                {/* Axes */}
+                <line x1="65" y1="200" x2="380" y2="200" stroke={G.ax} strokeWidth={1} markerEnd="url(#vac-arr)"/>
+                <line x1="65" y1="210" x2="65" y2="15" stroke={G.ax} strokeWidth={1} markerEnd="url(#vac-arr)"/>
+                <text x="225" y="225" fill={G.txt} fontSize="11" fontFamily="IBM Plex Mono" textAnchor="middle">Temperature (K)</text>
+                <text x="14" y="110" fill={G.txt} fontSize="10" fontFamily="IBM Plex Mono" textAnchor="middle" transform="rotate(-90,14,110)">n_v / N</text>
+                <text x="50" y="14" fill={G.txt} fontSize="9" fontFamily="IBM Plex Mono" textAnchor="end">(log scale)</text>
+                {/* Temperature ticks: 500 to 2000 K mapped to x=90 to 365 */}
+                {[500,750,1000,1273,1500,1750].map((T,i) => {
+                  const x = 90 + (T-500)/1500 * 275;
+                  return <g key={`tt${i}`}><line x1={x} y1="200" x2={x} y2="204" stroke={G.ax}/><text x={x} y="214" fill={G.txt} fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle">{T}</text></g>;
+                })}
+                {/* Log scale y-axis: 10^-30 (bottom) to 10^-5 (top) -> y 195 to 25 */}
+                {/* y(log) = 195 - (log+30)/25 * 170 */}
+                {[-25,-20,-15,-10,-5].map((exp) => {
+                  const y = 195 - (exp+30)/25 * 170;
+                  return <g key={`yt${exp}`}><line x1="61" y1={y} x2="65" y2={y} stroke={G.ax}/><text x="58" y={y+3} fill={G.txt} fontSize="8" fontFamily="IBM Plex Mono" textAnchor="end">10{"\\u207B"}{Math.abs(exp).toString().split("").map(d=>"\\u2070\\u00B9\\u00B2\\u00B3\\u2074\\u2075\\u2076\\u2077\\u2078\\u2079"[d]).join("")}</text></g>;
+                })}
+                {/* Exponential curve: n_v/N = exp(-3.6/(8.617e-5 * T)) */}
+                {/* At T=500: exp(-3.6/0.0431) = exp(-83.5) ~ 10^-36 (off chart) */}
+                {/* At T=750: exp(-3.6/0.0646) = exp(-55.7) ~ 10^-24 */}
+                {/* At T=1000: exp(-3.6/0.0862) = exp(-41.8) ~ 10^-18 */}
+                {/* At T=1273: exp(-32.8) ~ 5.6e-15 ~ 10^-14.3 */}
+                {/* At T=1500: exp(-3.6/0.1293) = exp(-27.8) ~ 10^-12.1 */}
+                {/* At T=1750: exp(-3.6/0.1508) = exp(-23.9) ~ 10^-10.4 */}
+                {/* At T=2000: exp(-3.6/0.1723) = exp(-20.9) ~ 10^-9.1 */}
+                <path d={(() => {
+                  const pts = [];
+                  for (let T = 650; T <= 2000; T += 25) {
+                    const ratio = Math.exp(-3.6 / (8.617e-5 * T));
+                    const logR = Math.log10(ratio);
+                    if (logR < -30) continue;
+                    const x = 90 + (T - 500) / 1500 * 275;
+                    const y = 195 - (logR + 30) / 25 * 170;
+                    if (y > 195 || y < 25) continue;
+                    pts.push(`${pts.length === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`);
+                  }
+                  return pts.join(" ");
+                })()} fill="none" stroke={G.gold} strokeWidth={2.2}/>
+                {/* Mark T = 1273 K point */}
+                {(() => {
+                  const T = 1273;
+                  const logR = Math.log10(5.6e-15);
+                  const x = 90 + (T - 500) / 1500 * 275;
+                  const y = 195 - (logR + 30) / 25 * 170;
+                  return <g>
+                    <line x1={x} y1="200" x2={x} y2={y} stroke={G.grn} strokeWidth={1} strokeDasharray="3,2"/>
+                    <line x1="65" y1={y} x2={x} y2={y} stroke={G.grn} strokeWidth={1} strokeDasharray="3,2"/>
+                    <circle cx={x} cy={y} r="4" fill={G.gold} stroke={G.bg} strokeWidth={1.5}/>
+                    <text x={x+6} y={y-6} fill={G.grn} fontSize="9" fontFamily="IBM Plex Mono">1273 K</text>
+                    <text x={x+6} y={y+6} fill={G.grn} fontSize="9" fontFamily="IBM Plex Mono">5.6{"\\u00D7"}10{"\\u207B\\u00B9\\u2075"}</text>
+                  </g>;
+                })()}
+                {/* Si melting point annotation */}
+                {(() => {
+                  const x = 90 + (1687 - 500) / 1500 * 275;
+                  return <g>
+                    <line x1={x} y1="195" x2={x} y2="30" stroke={G.red} strokeWidth={0.8} strokeDasharray="2,3" opacity={0.5}/>
+                    <text x={x} y="28" fill={G.red} fontSize="8" fontFamily="IBM Plex Mono" textAnchor="middle" opacity={0.7}>Si melts</text>
+                  </g>;
+                })()}
+              </svg>
+
+              <P>The steep slope on the log plot reflects the large activation energy: <M>{"E_v = 3.6"}</M> eV is roughly the energy to break 4 Si-Si bonds (each ~1.8 eV, but shared, so about half per atom) to remove an atom from its site. Even modest changes in <M>{"E_v"}</M> or <M>{"T"}</M> produce enormous changes in vacancy concentration.</P>
+
+              <div style={{margin:"10px 0",padding:"8px 12px",borderLeft:"3px solid #c8a45a",background:"rgba(200,164,90,0.06)",borderRadius:"0 4px 4px 0"}}>
+                <P style={{margin:0,fontSize:13}}><b style={{color:"#c8a45a"}}>Connections:</b> The atomic density <M>{"N = 4.996 \\times 10^{22}"}</M>/cm<M>{"^3"}</M> comes directly from the diamond cubic structure (HW3 Q3). The vacancy formation energy <M>{"E_v"}</M> is related to the bond energy from the <b>Interatomic Forces</b> tab: breaking bonds to create a vacancy costs energy proportional to the number of bonds broken times the bond strength. In the <b>Band Theory</b> and <b>Conduction</b> lessons, vacancies matter because they act as scattering centers for electrons and enable atomic diffusion, which is the mechanism behind dopant incorporation during semiconductor processing. The same Boltzmann/Arrhenius form governs intrinsic carrier concentration <M>{"n_i \\propto \\exp(-E_g/2k_BT)"}</M> in the <b>Band Theory</b> lesson.</P>
+              </div>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1273,11 +1674,69 @@ const TOPICS = [
   },
   {
     id: "graph-preview",
-    tab: "Graph Preview",
+    tab: "Key Variables/Equations/Graphs",
     title: "All Graphs",
     subtitle: "Screenshot this tab and send to the chatbot for visual review",
     content: (gp) => (
       <div className="lesson-body">
+        <Section title="Variable Reference">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px" }}>
+            <div>
+              <P><b>Bonding &amp; Energy</b></P>
+              <P><M>{"r"}</M> — interatomic separation</P>
+              <P><M>{"r_0"}</M> — equilibrium separation (<M>{"F_N = 0"}</M>)</P>
+              <P><M>{"E(r)"}</M> — potential energy vs. separation</P>
+              <P><M>{"E_{\\text{bond}} = |E(r_0)|"}</M> — bond energy (depth of well)</P>
+              <P><M>{"A = \\frac{e^2}{4\\pi\\varepsilon_0} \\approx 1.436"}</M> eV{"\u00B7"}nm — Coulomb constant</P>
+              <P><M>{"B"}</M> — repulsive coefficient</P>
+              <P><M>{"m"}</M> — repulsive exponent (6{"\u201312"} vdW, {"\u223C"}8 ionic)</P>
+              <P><M>{"M"}</M> — Madelung constant (1.748 for NaCl)</P>
+              <P><M>{"e"}</M> — elementary charge, <M>{"1.6 \\times 10^{-19}"}</M> C</P>
+              <P><M>{"\\varepsilon_0"}</M> — permittivity of free space</P>
+            </div>
+            <div>
+              <P><b>Crystals &amp; Diffraction</b></P>
+              <P><M>{"a, b, c"}</M> — lattice parameters</P>
+              <P><M>{"(hkl)"}</M> — Miller indices of a plane</P>
+              <P><M>{"[uvw]"}</M> — crystal direction</P>
+              <P><M>{"d_{hkl}"}</M> — interplanar spacing</P>
+              <P><M>{"\\theta"}</M> — Bragg diffraction angle</P>
+              <P><M>{"\\lambda"}</M> — X-ray wavelength</P>
+              <P><b>Defects</b></P>
+              <P><M>{"n_v"}</M> — number of vacancies</P>
+              <P><M>{"N"}</M> — total lattice sites</P>
+              <P><M>{"E_v"}</M> — vacancy formation energy</P>
+              <P><M>{"k_B"}</M> — Boltzmann constant</P>
+              <P><M>{"T"}</M> — temperature (K)</P>
+              <P><M>{"\\vec{b}"}</M> — Burgers vector</P>
+            </div>
+          </div>
+        </Section>
+        <Section title="Key Equations">
+          <KeyConcept label="Pair Potential Energy">
+            <Eq>{"E(r) = -\\frac{A}{r} + \\frac{B}{r^m}"}</Eq>
+          </KeyConcept>
+          <KeyConcept label="Lattice Energy (Madelung)">
+            <Eq>{"E_{\\text{lattice}} = -\\frac{M e^2}{4\\pi\\varepsilon_0 r} + \\frac{B}{r^m}"}</Eq>
+          </KeyConcept>
+          <KeyConcept label="Interplanar Spacing (cubic)">
+            <Eq>{"d_{hkl} = \\frac{a}{\\sqrt{h^2 + k^2 + l^2}}"}</Eq>
+          </KeyConcept>
+          <KeyConcept label="Bragg's Law">
+            <Eq>{"2d\\sin\\theta = n\\lambda"}</Eq>
+          </KeyConcept>
+          <KeyConcept label="Vacancy Concentration">
+            <Eq>{"n_v = N \\exp\\!\\left(-\\frac{E_v}{k_B T}\\right)"}</Eq>
+          </KeyConcept>
+          <KeyConcept label="Atomic Radius vs. Lattice Parameter">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 24px", fontSize: 14 }}>
+              <span>SC: <M>{"r = a/2"}</M></span>
+              <span>BCC: <M>{"r = a\\sqrt{3}/4"}</M></span>
+              <span>FCC: <M>{"r = a\\sqrt{2}/4"}</M></span>
+              <span>Diamond: <M>{"r = a\\sqrt{3}/8"}</M></span>
+            </div>
+          </KeyConcept>
+        </Section>
         <Section title="1. Interatomic Potential Energy (NaCl)">
           <InteratomicPotentialEnergy params={gp.interatomicPE} mid="gp1" />
         </Section>

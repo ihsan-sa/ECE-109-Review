@@ -1404,13 +1404,38 @@ const TOPICS = [
             <P>(b) What are the peak and average photon flux densities (photons <M>{"s^{-1}cm^{-2}"}</M>)?</P>
             <P>(c) What is the amplitude of the electric field in the radiation?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> <M>{"E = hc/\\lambda = (6.63 \\times 10^{-34})(3 \\times 10^8)/(10.6 \\times 10^{-6}) = 1.88 \\times 10^{-20}\\text{ J} = 0.12\\text{ eV}"}</M></P>
-              <P><b>(b)</b> Photon rate: <M>{"N/t = P_{avg}/E = 1000/1.88 \\times 10^{-20} = 5.33 \\times 10^{22}\\text{ photons/s}"}</M></P>
-              <P>Beam area: <M>{"A = \\pi r^2 = 0.785\\text{ cm}^2"}</M></P>
-              <P>Average flux: <M>{"\\Gamma_{avg} = 6.8 \\times 10^{22}\\text{ photons}\\cdot s^{-1}\\cdot cm^{-2}"}</M></P>
-              <P>Peak flux: <M>{"\\Gamma_{peak} = \\Gamma_{avg}/D = 1.13 \\times 10^{23}\\text{ photons}\\cdot s^{-1}\\cdot cm^{-2}"}</M></P>
-              <P><b>(c)</b> Peak intensity: <M>{"I_{peak} = P_{peak}/A = 1667/7.85 \\times 10^{-5} = 2.12 \\times 10^7\\text{ W/m}^2"}</M></P>
-              <P>From <M>{"I = \\frac{1}{2}c\\varepsilon_0 E_0^2"}</M>: <M>{"E_0 = \\sqrt{2I/(c\\varepsilon_0)} = 1.26 \\times 10^5\\text{ V/m}"}</M></P>
+              <P><b>(a) Photon energy</b> from <M>{"E = hf = hc/\\lambda"}</M> (energy quantization):</P>
+              <Eq>{"E = \\frac{hc}{\\lambda} = \\frac{(6.63 \\times 10^{-34})(3 \\times 10^8)}{10.6 \\times 10^{-6}} = 1.88 \\times 10^{-20}\\text{ J} = 0.12\\text{ eV}"}</Eq>
+              <P>This is in the <b>infrared</b>: much less energy per photon than visible light (~2 eV), so 1 kW requires enormously many photons/s.</P>
+              <P><b>(b) Photon flux.</b> A pulsed laser with duty cycle <M>{"D = 0.6"}</M> delivers average power <M>{"P_{avg} = 1"}</M> kW over repeated pulses. The key distinction:</P>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 420 110" style={{width: "100%", maxWidth: 420, display: "block", margin: "0 auto"}}>
+                  <title>Pulsed laser power: peak vs average</title>
+                  <line x1="40" y1="90" x2="400" y2="90" stroke={G.ax} strokeWidth="1"/>
+                  <line x1="40" y1="90" x2="40" y2="10" stroke={G.ax} strokeWidth="1"/>
+                  <text x="20" y="50" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle" transform="rotate(-90,20,50)">Power</text>
+                  <text x="220" y="106" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">time</text>
+                  {[0,1,2,3].map(i => <rect key={i} x={60+i*85} y={25} width={51} height={65} fill={G.gold} opacity="0.25" stroke={G.gold} strokeWidth="1.5"/>)}
+                  <line x1="40" y1="25" x2="400" y2="25" stroke={G.blue} strokeWidth="1" strokeDasharray="4,3" opacity="0.6"/>
+                  <text x="405" y="28" fill={G.blue} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="start">{"P\u209A\u2091\u2090\u2096"}</text>
+                  <line x1="40" y1="51" x2="400" y2="51" stroke={G.red} strokeWidth="1" strokeDasharray="4,3" opacity="0.6"/>
+                  <text x="405" y="54" fill={G.red} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="start">{"P\u2090\u1D65\u1D4D"}</text>
+                  <line x1="60" y1="95" x2="111" y2="95" stroke={G.grn} strokeWidth="1.5"/>
+                  <text x="85" y="104" fill={G.grn} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"D\u00B7T"}</text>
+                </svg>
+              </div>
+              <P>Peak power: <M>{"P_{peak} = P_{avg}/D = 1000/0.6 = 1667"}</M> W. During each pulse the laser is brighter; between pulses it is off.</P>
+              <P>Photon rate: <M>{"\\dot{N} = P_{avg}/E_{ph} = 1000/1.88 \\times 10^{-20} = 5.33 \\times 10^{22}"}</M> photons/s</P>
+              <P>Beam area: <M>{"A = \\pi(d/2)^2 = \\pi(0.5)^2 = 0.785"}</M> cm<sup>2</sup></P>
+              <Eq>{"\\Gamma_{avg} = \\dot{N}/A = 6.8 \\times 10^{22}\\;\\text{photons}\\cdot s^{-1}\\cdot cm^{-2}"}</Eq>
+              <Eq>{"\\Gamma_{peak} = \\Gamma_{avg}/D = 1.13 \\times 10^{23}\\;\\text{photons}\\cdot s^{-1}\\cdot cm^{-2}"}</Eq>
+              <P><b>(c) Electric field amplitude</b> from the EM wave intensity relation (Tab 2):</P>
+              <P>Peak intensity: <M>{"I_{peak} = P_{peak}/A = 1667/(7.85 \\times 10^{-5}) = 2.12 \\times 10^7"}</M> W/m<sup>2</sup></P>
+              <P>For a monochromatic plane EM wave, the time-averaged intensity is <M>{"I = \\tfrac{1}{2}c\\varepsilon_0 E_0^2"}</M>, so:</P>
+              <Eq>{"E_0 = \\sqrt{\\frac{2I}{c\\varepsilon_0}} = \\sqrt{\\frac{2(2.12 \\times 10^7)}{(3 \\times 10^8)(8.85 \\times 10^{-12})}} = 1.26 \\times 10^5\\;\\text{V/m}"}</Eq>
+              <KeyConcept label="Connection: Photon Energy and EM Wave Intensity">
+                This problem bridges the quantum view (<M>{"E = hf"}</M>, counting photons) with the classical wave view (<M>{"I = \\tfrac{1}{2}c\\varepsilon_0 E_0^2"}</M>, field amplitude). Both descriptions give the same power. The wave equation (Tab 2) governs the field; quantization (this tab) governs the energy packets. Reconciling them is the heart of wave-particle duality.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
 
@@ -1421,11 +1446,42 @@ const TOPICS = [
             <P>(c) Stopping voltage?</P>
             <P>(d) Photoelectric current for intensity 30 mW/cm<sup>2</sup>, diameter 6 mm, QE = 25%?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> <M>{"\\lambda_{max} = hc/\\Phi = (6.63 \\times 10^{-34})(3 \\times 10^8)/((1.9)(1.6 \\times 10^{-19})) = 654\\text{ nm}"}</M></P>
-              <P><b>(b)</b> <M>{"KE = hc/\\lambda - \\Phi = 2.76 - 1.9 = 0.86\\text{ eV}"}</M></P>
-              <P><b>(c)</b> <M>{"V_{stop} = KE/e = 0.86\\text{ V}"}</M></P>
-              <P><b>(d)</b> Incident photons/s: <M>{"N_{inc} = I \\cdot A/(hc/\\lambda) = 1.92 \\times 10^{16}"}</M> photons/s</P>
-              <P>Current: <M>{"I = e \\cdot QE \\cdot N_{inc} = (1.6 \\times 10^{-19})(0.25)(1.92 \\times 10^{16}) = 0.768\\text{ mA}"}</M></P>
+              <P><b>(a) Threshold wavelength.</b> Photoemission requires photon energy <M>{"\\geq \\Phi"}</M>. At the threshold, all photon energy goes to overcoming the work function with zero KE left over:</P>
+              <Eq>{"E_{ph} = \\Phi \\;\\Rightarrow\\; \\frac{hc}{\\lambda_{max}} = \\Phi \\;\\Rightarrow\\; \\lambda_{max} = \\frac{hc}{\\Phi} = \\frac{(6.63 \\times 10^{-34})(3 \\times 10^8)}{(1.9)(1.6 \\times 10^{-19})} = 654\\text{ nm}"}</Eq>
+              <P>This is red light. Longer wavelengths (lower energy) cannot eject electrons regardless of intensity, a purely quantum result.</P>
+              <P><b>(b) Kinetic energy</b> from Einstein's photoelectric equation <M>{"KE_{max} = hf - \\Phi"}</M>:</P>
+              <Eq>{"KE = \\frac{hc}{\\lambda} - \\Phi = \\frac{1240\\text{ eV}\\cdot\\text{nm}}{450\\text{ nm}} - 1.9\\text{ eV} = 2.76 - 1.9 = 0.86\\text{ eV}"}</Eq>
+              <P>(Using the shortcut <M>{"hc = 1240"}</M> eV{"\u00B7"}nm to avoid SI unit conversions.)</P>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 340 140" style={{width: "100%", maxWidth: 340, display: "block", margin: "0 auto"}}>
+                  <title>Photoelectric energy level diagram</title>
+                  <defs>
+                    <marker id="pe-arr" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                      <path d="M0,0 L7,2.5 L0,5" fill={G.blue}/>
+                    </marker>
+                  </defs>
+                  <rect x="60" y="100" width="220" height="4" fill={G.ax} opacity="0.4"/>
+                  <text x="50" y="105" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="end">0</text>
+                  <rect x="60" y="55" width="220" height="2" fill={G.gold} opacity="0.6"/>
+                  <text x="50" y="59" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="end">{"\u03A6"}</text>
+                  <rect x="60" y="22" width="220" height="2" fill={G.blue} opacity="0.6"/>
+                  <text x="50" y="26" fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="end">hf</text>
+                  <line x1="150" y1="100" x2="150" y2="22" stroke={G.blue} strokeWidth="2" markerEnd="url(#pe-arr)"/>
+                  <text x="138" y="60" fill={G.blue} fontSize="10" fontFamily="'IBM Plex Mono'" textAnchor="end">{"hf"}</text>
+                  <line x1="220" y1="56" x2="220" y2="100" stroke={G.gold} strokeWidth="6" opacity="0.2"/>
+                  <text x="235" y="80" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start">{"\u03A6 = 1.9 eV"}</text>
+                  <line x1="220" y1="22" x2="220" y2="56" stroke={G.grn} strokeWidth="6" opacity="0.2"/>
+                  <text x="235" y="42" fill={G.grn} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start">KE = 0.86 eV</text>
+                </svg>
+              </div>
+              <P><b>(c) Stopping voltage.</b> Apply a reverse voltage <M>{"V_{stop}"}</M> that decelerates photoelectrons to rest. The work done by the field equals the kinetic energy:</P>
+              <Eq>{"eV_{stop} = KE_{max} \\;\\Rightarrow\\; V_{stop} = 0.86\\text{ V}"}</Eq>
+              <P><b>(d) Photocurrent.</b> Each absorbed photon has probability QE = 25% of ejecting an electron.</P>
+              <P>Incident photon rate: <M>{"\\dot{N} = \\frac{I \\cdot A}{E_{ph}} = \\frac{(300)(\\pi(0.3)^2 \\times 10^{-4})}{(2.76)(1.6 \\times 10^{-19})} = 1.92 \\times 10^{16}"}</M> photons/s</P>
+              <Eq>{"I_{photo} = e \\cdot QE \\cdot \\dot{N} = (1.6 \\times 10^{-19})(0.25)(1.92 \\times 10^{16}) = 0.768\\text{ mA}"}</Eq>
+              <KeyConcept label="Connection: Quantization at Work">
+                The threshold behavior (part a) is what classical wave theory cannot explain: classically, any intensity should eventually eject electrons. The quantum explanation requires <M>{"E = hf \\geq \\Phi"}</M> per photon, the same quantization relation from Planck. The de Broglie wavelength of the ejected electron would be <M>{"\\lambda_e = h/\\sqrt{2m_e \\cdot KE} \\approx 1.3"}</M> nm, connecting back to matter waves.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
 
@@ -1433,8 +1489,31 @@ const TOPICS = [
             <P>(a) Find peak intensity wavelength <M>{"\\lambda_{max}"}</M> for a 40 W light bulb at 2400 C.</P>
             <P>(b) Frequency difference in GHz between lasers at 630.0 nm and 630.1 nm?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> Wien's law: <M>{"\\lambda_{max} = b/T = 2.89 \\times 10^{-3}/(2400 + 273) = 1081\\text{ nm}"}</M></P>
-              <P><b>(b)</b> <M>{"\\Delta f = c/\\lambda_1 - c/\\lambda_2 = 4.76190 \\times 10^{14} - 4.76115 \\times 10^{14} = 75.6\\text{ GHz}"}</M></P>
+              <P><b>(a) Wien's displacement law</b> gives the peak wavelength of a blackbody spectrum: <M>{"\\lambda_{max} T = b"}</M>, where <M>{"b = 2.89 \\times 10^{-3}"}</M> m{"\u00B7"}K.</P>
+              <P>Convert to Kelvin: <M>{"T = 2400 + 273 = 2673"}</M> K.</P>
+              <Eq>{"\\lambda_{max} = \\frac{b}{T} = \\frac{2.89 \\times 10^{-3}}{2673} = 1081\\text{ nm}"}</Eq>
+              <P>This is in the <b>near infrared</b>, not visible. Most of the bulb's radiation is wasted as heat; only the tail of the blackbody curve extends into visible wavelengths, which is why incandescent bulbs are inefficient.</P>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 380 130" style={{width: "100%", maxWidth: 380, display: "block", margin: "0 auto"}}>
+                  <title>Blackbody spectrum with peak wavelength</title>
+                  <line x1="40" y1="110" x2="360" y2="110" stroke={G.ax} strokeWidth="1"/>
+                  <line x1="40" y1="110" x2="40" y2="15" stroke={G.ax} strokeWidth="1"/>
+                  <text x="200" y="128" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"\u03BB (nm)"}</text>
+                  <text x="30" y="60" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle" transform="rotate(-90,30,60)">Intensity</text>
+                  <rect x="145" y="15" width="80" height="95" fill={G.gold} opacity="0.06"/>
+                  <text x="185" y="12" fill={G.gold} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="middle">visible</text>
+                  <path d={`M40,110 ${Array.from({length:300},(_,i)=>{const lam=200+i*5;const x=40+(lam-200)/5*1.067;const u=1440000/(lam*2673);const y=110-85*Math.pow(lam/1081,-5)*(Math.exp(1440000/(1081*2673))-1)/(Math.exp(u)-1);return`L${x.toFixed(1)},${Math.max(15,y).toFixed(1)}`;}).join(' ')}`} fill="none" stroke={G.blue} strokeWidth="2"/>
+                  <line x1="234" y1="110" x2="234" y2="25" stroke={G.red} strokeWidth="1" strokeDasharray="3,2"/>
+                  <text x="234" y="106" fill={G.red} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"\u03BB\u2098\u2090\u2093 = 1081 nm"}</text>
+                </svg>
+              </div>
+              <P><b>(b) Frequency difference</b> between two closely spaced laser lines. Using <M>{"f = c/\\lambda"}</M> (from Tab 2, wave parameters: <M>{"c = f\\lambda"}</M>):</P>
+              <Eq>{"f_1 = \\frac{c}{630.0\\text{ nm}} = 4.76190 \\times 10^{14}\\text{ Hz}, \\quad f_2 = \\frac{c}{630.1\\text{ nm}} = 4.76115 \\times 10^{14}\\text{ Hz}"}</Eq>
+              <Eq>{"\\Delta f = f_1 - f_2 = 7.56 \\times 10^{10}\\text{ Hz} = 75.6\\text{ GHz}"}</Eq>
+              <P>A 0.1 nm wavelength shift produces a ~76 GHz frequency difference. This is because <M>{"\\Delta f \\approx (c/\\lambda^2)\\Delta\\lambda"}</M>: the same <M>{"\\Delta\\lambda"}</M> maps to a larger <M>{"\\Delta f"}</M> at shorter wavelengths.</P>
+              <KeyConcept label="Connection: Wave Parameters and Quantization">
+                Part (a) connects thermal radiation to quantization: Wien's law is a consequence of Planck's blackbody formula, which requires <M>{"E = nhf"}</M>. Part (b) uses the wave parameter relations <M>{"c = f\\lambda"}</M> and <M>{"k = \\omega/c"}</M> from Tab 2. The photon energy difference between these two lasers is <M>{"\\Delta E = h\\Delta f = 5.0 \\times 10^{-23}"}</M> J = 0.31 meV, tiny but measurable via interference.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
 
@@ -1443,9 +1522,32 @@ const TOPICS = [
             <P>(a) Below what temperature are free electrons quantum mechanical?</P>
             <P>(b) Below what temperature are the nuclei quantum mechanical?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> <M>{"T_c = h^2/(3m_e k_B d^2) = (6.626 \\times 10^{-34})^2/(3 \\times 9.109 \\times 10^{-31} \\times 1.38 \\times 10^{-23} \\times (0.235 \\times 10^{-9})^2) \\approx 2.1 \\times 10^5\\text{ K}"}</M></P>
-              <P>Since <M>{"T_{room} \\ll T_c"}</M>, electrons are quantum mechanical.</P>
-              <P><b>(b)</b> For Si nuclei (<M>{"m_{Si} = 4.66 \\times 10^{-26}"}</M> kg): <M>{"T_c \\approx 4.12\\text{ K}"}</M>. Since <M>{"T_{room} \\gg T_c"}</M>, nuclei are classical.</P>
+              <P><b>Key idea:</b> A particle is quantum mechanical when its thermal de Broglie wavelength <M>{"\\lambda_B"}</M> is comparable to or larger than the spacing between particles. The thermal de Broglie wavelength uses the average thermal kinetic energy <M>{"\\tfrac{3}{2}k_BT"}</M> in the de Broglie relation:</P>
+              <Eq>{"\\lambda_B = \\frac{h}{p} = \\frac{h}{\\sqrt{2mE_k}} = \\frac{h}{\\sqrt{3mk_BT}}"}</Eq>
+              <P>QM matters when <M>{"\\lambda_B > d"}</M>, i.e., <M>{"T < T_c = h^2/(3mk_Bd^2)"}</M>.</P>
+              <P>For Si (diamond structure): <M>{"a = 5.43"}</M> A, nearest-neighbor distance <M>{"d = \\sqrt{3}a/4 \\approx 0.235"}</M> nm.</P>
+              <P><b>(a) Electrons</b> (<M>{"m_e = 9.109 \\times 10^{-31}"}</M> kg):</P>
+              <Eq>{"T_c = \\frac{h^2}{3m_e k_B d^2} = \\frac{(6.626 \\times 10^{-34})^2}{3(9.109 \\times 10^{-31})(1.38 \\times 10^{-23})(0.235 \\times 10^{-9})^2} \\approx 2.1 \\times 10^5\\text{ K}"}</Eq>
+              <P>Since <M>{"T_{room} = 300\\text{ K} \\ll T_c"}</M>, free electrons in Si are <b>deeply quantum mechanical</b> at room temperature.</P>
+              <P><b>(b) Si nuclei</b> (<M>{"m_{Si} = 28 \\times 1.66 \\times 10^{-27} = 4.66 \\times 10^{-26}"}</M> kg):</P>
+              <Eq>{"T_c = \\frac{h^2}{3m_{Si}k_Bd^2} \\approx 4.12\\text{ K}"}</Eq>
+              <P>Since <M>{"T_{room} \\gg T_c"}</M>, the nuclei are <b>classical</b> at room temperature. Their de Broglie wavelengths are far smaller than interatomic spacing.</P>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 400 100" style={{width: "100%", maxWidth: 400, display: "block", margin: "0 auto"}}>
+                  <title>Comparison of de Broglie wavelength to lattice spacing</title>
+                  <text x="200" y="12" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"Lattice spacing d = 0.235 nm"}</text>
+                  {[0,1,2,3,4,5].map(i => <circle key={i} cx={50+i*65} cy={40} r="6" fill={G.ax} opacity="0.4"/>)}
+                  {[0,1,2,3,4].map(i => <line key={i} x1={56+i*65} y1={40} x2={109+i*65} y2={40} stroke={G.ax} strokeWidth="1" strokeDasharray="3,2"/>)}
+                  <path d={Array.from({length:321},(_,i)=>`${i===0?'M':'L'}${50+i},${70-12*Math.sin(2*Math.PI*i/320)}`).join(' ')} fill="none" stroke={G.blue} strokeWidth="2"/>
+                  <text x="380" y="73" fill={G.blue} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="start">{"\u03BB\u2091"}</text>
+                  <path d={Array.from({length:321},(_,i)=>`${i===0?'M':'L'}${50+i},${90-4*Math.sin(2*Math.PI*i*5/320)}`).join(' ')} fill="none" stroke={G.red} strokeWidth="1.5"/>
+                  <text x="380" y="93" fill={G.red} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="start">{"\u03BB\u209B\u1D62"}</text>
+                  <text x="200" y="99" fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"\u03BB\u2091 \u226B d (quantum) vs \u03BB\u209B\u1D62 \u226A d (classical)"}</text>
+                </svg>
+              </div>
+              <KeyConcept label="Connection: De Broglie and the Correspondence Principle">
+                This problem applies de Broglie's <M>{"\\lambda = h/p"}</M> (Tab 1) to thermal particles. The mass ratio <M>{"m_{Si}/m_e \\approx 5 \\times 10^4"}</M> explains why <M>{"T_c"}</M> differs by a factor of ~50,000: heavier particles have shorter wavelengths and "look" more classical. This is the correspondence principle (Tab 5) in a different guise: large mass or high temperature pushes quantum behavior toward classical limits.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1673,18 +1775,77 @@ const TOPICS = [
           <HWQuestion hw="HW1" number="4" title="Standing wave" points="10 pts">
             <P>Show that two counter-propagating plane waves produce a standing wave <M>{"\\sim \\cos(kz)\\cos(\\omega t)"}</M>. What is the distance between nodes?</P>
             <CollapsibleBlock title="Solution">
-              <P><M>{"E_1 = E_0\\cos(kz - \\omega t)"}</M>, <M>{"E_2 = E_0\\cos(kz + \\omega t)"}</M></P>
-              <P>Sum: <M>{"E = E_1 + E_2 = 2E_0\\cos(kz)\\cos(\\omega t)"}</M> (using cos A + cos B identity)</P>
-              <P>Nodes where <M>{"\\cos(kz) = 0"}</M>, i.e. <M>{"kz_n = (n + 1/2)\\pi"}</M>.</P>
-              <P>Node spacing: <M>{"\\Delta z = \\pi/k = \\lambda/2"}</M>. The distance between nodes is <b>half the wavelength</b>.</P>
+              <P><b>Setup:</b> Two counter-propagating waves with equal amplitude and frequency:</P>
+              <Eq>{"E_1 = E_0\\cos(kz - \\omega t), \\quad E_2 = E_0\\cos(kz + \\omega t)"}</Eq>
+              <P><b>Step 1: Apply the sum-to-product identity.</b> Recall <M>{"\\cos A + \\cos B = 2\\cos\\!\\left(\\frac{A+B}{2}\\right)\\cos\\!\\left(\\frac{A-B}{2}\\right)"}</M>.</P>
+              <P>Let <M>{"A = kz - \\omega t"}</M>, <M>{"B = kz + \\omega t"}</M>. Then <M>{"\\tfrac{A+B}{2} = kz"}</M> and <M>{"\\tfrac{A-B}{2} = -\\omega t"}</M>. Since <M>{"\\cos(-\\theta) = \\cos\\theta"}</M>:</P>
+              <Eq>{"E = E_1 + E_2 = 2E_0\\cos(kz)\\cos(\\omega t)"}</Eq>
+              <P><b>Step 2: Physical interpretation.</b> The result factors into a <b>spatial envelope</b> <M>{"\\cos(kz)"}</M> and a <b>temporal oscillation</b> <M>{"\\cos(\\omega t)"}</M>. Every point oscillates in phase (or antiphase), but no energy propagates: the wave "stands still."</P>
+              <P><b>Step 3: Find the nodes.</b> Nodes are positions where <M>{"E = 0"}</M> for all <M>{"t"}</M>, requiring <M>{"\\cos(kz) = 0"}</M>:</P>
+              <Eq>{"kz_n = \\left(n + \\tfrac{1}{2}\\right)\\pi \\quad \\Rightarrow \\quad z_n = \\frac{(2n+1)\\lambda}{4}, \\quad n = 0, 1, 2, \\ldots"}</Eq>
+              <P><b>Step 4: Node spacing.</b></P>
+              <Eq>{"\\Delta z = z_{n+1} - z_n = \\frac{\\pi}{k} = \\frac{\\lambda}{2}"}</Eq>
+              <P>Adjacent nodes are separated by <b>half the wavelength</b>. Antinodes (maximum amplitude <M>{"2E_0"}</M>) sit midway between nodes.</P>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 460 130" style={{width: "100%", maxWidth: 460, display: "block", margin: "0 auto"}}>
+                  <title>Standing wave showing nodes and antinodes</title>
+                  <line x1="30" y1="65" x2="430" y2="65" stroke={G.ax} strokeWidth="1"/>
+                  <path d={Array.from({length:201},(_,i)=>`${i===0?'M':'L'}${30+i*2},${65-30*Math.abs(Math.cos(Math.PI*i/50))}`).join(' ')} fill="none" stroke={G.gold} strokeWidth="1.5" strokeDasharray="4,3" opacity="0.5"/>
+                  <path d={Array.from({length:201},(_,i)=>`${i===0?'M':'L'}${30+i*2},${65+30*Math.abs(Math.cos(Math.PI*i/50))}`).join(' ')} fill="none" stroke={G.gold} strokeWidth="1.5" strokeDasharray="4,3" opacity="0.5"/>
+                  <path d={Array.from({length:201},(_,i)=>`${i===0?'M':'L'}${30+i*2},${65-30*Math.cos(Math.PI*i/50)}`).join(' ')} fill="none" stroke={G.blue} strokeWidth="2"/>
+                  {[80,180,280,380].map(x => <g key={x}><circle cx={x} cy={65} r="3.5" fill={G.red} opacity="0.9"/><text x={x} y={82} fill={G.red} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">N</text></g>)}
+                  {[130,230,330].map(x => <g key={x}><line x1={x} y1={35} x2={x} y2={95} stroke={G.grn} strokeWidth="1" strokeDasharray="2,2" opacity="0.5"/><text x={x} y={112} fill={G.grn} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">A</text></g>)}
+                  <line x1={80} y1={20} x2={180} y2={20} stroke={G.txt} strokeWidth="1"/>
+                  <line x1={80} y1={16} x2={80} y2={24} stroke={G.txt} strokeWidth="1"/>
+                  <line x1={180} y1={16} x2={180} y2={24} stroke={G.txt} strokeWidth="1"/>
+                  <text x={130} y={14} fill={G.gold} fontSize="10" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"\u03BB/2"}</text>
+                  <text x={230} y={125} fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"N = node \u00B7 A = antinode \u00B7 dashed = envelope"}</text>
+                </svg>
+              </div>
+              <KeyConcept label="Connection: Standing Waves in QM">
+                The infinite potential well (Tab 5) produces standing waves: the walls reflect the wavefunction back and forth, just as two mirrors create optical standing waves. The boundary condition <M>{"\\psi(0) = \\psi(a) = 0"}</M> pins nodes at both walls, requiring <M>{"a = n\\lambda/2"}</M>. This is the quantization condition that gives discrete energy levels <M>{"E_n \\propto n^2"}</M>. Every bound-state wavefunction is a standing wave.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
 
           <HWQuestion hw="HW1" number="8" title="Interference pattern" points="20 pts">
             <P>Two monochromatic plane waves (<M>{"\\lambda = 500"}</M> nm) incident on a screen at z=0. The second wave has a 5 degree incidence angle. Sketch and calculate fringe spacing.</P>
             <CollapsibleBlock title="Solution">
-              <P>The fringe spacing on the screen is: <M>{"d = \\lambda/\\sin\\theta = 500\\text{ nm}/\\sin(5^\\circ) \\approx 5.74\\,\\mu m"}</M></P>
-              <P>Bright fringes where path difference is <M>{"n\\lambda"}</M>, dark fringes at <M>{"(n+1/2)\\lambda"}</M>. The pattern consists of straight parallel fringes spaced 5.74 um apart.</P>
+              <P><b>Step 1: Geometry.</b> Wave 1 arrives normal to the screen (<M>{"\\theta_1 = 0"}</M>). Wave 2 arrives at angle <M>{"\\theta = 5^\\circ"}</M>. At position <M>{"y"}</M> on the screen, the path difference between the two wavefronts is:</P>
+              <Eq>{"\\Delta = y\\sin\\theta"}</Eq>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 400 180" style={{width: "100%", maxWidth: 400, display: "block", margin: "0 auto"}}>
+                  <title>Two-beam interference geometry</title>
+                  <defs>
+                    <marker id="hw8-arr" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                      <path d="M0,0 L7,2.5 L0,5" fill={G.blue}/>
+                    </marker>
+                    <marker id="hw8-arr2" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+                      <path d="M0,0 L7,2.5 L0,5" fill={G.gold}/>
+                    </marker>
+                  </defs>
+                  <line x1="320" y1="15" x2="320" y2="165" stroke={G.txt} strokeWidth="2"/>
+                  <text x="335" y="90" fill={G.txt} fontSize="10" fontFamily="'IBM Plex Mono'" textAnchor="start">screen</text>
+                  <line x1="40" y1="90" x2="310" y2="90" stroke={G.blue} strokeWidth="1.5" markerEnd="url(#hw8-arr)"/>
+                  <text x="170" y="84" fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">Wave 1 (normal)</text>
+                  <line x1="40" y1="145" x2="310" y2="55" stroke={G.gold} strokeWidth="1.5" markerEnd="url(#hw8-arr2)"/>
+                  <text x="140" y="118" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">{`Wave 2 (\u03B8 = 5\u00B0)`}</text>
+                  <path d="M 290,90 A 20,20 0 0,0 292,72" fill="none" stroke={G.txt} strokeWidth="1"/>
+                  <text x="278" y="78" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="end">{"\u03B8"}</text>
+                  <line x1="325" y1="55" x2="325" y2="90" stroke={G.red} strokeWidth="1" strokeDasharray="3,2"/>
+                  <text x="342" y="75" fill={G.red} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start">y</text>
+                  <circle cx="320" cy="55" r="3" fill={G.grn}/>
+                  <text x="312" y="48" fill={G.grn} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="end">bright</text>
+                </svg>
+              </div>
+              <P><b>Step 2: Fringe condition.</b> Constructive interference (bright) when <M>{"\\Delta = n\\lambda"}</M>; destructive (dark) when <M>{"\\Delta = (n + \\tfrac{1}{2})\\lambda"}</M>.</P>
+              <P><b>Step 3: Fringe spacing.</b> Adjacent bright fringes satisfy <M>{"y_{n+1}\\sin\\theta - y_n\\sin\\theta = \\lambda"}</M>, so:</P>
+              <Eq>{"d = \\frac{\\lambda}{\\sin\\theta} = \\frac{500\\text{ nm}}{\\sin 5^\\circ} = \\frac{500}{0.08716} \\approx 5.74\\;\\mu m"}</Eq>
+              <P>The pattern consists of straight parallel fringes spaced <M>{"5.74\\;\\mu m"}</M> apart.</P>
+              <P><b>Physical check:</b> The small angle gives a fringe spacing much larger than <M>{"\\lambda"}</M>, which is typical: interference stretches small phase differences into macroscopic patterns.</P>
+              <KeyConcept label="Connection: Superposition and Matter Waves">
+                This problem is the superposition principle (covered earlier in this tab) made visible. The two waves add linearly, and spatial variation in their phase difference creates alternating constructive and destructive regions. The same physics underlies the <b>electron double-slit experiment</b> (Tab 1): electrons with de Broglie wavelength <M>{"\\lambda = h/p"}</M> produce identical fringe patterns, confirming matter-wave interference.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1779,11 +1940,43 @@ const TOPICS = [
             <P>At <M>{"t = 0"}</M>, a particle has wavefunction: <M>{"\\Psi(x,0) = A \\cdot x/a"}</M> for <M>{"0 \\le x \\le a"}</M>, <M>{"A(b-x)/(b-a)"}</M> for <M>{"a \\le x \\le b"}</M>, 0 otherwise.</P>
             <P>(a) Normalize (find A). (b) Sketch. (c) Probability to left of a? (d) <M>{"\\langle x \\rangle"}</M>? (e) <M>{"\\langle p \\rangle"}</M>?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> <M>{"\\int|\\Psi|^2 dx = A^2[a/3 + (b-a)/3] = A^2 b/3 = 1 \\implies A = \\sqrt{3/b}"}</M></P>
-              <P><b>(b)</b> Triangle: rises linearly from 0 to <M>{"A"}</M> at <M>{"x=a"}</M>, then drops linearly to 0 at <M>{"x=b"}</M>.</P>
-              <P><b>(c)</b> <M>{"P(x \\lt a) = A^2 \\cdot a/3 = (3/b)(a/3) = a/b"}</M>. Check: <M>{"a=b \\implies P=1"}</M>, <M>{"b=2a \\implies P=1/2"}</M>.</P>
-              <P><b>(d)</b> <M>{"\\langle x \\rangle = a/2 + b/4 = (2a+b)/4"}</M></P>
-              <P><b>(e)</b> <M>{"\\langle p \\rangle = 0"}</M> since <M>{"\\Psi(0) = \\Psi(b) = 0"}</M> and <M>{"\\Psi"}</M> is real.</P>
+              <P><b>(a) Normalization.</b> The wavefunction is piecewise linear. Integrate <M>{"|\\Psi|^2"}</M> over each region:</P>
+              <Eq>{"\\int_0^a \\left(\\frac{Ax}{a}\\right)^2 dx = \\frac{A^2}{a^2} \\cdot \\frac{a^3}{3} = \\frac{A^2 a}{3}"}</Eq>
+              <Eq>{"\\int_a^b \\left(\\frac{A(b-x)}{b-a}\\right)^2 dx = \\frac{A^2}{(b-a)^2} \\cdot \\frac{(b-a)^3}{3} = \\frac{A^2(b-a)}{3}"}</Eq>
+              <P>Sum: <M>{"A^2[a/3 + (b-a)/3] = A^2 b/3 = 1"}</M>, so <M>{"A = \\sqrt{3/b}"}</M>.</P>
+              <P><b>(b) Sketch.</b> A triangle that rises linearly from 0 to <M>{"A"}</M> at <M>{"x = a"}</M>, then drops linearly to 0 at <M>{"x = b"}</M>:</P>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 360 120" style={{width: "100%", maxWidth: 360, display: "block", margin: "0 auto"}}>
+                  <title>Triangular wavefunction</title>
+                  <line x1="40" y1="95" x2="330" y2="95" stroke={G.ax} strokeWidth="1"/>
+                  <line x1="40" y1="95" x2="40" y2="15" stroke={G.ax} strokeWidth="1"/>
+                  <polyline points="40,95 160,25 300,95" fill="none" stroke={G.gold} strokeWidth="2.5"/>
+                  <line x1="160" y1="25" x2="160" y2="95" stroke={G.txt} strokeWidth="1" strokeDasharray="3,2"/>
+                  <circle cx="160" cy="25" r="3" fill={G.gold}/>
+                  <text x="40" y="108" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">0</text>
+                  <text x="160" y="108" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">a</text>
+                  <text x="300" y="108" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">b</text>
+                  <text x="34" y="28" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="end">A</text>
+                  <text x="100" y="52" fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">Ax/a</text>
+                  <text x="240" y="52" fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"A(b\u2212x)/(b\u2212a)"}</text>
+                  <text x="30" y="60" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle" transform="rotate(-90,30,60)">{"\u03A8(x,0)"}</text>
+                </svg>
+              </div>
+              <P><b>(c) Probability to the left of <M>{"a"}</M>.</b> This is just the first integral above, with <M>{"A^2 = 3/b"}</M>:</P>
+              <Eq>{"P(x < a) = \\frac{A^2 a}{3} = \\frac{a}{b}"}</Eq>
+              <P>Sanity checks: if <M>{"a = b"}</M> (triangle fills entire support), <M>{"P = 1"}</M>. If <M>{"b = 2a"}</M> (symmetric triangle), <M>{"P = 1/2"}</M>.</P>
+              <P><b>(d) Expectation value of position.</b> Compute <M>{"\\langle x \\rangle = \\int x|\\Psi|^2\\,dx"}</M> over both regions:</P>
+              <Eq>{"\\int_0^a x \\cdot \\frac{A^2 x^2}{a^2}\\,dx = \\frac{A^2}{a^2}\\cdot\\frac{a^4}{4} = \\frac{A^2 a^2}{4}"}</Eq>
+              <Eq>{"\\int_a^b x \\cdot \\frac{A^2(b-x)^2}{(b-a)^2}\\,dx = \\frac{A^2}{(b-a)^2}\\left[\\frac{b(b-a)^3}{3} - \\frac{3b^2(b-a)^2 - ...}{...}\\right]"}</Eq>
+              <P>After evaluating (expand and integrate term by term):</P>
+              <Eq>{"\\langle x \\rangle = \\frac{a}{2} + \\frac{b}{4} = \\frac{2a+b}{4}"}</Eq>
+              <P>The mean position is shifted left of center toward the steeper (ascending) side of the triangle, where the probability density is more concentrated.</P>
+              <P><b>(e) Expectation value of momentum.</b> <M>{"\\langle p \\rangle = \\int \\Psi^*\\!\\left(-i\\hbar\\frac{d\\Psi}{dx}\\right)dx"}</M>.</P>
+              <P>Since <M>{"\\Psi"}</M> is <b>real</b>, <M>{"\\Psi^* = \\Psi"}</M>, and the integrand <M>{"\\Psi \\cdot (-i\\hbar)\\Psi'"}</M> is purely imaginary. But <M>{"\\langle p \\rangle"}</M> must be real (it is a measurable quantity), so <M>{"\\langle p \\rangle = 0"}</M>.</P>
+              <P>Physical interpretation: a real wavefunction is an equal superposition of <M>{"e^{+ikx}"}</M> and <M>{"e^{-ikx}"}</M> (leftward and rightward momenta), so the average cancels. The particle is equally likely to be moving left or right.</P>
+              <KeyConcept label="Connections">
+                This problem exercises the core QM formalism of this tab: normalization (<M>{"\\int|\\Psi|^2 = 1"}</M>), the Born interpretation (<M>{"|\\Psi|^2"}</M> as probability density), the momentum operator (<M>{"\\hat{p} = -i\\hbar\\,d/dx"}</M>), and expectation values (<M>{"\\langle A \\rangle = \\int \\psi^*\\hat{A}\\psi\\,dx"}</M>). Part (e) previews a general result: any real, bound wavefunction has <M>{"\\langle p \\rangle = 0"}</M>, which you will see again for the infinite well eigenstates (Tab 5).
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1922,10 +2115,37 @@ const TOPICS = [
             <P>Electron in infinite well <M>{"a = 2"}</M> nm with <M>{"\\Psi(x,0) = \\frac{1}{\\sqrt{2}}\\psi_1(x) + \\frac{1}{\\sqrt{2}}\\psi_2(x)"}</M>.</P>
             <P>(a) <M>{"P(x \\lt 1\\text{ nm})"}</M> at <M>{"t=0"}</M>? (b) Same probability at <M>{"t = 2m_ea^2/(3h\\pi)"}</M>?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> At <M>{"t=0"}</M>: <M>{"|\\Psi|^2 = \\frac{1}{2}(|\\psi_1|^2 + |\\psi_2|^2 + 2\\psi_1\\psi_2\\cos(0))"}</M></P>
-              <P><M>{"P(x \\lt a/2) = 1/2 + 4/(3\\pi) \\approx 0.924"}</M></P>
-              <P><b>(b)</b> At the given time, <M>{"\\cos(\\Delta E \\cdot t/\\hbar) = \\cos(\\pi) = -1"}</M>, so the cross term flips sign.</P>
-              <P><M>{"P(x \\lt a/2) = 1/2 - 4/(3\\pi) \\approx 0.076"}</M>. The electron has moved to the right half of the well.</P>
+              <P><b>Setup.</b> Using the two-state superposition formula derived in the FAQ above (Tab 5), with <M>{"c_1 = c_2 = 1/\\sqrt{2}"}</M> and <M>{"\\varphi_n = \\sqrt{2/a}\\sin(n\\pi x/a)"}</M>:</P>
+              <Eq>{"|\\Psi(x,t)|^2 = \\frac{1}{a}\\left[\\sin^2\\!\\frac{\\pi x}{a} + \\sin^2\\!\\frac{2\\pi x}{a} + 2\\sin\\!\\frac{\\pi x}{a}\\sin\\!\\frac{2\\pi x}{a}\\cos\\!\\left(\\frac{(E_2 - E_1)t}{\\hbar}\\right)\\right]"}</Eq>
+              <P><b>(a) At <M>{"t = 0"}</M></b>, the cosine factor is 1. Integrate the three terms over <M>{"[0, a/2]"}</M>:</P>
+              <P>Static terms: <M>{"\\int_0^{a/2}\\sin^2(\\pi x/a)\\,dx = a/4"}</M> and <M>{"\\int_0^{a/2}\\sin^2(2\\pi x/a)\\,dx = a/4"}</M>.</P>
+              <P>Cross term: <M>{"\\int_0^{a/2} 2\\sin(\\pi x/a)\\sin(2\\pi x/a)\\,dx"}</M>. Use the product-to-sum identity <M>{"2\\sin A\\sin B = \\cos(A-B) - \\cos(A+B)"}</M>:</P>
+              <Eq>{"= \\int_0^{a/2}\\left[\\cos\\!\\frac{\\pi x}{a} - \\cos\\!\\frac{3\\pi x}{a}\\right]dx = \\frac{a}{\\pi}\\sin\\frac{\\pi}{2} - \\frac{a}{3\\pi}\\sin\\frac{3\\pi}{2} = \\frac{a}{\\pi} + \\frac{a}{3\\pi} = \\frac{4a}{3\\pi}"}</Eq>
+              <Eq>{"P(x < a/2, t\\!=\\!0) = \\frac{1}{a}\\left[\\frac{a}{4} + \\frac{a}{4} + \\frac{4a}{3\\pi}\\right] = \\frac{1}{2} + \\frac{4}{3\\pi} \\approx 0.924"}</Eq>
+              <P>The electron is overwhelmingly in the left half at <M>{"t = 0"}</M>.</P>
+              <P><b>(b) At <M>{"t = 2m_ea^2/(3\\pi\\hbar)"}</M></b>, evaluate the phase of the cosine. First compute <M>{"\\Delta E = E_2 - E_1 = 3E_1 = 3\\pi^2\\hbar^2/(2m_ea^2)"}</M>:</P>
+              <Eq>{"\\frac{\\Delta E \\cdot t}{\\hbar} = \\frac{3\\pi^2\\hbar^2}{2m_ea^2} \\cdot \\frac{2m_ea^2}{3\\pi\\hbar} = \\pi"}</Eq>
+              <P>So <M>{"\\cos(\\pi) = -1"}</M>, and the cross term flips sign:</P>
+              <Eq>{"P(x < a/2) = \\frac{1}{2} - \\frac{4}{3\\pi} \\approx 0.076"}</Eq>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 440 130" style={{width: "100%", maxWidth: 440, display: "block", margin: "0 auto"}}>
+                  <title>Probability density sloshing between left and right halves</title>
+                  <line x1="30" y1="105" x2="200" y2="105" stroke={G.ax} strokeWidth="1"/>
+                  <line x1="240" y1="105" x2="410" y2="105" stroke={G.ax} strokeWidth="1"/>
+                  <text x="115" y="12" fill={G.gold} fontSize="10" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"t = 0 (P\u2097\u2091\u2324\u209C = 92%)"}</text>
+                  <text x="325" y="12" fill={G.blue} fontSize="10" fontFamily="'IBM Plex Mono'" textAnchor="middle">{"t = T/2 (P\u2097\u2091\u2324\u209C = 8%)"}</text>
+                  <path d={Array.from({length:171},(_,i)=>{const x=30+i;const u=i/170;const s1=Math.sin(Math.PI*u);const s2=Math.sin(2*Math.PI*u);const v=s1*s1+s2*s2+2*s1*s2;return`${i===0?'M':'L'}${x},${105-v*22}`;}).join(' ')} fill="none" stroke={G.gold} strokeWidth="2"/>
+                  <line x1="115" y1="105" x2="115" y2="20" stroke={G.txt} strokeWidth="1" strokeDasharray="2,2" opacity="0.4"/>
+                  <text x="115" y="118" fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="middle">a/2</text>
+                  <path d={Array.from({length:171},(_,i)=>{const x=240+i;const u=i/170;const s1=Math.sin(Math.PI*u);const s2=Math.sin(2*Math.PI*u);const v=s1*s1+s2*s2-2*s1*s2;return`${i===0?'M':'L'}${x},${105-v*22}`;}).join(' ')} fill="none" stroke={G.blue} strokeWidth="2"/>
+                  <line x1="325" y1="105" x2="325" y2="20" stroke={G.txt} strokeWidth="1" strokeDasharray="2,2" opacity="0.4"/>
+                  <text x="325" y="118" fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="middle">a/2</text>
+                </svg>
+              </div>
+              <P>The probability has "sloshed" to the right half. This is non-stationary behavior: the superposition oscillates at the Bohr frequency <M>{"\\omega_{21} = \\Delta E/\\hbar"}</M>.</P>
+              <KeyConcept label="Connection: Stationary vs Non-Stationary States">
+                A single eigenstate <M>{"\\psi_n"}</M> has static <M>{"|\\Psi|^2"}</M> (stationary). A superposition of two eigenstates oscillates because the phase factors <M>{"e^{-iE_1 t/\\hbar}"}</M> and <M>{"e^{-iE_2 t/\\hbar}"}</M> rotate at different rates, producing the cross term with <M>{"\\cos((E_2 - E_1)t/\\hbar)"}</M>. This is the time evolution operator (Tab 4) in action. The "Eigenstate vs. superposition" animation above this section visualizes exactly this sloshing behavior.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -2029,18 +2249,65 @@ const TOPICS = [
           <HWQuestion hw="HW1" number="6a" title="Infinite well energy levels" points="5 pts">
             <P>Calculate the first three energy levels of an infinite well of width 1 nm.</P>
             <CollapsibleBlock title="Solution">
-              <P><M>{"E_n = \\frac{n^2 \\pi^2 \\hbar^2}{2m_e a^2}"}</M> with <M>{"a = 10^{-9}"}</M> m:</P>
-              <P><M>{"E_1 = 0.376\\text{ eV}"}</M>, <M>{"E_2 = 4 \\times 0.376 = 1.504\\text{ eV}"}</M>, <M>{"E_3 = 9 \\times 0.376 = 3.385\\text{ eV}"}</M></P>
+              <P>Apply the energy quantization formula with <M>{"a = 1"}</M> nm <M>{"= 10^{-9}"}</M> m:</P>
+              <Eq>{"E_n = \\frac{n^2 \\pi^2 \\hbar^2}{2m_e a^2}"}</Eq>
+              <P>Substitute constants: <M>{"\\hbar = 1.055 \\times 10^{-34}"}</M> J{"\u00B7"}s, <M>{"m_e = 9.109 \\times 10^{-31}"}</M> kg:</P>
+              <Eq>{"E_1 = \\frac{\\pi^2 (1.055 \\times 10^{-34})^2}{2(9.109 \\times 10^{-31})(10^{-9})^2} = 6.02 \\times 10^{-20}\\text{ J} = 0.376\\text{ eV}"}</Eq>
+              <P>Since <M>{"E_n = n^2 E_1"}</M>:</P>
+              <Eq>{"E_1 = 0.376\\text{ eV}, \\quad E_2 = 4(0.376) = 1.504\\text{ eV}, \\quad E_3 = 9(0.376) = 3.385\\text{ eV}"}</Eq>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 300 140" style={{width: "100%", maxWidth: 300, display: "block", margin: "0 auto"}}>
+                  <title>Energy levels for 1 nm infinite well</title>
+                  <line x1="60" y1="120" x2="60" y2="10" stroke={G.ax} strokeWidth="1"/>
+                  <text x="50" y="70" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle" transform="rotate(-90,50,70)">E (eV)</text>
+                  {[[1, 0.376, G.gold], [2, 1.504, G.blue], [3, 3.385, G.red]].map(([n, E, c]) => {
+                    const y = 120 - E * 28;
+                    return <g key={n}>
+                      <line x1="80" y1={y} x2="220" y2={y} stroke={c} strokeWidth="2.5"/>
+                      <text x="75" y={y+4} fill={c} fontSize="10" fontFamily="'IBM Plex Mono'" textAnchor="end">{"n=" + n}</text>
+                      <text x="225" y={y+4} fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start">{E + " eV"}</text>
+                    </g>;
+                  })}
+                  <text x="150" y="136" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">a = 1 nm infinite well</text>
+                </svg>
+              </div>
+              <P>The spacings grow with <M>{"n"}</M>: <M>{"\\Delta E_{1\\to 2} = 1.13"}</M> eV, <M>{"\\Delta E_{2\\to 3} = 1.88"}</M> eV. Transitions between these levels would emit/absorb visible-range photons.</P>
+              <KeyConcept label="Connection: Zero-Point Energy and Well Width">
+                Even the ground state has <M>{"E_1 = 0.376"}</M> eV (nonzero). This zero-point energy is a direct consequence of confinement: the uncertainty principle requires <M>{"\\Delta p > 0"}</M> for a confined particle, guaranteeing nonzero kinetic energy. Halving the well width to 0.5 nm would quadruple all energies (<M>{"E_n \\propto 1/a^2"}</M>), as shown in the well-width explorer above.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
 
           <HWQuestion hw="HW2" number="2" title="Rudimentary quantum dot" points="10 pts">
             <P>Model a quantum dot as a 3D infinite box with <M>{"a = b = c"}</M>. Find <M>{"a"}</M> so a 920 nm photon is emitted in the (2,1,1) to (1,1,1) transition.</P>
             <CollapsibleBlock title="Solution">
-              <P><M>{"E_{n_1,n_2,n_3} = \\frac{h^2}{8m_ea^2}(n_1^2 + n_2^2 + n_3^2)"}</M></P>
-              <P><M>{"\\Delta E = E_{2,1,1} - E_{1,1,1} = \\frac{3h^2}{8m_ea^2}"}</M></P>
-              <P>Set <M>{"\\Delta E = hc/\\lambda"}</M>: <M>{"a = \\sqrt{3\\lambda h/(8m_e c)} \\approx 0.95"}</M> nm</P>
-              <P>Compare to real InGaAs QDs: measured sizes ~5 nm height x 20 nm base, so the infinite box is a rough approximation.</P>
+              <P><b>Step 1: 3D energy formula.</b> A cubic infinite box has separable solutions <M>{"\\psi = \\psi_{n_1}(x)\\psi_{n_2}(y)\\psi_{n_3}(z)"}</M>, where each factor is the 1D infinite well solution. The total energy sums independently:</P>
+              <Eq>{"E_{n_1,n_2,n_3} = \\frac{h^2}{8m_ea^2}(n_1^2 + n_2^2 + n_3^2)"}</Eq>
+              <P><b>Step 2: Transition energy.</b> The ground state is (1,1,1), the first excited states are (2,1,1), (1,2,1), (1,1,2) (triply degenerate by symmetry).</P>
+              <Eq>{"\\Delta E = E_{2,1,1} - E_{1,1,1} = \\frac{h^2}{8m_ea^2}(4+1+1) - \\frac{h^2}{8m_ea^2}(1+1+1) = \\frac{3h^2}{8m_ea^2}"}</Eq>
+              <P><b>Step 3: Set equal to photon energy</b> and solve for <M>{"a"}</M>:</P>
+              <Eq>{"\\frac{3h^2}{8m_ea^2} = \\frac{hc}{\\lambda} \\;\\Rightarrow\\; a = \\sqrt{\\frac{3\\lambda h}{8m_e c}}"}</Eq>
+              <Eq>{"a = \\sqrt{\\frac{3(920 \\times 10^{-9})(6.626 \\times 10^{-34})}{8(9.109 \\times 10^{-31})(3 \\times 10^8)}} \\approx 0.95\\text{ nm}"}</Eq>
+              <div className="eq-block" style={{padding: "12px"}}>
+                <svg viewBox="0 0 360 130" style={{width: "100%", maxWidth: 360, display: "block", margin: "0 auto"}}>
+                  <title>3D quantum dot energy levels</title>
+                  <line x1="30" y1="115" x2="30" y2="10" stroke={G.ax} strokeWidth="1"/>
+                  <text x="20" y="60" fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle" transform="rotate(-90,20,60)">E</text>
+                  <line x1="50" y1="100" x2="160" y2="100" stroke={G.gold} strokeWidth="2.5"/>
+                  <text x="165" y="104" fill={G.gold} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start">{"(1,1,1): 3E\u2081"}</text>
+                  <line x1="50" y1="55" x2="160" y2="55" stroke={G.blue} strokeWidth="2.5"/>
+                  <line x1="52" y1="58" x2="158" y2="58" stroke={G.blue} strokeWidth="1" opacity="0.4"/>
+                  <line x1="54" y1="61" x2="156" y2="61" stroke={G.blue} strokeWidth="1" opacity="0.4"/>
+                  <text x="165" y="59" fill={G.blue} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start">{"(2,1,1) etc.: 6E\u2081 (3\u00D7 degen)"}</text>
+                  <line x1="105" y1="100" x2="105" y2="55" stroke={G.red} strokeWidth="1.5" strokeDasharray="4,2"/>
+                  <text x="115" y="80" fill={G.red} fontSize="10" fontFamily="'IBM Plex Mono'" textAnchor="start">{"\u0394E = 3E\u2081"}</text>
+                  <text x="280" y="80" fill={G.red} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start">{"\u03BB = 920 nm"}</text>
+                </svg>
+              </div>
+              <P><b>Reality check:</b> Real InGaAs quantum dots are ~5 nm tall and ~20 nm across, much larger than 0.95 nm. The discrepancy arises because the infinite box ignores the effective mass of the electron in the semiconductor (<M>{"m^* \\approx 0.04\\,m_e"}</M> for InAs), Coulomb interactions, and the actual confining potential shape. Using <M>{"m^*"}</M> instead of <M>{"m_e"}</M> would give <M>{"a \\approx 4.7"}</M> nm, much closer to experiment.</P>
+              <KeyConcept label="Connection: 1D to 3D and Real Applications">
+                This problem extends the 1D infinite well to 3D via separation of variables. The 2D version is visualized in the "2D infinite well" interactive above. The quantum dot is a real-world application of particle-in-a-box physics: by controlling the dot size, engineers tune the emission wavelength (since <M>{"\\Delta E \\propto 1/a^2"}</M>), used in QLED displays and biomedical imaging.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -2049,11 +2316,75 @@ const TOPICS = [
   },
   {
     id: "graph-preview",
-    tab: "Graph Preview",
+    tab: "Key Variables/Equations/Graphs",
     title: "All Graphs",
     subtitle: "Screenshot this tab and send to the chatbot for visual review",
     content: (gp) => (
       <div className="lesson-body">
+        <Section title="Variable Reference">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px", fontSize: 14 }}>
+            <div>
+              <P><strong>Constants</strong></P>
+              <ul style={{ margin: 0, paddingLeft: 18, lineHeight: "1.9" }}>
+                <li><M>{"h"}</M> -- Planck's constant (<M>{"6.63 \\times 10^{-34}"}</M> J s)</li>
+                <li><M>{"\\hbar = h/2\\pi"}</M> -- reduced Planck's constant</li>
+                <li><M>{"m_e"}</M> -- electron mass (<M>{"9.109 \\times 10^{-31}"}</M> kg)</li>
+                <li><M>{"c"}</M> -- speed of light (<M>{"3 \\times 10^8"}</M> m/s)</li>
+              </ul>
+              <P><strong>Wave parameters</strong></P>
+              <ul style={{ margin: 0, paddingLeft: 18, lineHeight: "1.9" }}>
+                <li><M>{"f"}</M> -- frequency (Hz)</li>
+                <li><M>{"\\omega = 2\\pi f"}</M> -- angular frequency (rad/s)</li>
+                <li><M>{"\\lambda"}</M> -- wavelength (m)</li>
+                <li><M>{"k = 2\\pi/\\lambda"}</M> -- wavenumber (rad/m)</li>
+                <li><M>{"p"}</M> -- momentum</li>
+              </ul>
+            </div>
+            <div>
+              <P><strong>Quantum mechanics</strong></P>
+              <ul style={{ margin: 0, paddingLeft: 18, lineHeight: "1.9" }}>
+                <li><M>{"\\Psi(x,t)"}</M> -- wavefunction (complex-valued)</li>
+                <li><M>{"|\\Psi|^2"}</M> -- probability density</li>
+                <li><M>{"\\hat{H}"}</M> -- Hamiltonian operator</li>
+                <li><M>{"V(x)"}</M> -- potential energy</li>
+                <li><M>{"\\hat{p} = -i\\hbar\\,d/dx"}</M> -- momentum operator (1D)</li>
+                <li><M>{"E_n"}</M> -- energy of <M>{"n"}</M>th state</li>
+                <li><M>{"\\psi_n(x)"}</M> -- stationary-state wavefunction</li>
+                <li><M>{"n"}</M> -- quantum number (<M>{"1,2,3,\\ldots"}</M>)</li>
+                <li><M>{"a"}</M> -- well width</li>
+                <li><M>{"\\Phi"}</M> -- work function (photoelectric)</li>
+              </ul>
+            </div>
+          </div>
+        </Section>
+        <Section title="Key Equations">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 32px" }}>
+            <KeyConcept label="Energy quantization">
+              <Eq>{"E = hf = \\hbar\\omega"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="De Broglie wavelength">
+              <Eq>{"\\lambda = \\frac{h}{p}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Photoelectric effect">
+              <Eq>{"KE_{\\max} = hf - \\Phi"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Normalization">
+              <Eq>{"\\int |\\Psi|^2\\,dV = 1"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Time-dependent Schrodinger eq.">
+              <Eq>{"i\\hbar\\frac{\\partial}{\\partial t}|\\psi\\rangle = \\hat{H}|\\psi\\rangle"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Hamiltonian">
+              <Eq>{"\\hat{H} = -\\frac{\\hbar^2}{2m}\\nabla^2 + V(\\mathbf{r})"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Infinite well wavefunctions">
+              <Eq>{"\\psi_n(x) = \\sqrt{\\frac{2}{a}}\\sin\\!\\left(\\frac{n\\pi x}{a}\\right)"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Infinite well energies">
+              <Eq>{"E_n = \\frac{n^2 \\pi^2 \\hbar^2}{2m_e a^2}"}</Eq>
+            </KeyConcept>
+          </div>
+        </Section>
         <Section title="1. Infinite Well Wavefunctions">
           <InfiniteWellWavefunctions params={gp.infiniteWellWavefunctions} mid="p1" />
         </Section>

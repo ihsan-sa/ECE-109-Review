@@ -807,20 +807,43 @@ const TOPICS = [
             <P>Gold: M = 196.97 g/mol, density 19300 kg/m<M>{"^3"}</M>, valency 1, resistivity 22 n<M>{"\\Omega"}</M> m.</P>
             <P>Calculate Fermi energy at 0 K and mean free path of conduction electrons.</P>
             <CollapsibleBlock title="Solution">
-              <P><M>{"n = Z \\times d \\times N_A/M = 5.9 \\times 10^{28}"}</M> m<M>{"^{-3}"}</M></P>
-              <P><M>{"E_{FO} = (h^2/8m_e)(3n/\\pi)^{2/3} = 5.53"}</M> eV</P>
-              <P><M>{"v_F = \\sqrt{2E_F/m_e} = 1.39 \\times 10^6"}</M> m/s</P>
-              <P>From Drude: <M>{"\\tau = m_e/(ne^2\\rho) = 2.73 \\times 10^{-14}"}</M> s</P>
-              <P><M>{"l = v_F\\tau = 38.1"}</M> nm</P>
+              <P><b>Step 1: Free electron concentration.</b> Gold has valence <M>{"Z = 1"}</M> (one 6s electron per atom). The number density of conduction electrons is:</P>
+              <Eq>{"n = \\frac{Z \\cdot d \\cdot N_A}{M_{at}} = \\frac{1 \\times 19300 \\times 6.022 \\times 10^{23}}{196.97 \\times 10^{-3}} = 5.90 \\times 10^{28} \\text{ m}^{-3}"}</Eq>
+              <P><b>Step 2: Fermi energy at 0 K.</b> For a free electron gas, <M>{"E_F"}</M> depends only on <M>{"n"}</M>:</P>
+              <Eq>{"E_{FO} = \\frac{h^2}{8m_e}\\left(\\frac{3n}{\\pi}\\right)^{2/3} = 5.53 \\text{ eV}"}</Eq>
+              <P><b>Step 3: Fermi velocity.</b> Electrons at the Fermi surface have <M>{"\\tfrac{1}{2}m_e v_F^2 = E_F"}</M>:</P>
+              <Eq>{"v_F = \\sqrt{\\frac{2E_F}{m_e}} = \\sqrt{\\frac{2 \\times 5.53 \\times 1.602 \\times 10^{-19}}{9.109 \\times 10^{-31}}} = 1.39 \\times 10^6 \\text{ m/s}"}</Eq>
+              <P><b>Step 4: Mean free time from Drude model.</b> Rearranging <M>{"\\rho = m_e/(ne^2\\tau)"}</M>:</P>
+              <Eq>{"\\tau = \\frac{m_e}{ne^2\\rho} = \\frac{9.109 \\times 10^{-31}}{5.90 \\times 10^{28} \\times (1.6 \\times 10^{-19})^2 \\times 22 \\times 10^{-9}} = 2.73 \\times 10^{-14} \\text{ s}"}</Eq>
+              <P><b>Step 5: Mean free path.</b></P>
+              <Eq>{"l = v_F \\cdot \\tau = 1.39 \\times 10^6 \\times 2.73 \\times 10^{-14} = 38.1 \\text{ nm}"}</Eq>
+              <P style={{ opacity: 0.7, fontSize: 13 }}>This is roughly 93 atomic spacings (Au lattice parameter <M>{"a = 0.408"}</M> nm), confirming that electrons scatter infrequently at room temperature. <b>Cross-references:</b> Fermi velocity is from the <b>Free Electron Model</b> (this tab); <M>{"\\tau"}</M> enters through the <b>Drude Model</b> conductivity formula (next tab).</P>
             </CollapsibleBlock>
           </HWQuestion>
 
           <HWQuestion hw="HW4" number="1c" title="2D goldene monolayer" points="15 pts">
             <P>A free-standing monolayer of gold atoms ("goldene") has <M>{"E_F \\approx 0.5"}</M> eV at 0 K. Estimate the 2D density of states and states per unit volume near <M>{"E_F"}</M>. Monolayer thickness <M>{"d \\approx 0.288"}</M> nm.</P>
             <CollapsibleBlock title="Solution">
-              <P>2D DOS (per unit area): <M>{"g_A = 4\\pi m_e/h^2 = 4.18 \\times 10^{18}"}</M> eV<M>{"^{-1}"}</M>m<M>{"^{-2}"}</M></P>
-              <P>Per unit volume: <M>{"g_V = g_A/d = 1.45 \\times 10^{28}"}</M> eV<M>{"^{-1}"}</M>m<M>{"^{-3}"}</M></P>
-              <P>Number of states up to <M>{"E_F"}</M>: <M>{"S_V = 4\\pi m_e E_F/(h^2 d) = 7.23 \\times 10^{27}"}</M> m<M>{"^{-3}"}</M></P>
+              <P><b>Deriving the 2D density of states.</b> In 2D, electron states fill a circle in k-space (rather than a sphere). The area of the Fermi circle is <M>{"\\pi k_F^2"}</M>, and each state occupies <M>{"(2\\pi)^2/A"}</M> in k-space (per unit area: <M>{"(2\\pi)^2"}</M>). Including a factor of 2 for spin and using <M>{"E = \\hbar^2 k^2/(2m_e)"}</M>:</P>
+              <Eq>{"g_A(E) = \\frac{dN_A}{dE} = \\frac{4\\pi m_e}{h^2} = 4.18 \\times 10^{18} \\text{ eV}^{-1}\\text{m}^{-2}"}</Eq>
+              <P>The key result: the 2D DOS is <b>energy-independent</b>, unlike the 3D case where <M>{"g(E) \\propto \\sqrt{E}"}</M>.</P>
+              <svg viewBox="0 0 360 180" style={{width:'100%',maxWidth:360,display:'block',margin:'12px auto'}}>
+                <line x1="50" y1="150" x2="330" y2="150" stroke={G.ax} strokeWidth="1.5"/>
+                <line x1="50" y1="150" x2="50" y2="15" stroke={G.ax} strokeWidth="1.5"/>
+                <text x="190" y="172" fill={G.txt} fontSize="12" textAnchor="middle" fontFamily="'IBM Plex Mono'">Energy E</text>
+                <text x="18" y="85" fill={G.txt} fontSize="12" textAnchor="middle" fontFamily="'IBM Plex Mono'" transform="rotate(-90,18,85)">g(E)</text>
+                <polyline points="50,150 64,125 78,115 92,107 106,101 120,95 148,85 176,76 218,65 260,55 330,40" fill="none" stroke={G.blue} strokeWidth="2.5"/>
+                <line x1="50" y1="95" x2="330" y2="95" stroke={G.gold} strokeWidth="2.5" strokeDasharray="8,4"/>
+                <line x1="200" y1="22" x2="228" y2="22" stroke={G.blue} strokeWidth="2.5"/>
+                <text x="233" y="26" fill={G.ltxt} fontSize="11" fontFamily="'IBM Plex Mono'">3D: g ~ E^(1/2)</text>
+                <line x1="200" y1="38" x2="228" y2="38" stroke={G.gold} strokeWidth="2.5" strokeDasharray="8,4"/>
+                <text x="233" y="42" fill={G.ltxt} fontSize="11" fontFamily="'IBM Plex Mono'">2D: g = const</text>
+              </svg>
+              <P><b>Converting to volumetric DOS.</b> Dividing by the monolayer thickness <M>{"d = 0.288"}</M> nm gives an effective 3D density of states:</P>
+              <Eq>{"g_V = \\frac{g_A}{d} = \\frac{4.18 \\times 10^{18}}{0.288 \\times 10^{-9}} = 1.45 \\times 10^{28} \\text{ eV}^{-1}\\text{m}^{-3}"}</Eq>
+              <P><b>Total states per unit volume up to <M>{"E_F"}</M>.</b> Since <M>{"g_A"}</M> is constant, the count is simply <M>{"g_A \\times E_F"}</M>:</P>
+              <Eq>{"S_V = \\frac{g_A \\cdot E_F}{d} = \\frac{4.18 \\times 10^{18} \\times 0.5}{0.288 \\times 10^{-9}} = 7.26 \\times 10^{27} \\text{ m}^{-3}"}</Eq>
+              <P style={{ opacity: 0.7, fontSize: 13 }}>Goldene, a free-standing monolayer of gold, was first synthesized in 2024. Its 2D character flattens the DOS, in contrast to the <M>{"\\sqrt{E}"}</M> dependence of bulk metals. <b>Cross-reference:</b> Compare with the 3D free-electron DOS from the <b>Band Theory</b> lesson (previous unit).</P>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -879,8 +902,12 @@ const TOPICS = [
           <HWQuestion hw="HW4" number="1b" title="Red adamantium resistivity" points="15 pts">
             <P>Red adamantium: <M>{"E_F = 28.0"}</M> eV at room temperature, drift mobility <M>{"\\mu = 4.1"}</M> cm<M>{"^2"}</M>V<M>{"^{-1}"}</M>s<M>{"^{-1}"}</M>. Estimate resistivity.</P>
             <CollapsibleBlock title="Solution">
-              <P>Since <M>{"E_F \\approx E_{FO}"}</M> at room temperature: <M>{"n = (\\pi/3)(8m_eE_{FO}/h^2)^{3/2} = 6.74 \\times 10^{29}"}</M> m<M>{"^{-3}"}</M></P>
-              <P><M>{"\\rho = 1/(ne\\mu) = 1/((6.74 \\times 10^{29})(1.6 \\times 10^{-19})(4.1 \\times 10^{-4})) = 2.26 \\times 10^{-8}\\;\\Omega"}</M>m</P>
+              <P><b>Step 1: Electron concentration from Fermi energy.</b> Since <M>{"E_F \\approx E_{FO}"}</M> at room temperature (<M>{"kT \\ll E_F"}</M>), invert the free-electron formula <M>{"E_F = (h^2/8m_e)(3n/\\pi)^{2/3}"}</M>:</P>
+              <Eq>{"n = \\frac{\\pi}{3}\\left(\\frac{8m_e E_{FO}}{h^2}\\right)^{3/2} = 6.74 \\times 10^{29} \\text{ m}^{-3}"}</Eq>
+              <P><b>Step 2: Unit conversion.</b> Mobility must be in SI: <M>{"\\mu = 4.1"}</M> cm<M>{"^2"}</M>V<M>{"^{-1}"}</M>s<M>{"^{-1}"}</M> <M>{"= 4.1 \\times 10^{-4}"}</M> m<M>{"^2"}</M>V<M>{"^{-1}"}</M>s<M>{"^{-1}"}</M>.</P>
+              <P><b>Step 3: Resistivity.</b> Using <M>{"\\sigma = ne\\mu"}</M> and <M>{"\\rho = 1/\\sigma"}</M>:</P>
+              <Eq>{"\\rho = \\frac{1}{ne\\mu} = \\frac{1}{(6.74 \\times 10^{29})(1.6 \\times 10^{-19})(4.1 \\times 10^{-4})} = 2.26 \\times 10^{-8}\\;\\Omega\\text{m}"}</Eq>
+              <P style={{ opacity: 0.7, fontSize: 13 }}>For comparison: Cu <M>{"\\rho = 1.7 \\times 10^{-8}"}</M>, Al <M>{"\\rho = 2.65 \\times 10^{-8}\\;\\Omega"}</M>m. Red adamantium is a good conductor. Note <M>{"E_F = 28"}</M> eV is unusually high (Cu: 7 eV), indicating very high electron concentration. <b>Cross-references:</b> <M>{"\\sigma = ne\\mu"}</M> from the <b>Drude Model</b> tab; the <M>{"E_F \\to n"}</M> inversion from the <b>Free Electron Model</b> tab.</P>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1011,17 +1038,64 @@ const TOPICS = [
           <HWQuestion hw="HW4" number="2" title="Optical conveyor belt (tractor beam)" points="20 pts">
             <P>Two counter-propagating beams of slightly different frequencies form a moving standing wave. For <M>{"\\lambda = 1064"}</M> nm, find the speed of movement of the antinodes per MHz of frequency detuning.</P>
             <CollapsibleBlock title="Solution">
-              <P>The total field: <M>{"E_{total} = 2E_0\\cos((k - \\pi\\sigma/c)z - \\pi\\sigma t)"}</M> where <M>{"\\sigma"}</M> is the detuning.</P>
-              <P>Phase velocity of antinodes: <M>{"v = \\pi\\sigma/(k - \\pi\\sigma/c) \\approx \\pi\\sigma/k"}</M> for small <M>{"\\sigma"}</M>.</P>
-              <P>With <M>{"k = 2\\pi/\\lambda"}</M> and <M>{"\\sigma = 1"}</M> MHz: <M>{"v = \\lambda\\sigma/2 = 1064 \\times 10^{-9} \\times 10^6/2 = 532"}</M> mm/s per MHz.</P>
+              <P><b>Setup.</b> Two counter-propagating beams at frequencies <M>{"f_1 = f + \\delta/2"}</M> and <M>{"f_2 = f - \\delta/2"}</M> (detuning <M>{"\\delta"}</M>) with the same wavenumber <M>{"k \\approx 2\\pi/\\lambda"}</M>:</P>
+              <Eq>{"E_1 = E_0\\cos(kz - \\omega_1 t), \\quad E_2 = E_0\\cos(-kz - \\omega_2 t)"}</Eq>
+              <P><b>Superposition.</b> Adding and using the identity <M>{"\\cos A + \\cos B = 2\\cos\\!\\left(\\tfrac{A+B}{2}\\right)\\cos\\!\\left(\\tfrac{A-B}{2}\\right)"}</M>:</P>
+              <Eq>{"E_{total} = 2E_0\\cos\\!\\left[\\left(k - \\frac{\\pi\\delta}{c}\\right)z - \\pi\\delta\\, t\\right] \\cdot \\cos(kz - \\bar{\\omega}t)"}</Eq>
+              <P>The first factor is a slowly-varying envelope; the second is a fast optical carrier. The envelope (and its antinodes) move at:</P>
+              <Eq>{"v = \\frac{\\pi\\delta}{k - \\pi\\delta/c} \\approx \\frac{\\pi\\delta}{k} = \\frac{\\lambda\\delta}{2}"}</Eq>
+              <P>(The approximation holds since <M>{"\\delta \\ll f"}</M>, so <M>{"\\pi\\delta/c \\ll k"}</M>.)</P>
+              <P><b>Result.</b> For <M>{"\\lambda = 1064"}</M> nm and <M>{"\\delta = 1"}</M> MHz:</P>
+              <Eq>{"v = \\frac{1064 \\times 10^{-9} \\times 10^6}{2} = 532 \\text{ mm/s per MHz}"}</Eq>
+              <svg viewBox="0 0 420 150" style={{width:'100%',maxWidth:420,display:'block',margin:'12px auto'}}>
+                {/* Beam 1 arrow */}
+                <line x1="30" y1="30" x2="180" y2="30" stroke={G.blue} strokeWidth="2"/>
+                <polygon points="180,24 195,30 180,36" fill={G.blue}/>
+                <text x="105" y="20" fill={G.blue} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono'">f + delta/2</text>
+                {/* Beam 2 arrow */}
+                <line x1="390" y1="30" x2="240" y2="30" stroke={G.red} strokeWidth="2"/>
+                <polygon points="240,24 225,30 240,36" fill={G.red}/>
+                <text x="315" y="20" fill={G.red} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono'">f - delta/2</text>
+                {/* Envelope / standing wave pattern */}
+                <path d={`M30,100 ${Array.from({length:40},(_,i)=>{const x=30+i*9.5;const y=100-30*Math.abs(Math.cos(i*Math.PI/5));return`L${x.toFixed(1)},${y.toFixed(1)}`}).join(' ')}`} fill="none" stroke={G.gold} strokeWidth="2.5"/>
+                <text x="210" y="140" fill={G.txt} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono'">Intensity envelope (moving antinodes)</text>
+                {/* Motion arrow */}
+                <line x1="310" y1="105" x2="370" y2="105" stroke={G.grn} strokeWidth="2"/>
+                <polygon points="370,100 382,105 370,110" fill={G.grn}/>
+                <text x="346" y="120" fill={G.grn} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">v</text>
+              </svg>
+              <P style={{ opacity: 0.7, fontSize: 13 }}>Dielectric particles trapped at intensity maxima (by optical gradient forces) are carried along as the pattern drifts, forming an optical conveyor belt. <b>Cross-reference:</b> This exploits the linearity of Maxwell's wave equation (<b>EM Waves</b> tab); the superposition of two solutions is itself a solution.</P>
             </CollapsibleBlock>
           </HWQuestion>
 
           <HWQuestion hw="HW4" number="4" title="Powering Hubble" points="15 pts">
             <P>830 nm laser through atmosphere (8.5 km, <M>{"\\varepsilon_r = 1 + i\\,1.14 \\times 10^{-11}"}</M>). What fraction of power reaches the Hubble mirror?</P>
             <CollapsibleBlock title="Solution">
-              <P>Attenuation constant: <M>{"\\alpha = \\pi\\varepsilon''/\\lambda\\varepsilon' = \\pi \\times 1.14 \\times 10^{-11}/(830 \\times 10^{-9}) = 4.47 \\times 10^{-5}"}</M> Np/m</P>
-              <P>Power fraction: <M>{"e^{-2\\alpha z} = e^{-2 \\times 4.47 \\times 10^{-5} \\times 8500} = 0.47"}</M>. About 47% of the power reaches Hubble.</P>
+              <P><b>Step 1: Complex permittivity.</b> The atmosphere is a lossy dielectric with <M>{"\\varepsilon_r = \\varepsilon' + i\\varepsilon''"}</M>, where <M>{"\\varepsilon' = 1"}</M> and <M>{"\\varepsilon'' = 1.14 \\times 10^{-11}"}</M>. The imaginary part models absorption and scattering losses.</P>
+              <P><b>Step 2: Attenuation constant.</b> For <M>{"\\varepsilon'' \\ll \\varepsilon'"}</M>, the wave vector becomes complex: <M>{"k = (\\omega/c_0)\\sqrt{\\varepsilon_r}"}</M>. The imaginary part gives the field attenuation:</P>
+              <Eq>{"\\alpha = \\text{Im}(k) = \\frac{\\omega\\,\\varepsilon''}{2c_0\\sqrt{\\varepsilon'}} = \\frac{\\pi\\varepsilon''}{\\lambda\\sqrt{\\varepsilon'}} = \\frac{\\pi \\times 1.14 \\times 10^{-11}}{830 \\times 10^{-9}} = 4.31 \\times 10^{-5} \\text{ Np/m}"}</Eq>
+              <P><b>Step 3: Power fraction.</b> The electric field decays as <M>{"e^{-\\alpha z}"}</M>, so the <b>intensity</b> (power) decays as the square:</P>
+              <Eq>{"\\frac{P_{out}}{P_{in}} = e^{-2\\alpha z} = e^{-2 \\times 4.31 \\times 10^{-5} \\times 8500} = e^{-0.733} \\approx 0.48"}</Eq>
+              <P>About <b>48%</b> of the laser power reaches the Hubble mirror.</P>
+              <svg viewBox="0 0 380 160" style={{width:'100%',maxWidth:380,display:'block',margin:'12px auto'}}>
+                <line x1="50" y1="130" x2="350" y2="130" stroke={G.ax} strokeWidth="1.5"/>
+                <line x1="50" y1="130" x2="50" y2="15" stroke={G.ax} strokeWidth="1.5"/>
+                <text x="200" y="155" fill={G.txt} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono'">Distance z (km)</text>
+                <text x="18" y="72" fill={G.txt} fontSize="11" textAnchor="middle" fontFamily="'IBM Plex Mono'" transform="rotate(-90,18,72)">P/P0</text>
+                {/* Tick marks */}
+                <text x="50" y="145" fill={G.txt} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">0</text>
+                <text x="200" y="145" fill={G.txt} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">4.25</text>
+                <text x="350" y="145" fill={G.txt} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">8.5</text>
+                <text x="44" y="28" fill={G.txt} fontSize="10" textAnchor="end" fontFamily="'IBM Plex Mono'">1.0</text>
+                <text x="44" y="82" fill={G.txt} fontSize="10" textAnchor="end" fontFamily="'IBM Plex Mono'">0.5</text>
+                {/* Exponential decay curve: P = exp(-2*alpha*z), alpha=4.31e-5, z from 0 to 8500 */}
+                <polyline points={Array.from({length:50},(_,i)=>{const z=i*8500/49;const x=50+i*300/49;const y=25+105*(1-Math.exp(-2*4.31e-5*z));return`${x.toFixed(1)},${y.toFixed(1)}`}).join(' ')} fill="none" stroke={G.gold} strokeWidth="2.5"/>
+                {/* Hubble marker */}
+                <line x1="350" y1="25" x2="350" y2="130" stroke={G.ax} strokeWidth="1" strokeDasharray="4,3"/>
+                <circle cx="350" cy={25+105*(1-Math.exp(-2*4.31e-5*8500))} r="4" fill={G.red}/>
+                <text x="340" y={20+105*(1-Math.exp(-2*4.31e-5*8500))} fill={G.red} fontSize="10" textAnchor="end" fontFamily="'IBM Plex Mono'">0.48</text>
+              </svg>
+              <P style={{ opacity: 0.7, fontSize: 13 }}>The factor of 2 in the exponent is critical: <M>{"\\alpha"}</M> describes field decay, but power goes as <M>{"|E|^2"}</M>. Even a tiny <M>{"\\varepsilon'' \\sim 10^{-11}"}</M> produces significant loss over 8.5 km. <b>Cross-reference:</b> The complex permittivity extends the lossless wave equation from the <b>EM Waves</b> tab; setting <M>{"\\varepsilon'' = 0"}</M> recovers the ideal dielectric result.</P>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1092,9 +1166,46 @@ const TOPICS = [
             <P>(a) Write the Jones matrix for an ideal x-polarizer, then for a realistic one with losses <M>{"\\alpha"}</M> and <M>{"\\beta"}</M>. [10 pts]</P>
             <P>(b) Explain why polarized sunglasses suppress glare from water/road surfaces. What polarization do they block? [20 pts]</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> Ideal: <M>{"T = \\begin{pmatrix} 1 & 0 \\\\ 0 & 0 \\end{pmatrix}"}</M>. Realistic: <M>{"T = \\begin{pmatrix} 1-\\alpha & 0 \\\\ 0 & \\beta \\end{pmatrix}"}</M></P>
-              <P><b>(b)</b> Sunlight reflecting off a horizontal surface (water, road) at shallow angles (~45-60 degrees, near Brewster angle <M>{"\\theta_B = \\arctan(n_{water}/n_{air}) \\approx 53^\\circ"}</M>) is predominantly s-polarized (horizontal E-field).</P>
-              <P>Polarized sunglasses contain a vertical polarizer that absorbs horizontally polarized light, thus suppressing the glare while transmitting vertically polarized light.</P>
+              <P><b>(a) Jones matrix for an x-polarizer.</b> In Jones calculus, the electric field is a 2-vector <M>{"\\mathbf{E} = (E_x,\\, E_y)^T"}</M> and each optical element is a 2x2 matrix. An ideal x-polarizer passes only <M>{"E_x"}</M>:</P>
+              <Eq>{"T_{\\text{ideal}} = \\begin{pmatrix} 1 & 0 \\\\ 0 & 0 \\end{pmatrix}"}</Eq>
+              <P>A realistic polarizer has insertion loss <M>{"\\alpha"}</M> (absorption of the pass-through component) and leakage <M>{"\\beta"}</M> (incomplete extinction of the blocked component):</P>
+              <Eq>{"T_{\\text{real}} = \\begin{pmatrix} 1 - \\alpha & 0 \\\\ 0 & \\beta \\end{pmatrix}"}</Eq>
+              <P>Ideal behavior: <M>{"\\alpha = 0"}</M> (no loss), <M>{"\\beta = 0"}</M> (perfect extinction). The extinction ratio is <M>{"(1 - \\alpha)^2/\\beta^2"}</M>.</P>
+              <P><b>(b) Why polarized sunglasses suppress glare.</b> When unpolarized sunlight reflects off a horizontal surface (water, road), the Fresnel equations tell us that <M>{"R_s > R_p"}</M> at all angles. Near Brewster's angle <M>{"\\theta_B = \\arctan(n_2/n_1)"}</M>, <M>{"R_p \\to 0"}</M> while <M>{"R_s"}</M> remains significant, so the reflected light is predominantly s-polarized.</P>
+              <svg viewBox="0 0 400 220" style={{width:'100%',maxWidth:400,display:'block',margin:'12px auto'}}>
+                {/* Interface line */}
+                <line x1="30" y1="130" x2="370" y2="130" stroke={G.ax} strokeWidth="2"/>
+                <text x="370" y="148" fill={G.txt} fontSize="10" textAnchor="end" fontFamily="'IBM Plex Mono'">surface</text>
+                {/* Normal */}
+                <line x1="200" y1="30" x2="200" y2="210" stroke={G.ax} strokeWidth="1" strokeDasharray="4,3"/>
+                <text x="208" y="42" fill={G.txt} fontSize="10" fontFamily="'IBM Plex Mono'">normal</text>
+                {/* Incident ray */}
+                <line x1="80" y1="40" x2="200" y2="130" stroke={G.gold} strokeWidth="2.5"/>
+                <polygon points="185,119 200,130 191,115" fill={G.gold}/>
+                <text x="110" y="70" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'">incident</text>
+                {/* Reflected ray */}
+                <line x1="200" y1="130" x2="320" y2="40" stroke={G.blue} strokeWidth="2.5"/>
+                <polygon points="315,47 320,40 310,49" fill={G.blue}/>
+                <text x="280" y="70" fill={G.blue} fontSize="11" fontFamily="'IBM Plex Mono'">reflected</text>
+                {/* s-polarization: dots (into/out of page) on incident ray */}
+                <circle cx="130" cy="75" r="6" fill="none" stroke={G.red} strokeWidth="1.5"/>
+                <circle cx="130" cy="75" r="1.5" fill={G.red}/>
+                <text x="130" y="100" fill={G.red} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">s (horiz)</text>
+                {/* p-polarization: arrows in plane of incidence on incident ray */}
+                <line x1="150" y1="78" x2="142" y2="92" stroke={G.grn} strokeWidth="1.5"/>
+                <polygon points="141,88 142,92 146,89" fill={G.grn}/>
+                <text x="160" y="100" fill={G.grn} fontSize="10" textAnchor="start" fontFamily="'IBM Plex Mono'">p</text>
+                {/* Reflected: mostly s-polarized */}
+                <circle cx="270" cy="75" r="6" fill="none" stroke={G.red} strokeWidth="2.5"/>
+                <circle cx="270" cy="75" r="1.5" fill={G.red}/>
+                <text x="270" y="63" fill={G.red} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">mostly s</text>
+                {/* Theta label */}
+                <path d="M200,100 A30,30 0 0,0 178,118" fill="none" stroke={G.gold} strokeWidth="1"/>
+                <text x="175" y="102" fill={G.gold} fontSize="10" fontFamily="'IBM Plex Mono'">theta_B</text>
+              </svg>
+              <P>For water, <M>{"\\theta_B = \\arctan(1.33/1.00) \\approx 53^\\circ"}</M>. Much of the glare from roads and water hits your eyes at angles near <M>{"\\theta_B"}</M>, so the reflected light is strongly s-polarized (horizontal <M>{"\\vec{E}"}</M>).</P>
+              <P>Polarized sunglasses use a <b>vertical polarizer</b> (passes vertical <M>{"\\vec{E}"}</M>, blocks horizontal). This selectively suppresses the s-polarized glare while transmitting the directly-viewed (unpolarized) scene with only ~50% loss.</P>
+              <P style={{ opacity: 0.7, fontSize: 13 }}><b>Cross-references:</b> The <M>{"R_p = 0"}</M> condition at <M>{"\\theta_B"}</M> comes from the <b>Fresnel equations</b> and <b>Brewster's angle</b> sections on this tab. The Fresnel graph above shows exactly where <M>{"R_p"}</M> dips to zero.</P>
             </CollapsibleBlock>
           </HWQuestion>
 
@@ -1103,10 +1214,38 @@ const TOPICS = [
             <P>(a) Maximum angle a ray can make with the fiber axis while propagating via TIR?</P>
             <P>(b) Maximum acceptance angle at the fiber input face?</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> Critical angle: <M>{"\\theta_c = \\arcsin(n_2/n_1) = \\arcsin(1.4477/1.4510) = 86.13^\\circ"}</M></P>
-              <P>Max angle with fiber axis: <M>{"90^\\circ - 86.13^\\circ = 3.87^\\circ"}</M></P>
-              <P><b>(b)</b> By Snell's law at the air-core interface: <M>{"\\sin(\\theta_{in,max}) = (n_1/n_{air})\\sin(3.87^\\circ) = 1.451 \\times 0.0675 = 0.098"}</M></P>
-              <P><M>{"\\theta_{in,max} = 5.62^\\circ"}</M></P>
+              <P><b>(a) Critical angle and max propagation angle.</b> TIR occurs when the ray hits the core-cladding interface at an angle greater than the critical angle:</P>
+              <Eq>{"\\theta_c = \\arcsin\\!\\left(\\frac{n_2}{n_1}\\right) = \\arcsin\\!\\left(\\frac{1.4477}{1.4510}\\right) = 86.13^\\circ"}</Eq>
+              <P>This is measured from the interface normal. The complementary angle to the fiber axis is:</P>
+              <Eq>{"\\alpha_{\\max} = 90^\\circ - \\theta_c = 90^\\circ - 86.13^\\circ = 3.87^\\circ"}</Eq>
+              <svg viewBox="0 0 440 160" style={{width:'100%',maxWidth:440,display:'block',margin:'12px auto'}}>
+                {/* Cladding (outer rectangle) */}
+                <rect x="100" y="20" width="300" height="120" rx="3" fill="none" stroke={G.ax} strokeWidth="1.5"/>
+                <text x="250" y="16" fill={G.ax} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">cladding n2 = 1.4477</text>
+                {/* Core (inner rectangle) */}
+                <rect x="100" y="45" width="300" height="70" rx="2" fill="none" stroke={G.gold} strokeWidth="2"/>
+                <text x="250" y="153" fill={G.gold} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Mono'">core n1 = 1.4510</text>
+                {/* Ray bouncing inside core */}
+                <polyline points="60,80 130,50 230,110 330,50 400,80" fill="none" stroke={G.red} strokeWidth="2"/>
+                <polygon points="396,78 405,80 397,84" fill={G.red}/>
+                {/* Acceptance cone at input */}
+                <line x1="60" y1="55" x2="100" y2="80" stroke={G.blue} strokeWidth="1" strokeDasharray="4,3"/>
+                <line x1="60" y1="105" x2="100" y2="80" stroke={G.blue} strokeWidth="1" strokeDasharray="4,3"/>
+                <text x="45" y="82" fill={G.blue} fontSize="10" textAnchor="end" fontFamily="'IBM Plex Mono'">theta_in</text>
+                {/* Alpha angle label at first bounce */}
+                <line x1="130" y1="50" x2="130" y2="110" stroke={G.ax} strokeWidth="0.8" strokeDasharray="3,3"/>
+                <text x="148" y="68" fill={G.grn} fontSize="10" fontFamily="'IBM Plex Mono'">alpha</text>
+                {/* Axis line */}
+                <line x1="60" y1="80" x2="430" y2="80" stroke={G.ax} strokeWidth="0.8" strokeDasharray="2,4"/>
+                <text x="435" y="83" fill={G.ax} fontSize="9" fontFamily="'IBM Plex Mono'">axis</text>
+              </svg>
+              <P><b>(b) Acceptance angle (numerical aperture).</b> At the air-core input face, Snell's law relates the external acceptance angle to the internal propagation angle:</P>
+              <Eq>{"n_{air}\\sin\\theta_{in} = n_1 \\sin\\alpha_{\\max}"}</Eq>
+              <Eq>{"\\sin\\theta_{in,max} = n_1 \\sin(3.87^\\circ) = 1.4510 \\times 0.0675 = 0.098"}</Eq>
+              <Eq>{"\\theta_{in,max} = 5.62^\\circ"}</Eq>
+              <P>This defines the <b>numerical aperture</b>: <M>{"\\text{NA} = \\sin\\theta_{in,max} = \\sqrt{n_1^2 - n_2^2}"}</M>. Checking:</P>
+              <Eq>{"\\text{NA} = \\sqrt{1.4510^2 - 1.4477^2} = \\sqrt{2.1054 - 2.0958} = \\sqrt{0.00957} = 0.098"}</Eq>
+              <P style={{ opacity: 0.7, fontSize: 13 }}>The very small acceptance angle (5.62 deg) is typical of weakly-guiding fibers used in telecom. The wavelength 1550 nm is the minimum-loss window for silica fibers (~0.2 dB/km). <b>Cross-references:</b> TIR from the <b>Total Internal Reflection</b> section and Snell's law from the <b>Snell's Law</b> section, both on this tab. The interactive ray diagram above lets you explore TIR geometry.</P>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1115,11 +1254,90 @@ const TOPICS = [
   },
   {
     id: "graph-preview",
-    tab: "Graph Preview",
+    tab: "Key Variables/Equations/Graphs",
     title: "All Graphs",
     subtitle: "Screenshot this tab and send to the chatbot for visual review",
     content: (gp) => (
       <div className="lesson-body">
+        <Section title="Variable Reference">
+          <div style={{ columns: "2 280px", columnGap: 28, fontSize: 13, lineHeight: 1.9 }}>
+            <div style={{ breakInside: "avoid", marginBottom: 10 }}>
+              <P><b style={{ color: G.gold }}>Conduction</b></P>
+              <M>{"E_F,\\;E_{FO}"}</M> — Fermi energy (at <M>T</M>, at 0 K)<br/>
+              <M>{"v_F"}</M> — Fermi velocity (<M>{"\\sim 10^6"}</M> m/s for metals)<br/>
+              <M>{"\\tau"}</M> — mean free time between collisions<br/>
+              <M>{"l"}</M> — mean free path (<M>{"= v_F \\tau"}</M>)<br/>
+              <M>{"v_{dx}"}</M> — drift velocity<br/>
+              <M>{"\\mu"}</M> — electron mobility (m<M>{"^2"}</M>/V s)<br/>
+              <M>{"\\sigma"}</M> — conductivity; <M>{"\\rho = 1/\\sigma"}</M> — resistivity<br/>
+              <M>{"J_x"}</M> — current density<br/>
+              <M>{"n"}</M> — free electron concentration<br/>
+              <M>{"g(E)"}</M> — density of states; <M>{"f(E)"}</M> — Fermi-Dirac distribution<br/>
+              <M>{"m_e^*"}</M> — effective mass<br/>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 10 }}>
+              <P><b style={{ color: G.gold }}>Contacts and Seebeck</b></P>
+              <M>{"\\Phi"}</M> — work function (Fermi level to vacuum)<br/>
+              <M>{"\\Delta V"}</M> — contact potential = <M>{"(\\Phi_1 - \\Phi_2)/e"}</M><br/>
+              <M>{"S"}</M> — Seebeck coefficient (uV/K)<br/>
+              <M>{"V_{AB}"}</M> — thermocouple voltage<br/>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 10 }}>
+              <P><b style={{ color: G.gold }}>EM Waves</b></P>
+              <M>{"c_0"}</M> — speed of light in vacuum (<M>{"3 \\times 10^8"}</M> m/s)<br/>
+              <M>{"n"}</M> — refractive index; <M>{"c = c_0/n"}</M> — phase velocity<br/>
+              <M>{"\\varepsilon_r"}</M> — relative permittivity; <M>{"\\chi"}</M> — susceptibility<br/>
+              <M>{"\\vec{D}"}</M> — displacement; <M>{"\\vec{P}"}</M> — polarization<br/>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 10 }}>
+              <P><b style={{ color: G.gold }}>Optics</b></P>
+              <M>{"\\lambda"}</M> — wavelength<br/>
+              <M>{"B_i,\\;C_i"}</M> — Sellmeier coefficients<br/>
+              <M>{"v_g"}</M> — group velocity; <M>{"N_g"}</M> — group index<br/>
+              <M>{"\\theta_i,\\;\\theta_t"}</M> — incidence / refraction angle<br/>
+              <M>{"\\theta_B"}</M> — Brewster angle; <M>{"\\theta_c"}</M> — critical angle<br/>
+              <M>{"R_s,\\;R_p"}</M> — reflectance (s and p polarization)<br/>
+              <M>{"n_1,\\;n_2"}</M> — refractive indices of the two media<br/>
+            </div>
+          </div>
+        </Section>
+        <Section title="Key Equations">
+          <div style={{ columns: "2 300px", columnGap: 28 }}>
+            <div style={{ breakInside: "avoid", marginBottom: 6 }}>
+              <P><b>Mobility and conductivity</b></P>
+              <Eq>{"\\mu = \\frac{e\\tau}{m_e}, \\qquad \\sigma = \\frac{ne^2\\tau}{m_e} = ne\\mu"}</Eq>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 6 }}>
+              <P><b>Ohm's law (micro to macro)</b></P>
+              <Eq>{"J_x = \\sigma E_x, \\qquad R = \\frac{\\rho\\, L}{A}"}</Eq>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 6 }}>
+              <P><b>Fermi energy and velocity</b></P>
+              <Eq>{"E_{FO} = \\frac{h^2}{8m_e}\\!\\left(\\frac{3n}{\\pi}\\right)^{\\!2/3}\\!, \\quad v_F = \\sqrt{\\frac{2E_F}{m_e}}"}</Eq>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 6 }}>
+              <P><b>Thermocouple voltage</b></P>
+              <Eq>{"V_{AB} = \\int_{T_0}^{T}(S_A - S_B)\\,dT"}</Eq>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 6 }}>
+              <P><b>Refractive index</b></P>
+              <Eq>{"n = \\sqrt{\\varepsilon_r}, \\qquad c = \\frac{c_0}{n}"}</Eq>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 6 }}>
+              <P><b>Snell's law</b></P>
+              <Eq>{"n_1 \\sin\\theta_i = n_2 \\sin\\theta_t"}</Eq>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 6 }}>
+              <P><b>Fresnel equations</b></P>
+              <Eq>{"R_s = \\left(\\frac{n_1\\cos\\theta_i - n_2\\cos\\theta_t}{n_1\\cos\\theta_i + n_2\\cos\\theta_t}\\right)^{\\!2}"}</Eq>
+              <Eq>{"R_p = \\left(\\frac{n_2\\cos\\theta_i - n_1\\cos\\theta_t}{n_2\\cos\\theta_i + n_1\\cos\\theta_t}\\right)^{\\!2}"}</Eq>
+            </div>
+            <div style={{ breakInside: "avoid", marginBottom: 6 }}>
+              <P><b>Brewster and critical angles</b></P>
+              <Eq>{"\\tan\\theta_B = \\frac{n_2}{n_1}, \\qquad \\theta_c = \\arcsin\\!\\left(\\frac{n_2}{n_1}\\right)"}</Eq>
+            </div>
+          </div>
+        </Section>
         <Section title="1. Fermi Sphere Momentum Shift">
           <MomentumShiftDiagram mid="p0" />
         </Section>

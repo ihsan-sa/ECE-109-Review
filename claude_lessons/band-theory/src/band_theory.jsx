@@ -1164,18 +1164,75 @@ const TOPICS = [
           <HWQuestion hw="HW3" number="7" title="Temperature dependence of Fermi energy" points="20 pts">
             <P>Cu: <M>{"E_{FO} = 7.0"}</M> eV. (a) Calculate <M>{"E_F"}</M> at 300 K and percentage change. (b) Average energy and mean speed at 0 K and 300 K.</P>
             <CollapsibleBlock title="Solution">
-              <P><b>(a)</b> <M>{"E_F(300) = 7.0[1 - (\\pi^2/12)(0.0259/7.0)^2] = 6.993"}</M> eV. Change: -0.0011% (negligible because <M>{"k_BT \\ll E_{FO}"}</M>).</P>
-              <P><b>(b)</b> At 0 K: <M>{"\\langle E \\rangle_0 = (3/5)E_{FO} = 4.2"}</M> eV. <M>{"\\langle v \\rangle_0 = \\sqrt{2 \\langle E \\rangle/m_e} = 1.215 \\times 10^6"}</M> m/s.</P>
-              <P>At 300 K: <M>{"\\langle E \\rangle = (3/5)E_{FO}[1 + (5\\pi^2/12)(k_BT/E_{FO})^2] = 4.200"}</M> eV. Speed barely changes (<M>{"1.2154 \\times 10^6"}</M> m/s).</P>
+              <P><b>(a) Fermi energy at 300 K</b></P>
+              <P>Apply the temperature-dependent Fermi energy formula (see <b>Fermi-Dirac</b> tab):</P>
+              <Eq>{"E_F(T) = E_{FO}\\left[1 - \\frac{\\pi^2}{12}\\left(\\frac{k_BT}{E_{FO}}\\right)^2\\right]"}</Eq>
+              <P>At <M>{"T = 300"}</M> K, the thermal energy is <M>{"k_BT = (8.617 \\times 10^{-5}\\text{ eV/K})(300\\text{ K}) = 0.02585"}</M> eV. The critical ratio:</P>
+              <Eq>{"\\frac{k_BT}{E_{FO}} = \\frac{0.02585}{7.0} = 3.69 \\times 10^{-3}"}</Eq>
+              <P>Substituting:</P>
+              <Eq>{"E_F(300) = 7.0\\left[1 - \\frac{\\pi^2}{12}(3.69 \\times 10^{-3})^2\\right] = 7.0\\left[1 - 1.12 \\times 10^{-5}\\right] = 6.9999 \\text{ eV}"}</Eq>
+              <P>Percentage change: <M>{"\\Delta E_F / E_{FO} = -1.12 \\times 10^{-3}\\% \\approx -0.0011\\%"}</M> (negligible).</P>
+              <svg viewBox="0 0 450 108" style={{width:"100%",maxWidth:450,display:"block",margin:"14px auto"}}>
+                <text x="225" y="14" textAnchor="middle" fill="#6b7084" fontSize="11" fontFamily="'IBM Plex Mono', monospace">Energy Scale Comparison at T = 300 K</text>
+                <text x="48" y="44" textAnchor="end" fill="#c8a45a" fontSize="11" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">E_FO</text>
+                <rect x="52" y="30" width="340" height="22" rx="3" fill="#c8a45a" fillOpacity="0.2" stroke="#c8a45a" strokeWidth="1"/>
+                <text x="222" y="45" textAnchor="middle" fill="#c8a45a" fontSize="12" fontFamily="'IBM Plex Mono', monospace">7.0 eV</text>
+                <text x="48" y="78" textAnchor="end" fill="#4a90d9" fontSize="11" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">k_BT</text>
+                <rect x="52" y="64" width="1.3" height="22" rx="0.5" fill="#4a90d9" fillOpacity="0.5" stroke="#4a90d9" strokeWidth="1.5"/>
+                <line x1="55" y1="66" x2="88" y2="56" stroke="#4a90d9" strokeWidth="0.5" strokeDasharray="2 2"/>
+                <text x="92" y="60" fill="#4a90d9" fontSize="9" fontFamily="'IBM Plex Mono', monospace">0.026 eV (to scale)</text>
+                <text x="225" y="100" textAnchor="middle" fill="#6b7084" fontSize="10" fontFamily="'IBM Plex Mono', monospace">Ratio 270:1 -- correction squared makes it negligible</text>
+              </svg>
+              <KeyConcept label="Why is the change negligible?">
+                The correction scales as <M>{"(k_BT/E_{FO})^2 \\approx 10^{-5}"}</M>. Thermal energy at 300 K (0.026 eV) is dwarfed by the Fermi energy (7 eV), so the Fermi level is essentially pinned at <M>{"E_{FO}"}</M>. This is characteristic of a <b>degenerate Fermi gas</b>, where quantum statistics dominate over thermal effects.
+              </KeyConcept>
+              <P><b>(b) Average energy and mean speed</b></P>
+              <P><b>At T = 0 K:</b> The average energy per electron (see <b>Fermi-Dirac</b> tab):</P>
+              <Eq>{"\\langle E \\rangle_0 = \\frac{3}{5}E_{FO} = \\frac{3}{5}(7.0) = 4.2 \\text{ eV}"}</Eq>
+              <P>Converting to Joules: <M>{"4.2 \\times 1.602 \\times 10^{-19} = 6.73 \\times 10^{-19}"}</M> J. The mean speed from <M>{"\\tfrac{1}{2}m_e v^2 = \\langle E \\rangle"}</M>:</P>
+              <Eq>{"v_0 = \\sqrt{\\frac{2\\langle E \\rangle}{m_e}} = \\sqrt{\\frac{2(6.73 \\times 10^{-19})}{9.109 \\times 10^{-31}}} = 1.215 \\times 10^6 \\text{ m/s}"}</Eq>
+              <P><b>At T = 300 K:</b> The average energy with temperature correction:</P>
+              <Eq>{"\\langle E \\rangle = \\frac{3}{5}E_{FO}\\left[1 + \\frac{5\\pi^2}{12}\\left(\\frac{k_BT}{E_{FO}}\\right)^2\\right] = 4.2\\left[1 + 5.62 \\times 10^{-5}\\right] = 4.2002 \\text{ eV}"}</Eq>
+              <P>Speed: <M>{"v_{300} = 1.2154 \\times 10^6"}</M> m/s, barely changed. The thermal correction to both energy and speed is parts per million.</P>
+              <KeyConcept label="Connection: Density of States">
+                The factor <M>{"3/5"}</M> in <M>{"\\langle E \\rangle = \\tfrac{3}{5}E_{FO}"}</M> arises from integrating energy weighted by <M>{"g(E) \\propto E^{1/2}"}</M> with the T = 0 step-function Fermi-Dirac distribution (see <b>Density of States</b> tab). The <M>{"E^{1/2}"}</M> weighting pushes the average above the naive midpoint <M>{"E_F/2"}</M>.
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
 
           <HWQuestion hw="HW3" number="8" title="Conduction electrons in copper" points="20 pts">
             <P><M>{"E_F = 7.0"}</M> eV, drift mobility <M>{"\\mu = 33"}</M> cm<M>{"^2"}</M> V<M>{"^{-1}"}</M> s<M>{"^{-1}"}</M>. Find <M>{"v_F"}</M>, compare to thermal velocity, explain why <M>{"v_F \\gg v_{thermal}"}</M>.</P>
             <CollapsibleBlock title="Solution">
-              <P><M>{"v_F = \\sqrt{2E_F/m_e} = \\sqrt{2 \\times 7.0 \\times 1.6 \\times 10^{-19}/9.109 \\times 10^{-31}} = 1.57 \\times 10^6"}</M> m/s</P>
-              <P>Thermal velocity (classical): <M>{"v_{th} = \\sqrt{2k_BT/m_e} = 9.5 \\times 10^4"}</M> m/s (or <M>{"v_{rms} = \\sqrt{3k_BT/m_e} = 1.17 \\times 10^5"}</M> m/s)</P>
-              <P><M>{"v_F/v_{th} \\approx 13{-}17"}</M>. <M>{"v_F \\gg v_{thermal}"}</M> because conduction electrons form a degenerate Fermi gas: they fill states up to <M>{"E_F = 7"}</M> eV, which is much greater than <M>{"k_BT = 0.026"}</M> eV at 300 K.</P>
+              <P><b>Fermi velocity:</b> Electrons at the Fermi level have kinetic energy <M>{"E_F"}</M>, so <M>{"\\tfrac{1}{2}m_e v_F^2 = E_F"}</M>:</P>
+              <Eq>{"v_F = \\sqrt{\\frac{2E_F}{m_e}} = \\sqrt{\\frac{2(7.0)(1.602 \\times 10^{-19})}{9.109 \\times 10^{-31}}} = 1.57 \\times 10^6 \\text{ m/s}"}</Eq>
+              <P><b>Classical thermal velocity</b> from the equipartition theorem (<M>{"\\tfrac{1}{2}m_e v^2 = k_BT"}</M> per degree of freedom, <M>{"\\tfrac{3}{2}k_BT"}</M> for 3D RMS):</P>
+              <Eq>{"v_{th} = \\sqrt{\\frac{2k_BT}{m_e}} = \\sqrt{\\frac{2(0.02585)(1.602 \\times 10^{-19})}{9.109 \\times 10^{-31}}} = 9.54 \\times 10^4 \\text{ m/s}"}</Eq>
+              <Eq>{"v_{rms} = \\sqrt{\\frac{3k_BT}{m_e}} = 1.17 \\times 10^5 \\text{ m/s}"}</Eq>
+              <P><b>Ratio:</b> <M>{"v_F / v_{th} \\approx 16.5"}</M>, or <M>{"v_F / v_{rms} \\approx 13.4"}</M>.</P>
+              <P><b>Drift velocity:</b> The given mobility <M>{"\\mu = 33"}</M> cm<M>{"^2"}</M>/(V s) yields <M>{"v_d = \\mu \\mathcal{E}"}</M>. For a typical field of ~1 V/m, <M>{"v_d \\approx 3.3 \\times 10^{-3}"}</M> m/s, negligible compared to both <M>{"v_{th}"}</M> and <M>{"v_F"}</M>. Drift velocity and conductivity are covered in the <b>Conduction & Optics</b> lesson.</P>
+              <svg viewBox="0 0 450 118" style={{width:"100%",maxWidth:450,display:"block",margin:"14px auto"}}>
+                <text x="225" y="14" textAnchor="middle" fill="#6b7084" fontSize="11" fontFamily="'IBM Plex Mono', monospace">Velocity Scales in Cu at 300 K (linear scale)</text>
+                <text x="55" y="38" textAnchor="end" fill="#69b578" fontSize="10" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">v_drift</text>
+                <rect x="60" y="28" width="1.5" height="14" fill="#69b578" fillOpacity="0.8"/>
+                <text x="68" y="38" fill="#69b578" fontSize="9" fontFamily="'IBM Plex Mono', monospace">~10⁻³ m/s (invisible at this scale)</text>
+                <text x="55" y="58" textAnchor="end" fill="#4a90d9" fontSize="10" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">v_rms</text>
+                <rect x="60" y="48" width="25" height="14" rx="2" fill="#4a90d9" fillOpacity="0.2" stroke="#4a90d9" strokeWidth="0.5"/>
+                <text x="90" y="58" fill="#4a90d9" fontSize="9" fontFamily="'IBM Plex Mono', monospace">1.17 x 10⁵ m/s</text>
+                <text x="55" y="78" textAnchor="end" fill="#c8a45a" fontSize="10" fontFamily="'IBM Plex Mono', monospace" fontWeight="600">v_F</text>
+                <rect x="60" y="68" width="340" height="14" rx="2" fill="#c8a45a" fillOpacity="0.2" stroke="#c8a45a" strokeWidth="0.5"/>
+                <text x="68" y="78" fill="#c8a45a" fontSize="9" fontFamily="'IBM Plex Mono', monospace">1.57 x 10⁶ m/s</text>
+                <text x="225" y="100" textAnchor="middle" fill="#6b7084" fontSize="9" fontFamily="'IBM Plex Mono', monospace">v_F is ~13x v_rms, ~10⁹x drift</text>
+                <text x="225" y="112" textAnchor="middle" fill="#e06c75" fontSize="9" fontFamily="'IBM Plex Mono', monospace">Pauli exclusion forces electrons to high-energy states far above kT</text>
+              </svg>
+              <KeyConcept label="Why v_F >> v_thermal: Degenerate Fermi Gas">
+                Classical particles in thermal equilibrium have mean energy <M>{"\\sim k_BT"}</M>. But electrons are fermions: the Pauli exclusion principle forces them to stack into progressively higher energy states up to <M>{"E_F"}</M>. Since <M>{"E_F = 7"}</M> eV <M>{"\\gg k_BT = 0.026"}</M> eV at 300 K, electrons near the Fermi surface move far faster than classical thermal velocity. This is the <b>degenerate Fermi gas</b> regime.
+              </KeyConcept>
+              <KeyConcept label="Connection: Effective Mass (Tab 4)">
+                This solution uses free electron mass <M>{"m_e"}</M>. In Cu, the effective mass is <M>{"m_e^* = 1.3\\,m_e"}</M> (Table 4.2, <b>Effective Mass</b> tab). Using <M>{"m_e^*"}</M> reduces <M>{"v_F"}</M> by <M>{"1/\\sqrt{1.3} \\approx 0.88"}</M>, but <M>{"v_F \\gg v_{th}"}</M> still holds.
+              </KeyConcept>
+              <KeyConcept label="Connection: Band Diagrams (Tab 2)">
+                This applies to <b>metals</b> with partially filled conduction bands. In a <b>semiconductor</b> at T = 0, the CB is empty, so there is no Fermi velocity. Carriers appear only through excitation across the band gap <M>{"E_g"}</M> (see <b>Semiconductors</b> tab).
+              </KeyConcept>
             </CollapsibleBlock>
           </HWQuestion>
         </Section>
@@ -1184,11 +1241,72 @@ const TOPICS = [
   },
   {
     id: "graph-preview",
-    tab: "Graph Preview",
+    tab: "Key Variables/Equations/Graphs",
     title: "All Graphs",
     subtitle: "Screenshot this tab and send to the chatbot for visual review",
     content: (gp) => (
       <div className="lesson-body">
+        <Section title="Variable Glossary">
+          <div className="data-table" style={{ fontSize: 13 }}>
+            <table>
+              <thead>
+                <tr><th>Symbol</th><th>Name</th><th>Meaning</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><M>{"E_c"}</M></td><td>CB edge</td><td>Bottom of conduction band</td></tr>
+                <tr><td><M>{"E_v"}</M></td><td>VB edge</td><td>Top of valence band</td></tr>
+                <tr><td><M>{"E_g"}</M></td><td>Band gap</td><td><M>{"E_c - E_v"}</M>; energy gap between bands</td></tr>
+                <tr><td><M>{"E_F"}</M></td><td>Fermi energy</td><td>Energy where <M>{"f(E) = \\tfrac{1}{2}"}</M></td></tr>
+                <tr><td><M>{"E_{FO}"}</M></td><td>Fermi energy at 0 K</td><td>Fermi energy at absolute zero; depends on <M>{"n"}</M></td></tr>
+                <tr><td><M>{"k"}</M></td><td>Crystal wavevector</td><td>Related to crystal momentum <M>{"p = \\hbar k"}</M></td></tr>
+                <tr><td><M>{"m_e"}</M></td><td>Free electron mass</td><td><M>{"9.109 \\times 10^{-31}"}</M> kg</td></tr>
+                <tr><td><M>{"m_e^*"}</M></td><td>Effective mass</td><td>Apparent mass in a crystal lattice; from E-k curvature</td></tr>
+                <tr><td><M>{"f(E)"}</M></td><td>Fermi-Dirac dist.</td><td>Probability a state at energy <M>{"E"}</M> is occupied</td></tr>
+                <tr><td><M>{"g(E)"}</M></td><td>Density of states</td><td>Number of states per unit volume per unit energy</td></tr>
+                <tr><td><M>{"n"}</M></td><td>Electron concentration</td><td>Free electrons per unit volume</td></tr>
+                <tr><td><M>{"\\Phi"}</M></td><td>Work function</td><td>Min photon energy for photoemission from a metal</td></tr>
+                <tr><td><M>{"\\chi"}</M></td><td>Electron affinity</td><td>Energy from CB bottom to vacuum level (semiconductors)</td></tr>
+                <tr><td><M>{"k_B"}</M></td><td>Boltzmann constant</td><td><M>{"8.617 \\times 10^{-5}"}</M> eV/K = <M>{"1.381 \\times 10^{-23}"}</M> J/K</td></tr>
+                <tr><td><M>{"h,\\,\\hbar"}</M></td><td>Planck's constant</td><td><M>{"\\hbar = h/(2\\pi)"}</M></td></tr>
+                <tr><td><M>{"\\psi_\\sigma,\\,\\psi_{\\sigma^*}"}</M></td><td>Molecular orbitals</td><td>Bonding (symmetric) and antibonding (antisymmetric)</td></tr>
+                <tr><td><M>{"N"}</M></td><td>Number of atoms</td><td><M>{"N"}</M> atoms produce <M>{"N"}</M> levels per orbital, <M>{"2N"}</M> states with spin</td></tr>
+                <tr><td><M>{"L"}</M></td><td>Well size</td><td>Side length of cubic potential well (DOS derivation)</td></tr>
+                <tr><td><M>{"n_1, n_2, n_3"}</M></td><td>Quantum numbers</td><td>Positive integers labeling states in the cubic well</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        <Section title="Key Equations">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 12 }}>
+            <KeyConcept label="Band Gap">
+              <Eq>{"E_g = E_c - E_v"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="E-k Dispersion">
+              <Eq>{"E = \\frac{\\hbar^2 k^2}{2m_e^*}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Effective Mass (from curvature)">
+              <Eq>{"\\frac{1}{m_e^*} = \\frac{1}{\\hbar^2}\\frac{d^2 E}{dk^2}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Density of States">
+              <Eq>{"g(E) = 8\\pi\\sqrt{2}\\left(\\frac{m_e}{h^2}\\right)^{3/2} E^{1/2}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Fermi-Dirac Distribution">
+              <Eq>{"f(E) = \\frac{1}{1 + \\exp\\!\\left(\\dfrac{E - E_F}{k_B T}\\right)}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Fermi Energy at T = 0">
+              <Eq>{"E_{FO} = \\frac{h^2}{8m_e}\\left(\\frac{3n}{\\pi}\\right)^{2/3}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Average Energy at T = 0">
+              <Eq>{"\\bar{E} = \\frac{3}{5}\\,E_{FO}"}</Eq>
+            </KeyConcept>
+            <KeyConcept label="Photoemission">
+              <P>Metal: <M>{"hf > \\Phi"}</M></P>
+              <P>Semiconductor: <M>{"hf > E_g + \\chi"}</M></P>
+            </KeyConcept>
+          </div>
+        </Section>
+
         <Section title="1. E-k Parabolic Dispersion">
           <EkParabola params={gp.ekParabola} mid="-gp1" />
         </Section>
