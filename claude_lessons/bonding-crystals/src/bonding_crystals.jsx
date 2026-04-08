@@ -942,9 +942,9 @@ const TOPICS = [
           </figure>
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", marginTop: 16 }}>
             {[
-              { src: "/images/wiki-sc.svg", label: "SC", alt: "Simple cubic ball-and-stick schematic with lattice parameter a labeled" },
-              { src: "/images/wiki-bcc.svg", label: "BCC", alt: "BCC ball-and-stick schematic with lattice parameter a labeled" },
-              { src: "/images/wiki-fcc.svg", label: "FCC", alt: "FCC ball-and-stick schematic with lattice parameter a labeled" },
+              { src: IMG + "wiki-sc.svg", label: "SC", alt: "Simple cubic ball-and-stick schematic with lattice parameter a labeled" },
+              { src: IMG + "wiki-bcc.svg", label: "BCC", alt: "BCC ball-and-stick schematic with lattice parameter a labeled" },
+              { src: IMG + "wiki-fcc.svg", label: "FCC", alt: "FCC ball-and-stick schematic with lattice parameter a labeled" },
             ].map(({ src, label, alt }) => (
               <figure key={label} style={{ textAlign: "center", flex: "1 1 140px", maxWidth: 200 }}>
                 <img src={src} alt={alt} style={{ width: "100%", borderRadius: 6, background: "white", padding: 8 }} />
