@@ -856,6 +856,43 @@ const TOPICS = [
       <div className="lesson-body">
         <Section title="Crystalline vs. Amorphous">
           <P><b>Crystalline</b> materials have long-range periodic order: atoms arranged in a repeating 3D pattern. <b>Amorphous</b> materials (glasses) have only short-range order with no long-range periodicity.</P>
+          <svg viewBox="0 0 460 190" style={{width:"100%",maxWidth:460,display:"block",margin:"12px auto"}}>
+            <text x="115" y="16" fill={G.txt} fontSize="13" textAnchor="middle" fontFamily="IBM Plex Sans">Crystalline</text>
+            {/* Crystalline grid */}
+            <g fill={G.blue}>
+              {[0,1,2,3,4].map(col => [0,1,2,3].map(row =>
+                <circle key={`c-${col}-${row}`} cx={40+col*40} cy={40+row*40} r={6} />
+              ))}
+            </g>
+            <g stroke={G.blue} strokeOpacity={0.3} strokeWidth={1}>
+              {[0,1,2,3,4].map(col => [0,1,2].map(row =>
+                <line key={`cv-${col}-${row}`} x1={40+col*40} y1={40+row*40} x2={40+col*40} y2={80+row*40} />
+              ))}
+              {[0,1,2,3].map(col => [0,1,2,3].map(row =>
+                <line key={`ch-${col}-${row}`} x1={40+col*40} y1={40+row*40} x2={80+col*40} y2={40+row*40} />
+              ))}
+            </g>
+            <defs><marker id="crys-arr" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><path d="M0,0 L6,2 L0,4" fill={G.gold}/></marker></defs>
+            <line x1="40" y1="182" x2="200" y2="182" stroke={G.gold} strokeWidth={1.5} markerEnd="url(#crys-arr)"/>
+            <text x="120" y="188" fill={G.gold} fontSize="9" textAnchor="middle" dy="6">repeats forever</text>
+            {/* Amorphous side */}
+            <text x="350" y="16" fill={G.txt} fontSize="13" textAnchor="middle" fontFamily="IBM Plex Sans">Amorphous</text>
+            {[[270,45],[310,38],[355,50],[400,42],[435,55],
+              [260,85],[300,78],[340,90],[385,82],[425,95],
+              [275,125],[315,118],[358,130],[395,122],[440,132],
+              [265,158],[305,165],[350,155],[390,162],[430,150]].map(([cx,cy],i) =>
+              <circle key={`a-${i}`} cx={cx} cy={cy} r={6} fill={G.red} />
+            )}
+            <g stroke={G.red} strokeOpacity={0.3} strokeWidth={1}>
+              {[[270,45,310,38],[310,38,355,50],[355,50,400,42],[400,42,435,55],
+                [260,85,300,78],[300,78,340,90],[340,90,385,82],[385,82,425,95],
+                [270,45,260,85],[310,38,300,78],[355,50,340,90],[400,42,385,82],
+                [260,85,275,125],[300,78,315,118],[340,90,358,130],[385,82,395,122],
+                [275,125,265,158],[315,118,305,165],[358,130,350,155],[395,122,390,162]].map(([x1,y1,x2,y2],i) =>
+                <line key={`ab-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} />
+              )}
+            </g>
+          </svg>
           <KeyConcept label="Crystal = Lattice + Basis">
             A crystal structure is described by a mathematical lattice (set of periodically arranged points) plus a basis (group of atoms associated with each lattice point). The lattice defines the periodicity; the basis defines what is repeated.
           </KeyConcept>
@@ -1627,7 +1664,7 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     const deHtml = (tex) => tex.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
     // Render display math FIRST (before merge step, which can corrupt $$)
     s = s.replace(/\$\$(.+?)\$\$/gs, (_, tex) => {
-      try { return '<div class="chat-eq-block">' + window.katex.renderToString(deHtml(tex).trim(), { displayMode: true, throwOnError: false }) + '</div>'; }
+      try { return '<div class="chat-eq-block">' + window.katex.renderToString(deHtml(tex).trim(), { displayMode: true, throwOnError: false }).replace(/\n/g, '') + '</div>'; }
       catch (e) { return `<div class="chat-eq-block"><code>${tex}</code></div>`; }
     });
     // Merge adjacent inline math separated by operators: $a$ > $b$ → $a > b$
@@ -1642,7 +1679,7 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     } while (s !== _prev);
     // Render inline math
     s = s.replace(/\$(.+?)\$/g, (_, tex) => {
-      try { return window.katex.renderToString(deHtml(tex).trim(), { displayMode: false, throwOnError: false }); }
+      try { return window.katex.renderToString(deHtml(tex).trim(), { displayMode: false, throwOnError: false }).replace(/\n/g, ''); }
       catch (e) { return `<code>${tex}</code>`; }
     });
     s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');

@@ -2413,7 +2413,7 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     const deHtml = (tex) => tex.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
     // Render display math FIRST (before merge step, which can corrupt $$)
     s = s.replace(/\$\$(.+?)\$\$/gs, (_, tex) => {
-      try { return '<div class="chat-eq-block">' + window.katex.renderToString(deHtml(tex).trim(), { displayMode: true, throwOnError: false }) + '</div>'; }
+      try { return '<div class="chat-eq-block">' + window.katex.renderToString(deHtml(tex).trim(), { displayMode: true, throwOnError: false }).replace(/\n/g, '') + '</div>'; }
       catch (e) { return `<div class="chat-eq-block"><code>${tex}</code></div>`; }
     });
     // Merge adjacent inline math separated by operators: $a$ > $b$ → $a > b$
@@ -2428,7 +2428,7 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     } while (s !== _prev);
     // Render inline math
     s = s.replace(/\$(.+?)\$/g, (_, tex) => {
-      try { return window.katex.renderToString(deHtml(tex).trim(), { displayMode: false, throwOnError: false }); }
+      try { return window.katex.renderToString(deHtml(tex).trim(), { displayMode: false, throwOnError: false }).replace(/\n/g, ''); }
       catch (e) { return `<code>${tex}</code>`; }
     });
     s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');

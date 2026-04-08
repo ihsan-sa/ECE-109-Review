@@ -599,20 +599,118 @@ function BandFormationAnimation({ mid = "" }) {
   );
 }
 
+function SiBandFormation({ mid = "" }) {
+  const w = 720, h = 430;
+  return (
+    <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
+      <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Silicon band formation: atomic levels to crystal bands, gap reduces from ~7 eV to 1.1 eV</title>
+
+        {/* Energy axis */}
+        <line x1="30" y1="395" x2="30" y2="55" stroke={G.ax} strokeWidth="1.5" />
+        <polygon points="30,50 26,60 34,60" fill={G.ax} />
+        <text x="17" y="48" fill={G.txt} fontSize="12" fontFamily="'IBM Plex Sans',sans-serif">E</text>
+
+        {/* Column headers */}
+        <text x="145" y="30" fill={G.txt} fontSize="13" textAnchor="middle" fontWeight="bold" fontFamily="'IBM Plex Sans',sans-serif">1 Si Atom</text>
+        <text x="365" y="30" fill={G.txt} fontSize="13" textAnchor="middle" fontWeight="bold" fontFamily="'IBM Plex Sans',sans-serif">N Atoms (small N)</text>
+        <text x="590" y="30" fill={G.txt} fontSize="13" textAnchor="middle" fontWeight="bold" fontFamily="'IBM Plex Sans',sans-serif">Si Crystal</text>
+
+        {/* Dividers */}
+        <line x1="248" y1="42" x2="248" y2="395" stroke={G.ax} strokeWidth="0.5" strokeDasharray="4" />
+        <line x1="482" y1="42" x2="482" y2="395" stroke={G.ax} strokeWidth="0.5" strokeDasharray="4" />
+
+        {/* Column 1: 1 Atom */}
+        <line x1="88" y1="120" x2="198" y2="120" stroke={G.blue} strokeWidth="2.5" />
+        <text x="205" y="117" fill={G.blue} fontSize="11" fontFamily="'IBM Plex Sans',sans-serif">3p</text>
+        <text x="205" y="131" fill={G.ax} fontSize="9" fontFamily="'IBM Plex Sans',sans-serif">{"6 states, 2e\u207B"}</text>
+        <circle cx="123" cy="115" r="3" fill={G.red} />
+        <circle cx="135" cy="115" r="3" fill={G.red} />
+
+        <line x1="88" y1="295" x2="198" y2="295" stroke={G.blue} strokeWidth="2.5" />
+        <text x="205" y="292" fill={G.blue} fontSize="11" fontFamily="'IBM Plex Sans',sans-serif">3s</text>
+        <text x="205" y="306" fill={G.ax} fontSize="9" fontFamily="'IBM Plex Sans',sans-serif">{"2 states, 2e\u207B"}</text>
+        <circle cx="123" cy="290" r="3" fill={G.red} />
+        <circle cx="135" cy="290" r="3" fill={G.red} />
+
+        {/* Gap bracket ~7 eV */}
+        <line x1="70" y1="125" x2="70" y2="290" stroke={G.gold} strokeWidth="1.5" />
+        <line x1="65" y1="125" x2="75" y2="125" stroke={G.gold} strokeWidth="1.5" />
+        <line x1="65" y1="290" x2="75" y2="290" stroke={G.gold} strokeWidth="1.5" />
+        <text x="62" y="212" fill={G.gold} fontSize="12" textAnchor="end" fontWeight="bold" fontFamily="'IBM Plex Sans',sans-serif">~7 eV</text>
+
+        {/* Column 2: Small N */}
+        <rect x="306" y="100" width="118" height="42" fill={G.blue} opacity="0.08" rx="3" />
+        {[102, 111, 120, 129, 138].map(y => (
+          <line key={`3p-${y}`} x1="310" y1={y} x2="420" y2={y} stroke={G.blue} strokeWidth="1.2" />
+        ))}
+        <text x="428" y="118" fill={G.blue} fontSize="10" fontFamily="'IBM Plex Sans',sans-serif">from 3p</text>
+        <text x="428" y="131" fill={G.ax} fontSize="9" fontFamily="'IBM Plex Sans',sans-serif">N levels</text>
+
+        <rect x="306" y="275" width="118" height="42" fill={G.blue} opacity="0.08" rx="3" />
+        {[277, 286, 295, 304, 313].map(y => (
+          <line key={`3s-${y}`} x1="310" y1={y} x2="420" y2={y} stroke={G.blue} strokeWidth="1.2" />
+        ))}
+        <text x="428" y="293" fill={G.blue} fontSize="10" fontFamily="'IBM Plex Sans',sans-serif">from 3s</text>
+        <text x="428" y="306" fill={G.ax} fontSize="9" fontFamily="'IBM Plex Sans',sans-serif">N levels</text>
+
+        {/* Gap bracket: narrows */}
+        <line x1="290" y1="143" x2="290" y2="272" stroke={G.gold} strokeWidth="1.5" />
+        <line x1="285" y1="143" x2="295" y2="143" stroke={G.gold} strokeWidth="1.5" />
+        <line x1="285" y1="272" x2="295" y2="272" stroke={G.gold} strokeWidth="1.5" />
+        <text x="282" y="205" fill={G.gold} fontSize="11" textAnchor="end" fontFamily="'IBM Plex Sans',sans-serif">gap</text>
+        <text x="282" y="218" fill={G.gold} fontSize="11" textAnchor="end" fontFamily="'IBM Plex Sans',sans-serif">narrows</text>
+
+        {/* Column 3: Crystal */}
+        <rect x="520" y="85" width="130" height="90" fill={G.blue} opacity="0.12" rx="4" stroke={G.blue} strokeWidth="1.5" />
+        <text x="585" y="125" fill={G.blue} fontSize="12" textAnchor="middle" fontWeight="bold" fontFamily="'IBM Plex Sans',sans-serif">CB</text>
+        <text x="585" y="140" fill={G.ax} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Sans',sans-serif">4N states (empty)</text>
+
+        <rect x="520" y="202" width="130" height="168" fill={G.blue} opacity="0.25" rx="4" stroke={G.blue} strokeWidth="1.5" />
+        <text x="585" y="280" fill={G.blue} fontSize="12" textAnchor="middle" fontWeight="bold" fontFamily="'IBM Plex Sans',sans-serif">VB</text>
+        <text x="585" y="295" fill={G.ax} fontSize="9" textAnchor="middle" fontFamily="'IBM Plex Sans',sans-serif">4N states (full)</text>
+
+        {/* Ec, Ev */}
+        <line x1="520" y1="175" x2="660" y2="175" stroke={G.grn} strokeWidth="1" strokeDasharray="4,3" />
+        <text x="667" y="179" fill={G.grn} fontSize="10" fontFamily="'IBM Plex Mono',monospace">Ec</text>
+        <line x1="520" y1="202" x2="660" y2="202" stroke={G.grn} strokeWidth="1" strokeDasharray="4,3" />
+        <text x="667" y="206" fill={G.grn} fontSize="10" fontFamily="'IBM Plex Mono',monospace">Ev</text>
+
+        {/* Band gap bracket: 1.1 eV */}
+        <line x1="505" y1="178" x2="505" y2="199" stroke={G.gold} strokeWidth="2" />
+        <line x1="500" y1="178" x2="510" y2="178" stroke={G.gold} strokeWidth="2" />
+        <line x1="500" y1="199" x2="510" y2="199" stroke={G.gold} strokeWidth="2" />
+        <text x="497" y="193" fill={G.gold} fontSize="12" textAnchor="end" fontWeight="bold" fontFamily="'IBM Plex Sans',sans-serif">1.1 eV</text>
+
+        {/* Connecting dashed lines */}
+        <line x1="198" y1="120" x2="306" y2="120" stroke={G.blue} strokeWidth="0.7" strokeDasharray="3" opacity="0.35" />
+        <line x1="198" y1="295" x2="306" y2="295" stroke={G.blue} strokeWidth="0.7" strokeDasharray="3" opacity="0.35" />
+        <line x1="424" y1="105" x2="520" y2="110" stroke={G.blue} strokeWidth="0.7" strokeDasharray="3" opacity="0.35" />
+        <line x1="424" y1="135" x2="520" y2="220" stroke={G.red} strokeWidth="0.8" strokeDasharray="3" opacity="0.45" />
+        <line x1="424" y1="280" x2="520" y2="270" stroke={G.blue} strokeWidth="0.7" strokeDasharray="3" opacity="0.35" />
+        <line x1="424" y1="310" x2="520" y2="360" stroke={G.blue} strokeWidth="0.7" strokeDasharray="3" opacity="0.35" />
+
+        {/* Annotations */}
+        <text x="590" y="393" fill={G.txt} fontSize="10" textAnchor="middle" fontFamily="'IBM Plex Sans',sans-serif">{"3s + 3p bands overlap and rehybridize (sp\u00B3)"}</text>
+        <text x="365" y="422" fill={G.gold} fontSize="11" textAnchor="middle" fontWeight="bold" fontFamily="'IBM Plex Sans',sans-serif">{"Gap: ~7 eV (atom)  \u2192  1.1 eV (crystal)"}</text>
+      </svg>
+    </div>
+  );
+}
+
 function ElectronPopulationAnimation({ mid = "" }) {
   const [temperature, setTemperature] = useState(0);
   const [playing, setPlaying] = useState(false);
   const animFrameRef = useRef(null);
   const tempRef = useRef(temperature);
-  const w = 500, h = 350;
+  const w = 540, h = 350;
 
   const EF = 5.0;
   const kB = 8.617e-5;
-  const nDots = 36;
   const eMax = 10.0;
+  const maxT = 8000;
 
   useEffect(() => { tempRef.current = temperature; }, [temperature]);
-
   useEffect(() => {
     return () => { if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current); };
   }, []);
@@ -626,58 +724,65 @@ function ElectronPopulationAnimation({ mid = "" }) {
     setPlaying(true);
     const t0 = performance.now();
     const startT = tempRef.current;
-    const targetT = startT < 1000 ? 2000 : 0;
-    const duration = 3000;
+    const targetT = startT < maxT / 2 ? maxT : 0;
+    const duration = 4000;
     const step = (now) => {
       const frac = Math.min((now - t0) / duration, 1);
       const val = startT + (targetT - startT) * frac;
       setTemperature(Math.round(val));
       tempRef.current = val;
-      if (frac < 1) { animFrameRef.current = requestAnimationFrame(step); }
-      else { setPlaying(false); }
+      if (frac < 1) animFrameRef.current = requestAnimationFrame(step);
+      else setPlaying(false);
     };
     animFrameRef.current = requestAnimationFrame(step);
   };
 
   const T = temperature;
-  const fermi = (E) => T === 0 ? (E < EF ? 1 : (E === EF ? 0.5 : 0)) : 1 / (1 + Math.exp((E - EF) / (kB * Math.max(T, 1))));
+  const fermi = (E) => T === 0
+    ? (E < EF ? 1 : E === EF ? 0.5 : 0)
+    : 1 / (1 + Math.exp((E - EF) / (kB * Math.max(T, 1))));
+  const gE = (E) => E > 0 ? Math.sqrt(E / eMax) : 0;
 
-  const energyLevels = [];
-  for (let i = 0; i < nDots; i++) {
-    energyLevels.push((i + 0.5) * eMax / nDots);
-  }
+  // Three-panel layout: g(E) x f(E) = n(E)
+  const topY = 48, botY = h - 48;
+  const eToY = (E) => botY - (E / eMax) * (botY - topY);
+  const pW = 100;
+  const p1 = 42, p2 = 195, p3 = 365;
 
-  const dotStates = energyLevels.map(E => {
+  // Build curve paths
+  const dE = 0.06;
+  let gLine = `M${p1},${botY}`;
+  let gfFill = `M${p1},${botY}`;
+  let fLine = `M${p2},${eToY(0)}`;
+  let nLine = `M${p3},${botY}`;
+  let nFill = `M${p3},${botY}`;
+
+  for (let E = 0; E <= eMax; E += dE) {
+    const g = gE(E);
     const f = fermi(E);
-    const occupied = f > 0.5 || (f === 0.5 && Math.random() < 0.5);
-    return { E, occupied, f };
-  });
-
-  const ox = 160, oy = h - 40;
-  const scaleY = (h - 80) / eMax;
-  const gCurveX = 30;
-  const gCurveW = 100;
-  const dotAreaX = 200;
-  const dotAreaW = 260;
-
-  const gNorm = (E) => E > 0 ? Math.sqrt(E / eMax) : 0;
-
-  let gPath = `M${gCurveX},${oy}`;
-  for (let E = 0; E <= eMax; E += 0.1) {
-    const gVal = gNorm(E);
-    const x = gCurveX + gVal * gCurveW;
-    const y = oy - E * scaleY;
-    gPath += ` L${x.toFixed(1)},${y.toFixed(1)}`;
+    const y = eToY(E);
+    gLine += ` L${(p1 + g * pW).toFixed(1)},${y.toFixed(1)}`;
+    gfFill += ` L${(p1 + g * f * pW).toFixed(1)},${y.toFixed(1)}`;
+    fLine += ` L${(p2 + f * pW).toFixed(1)},${y.toFixed(1)}`;
+    const n = g * f;
+    nLine += ` L${(p3 + n * pW).toFixed(1)},${y.toFixed(1)}`;
+    nFill += ` L${(p3 + n * pW).toFixed(1)},${y.toFixed(1)}`;
   }
+  gfFill += ` L${p1},${topY} Z`;
+  nFill += ` L${p3},${topY} Z`;
 
-  const efY = oy - EF * scaleY;
+  // f(E) filled area
+  let fFill = fLine + ` L${p2},${eToY(eMax)} L${p2},${eToY(0)} Z`;
+
+  const efY = eToY(EF);
+  const font = "'IBM Plex Mono'";
 
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <div className="graph-controls" onClick={e => e.stopPropagation()}>
         <label>
           <span className="graph-ctrl-label">T = {T} K (kT = {(kB * T).toFixed(4)} eV)</span>
-          <input type="range" min="0" max="2000" step="10" value={temperature}
+          <input type="range" min="0" max={maxT} step="50" value={temperature}
             onChange={e => { setTemperature(parseInt(e.target.value)); if (playing) { cancelAnimationFrame(animFrameRef.current); setPlaying(false); } }}
             className="graph-slider" />
         </label>
@@ -688,77 +793,52 @@ function ElectronPopulationAnimation({ mid = "" }) {
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
         <title>Electron population distribution across bands versus temperature</title>
-        <text x={w / 2} y="16" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'" textAnchor="middle" fontWeight="600">
-          Electron Population vs Temperature
-        </text>
 
-        {/* Energy axis */}
-        <line x1={ox} y1={oy} x2={ox} y2={25} stroke={G.ax} strokeWidth="1" />
-        <polygon points={`${ox},25 ${ox - 3},33 ${ox + 3},33`} fill={G.ax} />
-        <text x={ox - 8} y={28} fill={G.txt} fontSize="10" fontFamily="'IBM Plex Mono'" textAnchor="end">E</text>
+        {/* Panel labels */}
+        <text x={p1 + pW / 2} y={botY + 18} fill={G.gold} fontSize="10" fontFamily={font} textAnchor="middle" fontWeight="600">g(E)</text>
+        <text x={p2 + pW / 2} y={botY + 18} fill={G.blue} fontSize="10" fontFamily={font} textAnchor="middle" fontWeight="600">f(E)</text>
+        <text x={p3 + pW / 2} y={botY + 18} fill={G.grn} fontSize="10" fontFamily={font} textAnchor="middle" fontWeight="600">n(E) = g*f</text>
 
-        {/* g(E) curve label */}
-        <text x={gCurveX + gCurveW / 2} y={oy + 16} fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">g(E)</text>
+        {/* Operator symbols between panels */}
+        <text x={(p1 + pW + p2) / 2} y={(topY + botY) / 2 + 4} fill={G.txt} fontSize="16" fontFamily={font} textAnchor="middle" opacity="0.6">&times;</text>
+        <text x={(p2 + pW + p3) / 2} y={(topY + botY) / 2 + 4} fill={G.txt} fontSize="16" fontFamily={font} textAnchor="middle" opacity="0.6">=</text>
 
-        {/* g(E) curve */}
-        <path d={gPath} fill="none" stroke={G.gold} strokeWidth="2" />
-
-        {/* g(E) filled region below EF */}
-        {(() => {
-          let fillPath = `M${gCurveX},${oy}`;
-          for (let E = 0; E <= EF; E += 0.1) {
-            const gVal = gNorm(E);
-            const x = gCurveX + gVal * gCurveW;
-            const y = oy - E * scaleY;
-            fillPath += ` L${x.toFixed(1)},${y.toFixed(1)}`;
-          }
-          fillPath += ` L${gCurveX},${efY} Z`;
-          return <path d={fillPath} fill={G.gold} opacity="0.12" stroke="none" />;
-        })()}
-
-        {/* E_F dashed line across full diagram */}
-        <line x1={gCurveX} y1={efY} x2={w - 20} y2={efY}
-          stroke={G.red} strokeWidth="1.5" strokeDasharray="6,3" />
-        <text x={w - 16} y={efY + 4} fill={G.red} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="start">E_F</text>
-
-        {/* Energy level lines and electron dots */}
-        {dotStates.map((d, i) => {
-          const y = oy - d.E * scaleY;
-          const dotR = 5;
-          const xBase = dotAreaX + 20;
-          const lineW = dotAreaW - 40;
-          const dotX = xBase + (i % 6) * (lineW / 6) + lineW / 12;
-
-          return (
-            <g key={`lvl-${i}`}>
-              <line x1={dotAreaX} y1={y} x2={dotAreaX + dotAreaW} y2={y}
-                stroke={G.ax} strokeWidth="0.4" opacity="0.3" />
-              {d.f > 0.02 && (
-                <circle cx={dotX} cy={y} r={dotR * Math.min(d.f, 1)}
-                  fill={d.E < EF ? G.gold : G.blue}
-                  opacity={Math.max(d.f, 0.15)}
-                  stroke={d.E < EF ? G.gold : G.blue}
-                  strokeWidth="0.5" />
-              )}
-            </g>
-          );
-        })}
-
-        {/* Legend */}
-        <circle cx={dotAreaX + 10} cy={h - 14} r={4} fill={G.gold} />
-        <text x={dotAreaX + 18} y={h - 10} fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'">Occupied (below E_F)</text>
-        <circle cx={dotAreaX + 140} cy={h - 14} r={4} fill={G.blue} />
-        <text x={dotAreaX + 148} y={h - 10} fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'">Thermally excited</text>
-
-        {/* Axis labels */}
-        {[2, 4, 6, 8].map(e => (
-          <g key={`elbl-${e}`}>
-            <line x1={ox - 4} y1={oy - e * scaleY} x2={ox} y2={oy - e * scaleY} stroke={G.ax} strokeWidth="1" />
-            <text x={ox - 8} y={oy - e * scaleY + 3} fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'" textAnchor="end">{e}</text>
+        {/* Shared energy axis labels */}
+        <text x={p1 - 6} y={topY - 6} fill={G.txt} fontSize="10" fontFamily={font} textAnchor="end">E (eV)</text>
+        {[0, 2, 4, 6, 8, 10].map(e => (
+          <g key={`etick-${e}`}>
+            <line x1={p1 - 4} y1={eToY(e)} x2={p1} y2={eToY(e)} stroke={G.ax} strokeWidth="1" />
+            <text x={p1 - 7} y={eToY(e) + 3} fill={G.txt} fontSize="8" fontFamily={font} textAnchor="end">{e}</text>
           </g>
         ))}
-        <text x={ox + 5} y={oy + 14} fill={G.txt} fontSize="8" fontFamily="'IBM Plex Mono'">0</text>
-        <text x={dotAreaX + dotAreaW / 2} y={oy + 16} fill={G.txt} fontSize="9" fontFamily="'IBM Plex Mono'" textAnchor="middle">Electron States</text>
+
+        {/* E_F dashed line across all panels */}
+        <line x1={p1 - 4} y1={efY} x2={p3 + pW + 4} y2={efY} stroke={G.red} strokeWidth="1" strokeDasharray="5,3" opacity="0.7" />
+        <text x={p3 + pW + 8} y={efY + 3} fill={G.red} fontSize="9" fontFamily={font}>E_F</text>
+
+        {/* Panel 1: g(E) -- density of states */}
+        <line x1={p1} y1={botY} x2={p1} y2={topY} stroke={G.ax} strokeWidth="1" />
+        <line x1={p1} y1={botY} x2={p1 + pW} y2={botY} stroke={G.ax} strokeWidth="0.5" opacity="0.3" />
+        <path d={gfFill} fill={G.gold} opacity="0.18" stroke="none" />
+        <path d={gLine} fill="none" stroke={G.gold} strokeWidth="2" />
+
+        {/* Panel 2: f(E) -- Fermi-Dirac distribution */}
+        <line x1={p2} y1={botY} x2={p2} y2={topY} stroke={G.ax} strokeWidth="1" />
+        <line x1={p2} y1={botY} x2={p2 + pW} y2={botY} stroke={G.ax} strokeWidth="0.5" opacity="0.3" />
+        {/* f=0 and f=1 reference lines */}
+        <line x1={p2 + pW} y1={botY} x2={p2 + pW} y2={topY} stroke={G.ax} strokeWidth="0.5" strokeDasharray="3,4" opacity="0.3" />
+        <text x={p2 - 3} y={botY + 3} fill={G.txt} fontSize="7" fontFamily={font} textAnchor="end">0</text>
+        <text x={p2 + pW + 3} y={botY + 3} fill={G.txt} fontSize="7" fontFamily={font}>1</text>
+        <path d={fFill} fill={G.blue} opacity="0.12" stroke="none" />
+        <path d={fLine} fill="none" stroke={G.blue} strokeWidth="2.5" />
+        {/* f=1/2 marker at EF */}
+        <circle cx={p2 + 0.5 * pW} cy={efY} r="3.5" fill={G.red} />
+
+        {/* Panel 3: n(E) = g(E)*f(E) -- occupied states */}
+        <line x1={p3} y1={botY} x2={p3} y2={topY} stroke={G.ax} strokeWidth="1" />
+        <line x1={p3} y1={botY} x2={p3 + pW} y2={botY} stroke={G.ax} strokeWidth="0.5" opacity="0.3" />
+        <path d={nFill} fill={G.grn} opacity="0.2" stroke="none" />
+        <path d={nLine} fill="none" stroke={G.grn} strokeWidth="2.5" />
       </svg>
     </div>
   );
@@ -806,6 +886,12 @@ const TOPICS = [
             <li>Partially filled bands are the hallmark of metals and enable electrical conduction</li>
           </ul>
           <BandFormationAnimation mid="-t1" />
+        </Section>
+
+        <Section title="Silicon: Atomic Levels to Crystal Bands">
+          <P>Silicon has 4 valence electrons in 3s and 3p orbitals (~7 eV apart). As atoms come together, each level splits into <M>{"N"}</M> sub-levels. The bands broaden until 3s and 3p overlap, then sp³ rehybridization sorts all <M>{"8N"}</M> states into <M>{"4N"}</M> bonding (VB) and <M>{"4N"}</M> antibonding (CB). The gap ratios below are drawn to scale.</P>
+          <SiBandFormation mid="-t1b" />
+          <P>The red dashed line shows where part of the 3p-derived band crosses into the VB due to hybridization. This is why "3s band" and "3p band" lose meaning in the crystal; we instead speak of valence and conduction bands.</P>
         </Section>
       </div>
     ),
@@ -1558,7 +1644,7 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     const deHtml = (tex) => tex.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
     // Render display math FIRST (before merge step, which can corrupt $$)
     s = s.replace(/\$\$(.+?)\$\$/gs, (_, tex) => {
-      try { return '<div class="chat-eq-block">' + window.katex.renderToString(deHtml(tex).trim(), { displayMode: true, throwOnError: false }) + '</div>'; }
+      try { return '<div class="chat-eq-block">' + window.katex.renderToString(deHtml(tex).trim(), { displayMode: true, throwOnError: false }).replace(/\n/g, '') + '</div>'; }
       catch (e) { return `<div class="chat-eq-block"><code>${tex}</code></div>`; }
     });
     // Merge adjacent inline math separated by operators: $a$ > $b$ → $a > b$
@@ -1573,7 +1659,7 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     } while (s !== _prev);
     // Render inline math
     s = s.replace(/\$(.+?)\$/g, (_, tex) => {
-      try { return window.katex.renderToString(deHtml(tex).trim(), { displayMode: false, throwOnError: false }); }
+      try { return window.katex.renderToString(deHtml(tex).trim(), { displayMode: false, throwOnError: false }).replace(/\n/g, ''); }
       catch (e) { return `<code>${tex}</code>`; }
     });
     s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
