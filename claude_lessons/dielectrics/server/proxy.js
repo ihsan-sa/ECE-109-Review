@@ -17,7 +17,7 @@ const _sessionQueues = {}; // sessionId -> Promise chain
 let nextChatNum = 1;
 let totalTokens = { input: 0, output: 0, cacheRead: 0, cacheCreate: 0, cost: 0 };
 
-const ALLOWED_TOOLS = "Read,Edit,Write,Grep,Glob,Bash";
+const ALLOWED_TOOLS = "Read,Edit,Write,Grep,Glob,Bash,WebSearch,WebFetch,Agent";
 
 function log(event, data) {
   const ts = new Date().toISOString();

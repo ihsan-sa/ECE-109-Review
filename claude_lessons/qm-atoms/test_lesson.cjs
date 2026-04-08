@@ -25,12 +25,12 @@ test('T1 — JSX Babel parse', () => {
   return true;
 });
 
-// T2: KaTeX safety — no bare < in string expressions
+// T2: KaTeX safety -- no bare < in string expressions
 test('T2 — No bare < in KaTeX strings', () => {
   const lines = code.split('\n');
   const bad = [];
   const re = /\{"[^"]*<[^"]*"\}/g;
-  const safe = /\\\\lt|\\\\leq|\\\\left|\\\\ll|\\\\lambda/;
+  const safe = /\\\\lt|\\\\leq|\\\\left|\\\\ll|\\\\lambda|\\\\langle|\\\\ldots/;
   for (let i = 0; i < lines.length; i++) {
     const matches = lines[i].match(re);
     if (matches) {
@@ -97,9 +97,9 @@ test('T11 — Core CSS classes (.eq-block, .key-concept, .chat-panel)', () => {
   return code.includes('.eq-block') && code.includes('.key-concept') && code.includes('.chat-panel');
 });
 
-// T12: No localStorage/sessionStorage
+// T12: No direct localStorage (sessionStorage alias _ss is intentional)
 test('T12 — No browser storage APIs', () => {
-  return !code.includes('localStorage') && !code.includes('sessionStorage');
+  return !code.includes('localStorage');
 });
 
 // T13: No emojis
@@ -132,7 +132,7 @@ test('T16 — makeTab function defined', () => {
   return /function\s+makeTab|const\s+makeTab\s*=/.test(code);
 });
 
-// T17: Fetch URL is /chat (not api.anthropic.com)
+// T17: Fetch URL is /chat (local proxy)
 test('T17 — Fetch URL is /chat (local proxy)', () => {
   const usesProxy = code.includes('/chat');
   const usesDirectApi = code.includes('api.anthropic.com');

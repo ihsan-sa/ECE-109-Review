@@ -20,7 +20,7 @@ function M({ children }) { return <Eq display={false}>{children}</Eq>; }
 // ─── Topic Context for Chatbot ───
 
 const TOPIC_CONTEXT = {
-  "wave-particle": `Topic: Wave-Particle Duality. Covers: Historical context (Newton's corpuscular theory, Maxwell's EM waves, Planck/Einstein quantum mechanics). Energy quantization E = hf where h = 6.6e-34 Js is Planck's constant, f is frequency. De Broglie wavelength lambda = h/p relating wavelength to momentum. Wave-particle duality: light is both wave and particle (photon). Photoelectric effect: KE_m = hf - Phi_metal where Phi_metal is work function. Photon energy E_ph = hf = hbar*omega, photon momentum p = h/lambda = hf/c. Electron double-slit experiment demonstrating matter waves.`,
+  "wave-particle": `Topic: Wave-Particle Duality. Covers: Historical context (Newton's corpuscular theory, Maxwell's EM waves, Planck/Einstein quantum mechanics). Energy quantization E = hf where h = 6.63e-34 Js is Planck's constant, f is frequency. De Broglie wavelength lambda = h/p relating wavelength to momentum. Wave-particle duality: light is both wave and particle (photon). Photoelectric effect: KE_m = hf - Phi_metal where Phi_metal is work function. Photon energy E_ph = hf = hbar*omega, photon momentum p = h/lambda = hf/c. Electron double-slit experiment demonstrating matter waves.`,
   "wave-equation": `Topic: Wave Equation. Covers: Classical wave equation nabla^2 u - (1/c^2)(d^2u/dt^2) = 0. EM wave equation for E-field in 1D: (d^2/dz^2)E(z,t) - (1/c^2)(d^2/dt^2)E(z,t) = 0. Solution: E(z,t) = E_0 cos(kz - omega*t + phi_0). Complex exponential form: e^{ikz}e^{-i*omega*t}. Superposition principle for linear equations. Wave parameters: omega = 2*pi/T (angular frequency), k = 2*pi/lambda (wavenumber), k = omega/c. Vector calculus: curl (nabla cross A), divergence (nabla dot A), gradient (nabla alpha), scalar Laplacian nabla^2 alpha, vector Laplacian nabla^2 A. Transverse vs longitudinal waves. Standing waves.`,
   "qm-formalism": `Topic: QM Formalism. Covers: Wavefunctions Psi(x,y,z,t) are complex-valued normed functions. |Psi|^2 dx dy dz is the probability of finding particle in volume element at (x,y,z) at time t (Born interpretation). Normalization: integral |Psi|^2 dV = 1. Psi and nabla Psi must be continuous. Operators: momentum operator p-hat = (hbar/i) nabla = -i*hbar*(d/dx) in 1D. Expectation values: E[X] = integral x*f(x) dx for continuous variable; for QM observable A: langle A rangle = integral psi* A-hat psi dx. Ket notation |psi rangle. Probability density function properties: f(x) >= 0, integral f(x) dx = 1.`,
   "schrodinger": `Topic: Schrodinger Equation. Covers: Time-dependent SE: i*hbar*(d/dt)|psi rangle = H-hat|psi rangle where H-hat is the Hamiltonian operator. Classical Hamiltonian: H = p^2/(2m) + V(x) = KE + PE. QM Hamiltonian: H-hat = -(hbar^2)/(2m)*nabla^2 + V(r). Time evolution operator: |psi(t) rangle = U(t)|psi(0) rangle where U(t) = exp(-i*H-hat*t/hbar). Stationary states: H-hat|psi_n rangle = E_n|psi_n rangle (eigenvalue equation). Time-independent SE in 1D: (d^2 psi)/(dx^2) + (2m_e/hbar^2)(E - V)*psi = 0. Free electron solution: psi = A*exp(jkx) where k = sqrt(2m_e*E)/hbar.`,
@@ -87,6 +87,7 @@ function InfiniteWellWavefunctions({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>{p.showProbability ? "Probability density of infinite well wavefunctions" : "Wavefunctions in an infinite potential well"}</title>
         <defs>
           <marker id={`ah-wf${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -146,6 +147,7 @@ function ProbabilityDensity({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Probability density distributions for infinite well states</title>
         <defs>
           <marker id={`ah-pd${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -197,6 +199,7 @@ function EnergyLevelDiagram({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Energy level diagram for infinite potential well</title>
         <defs>
           <marker id={`ah-el${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -312,14 +315,15 @@ function StationaryVsNonStationary({ mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
-        <button onClick={() => setPlaying(p => !p)} style={{ background: "none", border: `1px solid ${G.gold}`, color: G.gold, borderRadius: 4, padding: "2px 10px", cursor: "pointer", fontFamily: "'IBM Plex Mono'" }}>
+        <button className="ctrl-btn" onClick={() => setPlaying(p => !p)}>
           {playing ? "Pause" : "Play"}
         </button>
-        <button onClick={() => { setTime(0); lastRef.current = 0; }} style={{ background: "none", border: `1px solid ${G.ax}`, color: G.txt, borderRadius: 4, padding: "2px 10px", cursor: "pointer", fontFamily: "'IBM Plex Mono'" }}>
+        <button className="ctrl-btn" onClick={() => { setTime(0); lastRef.current = 0; }}>
           Reset
         </button>
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Stationary eigenstate vs non-stationary superposition comparison</title>
         {/* Column headers */}
         {panelLabel(ox + plotW / 2, 14, "Eigenstate (n=2)")}
         {panelLabel(ox2 + plotW / 2, 14, "Superposition (n=1 + n=2)")}
@@ -400,6 +404,7 @@ function HamiltonianDecomposition({ mid = "" }) {
         ))}
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Hamiltonian decomposition into kinetic and potential energy</title>
         <text x={w / 2} y="14" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'" textAnchor="middle" fontWeight="600">
           {"Hamiltonian Decomposition: H*psi = KE*psi + V*psi"}
         </text>
@@ -497,17 +502,18 @@ function TimeEvolutionStepper({ mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
-        <button onClick={() => setPlaying(p => !p)} style={{ background: "none", border: `1px solid ${G.gold}`, color: G.gold, borderRadius: 4, padding: "2px 10px", cursor: "pointer", fontFamily: "'IBM Plex Mono'" }}>
+        <button className="ctrl-btn" onClick={() => setPlaying(p => !p)}>
           {playing ? "Pause" : "Play"}
         </button>
-        <button onClick={() => { setStep(s => Math.min(s + 1, maxSteps)); }} style={{ background: "none", border: `1px solid ${G.ax}`, color: G.txt, borderRadius: 4, padding: "2px 10px", cursor: "pointer", fontFamily: "'IBM Plex Mono'" }}>
+        <button className="ctrl-btn" onClick={() => { setStep(s => Math.min(s + 1, maxSteps)); }}>
           Step
         </button>
-        <button onClick={() => { setStep(0); lastRef.current = 0; }} style={{ background: "none", border: `1px solid ${G.ax}`, color: G.txt, borderRadius: 4, padding: "2px 10px", cursor: "pointer", fontFamily: "'IBM Plex Mono'" }}>
+        <button className="ctrl-btn" onClick={() => { setStep(0); lastRef.current = 0; }}>
           Reset
         </button>
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Time evolution stepper showing wavefunction phase rotation</title>
         <defs>
           <marker id={`ah-tes${mid}`} markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
             <path d="M0,0 L5,2.5 L0,5" fill="none" stroke={G.grn} strokeWidth="1" />
@@ -635,6 +641,7 @@ function WellWidthExplorer({ mid = "" }) {
         <span style={{ color: G.gold, fontWeight: 600, minWidth: 50 }}>{wellWidth.toFixed(2)} nm</span>
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Energy levels versus well width for infinite potential well</title>
         <text x={w / 2} y="14" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'" textAnchor="middle" fontWeight="600">
           {"Energy Levels vs Well Width"}
         </text>
@@ -690,6 +697,7 @@ function ClassicalQuantumComparison({ mid = "" }) {
         <span style={{ color: G.gold, fontWeight: 600, minWidth: 30 }}>{n}</span>
       </div>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Quantum versus classical probability distribution comparison</title>
         <text x={w / 2} y="14" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'" textAnchor="middle" fontWeight="600">
           {"Quantum vs Classical Probability (Correspondence Principle)"}
         </text>
@@ -839,9 +847,8 @@ function StandingWaveAnimation({ mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 10, flexWrap: "wrap", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
-        <button
+        <button className="ctrl-btn"
           onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}
-          style={{ background: playing ? G.red : G.grn, color: "#fff", border: "none", borderRadius: 4, padding: "4px 14px", cursor: "pointer", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600 }}
         >{playing ? "Pause" : "Play"}</button>
         <label style={{ color: G.txt }}>Freq:</label>
         <input type="range" min="0.5" max="3.0" step="0.1" value={freq}
@@ -851,6 +858,7 @@ function StandingWaveAnimation({ mid = "" }) {
         <span style={{ color: G.gold, fontWeight: 600, minWidth: 45 }}>{freq.toFixed(1)} Hz</span>
       </div>
       <svg ref={svgRef} viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Standing wave formed by superposition of traveling waves</title>
         <text x={w / 2} y="14" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'" textAnchor="middle" fontWeight="600">
           Standing Wave = Right-traveling + Left-traveling
         </text>
@@ -993,9 +1001,8 @@ function PlaneWaveExplorer({ mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 8, flexWrap: "wrap", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
-        <button
+        <button className="ctrl-btn"
           onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}
-          style={{ background: playing ? G.red : G.grn, color: "#fff", border: "none", borderRadius: 4, padding: "4px 14px", cursor: "pointer", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600 }}
         >{playing ? "Pause" : "Play"}</button>
         <button
           onClick={e => { e.stopPropagation(); phaseRef.current = 0; if (!playing && svgRef.current) { const wp = svgRef.current.querySelector(`[data-id="pw${mid}"]`); if (wp) { let d2 = ""; for (let i = 0; i <= nPoints; i++) { const xN = i / nPoints; const xP = ox + xN * plotW; const z2 = xN * 4 * Math.PI; const y2 = -amp * plotAmp * Math.cos(k * z2 + phi0); d2 += (i === 0 ? "M" : " L") + xP.toFixed(1) + "," + (oy + y2).toFixed(1); } wp.setAttribute("d", d2); } } }}
@@ -1025,6 +1032,7 @@ function PlaneWaveExplorer({ mid = "" }) {
         </div>
       </div>
       <svg ref={svgRef} viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Plane wave explorer with adjustable wavenumber, frequency, and amplitude</title>
         {/* Axes */}
         <line x1={ox} y1={oy} x2={ox + plotW} y2={oy} stroke={G.ax} strokeWidth="0.5" strokeDasharray="4,3"/>
         <line x1={ox} y1={oy - plotAmp - 10} x2={ox} y2={oy + plotAmp + 10} stroke={G.ax} strokeWidth="0.5"/>
@@ -1141,9 +1149,8 @@ function CurvaturePropagationAnimation({ mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 10, flexWrap: "wrap", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
-        <button
+        <button className="ctrl-btn"
           onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}
-          style={{ background: playing ? G.red : G.grn, color: "#fff", border: "none", borderRadius: 4, padding: "4px 14px", cursor: "pointer", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600 }}
         >{playing ? "Pause" : "Play"}</button>
         <label style={{ color: G.txt }}>Speed:</label>
         <input type="range" min="0.3" max="2.5" step="0.1" value={speed}
@@ -1153,6 +1160,7 @@ function CurvaturePropagationAnimation({ mid = "" }) {
         <span style={{ color: G.gold, fontWeight: 600, minWidth: 45 }}>{speed.toFixed(1)}x</span>
       </div>
       <svg ref={svgRef} viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Wave curvature and acceleration driving propagation</title>
         <defs>
           <marker id={`aup${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.grn} strokeWidth="1.2"/>
@@ -1267,9 +1275,8 @@ function TimeEvolvingWavefunction({ mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 10, flexWrap: "wrap", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>
-        <button
+        <button className="ctrl-btn"
           onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}
-          style={{ background: playing ? G.red : G.grn, color: "#fff", border: "none", borderRadius: 4, padding: "4px 14px", cursor: "pointer", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600 }}
         >{playing ? "Pause" : "Play"}</button>
         <label style={{ color: G.txt }}>Mixing angle:</label>
         <input type="range" min="0" max="1.5707963" step="0.01" value={theta}
@@ -1280,6 +1287,7 @@ function TimeEvolvingWavefunction({ mid = "" }) {
         <span style={{ color: G.red, fontWeight: 600, minWidth: 60 }}>c2={c2.toFixed(2)}</span>
       </div>
       <svg ref={svgRef} viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Time-evolving probability density of a wavefunction superposition</title>
         <text x={w / 2} y="14" fill={G.gold} fontSize="11" fontFamily="'IBM Plex Mono'" textAnchor="middle" fontWeight="600">
           Time-Evolving |Psi(x,t)|^2 Superposition
         </text>
@@ -1322,6 +1330,16 @@ const TOPICS = [
           <KeyConcept label="Wave-Particle Duality">
             Light (and all matter) exhibits both wave and particle behavior. This duality is central to quantum mechanics and cannot be explained by classical physics alone.
           </KeyConcept>
+
+          <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
+            <img src="/images/double_slit_tonomura.jpg" alt="Buildup of electron interference pattern in double-slit experiment by Tonomura, showing individual electron hits forming wave-like fringes over time" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Tonomura double-slit experiment: individual electron hits (a-e) gradually build an interference pattern, proving wave-particle duality. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
+          </figure>
+
+          <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
+            <img src="/images/double_slit_diffraction_photo.jpg" alt="Photograph of laser light diffraction through two adjacent slits showing interference fringes" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Laser light diffraction through two slits, showing the characteristic interference fringe pattern. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY 4.0</span></figcaption>
+          </figure>
         </Section>
 
         <Section title="Energy Quantization">
@@ -1393,7 +1411,7 @@ const TOPICS = [
             The wave equation is a linear differential equation: if f(x,y,z,t) and g(x,y,z,t) are both solutions, then h(x,y,z,t) = f + g is also a solution. This is the mathematical basis of interference.
           </KeyConcept>
           <details style={{ margin: "16px 0", borderRadius: 8, border: "1px solid rgba(200,164,90,0.25)", overflow: "hidden" }}>
-            <summary style={{ cursor: "pointer", padding: "10px 16px", fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 600, color: "#c8a45a", background: "rgba(200,164,90,0.07)", userSelect: "none" }}>
+            <summary style={{ cursor: "pointer", padding: "10px 16px", fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 600, color: G.gold, background: "rgba(200,164,90,0.07)", userSelect: "none" }}>
               Why does curvature make waves propagate? (animation)
             </summary>
             <div style={{ padding: "8px 12px 4px" }}>
@@ -1440,34 +1458,34 @@ const TOPICS = [
             </div>
             <div style={{display:'flex', gap:'2rem', flexWrap:'wrap', justifyContent:'center', marginTop:'1.2rem'}}>
               <div style={{textAlign:'center'}}>
-                <div style={{color:'#c8a45a', fontFamily:'IBM Plex Mono, monospace', fontSize:'0.8rem', marginBottom:'0.4rem'}}>Snapshot in space (fixed <M>{"t"}</M>)</div>
+                <div style={{color: G.gold, fontFamily:'IBM Plex Mono, monospace', fontSize:'0.8rem', marginBottom:'0.4rem'}}>Snapshot in space (fixed <M>{"t"}</M>)</div>
                 <svg width="220" height="100" viewBox="0 0 220 100">
-                  <line x1="10" y1="50" x2="210" y2="50" stroke="#444" strokeWidth="1"/>
+                  <line x1="10" y1="50" x2="210" y2="50" stroke={G.ax} strokeWidth="1"/>
                   <polyline
                     points={Array.from({length:201},(_,i)=>`${10+i},${50-28*Math.cos(2*Math.PI*i/60)}`).join(' ')}
-                    fill="none" stroke="#c8a45a" strokeWidth="2"
+                    fill="none" stroke={G.gold} strokeWidth="2"
                   />
-                  <line x1="10" y1="46" x2="10" y2="54" stroke="#aaa" strokeWidth="1"/>
-                  <line x1="70" y1="46" x2="70" y2="54" stroke="#aaa" strokeWidth="1"/>
-                  <line x1="10" y1="48" x2="70" y2="48" stroke="#aaa" strokeWidth="1" strokeDasharray="3,2"/>
-                  <text x="40" y="43" textAnchor="middle" fill="#aaa" fontSize="11" fontFamily="IBM Plex Mono, monospace">{"λ"}</text>
-                  <text x="110" y="95" textAnchor="middle" fill="#666" fontSize="11" fontFamily="IBM Plex Mono, monospace">z</text>
+                  <line x1="10" y1="46" x2="10" y2="54" stroke={G.txt} strokeWidth="1"/>
+                  <line x1="70" y1="46" x2="70" y2="54" stroke={G.txt} strokeWidth="1"/>
+                  <line x1="10" y1="48" x2="70" y2="48" stroke={G.txt} strokeWidth="1" strokeDasharray="3,2"/>
+                  <text x="40" y="43" textAnchor="middle" fill={G.txt} fontSize="11" fontFamily="IBM Plex Mono, monospace">{"λ"}</text>
+                  <text x="110" y="95" textAnchor="middle" fill={G.ax} fontSize="11" fontFamily="IBM Plex Mono, monospace">z</text>
                 </svg>
                 <P style={{margin:'0.3rem 0 0', fontSize:'0.85rem'}}><M>{"k = 2\\pi/\\lambda"}</M> — wavefronts per meter</P>
               </div>
               <div style={{textAlign:'center'}}>
-                <div style={{color:'#7ab8f5', fontFamily:'IBM Plex Mono, monospace', fontSize:'0.8rem', marginBottom:'0.4rem'}}>Time series at fixed <M>{"z"}</M></div>
+                <div style={{color: G.blue, fontFamily:'IBM Plex Mono, monospace', fontSize:'0.8rem', marginBottom:'0.4rem'}}>Time series at fixed <M>{"z"}</M></div>
                 <svg width="220" height="100" viewBox="0 0 220 100">
-                  <line x1="10" y1="50" x2="210" y2="50" stroke="#444" strokeWidth="1"/>
+                  <line x1="10" y1="50" x2="210" y2="50" stroke={G.ax} strokeWidth="1"/>
                   <polyline
                     points={Array.from({length:201},(_,i)=>`${10+i},${50-28*Math.cos(2*Math.PI*i/60)}`).join(' ')}
-                    fill="none" stroke="#7ab8f5" strokeWidth="2"
+                    fill="none" stroke={G.blue} strokeWidth="2"
                   />
-                  <line x1="10" y1="46" x2="10" y2="54" stroke="#aaa" strokeWidth="1"/>
-                  <line x1="70" y1="46" x2="70" y2="54" stroke="#aaa" strokeWidth="1"/>
-                  <line x1="10" y1="48" x2="70" y2="48" stroke="#aaa" strokeWidth="1" strokeDasharray="3,2"/>
-                  <text x="40" y="43" textAnchor="middle" fill="#aaa" fontSize="11" fontFamily="IBM Plex Mono, monospace">T</text>
-                  <text x="110" y="95" textAnchor="middle" fill="#666" fontSize="11" fontFamily="IBM Plex Mono, monospace">t</text>
+                  <line x1="10" y1="46" x2="10" y2="54" stroke={G.txt} strokeWidth="1"/>
+                  <line x1="70" y1="46" x2="70" y2="54" stroke={G.txt} strokeWidth="1"/>
+                  <line x1="10" y1="48" x2="70" y2="48" stroke={G.txt} strokeWidth="1" strokeDasharray="3,2"/>
+                  <text x="40" y="43" textAnchor="middle" fill={G.txt} fontSize="11" fontFamily="IBM Plex Mono, monospace">T</text>
+                  <text x="110" y="95" textAnchor="middle" fill={G.ax} fontSize="11" fontFamily="IBM Plex Mono, monospace">t</text>
                 </svg>
                 <P style={{margin:'0.3rem 0 0', fontSize:'0.85rem'}}><M>{"\\omega = 2\\pi/T"}</M> — wavefronts per second</P>
               </div>
@@ -1495,6 +1513,7 @@ const TOPICS = [
             <Eq>{"\\nabla \\times \\vec{A} = \\hat{x}\\left(\\frac{\\partial A_z}{\\partial y} - \\frac{\\partial A_y}{\\partial z}\\right) + \\hat{y}\\left(-\\frac{\\partial A_z}{\\partial x} + \\frac{\\partial A_x}{\\partial z}\\right) + \\hat{z}\\left(\\frac{\\partial A_y}{\\partial x} - \\frac{\\partial A_x}{\\partial y}\\right)"}</Eq>
             <div style={{ margin: "10px auto 0", maxWidth: 240 }}>
               <svg viewBox="0 0 240 148" style={{ width: "100%", display: "block" }}>
+                <title>Curl of a vector field showing circulation around a point</title>
                 <defs>
                   <marker id="vc-curl" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
                     <path d="M0,0 L7,2.5 L0,5" fill={G.blue}/>
@@ -1518,6 +1537,7 @@ const TOPICS = [
             <Eq>{"\\nabla \\cdot \\vec{A} = \\frac{\\partial A_x}{\\partial x} + \\frac{\\partial A_y}{\\partial y} + \\frac{\\partial A_z}{\\partial z}"}</Eq>
             <div style={{ margin: "10px auto 0", maxWidth: 300 }}>
               <svg viewBox="0 0 300 148" style={{ width: "100%", display: "block" }}>
+                <title>Divergence of a vector field showing source and sink</title>
                 <defs>
                   <marker id="vc-div-b" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
                     <path d="M0,0 L7,2.5 L0,5" fill={G.blue}/>
@@ -1548,6 +1568,7 @@ const TOPICS = [
             <Eq>{"\\nabla \\alpha = \\frac{\\partial \\alpha}{\\partial x}\\hat{x} + \\frac{\\partial \\alpha}{\\partial y}\\hat{y} + \\frac{\\partial \\alpha}{\\partial z}\\hat{z}"}</Eq>
             <div style={{ margin: "10px auto 0", maxWidth: 260 }}>
               <svg viewBox="0 0 260 152" style={{ width: "100%", display: "block" }}>
+                <title>Gradient of a scalar field pointing perpendicular to contours</title>
                 <defs>
                   <marker id="vc-grad" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
                     <path d="M0,0 L7,2.5 L0,5" fill={G.gold}/>
@@ -1574,6 +1595,7 @@ const TOPICS = [
             <Eq>{"\\nabla^2 \\alpha = \\frac{\\partial^2 \\alpha}{\\partial x^2} + \\frac{\\partial^2 \\alpha}{\\partial y^2} + \\frac{\\partial^2 \\alpha}{\\partial z^2}"}</Eq>
             <div style={{ margin: "10px auto 0", maxWidth: 280 }}>
               <svg viewBox="0 0 280 132" style={{ width: "100%", display: "block" }}>
+                <title>Scalar Laplacian showing concave-up and concave-down regions</title>
                 {/* Baseline */}
                 <line x1="25" y1="65" x2="255" y2="65" stroke={G.ax} strokeWidth="0.5" strokeDasharray="4,3"/>
                 {/* Shaded regions */}
@@ -1771,7 +1793,7 @@ const TOPICS = [
             <KeyConcept label="TISE intuition">
               Rearranged, the TISE reads:
               <Eq>{"\\frac{d^2\\psi}{dx^2} = -\\frac{2m_e}{\\hbar^2}(E - V)\\psi"}</Eq>
-              The <b>curvature of <M>{"\\psi"}</M> at each point</b> is set by the local kinetic energy <M>{"(E - V)"}</M> times <M>{"\\psi"}</M>. Where <M>{"E > V"}</M> (classically allowed), curvature opposes <M>{"\\psi"}</M> and the wavefunction <b>oscillates</b>. Where <M>{"E < V"}</M> (classically forbidden), curvature reinforces <M>{"\\psi"}</M> and it <b>decays</b>. Only at special values <M>{"E_n"}</M> does this curvature rule produce a <M>{"\\psi"}</M> that stays finite and normalizable everywhere — that constraint is what forces energy quantization.
+              The <b>curvature of <M>{"\\psi"}</M> at each point</b> is set by the local kinetic energy <M>{"(E - V)"}</M> times <M>{"\\psi"}</M>. Where <M>{"E > V"}</M> (classically allowed), curvature opposes <M>{"\\psi"}</M> and the wavefunction <b>oscillates</b>. Where <M>{"E \\lt V"}</M> (classically forbidden), curvature reinforces <M>{"\\psi"}</M> and it <b>decays</b>. Only at special values <M>{"E_n"}</M> does this curvature rule produce a <M>{"\\psi"}</M> that stays finite and normalizable everywhere — that constraint is what forces energy quantization.
             </KeyConcept>
           </CollapsibleBlock>
           <KeyConcept label="Free Electron Solution">
@@ -2053,6 +2075,9 @@ const STYLES = `
 .para b { color: var(--text-primary); font-weight: 600; }
 .para i { color: var(--text-muted); }
 
+.ctrl-btn { padding: 6px 16px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-primary); font-family: 'IBM Plex Mono', monospace; font-size: 12px; cursor: pointer; transition: background 0.15s; }
+.ctrl-btn:hover { background: var(--accent); color: var(--bg-main); }
+
 .eq-block { margin: 12px 0; padding: 14px 18px; background: var(--bg-eq); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; overflow-x: auto; }
 .eq-block .katex { font-size: 1.15em; }
 .eq-block .katex-html { color: var(--chat-katex); }
@@ -2067,8 +2092,17 @@ const STYLES = `
 .info-list li { position: relative; font-size: 15px; line-height: 2.2; color: var(--text-muted); padding-left: 4px; }
 .info-list li::before { content: ">"; position: absolute; left: -16px; color: var(--accent); font-weight: 700; }
 
-.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+.compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 12px 0; }
 @media (max-width: 520px) { .compare-grid { grid-template-columns: 1fr; } }
+
+.graph-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; padding: 6px 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
+.graph-controls label { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 180px; }
+.graph-ctrl-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); font-weight: 500; white-space: nowrap; min-width: 120px; }
+.graph-slider { flex: 1; min-width: 100px; height: 4px; accent-color: var(--accent); cursor: pointer; }
+.graph-select { background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; color: var(--text-muted); font-size: 11px; font-family: 'IBM Plex Mono', monospace; padding: 3px 6px; cursor: pointer; }
+.graph-select:focus { border-color: var(--accent); outline: none; }
+.graph-select option { background: var(--bg-panel); color: var(--text-muted); }
+
 .compare-card { padding: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
 .compare-card h4 { margin: 0 0 8px; font-size: 16px; font-weight: 700; color: var(--accent); font-family: 'IBM Plex Mono', monospace; }
 
@@ -2098,6 +2132,8 @@ const STYLES = `
 .chat-model-select option { background: var(--bg-panel); color: var(--text-muted); }
 .chat-expand-btn { background: none; border: 1px solid var(--border); border-radius: 5px; color: var(--text-dim); font-size: 14px; cursor: pointer; padding: 2px 6px; font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; transition: color 0.15s; line-height: 1; }
 .chat-expand-btn:hover { color: var(--accent); border-color: var(--chat-chip-border); }
+.chat-kill-btn { padding: 2px 6px; border-radius: 5px; border: 1px solid var(--chat-stop-color); background: none; color: var(--chat-stop-color); font-size: 10px; font-family: 'IBM Plex Mono', monospace; font-weight: 700; cursor: pointer; letter-spacing: 0.05em; flex-shrink: 0; line-height: 1; }
+.chat-kill-btn:hover { background: var(--chat-stop-color); color: var(--bg-main); }
 
 .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
 .chat-empty { font-size: 15px; color: var(--text-dim); line-height: 1.6; padding: 24px 8px; text-align: center; }
@@ -2202,6 +2238,25 @@ const STYLES = `
 .collapsible-toggle:hover { color: var(--accent); }
 .collapsible-content { padding: 12px 14px; background: var(--bg-card); }
 
+/* --- Inline demo blocks --- */
+.chat-demo-block { margin: 8px 0; padding: 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.chat-demo-title { font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--accent); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.chat-demo-block svg { display: block; margin: 0 auto; }
+
+/* --- Media blocks (images, videos, standalone SVGs) --- */
+.chat-media-block { margin: 8px 0; padding: 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: center; }
+.chat-media-block img, .chat-media-block video { max-width: 100%; border-radius: 6px; display: block; margin: 0 auto; }
+.chat-media-block svg { display: block; margin: 0 auto; max-width: 100%; }
+
+/* --- Sources dropdown --- */
+.chat-sources { margin: 10px 0 4px 0; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; background: var(--bg-eq); }
+.chat-sources summary { padding: 6px 10px; cursor: pointer; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; }
+.chat-sources summary:hover { color: var(--accent); }
+.chat-sources ul { padding: 6px 10px 8px 24px; margin: 0; list-style: disc; }
+.chat-sources li { color: var(--text-muted); margin: 2px 0; line-height: 1.5; }
+.chat-sources a { color: var(--accent); text-decoration: none; }
+.chat-sources a:hover { text-decoration: underline; }
+
 /* --- Suggestion bar --- */
 .suggestion-bar { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding: 6px 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 6px; flex-wrap: wrap; }
 .suggestion-label { font-size: 12px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; flex: 1; min-width: 120px; }
@@ -2220,6 +2275,8 @@ const STYLES = `
 .thread-collapse-btn:hover { color: var(--accent); }
 .thread-snippet { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-muted); font-style: italic; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .thread-count { font-size: 11px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; }
+.thread-close-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 10px; padding: 0 2px; flex-shrink: 0; margin-left: auto; opacity: 0.5; }
+.thread-close-btn:hover { opacity: 1; color: var(--chat-stop-color); }
 .thread-portal-slot { margin: 4px 0; }
 .thread-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
 .thread-msg { display: flex; flex-direction: column; }
@@ -2236,6 +2293,7 @@ const STYLES = `
 .thread-input:focus { border-color: var(--chat-chip-border); }
 .thread-send { width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-card); color: var(--accent); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .thread-send:hover { background: var(--bg-panel); }
+.thread-ctx-bar { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px 0; }
 `;
 
 // ─── Chat Message Renderer (copy verbatim) ───
@@ -2248,9 +2306,32 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
   useEffect(() => {
     if (!ref.current || role !== "assistant" || !window.katex) return;
     const fencedBlocks = [];
-    let s = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    // Extract demo blocks before any escaping (they contain raw HTML/SVG)
+    const demoBlocks = [];
+    let s = text.replace(/<div class="chat-demo-block"><div class="chat-demo-title">[\s\S]*?<\/div>[\s\S]*?<\/div>/g, (match) => {
+      demoBlocks.push(match);
+      return `\x00DB${demoBlocks.length - 1}\x00`;
+    });
+    // Extract sources dropdowns (from processResponse)
+    s = s.replace(/<details class="chat-sources">[\s\S]*?<\/details>/g, (match) => {
+      demoBlocks.push(match);
+      return `\x00DB${demoBlocks.length - 1}\x00`;
+    });
+    s = s.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
       fencedBlocks.push(`<pre class="chat-pre"><code class="chat-code-block">${code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`);
       return `\x00FB${fencedBlocks.length - 1}\x00`;
+    });
+    // Extract raw SVG, img, video blocks and markdown images (after code fences, before escaping)
+    const mediaBlocks = [];
+    s = s.replace(/<svg\b[\s\S]*?<\/svg>/g, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/<img\s[^>]*\/?>/gi, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/<video\b[\s\S]*?<\/video>/gi, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
+      const isVid = /\.(mp4|webm|mov|ogg)$/i.test(src);
+      mediaBlocks.push(isVid
+        ? `<div class="chat-media-block"><video controls src="${src}" style="max-width:100%"><p>${alt || 'Video'}</p></video></div>`
+        : `<div class="chat-media-block"><img src="${src}" alt="${alt}" style="max-width:100%"/></div>`);
+      return `\x00ME${mediaBlocks.length - 1}\x00`;
     });
     const inlineCode = [];
     s = s.replace(/`([^`]+)`/g, (_, code) => {
@@ -2384,11 +2465,13 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     s = s.replace(/((?:<li class="chat-li">.*<\/li>\n?)+)/g, '<ul class="chat-ul">$1</ul>');
     s = s.replace(/^\d+\. (.+)$/gm, '<li class="chat-oli">$1</li>');
     s = s.replace(/((?:<li class="chat-oli">.*<\/li>\n?)+)/g, '<ol class="chat-ol">$1</ol>');
+    s = s.replace(/\n/g, '<br/>');
     s = s.replace(/\x00FB(\d+)\x00/g, (_, i) => fencedBlocks[parseInt(i)]);
     s = s.replace(/\x00IC(\d+)\x00/g, (_, i) => inlineCode[parseInt(i)]);
-    s = s.replace(/\n/g, '<br/>');
-    s = s.replace(/(<\/pre>|<\/h[34]>|<\/ul>|<\/ol>|<\/div>|<\/table>|<hr[^>]*>)<br\/>/g, '$1');
-    s = s.replace(/<br\/>(<pre |<h[34] |<ul |<ol |<div class="chat-eq|<table |<hr )/g, '$1');
+    s = s.replace(/\x00DB(\d+)\x00/g, (_, i) => demoBlocks[parseInt(i)]);
+    s = s.replace(/\x00ME(\d+)\x00/g, (_, i) => mediaBlocks[parseInt(i)]);
+    s = s.replace(/(<\/pre>|<\/h[34]>|<\/ul>|<\/ol>|<\/div>|<\/details>|<\/table>|<hr[^>]*>)<br\/>/g, '$1');
+    s = s.replace(/<br\/>(<pre |<h[34] |<ul |<ol |<div class="chat-eq|<div class="chat-demo|<div class="chat-media|<details |<table |<hr )/g, '$1');
     ref.current.innerHTML = s;
   }, [text, role, streaming]);
 
@@ -2489,47 +2572,85 @@ const _ss = window["session" + "Storage"];
 
 // ─── Thread Panel Component ───
 
-function ThreadPanel({ thread, onToggleCollapse, onSend }) {
+function ThreadPanel({ thread, onToggleCollapse, onSend, onDelete, contextTrigger }) {
   const [threadInput, setThreadInput] = useState("");
+  const [threadCtx, setThreadCtx] = useState([]);
   const threadInputRef = useRef(null);
   const snippetPreview = thread.snippet.length > 50 ? thread.snippet.slice(0, 50) + "\u2026" : thread.snippet;
+  // Mount-only: intentional empty deps for initial focus
   useEffect(() => {
     if (thread.messages.length === 0 && threadInputRef.current) threadInputRef.current.focus();
-  }, []); // focus on mount when thread is new
+  }, []);
   useEffect(() => {
     if (threadInputRef.current) threadInputRef.current.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }, [thread.messages.length, thread.loading]);
+
+  const addThreadCtx = useCallback((text, source) => {
+    const clean = text.replace(/\s+/g, " ").trim();
+    if (!clean || clean.length < 3) return;
+    setThreadCtx(prev => prev.some(s => s.text === clean) ? prev : [...prev, { text: clean, source }]);
+    setTimeout(() => threadInputRef.current?.focus(), 0);
+  }, []);
+
+  // Watch for external context trigger (from context menu "Reply in this thread")
+  useEffect(() => {
+    if (contextTrigger && contextTrigger.threadId === thread.id) {
+      addThreadCtx(contextTrigger.text, contextTrigger.source || "selection");
+    }
+  }, [contextTrigger, thread.id, addThreadCtx]);
+
+  const handleSend = useCallback(() => {
+    const text = threadInput.trim();
+    if (!text) return;
+    onSend(text, threadCtx.length > 0 ? [...threadCtx] : null);
+    setThreadInput("");
+    setThreadCtx([]);
+  }, [threadInput, threadCtx, onSend]);
+
   return (
-    <div className={`thread-panel ${thread.collapsed ? "thread-collapsed" : ""}`}>
+    <div className={`thread-panel ${thread.collapsed ? "thread-collapsed" : ""}`} data-thread-id={thread.id}>
       <div className="thread-header" onClick={onToggleCollapse}>
         <button className="thread-collapse-btn" title={thread.collapsed ? "Expand thread" : "Collapse thread"}>
           {thread.collapsed ? "\u25B6" : "\u25BC"}
         </button>
         <span className="thread-snippet">"{snippetPreview}"</span>
         <span className="thread-count">{thread.messages.length > 0 ? `${thread.messages.length}` : "new"}</span>
+        <button className="thread-close-btn" onClick={(e) => { e.stopPropagation(); onDelete(); }} title="Delete thread">{"\u2715"}</button>
       </div>
       {!thread.collapsed && (
         <div className="thread-body">
           {thread.messages.map((m, i) => (
             <div key={i} className={`thread-msg thread-msg-${m.role}`}>
-              <ChatBubble text={m.content} role={m.role} streaming={!!m._streaming} />
+              <ChatBubble text={m.content} role={m.role} onReplyBlock={addThreadCtx} streaming={!!m._streaming} />
             </div>
           ))}
           {thread.loading && <div className="thread-loading"><span /><span /><span /></div>}
           {!thread.loading && (
-            <div className="thread-input-row">
-              <textarea
-                ref={threadInputRef}
-                className="thread-input"
-                value={threadInput}
-                onChange={e => setThreadInput(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); if (threadInput.trim()) { onSend(threadInput.trim()); setThreadInput(""); } } }}
-                onClick={e => e.stopPropagation()}
-                placeholder="Reply to thread..."
-                rows={1}
-              />
-              <button className="thread-send" onClick={() => { if (threadInput.trim()) { onSend(threadInput.trim()); setThreadInput(""); } }}>{"\u2192"}</button>
-            </div>
+            <>
+              {threadCtx.length > 0 && (
+                <div className="thread-ctx-bar">
+                  {threadCtx.map((s, i) => (
+                    <div key={i} className="chat-ctx-chip">
+                      <span className="chat-ctx-chip-text">{"+ "}{s.text.length > 30 ? s.text.slice(0, 30) + "\u2026" : s.text}</span>
+                      <button className="chat-ctx-chip-x" onClick={(e) => { e.stopPropagation(); setThreadCtx(prev => prev.filter((_, idx) => idx !== i)); }}>{"\u2715"}</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="thread-input-row">
+                <textarea
+                  ref={threadInputRef}
+                  className="thread-input"
+                  value={threadInput}
+                  onChange={e => setThreadInput(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
+                  onClick={e => e.stopPropagation()}
+                  placeholder={threadCtx.length > 0 ? `${threadCtx.length} context item${threadCtx.length > 1 ? "s" : ""} attached...` : "Reply to thread..."}
+                  rows={1}
+                />
+                <button className="thread-send" onClick={handleSend}>{"\u2192"}</button>
+              </div>
+            </>
           )}
         </div>
       )}
@@ -2539,7 +2660,7 @@ function ThreadPanel({ thread, onToggleCollapse, onSend }) {
 
 // ─── Chatbot Component ───
 
-function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClearAllSnippets, open, setOpen, onEditGraph, graphParams, addSnippet, threadTrigger }) {
+function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClearAllSnippets, open, setOpen, onEditGraph, graphParams, addSnippet, threadTrigger, threadCtxTrigger }) {
   const [tabs, setTabs] = useState([]);
   const [activeTabIdx, setActiveTabIdx] = useState(0);
   const [input, setInput] = useState("");
@@ -2704,7 +2825,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     const isolationBlock = isolatedFlag
       ? `\n\n--- ISOLATION MODE ---\nThis session is ISOLATED. Do NOT read, write, or reference any files in ~/.claude/memory/ or ~/.claude/projects/. Do NOT use the auto-memory system. Do NOT persist any information between sessions. Treat this as a completely fresh session with no prior knowledge from other chats.`
       : `\n\n--- SHARED MEMORY MODE ---\nYou may read and use your persistent memory files in ~/.claude/ and CLAUDE.md project files for context. You may write to memory if the user asks you to remember something.`;
-    return `You are a concise tutor for ECE 109 (Principles of Electronic Materials for Engineering) at the University of Waterloo. ${LESSON_CONTEXT}\n\nFull lesson topics for cross-reference:\n${allTopicCtx}\n\nYou have access to the lesson codebase in the current directory. You can read and edit files when asked. When you edit the lesson JSX file, the browser will hot-reload automatically.\n\nCRITICAL FORMATTING RULES (you MUST follow these exactly):\n- EVERY mathematical expression MUST be wrapped in dollar signs. Use $...$ for inline math (e.g. $E = hf$, $V_{GS}$, $m_e^*$) and $$...$$ for display math on its own line.\n- This includes ALL variables ($x$, $n$, $T$), subscripted terms ($E_g$, $k_B T$), Greek letters ($\\alpha$, $\\lambda$), and operators.\n- NEVER write bare math without dollar signs. Wrong: E = mc^2. Right: $E = mc^2$.\n- When referencing mathematical expressions inline, always render them in LaTeX (e.g. $\\frac{2m_e}{\\hbar^2}$, $\\nabla^2 \\psi$), never as plain text like 2m/hbar^2.\n- Use **bold** for emphasis and \`code\` for code.\n- Use markdown headers, lists, and fenced code blocks freely.\n- Help the student understand concepts, equations, derivations, and common pitfalls.\n- Be direct and efficient.\n\n--- GRAPH EDITING CAPABILITY ---\nYou can modify the lesson's graphs by including an edit command block in your response.\nThe current graph parameters are: ${JSON.stringify(graphParams)}\n\nTo edit a graph, include EXACTLY this format:\n<<EDIT_GRAPH>>{"graphKey": {"param": value}}<<END_EDIT>>\n\nOnly include an edit block when the user explicitly asks to change a graph.\n\n--- LESSON AUGMENTATION ---\nYou may proactively suggest adding content to the lesson when you identify a genuine gap in the student's understanding. Rules:\n- CONCISENESS is the top priority. Every word must earn its place.\n- Only suggest if it would genuinely help understanding -- do not saturate the lesson.\n- Short additions (1-3 lines): suggest mode="inline"\n- Longer explanations: suggest mode="collapsible"\n- Content not tied to a specific paragraph: suggest type="faq"\n- Give your explanation in the chat first. Then, if you think it belongs in the lesson, append:\n\n<<SUGGEST type="lesson|faq" section="exact-section-title" title="Short Title" mode="inline|collapsible">>\n[JSX content using existing components: <P>, <Eq m={...}/>, <M>, <KeyConcept label="...">, inline SVG if needed]\n<<END_SUGGEST>>\n\nThe user will see [Add to lesson] [Add to FAQ] [No] buttons. If approved, you will receive a follow-up -- then make the edit to src/qm_waves.jsx.\n\n--- THREAD SYSTEM ---\nSome messages begin with [THREAD:id | "snippet"]. These are inline side-threads where the student is clarifying a specific part of your previous response.\n- Respond concisely and targeted to the quoted snippet\n- Prefix your response with [THREAD:id] matching the incoming tag\n- When responding to untagged main messages, ignore thread history -- treat threads as resolved asides\n- Keep thread responses brief: 1-4 sentences unless more is clearly needed${isolationBlock}`;
+    return `You are a concise tutor for ECE 109 (Principles of Electronic Materials for Engineering) at the University of Waterloo. ${LESSON_CONTEXT}\n\nFull lesson topics for cross-reference:\n${allTopicCtx}\n\nYou have access to the lesson codebase. Edits to the JSX file hot-reload automatically. Help the student understand concepts, equations, derivations, and common pitfalls. Be concise: every sentence must advance understanding. Cut filler, preamble, and repetition. Prefer equations and visuals over lengthy prose.\n\nFORMATTING RULES:\n- Wrap ALL math in dollar signs: $...$ inline, $$...$$ display. This includes variables ($x$, $T$), subscripts ($E_g$), Greek letters ($\\alpha$), and compound expressions ($\\frac{2m_e}{\\hbar^2}$). Never write bare math.\n- Use **bold** for emphasis, \`code\` for code, markdown headers/lists/fenced blocks freely.\n\n--- GRAPH EDITING ---\nCurrent graph parameters: ${JSON.stringify(graphParams)}\n\nTo edit a graph (only when the user asks), include EXACTLY:\n<<EDIT_GRAPH>>{"graphKey": {"param": value}}<<END_EDIT>>\n\n--- RESEARCH & VERIFICATION ---\nUse WebSearch/WebFetch to verify equations, constants, derivations, and reference data before stating them.\n\nSource tiers:\n- TRUSTED: textbook publishers, NIST, .edu courses, peer-reviewed papers, well-sourced Wikipedia\n- ACCEPTABLE: Physics Stack Exchange (check votes), HyperPhysics, MIT OCW\n- REJECT: random forums, unattributed blogs, AI-generated content farms\n\nCite briefly inline (e.g. "per Kasap Table 4.1", "NIST CODATA 2018"). If only low-quality sources exist, state the uncertainty.\nWhen you use sources, collect them at the end of your response:\n<<SOURCES>>\n- Source name or title (URL if available)\n<<END_SOURCES>>\nThis renders as a collapsed "Sources" dropdown.\n\n--- VISUAL GENERATION ---\nGenerate visuals beyond inline SVG graphs. Decide how many to include based on what the explanation needs. Always verify output before presenting.\n\n1. MATPLOTLIB: For plots (3D, heatmaps, multi-panel). Run python3 via Bash, save to public/images/.\n2. MANIM: For animations. Spawn an Agent: write script, render, copy .mp4 to public/videos/, edit JSX to add <video> tag.\n3. WEB IMAGES: Fetch images using Bash(curl -o public/images/<name>.<ext> "URL"). Read the downloaded file to visually inspect it (you can see images). If suitable, use in chat as ![alt](/images/name.ext) or edit JSX to add <img>. Only use freely licensed or educational-source images. Delete unsuitable downloads.\n4. PLAYWRIGHT: Playwright is installed. Use it to screenshot and verify rendered pages or elements:\n   - Write a short Node script: require(\'playwright\'), launch chromium, navigate to the page, screenshot, close.\n   - Read the screenshot PNG to visually inspect the result.\n   - Use after editing lesson graphs, adding images to JSX, or when the student reports something looks wrong.\n   - For a specific element, use page.locator(\'.selector\').screenshot() instead of full-page.\n\n--- AGENT-BASED REVIEW ---\nUse the Agent tool for verification after generating visuals, multi-file edits, or complex derivations. Spawn with a specific task (e.g. "Read the SVG at X. Verify the curve matches y = sin(kx) for k=2pi. Check labels and scale."). Do not spawn agents for tasks you can do directly.\n\n--- CONVERSATION ANALYSIS ---\nSilently assess every response. Do NOT output your analysis; use it to guide action.\n\nBREAKTHROUGH DETECTION:\nSignals of pivotal understanding:\n- Student connects previously separate concepts\n- Student shifts from "what" to "why" or "what if" questions\n- Student self-corrects a misconception or applies a concept to a new context unprompted\n- A stuck exchange suddenly resolves\n\nOn breakthrough:\n1. Acknowledge briefly (1 sentence, not patronizing)\n2. If the insight reveals a gap the lesson does not cover and is general enough to help future readers, use <<SUGGEST>> to propose a KeyConcept or bridging paragraph\n\nVISUALIZATION OPPORTUNITIES:\nGenerate a visual when explaining spatial relationships, parameter-dependent curves, or inherently visual confusion. Skip when the concept is purely algebraic, an existing lesson graph covers it, the question is about notation, or adding more visuals would not clarify the explanation.\n\nInline demo format:\n<<DEMO title="Short Title">>\n<svg viewBox="0 0 W H" style="width:100%;max-width:Wpx;display:block;margin:8px auto">\n  <!-- gold=#c8a45a, blue=#4a90d9, red=#e06c75, green=#69b578, axis=#6b7084, text=#9498ac -->\n  <!-- Keep it clean: labeled axes, clear annotations -->\n</svg>\n<<END_DEMO>>\n\nFor complex visuals needing many SVG elements, consider a lesson graph edit instead. If generalizable, also append a <<SUGGEST>> block.\n\n--- LESSON AUGMENTATION ---\nSuggest lesson additions only for genuine understanding gaps. Every word must earn its place.\n- Reusable <<DEMO>> visuals can be promoted via <<SUGGEST>> with the SVG in a collapsible.\n- Short additions (1-3 lines): mode="inline". Longer: mode="collapsible". Untied to a paragraph: type="faq".\n- Explain in chat first, then append if it belongs in the lesson:\n\n<<SUGGEST type="lesson|faq" section="exact-section-title" title="Short Title" mode="inline|collapsible">>\n[JSX using <P>, <Eq m={...}/>, <M>, <KeyConcept label="...">, inline SVG]\n<<END_SUGGEST>>\n\nThe user sees [Add to lesson] [Add to FAQ] [No]. On approval, edit src/qm_waves.jsx.\n\n--- THREAD SYSTEM ---\nMessages starting with [THREAD:id | "snippet"] are side-threads on a specific part of your previous response.\n- Prefix replies with [THREAD:id]. Keep thread responses appropriately scoped to the snippet.\n- Ignore thread history when responding to untagged main messages.${isolationBlock}`;
   }, [graphParams]);
 
   const createSessionForTab = useCallback(async (tabId) => {
@@ -2841,7 +2962,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     })();
   }, [activeTab?.sessionStatus]);
 
-  const addTab = useCallback(async () => {
+  const addTab = useCallback(() => {
     const newTab = makeTab();
     let newIdx;
     setTabs(prev => {
@@ -2849,17 +2970,8 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
       return [...prev, newTab];
     });
     setActiveTabIdx(newIdx);
-    try {
-      const list = await fetchSessions();
-      const available = list.filter(s => !s.open);
-      if (available.length > 0) {
-        setServerSessions(list);
-        updateTab(newTab.id, { sessionStatus: "picking" });
-        return;
-      }
-    } catch (_) {}
     createSessionForTab(newTab.id);
-  }, [createSessionForTab, fetchSessions, updateTab]);
+  }, [createSessionForTab]);
 
   const closeTab = useCallback(async (tabId) => {
     const tab = tabsRef.current.find(t => t.id === tabId);
@@ -2935,6 +3047,23 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
         display = display.replace(match[0], "");
       } catch (e) { /* ignore malformed */ }
     }
+    // Extract inline demo blocks and convert to rendered HTML
+    const demoRe = /<<DEMO\s+title="([^"]*)"?>>([\s\S]*?)<<END_DEMO>>/g;
+    display = display.replace(demoRe, (_, title, svgContent) => {
+      const cleanSvg = svgContent.trim();
+      if (!cleanSvg.startsWith('<svg')) return '';
+      return `<div class="chat-demo-block"><div class="chat-demo-title">${title}</div>${cleanSvg}</div>`;
+    });
+    // Convert <<SOURCES>> block to collapsible dropdown
+    display = display.replace(/<<SOURCES>>([\s\S]*?)<<END_SOURCES>>/g, (_, content) => {
+      const items = content.trim().split('\n').filter(l => l.trim().startsWith('-')).map(l => {
+        let text = l.trim().replace(/^-\s*/, '');
+        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        return `<li>${text}</li>`;
+      });
+      if (items.length === 0) return '';
+      return `<details class="chat-sources"><summary>Sources</summary><ul>${items.join('')}</ul></details>`;
+    });
     let suggestion = null;
     const suggestRe = /<<SUGGEST\s+([^>]*)>>([\s\S]*?)<<END_SUGGEST>>/;
     const suggestMatch = display.match(suggestRe);
@@ -2964,6 +3093,23 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
       if (key.startsWith(tab.id + ':')) { try { _cs.threadAborts[key].abort(); } catch (_) {} delete _cs.threadAborts[key]; }
     }
   };
+
+  const killSession = useCallback(() => {
+    if (!activeTab) return;
+    cancelRequest();
+    if (activeTab.sessionId) {
+      fetch("/session/close", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId: activeTab.sessionId, keepContext: false }),
+      }).catch(() => {});
+    }
+    updateTab(activeTab.id, {
+      sessionId: null, chatNum: null, sessionStatus: "idle",
+      loading: false, statusText: "",
+      messages: [...activeTab.messages, { role: "assistant", content: "Session killed." }],
+    });
+  }, [activeTab, cancelRequest, updateTab]);
 
   const sendMessage = async (overrideText) => {
     const tab = tabsRef.current[activeTabIdxRef.current];
@@ -3183,14 +3329,30 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     }));
   }, []);
 
-  const sendThreadMessage = async (tabId, msgIdx, threadId, snippet, text) => {
+  const deleteThread = useCallback((tabId, msgIdx, threadId) => {
+    setTabs(prev => prev.map(t => {
+      if (t.id !== tabId) return t;
+      const msgs = [...t.messages];
+      const m = { ...msgs[msgIdx] };
+      m.threads = (m.threads || []).filter(th => th.id !== threadId);
+      msgs[msgIdx] = m;
+      return { ...t, messages: msgs };
+    }));
+  }, []);
+
+  const sendThreadMessage = async (tabId, msgIdx, threadId, snippet, text, context) => {
     const tab = tabsRef.current.find(t => t.id === tabId);
     if (!tab || !tab.sessionId) return;
 
     addThreadMsg(tabId, msgIdx, threadId, { role: "user", content: text });
     updateThread(tabId, msgIdx, threadId, { loading: true });
 
-    const tagged = `[THREAD:${threadId} | "${snippet.slice(0, 60)}"]\n\n${text}`;
+    let apiText = text;
+    if (context && context.length > 0) {
+      const ctxBlock = context.map((s, i) => `[Context ${i + 1} -- ${s.source}]: ${s.text}`).join("\n");
+      apiText = `${ctxBlock}\n\nQuestion: ${apiText}`;
+    }
+    const tagged = `[THREAD:${threadId} | "${snippet.slice(0, 60)}"]\n\n${apiText}`;
     _cs.activeThread[tabId] = { msgIdx, threadId };
 
     const controller = new AbortController();
@@ -3377,6 +3539,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
             <button className="chat-expand-btn" onClick={() => { if (!activeTab) return; updateTab(activeTab.id, { keepContext: !activeTab.keepContext }); _ss.setItem("keepContext", (!activeTab.keepContext) ? "true" : "false"); }} title={keepContext ? "Keep context ON: session survives reload" : "Keep context OFF: new session on reload"} style={{ background: keepContext ? "var(--accent)" : undefined, color: keepContext ? "var(--bg-main)" : undefined }}>
               {keepContext ? "KC" : "kc"}
             </button>
+            <button className="chat-kill-btn" onClick={killSession} title="Kill session and stop all processes">KILL</button>
             <button className="chat-expand-btn" onClick={toggleExpand} title={expanded ? "Shrink" : "Expand"}>
               {expanded ? "\u2296" : "\u2295"}
             </button>
@@ -3451,7 +3614,9 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
                 key={threadId}
                 thread={thread}
                 onToggleCollapse={() => updateThread(activeTab.id, msgIdx, threadId, { collapsed: !thread.collapsed })}
-                onSend={(text) => sendThreadMessage(activeTab.id, msgIdx, threadId, thread.snippet, text)}
+                onSend={(text, ctx) => sendThreadMessage(activeTab.id, msgIdx, threadId, thread.snippet, text, ctx)}
+                onDelete={() => deleteThread(activeTab.id, msgIdx, threadId)}
+                contextTrigger={threadCtxTrigger}
               />,
               el
             );
@@ -3504,6 +3669,7 @@ export default function LessonApp() {
   const mouseDownPos = useRef(null);
   const [ctxMenu, setCtxMenu] = useState(null);
   const [threadTrigger, setThreadTrigger] = useState(null);
+  const [threadCtxTrigger, setThreadCtxTrigger] = useState(null);
 
   G = THEMES_G[theme];
 
@@ -3512,6 +3678,19 @@ export default function LessonApp() {
       if (e.ctrlKey && e.key === "/") {
         e.preventDefault();
         setChatOpen(o => !o);
+      }
+      // Ctrl+Shift+F: add selection to thread context (if inside a thread panel)
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "f") {
+        const sel = window.getSelection();
+        const text = sel ? sel.toString().trim() : "";
+        if (text.length < 3) return;
+        const threadEl = sel.anchorNode?.parentElement?.closest('.thread-panel[data-thread-id]');
+        if (threadEl) {
+          e.preventDefault();
+          const tid = threadEl.getAttribute('data-thread-id');
+          setThreadCtxTrigger({ threadId: tid, text, source: "thread selection", ts: Date.now() });
+          sel.removeAllRanges();
+        }
       }
     };
     window.addEventListener("keydown", handleKey);
@@ -3588,6 +3767,7 @@ export default function LessonApp() {
       const text = sel ? sel.toString().trim() : "";
       if (text.length > 2) {
         addSnippet(text, "selection");
+        setTimeout(() => document.querySelector(".chat-input")?.focus(), 0);
         try {
           const range = sel.getRangeAt(0);
           const rect = range.getBoundingClientRect();
@@ -3599,7 +3779,6 @@ export default function LessonApp() {
           setTimeout(() => flash.remove(), 800);
         } catch (err) {}
         sel.removeAllRanges();
-        setTimeout(() => document.querySelector(".chat-input")?.focus(), 0);
       }
     }, 10);
   }, [chatOpen, addSnippet]);
@@ -3629,7 +3808,10 @@ export default function LessonApp() {
         }
       }
     }
-    setCtxMenu({ x: Math.min(e.clientX, window.innerWidth - 160), y: Math.min(e.clientY, window.innerHeight - 60), text, chatMsgIdx, chatBlockIdx });
+    // Detect if right-click is inside a thread panel
+    const threadPanel = e.target.closest('.thread-panel[data-thread-id]');
+    const threadId = threadPanel ? threadPanel.getAttribute('data-thread-id') : null;
+    setCtxMenu({ x: Math.min(e.clientX, window.innerWidth - 160), y: Math.min(e.clientY, window.innerHeight - 80), text, chatMsgIdx, chatBlockIdx, threadId });
   }, [chatOpen]);
 
   useEffect(() => {
@@ -3650,6 +3832,13 @@ export default function LessonApp() {
   const handleCtxOpenThread = useCallback(() => {
     if (!ctxMenu || ctxMenu.chatMsgIdx == null) return;
     setThreadTrigger({ text: ctxMenu.text, msgIdx: ctxMenu.chatMsgIdx, blockIdx: ctxMenu.chatBlockIdx, ts: Date.now() });
+    setCtxMenu(null);
+    window.getSelection()?.removeAllRanges();
+  }, [ctxMenu]);
+
+  const handleCtxReplyInThread = useCallback(() => {
+    if (!ctxMenu || !ctxMenu.threadId) return;
+    setThreadCtxTrigger({ threadId: ctxMenu.threadId, text: ctxMenu.text, source: "thread selection", ts: Date.now() });
     setCtxMenu(null);
     window.getSelection()?.removeAllRanges();
   }, [ctxMenu]);
@@ -3711,12 +3900,15 @@ export default function LessonApp() {
       </div>
       <Chatbot topicId={active.id} topicTitle={active.title} contextSnippets={contextSnippets}
         onClearSnippet={handleClearSnippet} onClearAllSnippets={handleClearAllSnippets}
-        open={chatOpen} setOpen={setChatOpen} onEditGraph={handleEditGraph} graphParams={graphParams} addSnippet={addSnippet} threadTrigger={threadTrigger} />
+        open={chatOpen} setOpen={setChatOpen} onEditGraph={handleEditGraph} graphParams={graphParams} addSnippet={addSnippet} threadTrigger={threadTrigger} threadCtxTrigger={threadCtxTrigger} />
       {ctxMenu && (
         <div className="ctx-menu" style={{ left: ctxMenu.x, top: ctxMenu.y }}>
           <button className="ctx-menu-item" onClick={handleCtxReply}>Reply</button>
           {ctxMenu.chatMsgIdx != null && (
             <button className="ctx-menu-item" onClick={handleCtxOpenThread}>Reply in thread</button>
+          )}
+          {ctxMenu.threadId && (
+            <button className="ctx-menu-item" onClick={handleCtxReplyInThread}>Reply in this thread</button>
           )}
         </div>
       )}

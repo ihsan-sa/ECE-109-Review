@@ -1,0 +1,170 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="-40 -1380 1024 2816">
+ <title>Visualisation of a diamond cubic unit cell</title>
+ <desc>Visualisation of a diamond cubic unit cell: 1. Components of a unit cell, 2. One unit cell, 3. A lattice of 3 x 3 x 3 unit cells; by CMG Lee.</desc>
+ <defs>
+  <linearGradient id="grad_bond_1" x1="0%" x2="100%" y1="0%" y2="100%">
+   <stop offset="30%" stop-color="#000000"/>
+   <stop offset="48%" stop-color="#ffffff"/>
+   <stop offset="60%" stop-color="#000000"/>
+  </linearGradient>
+  <linearGradient id="grad_bond_2" x1="85%" x2="20%" y1="0%" y2="100%">
+   <stop offset="20%" stop-color="#000000"/>
+   <stop offset="50%" stop-color="#ffffff"/>
+   <stop offset="70%" stop-color="#000000"/>
+  </linearGradient>
+  <linearGradient id="grad_bond_3" x1="0%" x2="100%" y1="80%" y2="20%">
+   <stop offset="20%" stop-color="#000000"/>
+   <stop offset="50%" stop-color="#ffffff"/>
+   <stop offset="80%" stop-color="#000000"/>
+  </linearGradient>
+  <radialGradient id="grad_atom_1" cx="50%" cy="50%" r="50%" fx="33%" fy="33%">
+   <stop offset="10%" stop-color="#ffffff"/>
+   <stop offset="90%" stop-color="#000000"/>
+  </radialGradient>
+  <radialGradient id="grad_atom_2" cx="50%" cy="50%" r="50%" fx="33%" fy="33%">
+   <stop offset="10%" stop-color="#ffff00"/>
+   <stop offset="90%" stop-color="#000000"/>
+  </radialGradient>
+
+  <circle id="atom" cx="0" cy="0" r="20" fill-opacity="1"/>
+  <use id="atom_1" xlink:href="#atom" fill="url(#grad_atom_1)"/>
+  <use id="atom_2" xlink:href="#atom" fill="url(#grad_atom_2)"/>
+  <g id="bonds" stroke="#000000" fill-opacity="1">
+   <path d="M 65,-65 l -55,50 q 0,10 10,10 l 55,-50" fill="url(#grad_bond_1)"/>
+   <path d="M -60,-30 l 50,20 q 5,13 -5,13 l -50,-20" fill="url(#grad_bond_2)"/>
+   <path d="M 10,75 l -12,-60 q 5,-10 13,-3 l 12,60" fill="url(#grad_bond_3)"/>
+  </g>
+  <g id="tetrahedron" stroke="#ff0000">
+   <!-- <path d="M -20,10 l 40,80 z l 100,-80 z l -60,-40 z" stroke-opacity="0.5"/> -->
+   <path d="M 20,90 l 60,-160 l -160,40 z" fill="#ff0000" fill-opacity="0.15"/>
+  </g>
+  <path id="face_top"   d="M 20,-10 l 60,-60 l -100,-20 l -60,60 z"/>
+  <path id="face_left"  d="M 20,-10 v    100 l -100,-20 v   -100 z"/>
+  <path id="face_right" d="M 20,-10 v    100 l   60,-60 v   -100 z"/>
+  <g id="faces_back" stroke="#0000ff" stroke-opacity="0.2" fill="none">
+   <use xlink:href="#face_top"   transform="translate(0,100)"/>
+   <use xlink:href="#face_left"  transform="translate(60,-60)"/>
+   <use xlink:href="#face_right" transform="translate(-100,-20)"/>
+  </g>
+  <g id="faces_front" stroke="#0000ff" fill="#0099ff">
+   <use xlink:href="#face_top"   opacity="0.1"/>
+   <use xlink:href="#face_left"  opacity="0.2"/>
+   <use xlink:href="#face_right" opacity="0.3"/>
+  </g>
+  <g id="subcell_0">
+   <use xlink:href="#faces_back"/>
+   <use xlink:href="#faces_front"/>
+  </g>
+  <g id="subcell_1">
+   <use xlink:href="#faces_back"/>
+   <use xlink:href="#atom_1" transform="translate(-20,10)"/>
+   <use xlink:href="#tetrahedron"/>
+   <use xlink:href="#atom_2"/>
+   <use xlink:href="#bonds"/>
+   <use xlink:href="#tetrahedron"/>
+   <use xlink:href="#faces_front"/>
+   <use xlink:href="#atom_1" transform="translate(-80,-30)"/>
+   <use xlink:href="#atom_1" transform="translate(80,-70)"/>
+   <use xlink:href="#atom_1" transform="translate(20,90)"/>
+  </g>
+  <g id="cell_diamond" fill-opacity="0">
+   <use xlink:href="#faces_front" transform="scale(2,2)" fill-opacity="1"/>
+   <use xlink:href="#subcell_1" transform="translate(-20,10)"/>
+   <use xlink:href="#subcell_0" transform="translate(80,30)"/>
+   <use xlink:href="#subcell_0" transform="translate(-80,70)"/>
+   <use xlink:href="#subcell_1" transform="translate(20,90)"/>
+   <use xlink:href="#subcell_0" transform="translate(-20,-90)"/>
+   <use xlink:href="#subcell_1" transform="translate(80,-70)"/>
+   <use xlink:href="#subcell_1" transform="translate(-80,-30)"/>
+   <use xlink:href="#subcell_0" transform="translate(20,-10)"/>
+   <g stroke-width="4" stroke-dasharray="1,8" stroke="#000000" fill="none">
+    <use xlink:href="#atom" transform="translate(40,-20)"/>
+    <use xlink:href="#atom" transform="translate(-40,-180)"/>
+    <use xlink:href="#atom" transform="translate(160,60)"/>
+    <use xlink:href="#atom" transform="translate(-160,140)"/>
+   </g>
+   <g stroke-width="4">
+    <path d="M 40,180 l 120,-120 v -200 l -200,-40 l -120,120 v 200 l 200,40 v -200 l 120,-120 m -120,120 l -200,-40" stroke="#009900"/>
+    <!-- <path d="M 40,180 l 120,-320 l -320,80 z" stroke="#cc00ff"/> -->
+   </g>
+  </g>
+ <!--
+  <g id="cell_fcc">
+   <use xlink:href="#subcell_1" transform="translate(-20,10)"/>
+   <use xlink:href="#subcell_1" transform="translate(80,30)"/>
+   <use xlink:href="#subcell_1" transform="translate(-80,70)"/>
+   <use xlink:href="#subcell_1" transform="translate(20,90)"/>
+   <use xlink:href="#subcell_1" transform="translate(-20,-90)"/>
+   <use xlink:href="#subcell_1" transform="translate(80,-70)"/>
+   <use xlink:href="#subcell_1" transform="translate(-80,-30)"/>
+   <use xlink:href="#subcell_1" transform="translate(20,-10)"/>
+  </g>
+ -->
+  <g id="layer_diamond">
+   <use xlink:href="#cell_diamond"/>
+   <use xlink:href="#cell_diamond" transform="translate(200,40)"/>
+   <use xlink:href="#cell_diamond" transform="translate(-120,120)"/>
+   <use xlink:href="#cell_diamond" transform="translate(-240,240)"/>
+   <use xlink:href="#cell_diamond" transform="translate(80,160)"/>
+   <use xlink:href="#cell_diamond" transform="translate(400,80)"/>
+   <use xlink:href="#cell_diamond" transform="translate(280,200)"/>
+   <use xlink:href="#cell_diamond" transform="translate(-40,280)"/>
+   <use xlink:href="#cell_diamond" transform="translate(160,320)"/>
+  </g>
+ </defs>
+ <g font-family="sans-serif" font-size="80" text-anchor="middle" stroke-linejoin="round" stroke-linecap="round" stroke="none" fill="#000000">
+ <!--
+  <g>
+   <g transform="translate(0,-700)">
+    <use xlink:href="#subcell_1"/>
+    <use xlink:href="#subcell_1" transform="translate(300,60)"/>
+    <use xlink:href="#subcell_1" transform="translate(-180,180)"/>
+    <use xlink:href="#subcell_1" transform="translate(120,240)"/>
+    <use xlink:href="#subcell_1" transform="translate(0,-500)"/>
+    <use xlink:href="#subcell_1" transform="translate(300,-440)"/>
+    <use xlink:href="#subcell_1" transform="translate(-180,-320)"/>
+    <use xlink:href="#subcell_1" transform="translate(120,-260)"/>
+   </g>
+
+   <use xlink:href="#cell_fcc"/>
+
+   <g transform="translate(0,700)">
+    <use xlink:href="#cell_fcc"/>
+    <use xlink:href="#cell_fcc" transform="translate(200,40)"/>
+    <use xlink:href="#cell_fcc" transform="translate(-120,120)"/>
+    <use xlink:href="#cell_fcc" transform="translate(80,160)"/>
+    <use xlink:href="#cell_fcc" transform="translate(0,-200)"/>
+    <use xlink:href="#cell_fcc" transform="translate(200,-160)"/>
+    <use xlink:href="#cell_fcc" transform="translate(-120,-80)"/>
+    <use xlink:href="#cell_fcc" transform="translate(80,-40)"/>
+   </g>
+  </g>
+ -->
+  <text x="0" y="-800">1.</text>
+  <text x="0" y="0">2.</text>
+  <text x="0" y="400">3.</text>
+
+  <g transform="translate(400,0)">
+   <g transform="translate(0,-670)">
+    <use xlink:href="#subcell_1"/>
+    <use xlink:href="#subcell_0" transform="translate(300,60)"/>
+    <use xlink:href="#subcell_0" transform="translate(-180,180)"/>
+    <use xlink:href="#subcell_1" transform="translate(120,240)"/>
+    <use xlink:href="#subcell_0" transform="translate(0,-600)"/>
+    <use xlink:href="#subcell_1" transform="translate(300,-540)"/>
+    <use xlink:href="#subcell_1" transform="translate(-180,-420)"/>
+    <use xlink:href="#subcell_0" transform="translate(120,-360)"/>
+   </g>
+
+   <use xlink:href="#cell_diamond"/>
+
+   <g transform="translate(0,500)">
+    <!-- <use xlink:href="#faces_front" transform="transform(40,200) scale(6,6)" fill-opacity="1"/> -->
+    <use xlink:href="#layer_diamond" transform="translate(0,400)"/>
+    <use xlink:href="#layer_diamond" transform="translate(0,200)"/>
+    <use xlink:href="#layer_diamond"/>
+   </g>
+  </g>
+ </g>
+</svg>

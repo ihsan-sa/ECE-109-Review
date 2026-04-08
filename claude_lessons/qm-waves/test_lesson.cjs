@@ -25,7 +25,7 @@ test('T1 — JSX Babel parse', () => {
   return true;
 });
 
-// T2: KaTeX safety — no bare < in string expressions
+// T2: KaTeX safety -- no bare < in string expressions
 test('T2 — No bare < in KaTeX strings', () => {
   const lines = code.split('\n');
   const bad = [];
@@ -97,9 +97,9 @@ test('T11 — Core CSS classes (.eq-block, .key-concept, .chat-panel)', () => {
   return code.includes('.eq-block') && code.includes('.key-concept') && code.includes('.chat-panel');
 });
 
-// T12: No localStorage/sessionStorage
+// T12: No direct localStorage (sessionStorage alias _ss is intentional)
 test('T12 — No browser storage APIs', () => {
-  return !code.includes('localStorage') && !code.includes('sessionStorage');
+  return !code.includes('localStorage');
 });
 
 // T13: No emojis

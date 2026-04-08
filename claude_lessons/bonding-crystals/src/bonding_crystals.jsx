@@ -20,7 +20,7 @@ function M({ children }) { return <Eq display={false}>{children}</Eq>; }
 // ─── Topic Context for Chatbot ───
 
 const TOPIC_CONTEXT = {
-  "bonding-forces": `Topic: Interatomic Forces and Potential Energy. Covers: why molecules form (lower PE), attractive force F_A (Coulomb for ionic, van der Waals), repulsive force F_R (electron cloud overlap, Pauli exclusion), net force F_N = F_A + F_R = 0 at equilibrium separation r_0. Potential energy E(r) = -A/r + B/r^m. For ionic bonding (NaCl): A = e^2 * M / (4*pi*eps_0), m typically 6-12 for vdW or 8 for ionic. Madelung constant M = 1.748 for NaCl. Bond energy E_bond = |E(r_0)| is the energy at the equilibrium separation. Cohesive energy = energy per ion pair to break crystal into isolated ions. Variables: r = interatomic separation, r_0 = equilibrium separation (0.28 nm for NaCl), e = 1.6e-19 C, eps_0 = 8.854e-12 F/m, M = Madelung constant.`,
+  "bonding-forces": `Topic: Interatomic Forces and Potential Energy. Covers: why molecules form (lower PE), attractive force F_A (Coulomb for ionic, van der Waals), repulsive force F_R (electron cloud overlap, Pauli exclusion), net force F_N = F_A + F_R = 0 at equilibrium separation r_0. Single-pair potential energy E(r) = -A/r + B/r^m, where A = e^2/(4*pi*eps_0) ≈ 1.436 eV*nm is the Coulomb constant. For the full crystal lattice, the Madelung constant M multiplies the Coulomb term: E_lattice = -M*e^2/(4*pi*eps_0*r) + B/r^m. M = 1.748 for NaCl. m typically 6-12 for vdW or 8 for ionic. Bond energy E_bond = |E(r_0)| is the energy at the equilibrium separation. Variables: r = interatomic separation, r_0 = equilibrium separation (0.28 nm for NaCl), e = 1.6e-19 C, eps_0 = 8.854e-12 F/m, M = Madelung constant.`,
   "bond-types": `Topic: Types of Bonding. Covers: Covalent bonding (directional, shared electron pairs, hybridized orbitals, examples: diamond, Si, Ge, GaAs), metallic bonding (electron sea/cloud model, non-directional, ductile, good conductors), ionic bonding (electron transfer, electrostatic attraction, NaCl, high melting point, insulating), van der Waals bonding (London dispersion forces, induced dipole-dipole, weak, low melting point, noble gas crystals), hydrogen bonding (permanent dipole in H-X where X = O, N, F; important in H2O, ice, biology), mixed bonding (most materials have partial ionic + covalent character). Comparison properties: bond energy (0.01-0.1 eV for vdW up to 4-7 eV for covalent), melting temperature, elastic modulus, density. Electronegativity difference determines ionic vs covalent character.`,
   "crystal-structures": `Topic: Crystal Structures. Covers: crystalline (long-range periodic order) vs amorphous (short-range order only). Crystal = lattice + basis. Unit cell defined by lattice vectors a, b, c and angles alpha, beta, gamma. Translation vector R = h*a + k*b + l*c (h,k,l integers). Primitive unit cell contains exactly one lattice point. Wigner-Seitz cell: draw perpendicular bisectors to nearest neighbors. 2D Bravais lattices: 5 types (square, rectangular, centered rectangular, hexagonal, oblique). 3D Bravais lattices: 14 types in 7 crystal systems (cubic: SC/BCC/FCC, tetragonal: simple/body-centered, orthorhombic: simple/base/body/face, hexagonal, rhombohedral/trigonal, monoclinic: simple/base, triclinic). Cubic system: a=b=c, alpha=beta=gamma=90 deg. Diamond structure: FCC lattice with 2-atom basis (offset by a/4, a/4, a/4). Atoms per unit cell: SC=1, BCC=2, FCC=4, Diamond=8, HCP=6. Coordination number: SC=6, BCC=8, FCC=12, Diamond=4, HCP=12. APF: SC=0.52, BCC=0.68, FCC=0.74, Diamond=0.34, HCP=0.74. Radius vs lattice parameter: SC r=a/2, BCC r=a*sqrt(3)/4, FCC r=a*sqrt(2)/4, Diamond r=a*sqrt(3)/8.`,
   "miller-indices": `Topic: Miller Indices and Diffraction. Covers: crystal directions [uvw] denoting direction u*a + v*b + w*c. Negative indices written with overbar. Family of directions <uvw>. Crystal planes (hkl): take reciprocals of fractional intercepts with axes. Family of planes {hkl}. Interplanar spacing for cubic: d_{hkl} = a / sqrt(h^2 + k^2 + l^2). Bragg's diffraction law: 2*d*sin(theta) = n*lambda, where theta is the angle of incidence, lambda is wavelength, n is integer order. Interactive Bragg calculator available (default: NaCl a=0.5641nm, Cu K-alpha lambda=0.1541nm). X-ray diffraction (XRD) for structure determination. Powder diffraction: polycrystalline sample, rings on detector, identifies crystal structure from peak positions. Systematic absences: BCC reflects only when h+k+l = even, FCC reflects only when h,k,l all odd or all even.`,
@@ -41,8 +41,8 @@ const EFFORT_LEVELS = ["low", "medium", "high", "max"];
 // ─── Theme-Aware Graph Colors (copy verbatim) ───
 
 const THEMES_G = {
-  dark:  { bg: "#13151c", ax: "#6b7084", gold: "#c8a45a", blue: "#4a90d9", red: "#e06c75", grn: "#69b578", txt: "#9498ac", ltxt: "#b0b4c4" },
-  light: { bg: "#f0efe8", ax: "#888", gold: "#9a7b2e", blue: "#2a6abf", red: "#c0392b", grn: "#2d8a4e", txt: "#555", ltxt: "#333" },
+  dark:  { bg: "#13151c", ax: "#6b7084", gold: "#c8a45a", blue: "#4a90d9", red: "#e06c75", grn: "#69b578", txt: "#9498ac", ltxt: "#b0b4c4", purple: "#a077d4", orange: "#e0a060" },
+  light: { bg: "#f0efe8", ax: "#888", gold: "#9a7b2e", blue: "#2a6abf", red: "#c0392b", grn: "#2d8a4e", txt: "#555", ltxt: "#333", purple: "#7b5bb5", orange: "#c4822e" },
 };
 let G = THEMES_G.light;
 
@@ -60,7 +60,7 @@ function InteratomicPotentialEnergy({ params, mid = "" }) {
   const w = 480, h = 300, ox = 60, oy = 200;
   const rMin = 0.15, rMax = 0.8, rStep = 0.005;
   // NaCl parameters in nm and eV
-  const A_coeff = 1.436; // e^2*M/(4*pi*eps_0) in eV*nm for NaCl (M=1.748)
+  const A_coeff = 1.436; // e^2/(4*pi*eps_0) in eV*nm (single ion-pair Coulomb constant)
   const m = p.m;
   // B chosen so equilibrium at r0 = 0.28 nm: dE/dr = 0 => B = A*r0^(m-1)/m
   const r0 = 0.28;
@@ -109,6 +109,7 @@ function InteratomicPotentialEnergy({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Interatomic potential energy curve showing equilibrium separation</title>
         <defs>
           <marker id={`ah-pe${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -222,6 +223,7 @@ function InteratomicForce({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Interatomic force curve as derivative of potential energy</title>
         <defs>
           <marker id={`ah-f${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -461,6 +463,7 @@ function BraggDiffractionAnimation() {
     <div style={{ padding: "12px 14px", background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 6, margin: "12px 0" }}>
       <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600, color: "var(--accent)", marginBottom: 8 }}>Bragg Diffraction Animation</div>
       <svg viewBox={`0 0 ${w} ${h}`} width="100%" style={{ background: G.bg, borderRadius: 4, display: "block" }}>
+        <title>Bragg diffraction animation showing incident and reflected beams</title>
         {/* Crystal planes */}
         {Array.from({ length: numPlanes }, (_, i) => (
           <line key={`p${i}`} x1={planeX0} y1={planeY0 + i * d} x2={planeX1} y2={planeY0 + i * d}
@@ -524,7 +527,7 @@ function BraggDiffractionAnimation() {
         </text>
       </svg>
       <div style={controlStyle}>
-        <button style={btnStyle} onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}>
+        <button className="ctrl-btn" onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}>
           {playing ? "Pause" : "Play"}
         </button>
         <span style={{ fontSize: 11, color: "var(--text-dim)", fontFamily: "'IBM Plex Mono', monospace" }}>{"\u03B8"} =</span>
@@ -632,6 +635,7 @@ function ThermalVibrationAnimation() {
     <div style={{ padding: "12px 14px", background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 6, margin: "12px 0" }}>
       <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600, color: "var(--accent)", marginBottom: 8 }}>Thermal Vibration and Point Defects</div>
       <svg viewBox={`0 0 ${svgSize} ${svgSize}`} width="100%" style={{ background: G.bg, borderRadius: 4, display: "block", maxWidth: 400 }}>
+        <title>Crystal lattice thermal vibration with point defects</title>
         {/* Grid atoms */}
         {Array.from({ length: gridSize * gridSize }, (_, i) => {
           const row = Math.floor(i / gridSize);
@@ -665,7 +669,7 @@ function ThermalVibrationAnimation() {
           fontFamily="'IBM Plex Mono', monospace" textAnchor="end">{temperature} K</text>
       </svg>
       <div style={controlStyle}>
-        <button style={btnStyle} onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}>
+        <button className="ctrl-btn" onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}>
           {playing ? "Pause" : "Play"}
         </button>
         <span style={{ fontSize: 11, color: "var(--text-dim)", fontFamily: "'IBM Plex Mono', monospace" }}>T =</span>
@@ -712,15 +716,17 @@ const TOPICS = [
         </Section>
 
         <Section title="Ionic Bonding Parameters (NaCl)">
-          <P>For ionic crystals, the attractive constant <M>{"A"}</M> in the PE expression involves the Madelung constant:</P>
-          <Eq>{"A = \\frac{e^2 M}{4\\pi \\varepsilon_0}"}</Eq>
-          <P>where <M>{"M"}</M> is the <b>Madelung constant</b>, which accounts for the sum of all Coulomb interactions in the crystal lattice. For NaCl, <M>{"M = 1.748"}</M>.</P>
+          <P>For a single ion pair, the attractive constant <M>{"A"}</M> in the PE expression is the Coulomb constant:</P>
+          <Eq>{"A = \\frac{e^2}{4\\pi \\varepsilon_0} \\approx 1.436 \\text{ eV{\\cdot}nm}"}</Eq>
+          <P>For the complete crystal lattice, the <b>Madelung constant</b> <M>{"M"}</M> accounts for the sum of all Coulomb interactions beyond the nearest pair. The lattice potential energy per pair becomes:</P>
+          <Eq>{"E_{\\text{lattice}}(r) = -\\frac{M \\cdot e^2}{4\\pi \\varepsilon_0 \\, r} + \\frac{B}{r^m}"}</Eq>
+          <P>For NaCl, <M>{"M = 1.748"}</M>.</P>
           <KeyConcept label="Madelung Constant">
             The Madelung constant sums the Coulomb contributions from all ions in the crystal: nearest neighbors are attracted, next-nearest repelled, etc. For the NaCl structure, <M>{"M = 1.748"}</M>. The value depends only on the geometry of the crystal, not on the specific ions.
           </KeyConcept>
-          <P>Numerically, for NaCl: <M>{"A \\approx 1.436"}</M> eV-nm. With <M>{"m = 8"}</M> and <M>{"r_0 = 0.28"}</M> nm, we find the cohesive energy per ion pair.</P>
-          <Eq>{"E_{\\text{bond}} = |E(r_0)| = \\frac{A}{r_0}\\left(1 - \\frac{1}{m}\\right)"}</Eq>
-          <P>Substituting values: <M>{"E_{\\text{bond}} = \\frac{1.436}{0.28}\\left(1 - \\frac{1}{8}\\right) \\approx 4.49"}</M> eV per ion pair.</P>
+          <P>The graph above plots the single-pair potential with <M>{"A \\approx 1.436"}</M> eV-nm. With <M>{"m = 8"}</M> and <M>{"r_0 = 0.28"}</M> nm, the bond energy per ion pair is:</P>
+          <Eq>{"E_{\\text{bond}} = \\frac{A}{r_0}\\left(1 - \\frac{1}{m}\\right)"}</Eq>
+          <P>Substituting values: <M>{"E_{\\text{bond}} = \\frac{1.436}{0.28}\\left(1 - \\frac{1}{8}\\right) \\approx 4.49"}</M> eV per ion pair. The full lattice cohesive energy is larger by a factor related to <M>{"M"}</M>.</P>
         </Section>
 
         <Section title="Force Curve">
@@ -900,21 +906,72 @@ const TOPICS = [
           <div className="compare-grid">
             <div className="compare-card">
               <h4>Simple Cubic (SC)</h4>
+              <figure style={{ textAlign: "center", margin: "8px 0" }}>
+                <img src="/images/crystal-sc.png" alt="Simple cubic unit cell with 8 corner atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
+              </figure>
               <P>Atoms at cube corners only. Coordination number = 6. Atomic packing fraction (APF) = 0.52. Rare in nature (only Po).</P>
             </div>
             <div className="compare-card">
               <h4>Body-Centered Cubic (BCC)</h4>
+              <figure style={{ textAlign: "center", margin: "8px 0" }}>
+                <img src="/images/crystal-bcc.png" alt="BCC unit cell with 8 corner atoms and 1 body-center atom" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
+              </figure>
               <P>Atoms at corners + 1 atom at body center. Coordination number = 8. APF = 0.68. Examples: Fe (alpha), W, Cr, Mo.</P>
             </div>
             <div className="compare-card">
               <h4>Face-Centered Cubic (FCC)</h4>
+              <figure style={{ textAlign: "center", margin: "8px 0" }}>
+                <img src="/images/crystal-fcc.png" alt="FCC unit cell with 8 corner atoms and 6 face-center atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
+              </figure>
               <P>Atoms at corners + atoms at each face center. Coordination number = 12. APF = 0.74 (close-packed). Examples: Cu, Al, Au, Ag, Ni.</P>
             </div>
             <div className="compare-card">
               <h4>Diamond Structure</h4>
+              <figure style={{ textAlign: "center", margin: "8px 0" }}>
+                <img src="/images/crystal-diamond.png" alt="Diamond cubic unit cell with corner, face-center, and interior tetrahedral atoms" style={{ maxWidth: "100%", maxHeight: 280, borderRadius: 6 }} />
+              </figure>
               <P>FCC lattice with a 2-atom basis: one atom at (0,0,0) and another at (a/4, a/4, a/4). Each atom is tetrahedrally bonded to 4 neighbors. Examples: C (diamond), Si, Ge. Coordination number = 4, APF = 0.34.</P>
             </div>
           </div>
+          <figure className="eq-block" style={{ textAlign: "center", padding: "16px", marginTop: 12 }}>
+            <img src="/images/wiki-diamond-exploded.svg" alt="Decomposition of diamond cubic: two interpenetrating FCC lattices combine into diamond structure, shown as individual tetrahedra (1), assembled unit cell (2), and 3x3x3 lattice (3)" style={{ maxWidth: "100%", maxHeight: 500, borderRadius: 6, background: "white", padding: 8 }} />
+            <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Diamond cubic decomposition: (1) individual tetrahedral building blocks from two offset FCC sub-lattices, (2) assembled unit cell, (3) extended 3x3x3 lattice. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0, Cmglee</span></figcaption>
+          </figure>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", marginTop: 16 }}>
+            {[
+              { src: "/images/wiki-sc.svg", label: "SC", alt: "Simple cubic ball-and-stick schematic with lattice parameter a labeled" },
+              { src: "/images/wiki-bcc.svg", label: "BCC", alt: "BCC ball-and-stick schematic with lattice parameter a labeled" },
+              { src: "/images/wiki-fcc.svg", label: "FCC", alt: "FCC ball-and-stick schematic with lattice parameter a labeled" },
+            ].map(({ src, label, alt }) => (
+              <figure key={label} style={{ textAlign: "center", flex: "1 1 140px", maxWidth: 200 }}>
+                <img src={src} alt={alt} style={{ width: "100%", borderRadius: 6, background: "white", padding: 8 }} />
+                <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 4 }}>{label}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <div style={{ textAlign: "center", fontSize: 10, color: G.txt, opacity: 0.5, marginTop: 4, fontFamily: "'IBM Plex Mono'" }}>Schematic ball-and-stick models with lattice parameter a. Source: Wikimedia Commons, CC BY-SA 3.0</div>
+        </Section>
+
+        <Section title="Atom Sharing Between Unit Cells">
+          <P>Atoms at corners, faces, and edges of a unit cell are shared with neighboring cells. Understanding this sharing is essential for counting atoms per unit cell correctly.</P>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center", margin: "12px 0" }}>
+            <figure style={{ textAlign: "center", flex: "1 1 280px", maxWidth: 400 }}>
+              <img src="/images/sharing-corner.png" alt="8 unit cells sharing a single corner atom, each getting 1/8" style={{ width: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
+              <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 6 }}>A corner atom sits where 8 unit cells meet. Each cell claims 1/8 of the atom.</figcaption>
+            </figure>
+            <figure style={{ textAlign: "center", flex: "1 1 280px", maxWidth: 400 }}>
+              <img src="/images/sharing-face.png" alt="2 unit cells sharing a face atom, each getting 1/2" style={{ width: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
+              <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 6 }}>A face atom is shared by 2 adjacent cells. Each cell claims 1/2 of the atom.</figcaption>
+            </figure>
+          </div>
+          <figure style={{ textAlign: "center", margin: "16px 0" }}>
+            <img src="/images/sharing-summary.png" alt="Side-by-side atom counting for SC, BCC, and FCC unit cells" style={{ maxWidth: "100%", borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 6 }}>Atom counting summary: corner atoms contribute 1/8 each, face atoms 1/2 each, body-center atoms 1 each.</figcaption>
+          </figure>
+          <figure className="eq-block" style={{ textAlign: "center", padding: "16px", marginTop: 12 }}>
+            <img src="/images/wiki-fcc-counting.png" alt="Space-filling model of FCC unit cell showing corner atoms cut to 1/8 and face atoms cut to 1/2" style={{ maxWidth: "100%", maxHeight: 380, borderRadius: 6, background: "white", padding: 8 }} />
+            <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>FCC space-filling model: corner atoms (1/8 each) and face atoms (1/2 each) are physically cut at the unit cell boundary, showing exactly how much of each atom belongs to one cell. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0, Cdang</span></figcaption>
+          </figure>
         </Section>
 
         <Section title="Atomic Packing Fraction">
@@ -926,6 +983,11 @@ const TOPICS = [
           <P>Select a structure to see its atom count, coordination number, packing fraction, and how atoms are shared between unit cells:</P>
           <CrystalStructureCompare />
         </Section>
+
+        <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
+          <img src="/images/nacl-unit-cell.png" alt="Ball-and-stick model of NaCl unit cell showing alternating sodium and chlorine ions in a face-centered cubic arrangement" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+          <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>NaCl (rock salt) unit cell: alternating Na+ and Cl- ions in an FCC arrangement with coordination number 6. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, Public Domain</span></figcaption>
+        </figure>
       </div>
     ),
   },
@@ -1041,6 +1103,11 @@ const TOPICS = [
           <KeyConcept label="Burgers Vector">
             The Burgers vector <M>{"\\vec{b}"}</M> characterizes the magnitude and direction of lattice distortion caused by a dislocation. Construct a Burgers circuit: trace a closed loop in a perfect crystal, then trace the same path around the dislocation. The closure failure is the Burgers vector.
           </KeyConcept>
+
+          <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
+            <img src="/images/tem-dislocations.jpg" alt="Transmission electron microscopy micrograph showing dislocations and precipitates in austenitic stainless steel" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>TEM micrograph of dislocations and precipitates in stainless steel. Line defects appear as dark curved lines. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 2.5</span></figcaption>
+          </figure>
         </Section>
 
         <Section title="Planar Defects">
@@ -1223,6 +1290,9 @@ const STYLES = `
 .para b { color: var(--text-primary); font-weight: 600; }
 .para i { color: var(--text-muted); }
 
+.ctrl-btn { padding: 6px 16px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-primary); font-family: 'IBM Plex Mono', monospace; font-size: 12px; cursor: pointer; transition: background 0.15s; }
+.ctrl-btn:hover { background: var(--accent); color: var(--bg-main); }
+
 .eq-block { margin: 12px 0; padding: 14px 18px; background: var(--bg-eq); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; overflow-x: auto; }
 .eq-block .katex { font-size: 1.15em; }
 .eq-block .katex-html { color: var(--chat-katex); }
@@ -1268,6 +1338,8 @@ const STYLES = `
 .chat-model-select option { background: var(--bg-panel); color: var(--text-muted); }
 .chat-expand-btn { background: none; border: 1px solid var(--border); border-radius: 5px; color: var(--text-dim); font-size: 14px; cursor: pointer; padding: 2px 6px; font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; transition: color 0.15s; line-height: 1; }
 .chat-expand-btn:hover { color: var(--accent); border-color: var(--chat-chip-border); }
+.chat-kill-btn { padding: 2px 6px; border-radius: 5px; border: 1px solid var(--chat-stop-color); background: none; color: var(--chat-stop-color); font-size: 10px; font-family: 'IBM Plex Mono', monospace; font-weight: 700; cursor: pointer; letter-spacing: 0.05em; flex-shrink: 0; line-height: 1; }
+.chat-kill-btn:hover { background: var(--chat-stop-color); color: var(--bg-main); }
 
 .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
 .chat-empty { font-size: 15px; color: var(--text-dim); line-height: 1.6; padding: 24px 8px; text-align: center; }
@@ -1372,6 +1444,33 @@ const STYLES = `
 .collapsible-toggle:hover { color: var(--accent); }
 .collapsible-content { padding: 12px 14px; background: var(--bg-card); }
 
+.graph-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; padding: 6px 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
+.graph-controls label { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 180px; }
+.graph-ctrl-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); font-weight: 500; white-space: nowrap; min-width: 120px; }
+.graph-slider { flex: 1; min-width: 100px; height: 4px; accent-color: var(--accent); cursor: pointer; }
+.graph-select { background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; color: var(--text-muted); font-size: 11px; font-family: 'IBM Plex Mono', monospace; padding: 3px 6px; cursor: pointer; }
+.graph-select:focus { border-color: var(--accent); outline: none; }
+.graph-select option { background: var(--bg-panel); color: var(--text-muted); }
+
+/* --- Inline demo blocks --- */
+.chat-demo-block { margin: 8px 0; padding: 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.chat-demo-title { font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--accent); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.chat-demo-block svg { display: block; margin: 0 auto; }
+
+/* --- Media blocks (images, videos, standalone SVGs) --- */
+.chat-media-block { margin: 8px 0; padding: 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: center; }
+.chat-media-block img, .chat-media-block video { max-width: 100%; border-radius: 6px; display: block; margin: 0 auto; }
+.chat-media-block svg { display: block; margin: 0 auto; max-width: 100%; }
+
+/* --- Sources dropdown --- */
+.chat-sources { margin: 10px 0 4px 0; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; background: var(--bg-eq); }
+.chat-sources summary { padding: 6px 10px; cursor: pointer; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; }
+.chat-sources summary:hover { color: var(--accent); }
+.chat-sources ul { padding: 6px 10px 8px 24px; margin: 0; list-style: disc; }
+.chat-sources li { color: var(--text-muted); margin: 2px 0; line-height: 1.5; }
+.chat-sources a { color: var(--accent); text-decoration: none; }
+.chat-sources a:hover { text-decoration: underline; }
+
 /* --- Suggestion bar --- */
 .suggestion-bar { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding: 6px 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 6px; flex-wrap: wrap; }
 .suggestion-label { font-size: 12px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; flex: 1; min-width: 120px; }
@@ -1390,6 +1489,8 @@ const STYLES = `
 .thread-collapse-btn:hover { color: var(--accent); }
 .thread-snippet { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-muted); font-style: italic; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .thread-count { font-size: 11px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; }
+.thread-close-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 10px; padding: 0 2px; flex-shrink: 0; margin-left: auto; opacity: 0.5; }
+.thread-close-btn:hover { opacity: 1; color: var(--chat-stop-color); }
 .thread-portal-slot { margin: 4px 0; }
 .thread-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
 .thread-msg { display: flex; flex-direction: column; }
@@ -1406,6 +1507,7 @@ const STYLES = `
 .thread-input:focus { border-color: var(--chat-chip-border); }
 .thread-send { width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-card); color: var(--accent); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .thread-send:hover { background: var(--bg-panel); }
+.thread-ctx-bar { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px 0; }
 `;
 
 // ─── Chat Message Renderer (copy verbatim) ───
@@ -1418,9 +1520,32 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
   useEffect(() => {
     if (!ref.current || role !== "assistant" || !window.katex) return;
     const fencedBlocks = [];
-    let s = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    // Extract demo blocks before any escaping (they contain raw HTML/SVG)
+    const demoBlocks = [];
+    let s = text.replace(/<div class="chat-demo-block"><div class="chat-demo-title">[\s\S]*?<\/div>[\s\S]*?<\/div>/g, (match) => {
+      demoBlocks.push(match);
+      return `\x00DB${demoBlocks.length - 1}\x00`;
+    });
+    // Extract sources dropdowns (from processResponse)
+    s = s.replace(/<details class="chat-sources">[\s\S]*?<\/details>/g, (match) => {
+      demoBlocks.push(match);
+      return `\x00DB${demoBlocks.length - 1}\x00`;
+    });
+    s = s.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
       fencedBlocks.push(`<pre class="chat-pre"><code class="chat-code-block">${code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`);
       return `\x00FB${fencedBlocks.length - 1}\x00`;
+    });
+    // Extract raw SVG, img, video blocks and markdown images (after code fences, before escaping)
+    const mediaBlocks = [];
+    s = s.replace(/<svg\b[\s\S]*?<\/svg>/g, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/<img\s[^>]*\/?>/gi, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/<video\b[\s\S]*?<\/video>/gi, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
+      const isVid = /\.(mp4|webm|mov|ogg)$/i.test(src);
+      mediaBlocks.push(isVid
+        ? `<div class="chat-media-block"><video controls src="${src}" style="max-width:100%"><p>${alt || 'Video'}</p></video></div>`
+        : `<div class="chat-media-block"><img src="${src}" alt="${alt}" style="max-width:100%"/></div>`);
+      return `\x00ME${mediaBlocks.length - 1}\x00`;
     });
     const inlineCode = [];
     s = s.replace(/`([^`]+)`/g, (_, code) => {
@@ -1554,11 +1679,13 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     s = s.replace(/((?:<li class="chat-li">.*<\/li>\n?)+)/g, '<ul class="chat-ul">$1</ul>');
     s = s.replace(/^\d+\. (.+)$/gm, '<li class="chat-oli">$1</li>');
     s = s.replace(/((?:<li class="chat-oli">.*<\/li>\n?)+)/g, '<ol class="chat-ol">$1</ol>');
+    s = s.replace(/\n/g, '<br/>');
     s = s.replace(/\x00FB(\d+)\x00/g, (_, i) => fencedBlocks[parseInt(i)]);
     s = s.replace(/\x00IC(\d+)\x00/g, (_, i) => inlineCode[parseInt(i)]);
-    s = s.replace(/\n/g, '<br/>');
-    s = s.replace(/(<\/pre>|<\/h[34]>|<\/ul>|<\/ol>|<\/div>|<\/table>|<hr[^>]*>)<br\/>/g, '$1');
-    s = s.replace(/<br\/>(<pre |<h[34] |<ul |<ol |<div class="chat-eq|<table |<hr )/g, '$1');
+    s = s.replace(/\x00DB(\d+)\x00/g, (_, i) => demoBlocks[parseInt(i)]);
+    s = s.replace(/\x00ME(\d+)\x00/g, (_, i) => mediaBlocks[parseInt(i)]);
+    s = s.replace(/(<\/pre>|<\/h[34]>|<\/ul>|<\/ol>|<\/div>|<\/details>|<\/table>|<hr[^>]*>)<br\/>/g, '$1');
+    s = s.replace(/<br\/>(<pre |<h[34] |<ul |<ol |<div class="chat-eq|<div class="chat-demo|<div class="chat-media|<details |<table |<hr )/g, '$1');
     ref.current.innerHTML = s;
   }, [text, role, streaming]);
 
@@ -1659,47 +1786,85 @@ const _ss = window["session" + "Storage"];
 
 // ─── Thread Panel Component ───
 
-function ThreadPanel({ thread, onToggleCollapse, onSend }) {
+function ThreadPanel({ thread, onToggleCollapse, onSend, onDelete, contextTrigger }) {
   const [threadInput, setThreadInput] = useState("");
+  const [threadCtx, setThreadCtx] = useState([]);
   const threadInputRef = useRef(null);
   const snippetPreview = thread.snippet.length > 50 ? thread.snippet.slice(0, 50) + "\u2026" : thread.snippet;
+  // Mount-only: intentional empty deps for initial focus
   useEffect(() => {
     if (thread.messages.length === 0 && threadInputRef.current) threadInputRef.current.focus();
-  }, []); // focus on mount when thread is new
+  }, []);
   useEffect(() => {
     if (threadInputRef.current) threadInputRef.current.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }, [thread.messages.length, thread.loading]);
+
+  const addThreadCtx = useCallback((text, source) => {
+    const clean = text.replace(/\s+/g, " ").trim();
+    if (!clean || clean.length < 3) return;
+    setThreadCtx(prev => prev.some(s => s.text === clean) ? prev : [...prev, { text: clean, source }]);
+    setTimeout(() => threadInputRef.current?.focus(), 0);
+  }, []);
+
+  // Watch for external context trigger (from context menu "Reply in this thread")
+  useEffect(() => {
+    if (contextTrigger && contextTrigger.threadId === thread.id) {
+      addThreadCtx(contextTrigger.text, contextTrigger.source || "selection");
+    }
+  }, [contextTrigger, thread.id, addThreadCtx]);
+
+  const handleSend = useCallback(() => {
+    const text = threadInput.trim();
+    if (!text) return;
+    onSend(text, threadCtx.length > 0 ? [...threadCtx] : null);
+    setThreadInput("");
+    setThreadCtx([]);
+  }, [threadInput, threadCtx, onSend]);
+
   return (
-    <div className={`thread-panel ${thread.collapsed ? "thread-collapsed" : ""}`}>
+    <div className={`thread-panel ${thread.collapsed ? "thread-collapsed" : ""}`} data-thread-id={thread.id}>
       <div className="thread-header" onClick={onToggleCollapse}>
         <button className="thread-collapse-btn" title={thread.collapsed ? "Expand thread" : "Collapse thread"}>
           {thread.collapsed ? "\u25B6" : "\u25BC"}
         </button>
         <span className="thread-snippet">"{snippetPreview}"</span>
         <span className="thread-count">{thread.messages.length > 0 ? `${thread.messages.length}` : "new"}</span>
+        <button className="thread-close-btn" onClick={(e) => { e.stopPropagation(); onDelete(); }} title="Delete thread">{"\u2715"}</button>
       </div>
       {!thread.collapsed && (
         <div className="thread-body">
           {thread.messages.map((m, i) => (
             <div key={i} className={`thread-msg thread-msg-${m.role}`}>
-              <ChatBubble text={m.content} role={m.role} streaming={!!m._streaming} />
+              <ChatBubble text={m.content} role={m.role} onReplyBlock={addThreadCtx} streaming={!!m._streaming} />
             </div>
           ))}
           {thread.loading && <div className="thread-loading"><span /><span /><span /></div>}
           {!thread.loading && (
-            <div className="thread-input-row">
-              <textarea
-                ref={threadInputRef}
-                className="thread-input"
-                value={threadInput}
-                onChange={e => setThreadInput(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); if (threadInput.trim()) { onSend(threadInput.trim()); setThreadInput(""); } } }}
-                onClick={e => e.stopPropagation()}
-                placeholder="Reply to thread..."
-                rows={1}
-              />
-              <button className="thread-send" onClick={() => { if (threadInput.trim()) { onSend(threadInput.trim()); setThreadInput(""); } }}>{"\u2192"}</button>
-            </div>
+            <>
+              {threadCtx.length > 0 && (
+                <div className="thread-ctx-bar">
+                  {threadCtx.map((s, i) => (
+                    <div key={i} className="chat-ctx-chip">
+                      <span className="chat-ctx-chip-text">{"+ "}{s.text.length > 30 ? s.text.slice(0, 30) + "\u2026" : s.text}</span>
+                      <button className="chat-ctx-chip-x" onClick={(e) => { e.stopPropagation(); setThreadCtx(prev => prev.filter((_, idx) => idx !== i)); }}>{"\u2715"}</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="thread-input-row">
+                <textarea
+                  ref={threadInputRef}
+                  className="thread-input"
+                  value={threadInput}
+                  onChange={e => setThreadInput(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
+                  onClick={e => e.stopPropagation()}
+                  placeholder={threadCtx.length > 0 ? `${threadCtx.length} context item${threadCtx.length > 1 ? "s" : ""} attached...` : "Reply to thread..."}
+                  rows={1}
+                />
+                <button className="thread-send" onClick={handleSend}>{"\u2192"}</button>
+              </div>
+            </>
           )}
         </div>
       )}
@@ -1709,7 +1874,7 @@ function ThreadPanel({ thread, onToggleCollapse, onSend }) {
 
 // ─── Chatbot Component ───
 
-function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClearAllSnippets, open, setOpen, onEditGraph, graphParams, addSnippet, threadTrigger }) {
+function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClearAllSnippets, open, setOpen, onEditGraph, graphParams, addSnippet, threadTrigger, threadCtxTrigger }) {
   const [tabs, setTabs] = useState([]);
   const [activeTabIdx, setActiveTabIdx] = useState(0);
   const [input, setInput] = useState("");
@@ -1877,7 +2042,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     const isolationBlock = isolatedFlag
       ? `\n\n--- ISOLATION MODE ---\nThis session is ISOLATED. Do NOT read, write, or reference any files in ~/.claude/memory/ or ~/.claude/projects/. Do NOT use the auto-memory system. Do NOT persist any information between sessions. Treat this as a completely fresh session with no prior knowledge from other chats.`
       : `\n\n--- SHARED MEMORY MODE ---\nYou may read and use your persistent memory files in ~/.claude/ and CLAUDE.md project files for context. You may write to memory if the user asks you to remember something.`;
-    return `You are a concise tutor for ECE 109 (Principles of Electronic Materials) at the University of Waterloo. ${LESSON_CONTEXT}\n\nFull lesson topics for cross-reference:\n${allTopicCtx}\n\nYou have access to the lesson codebase in the current directory. You can read and edit files when asked. When you edit the lesson JSX file, the browser will hot-reload automatically.\n\nCRITICAL FORMATTING RULES (you MUST follow these exactly):\n- EVERY mathematical expression MUST be wrapped in dollar signs. Use $...$ for inline math (e.g. $E = hf$, $V_{GS}$, $m_e^*$) and $$...$$ for display math on its own line.\n- This includes ALL variables ($x$, $n$, $T$), subscripted terms ($E_g$, $k_B T$), Greek letters ($\\alpha$, $\\lambda$), and operators.\n- NEVER write bare math without dollar signs. Wrong: E = mc^2. Right: $E = mc^2$.\n- When referencing mathematical expressions inline, always render them in LaTeX (e.g. $\\frac{2m_e}{\\hbar^2}$, $\\nabla^2 \\psi$), never as plain text like 2m/hbar^2.\n- Use **bold** for emphasis and \`code\` for code.\n- Use markdown headers, lists, and fenced code blocks freely.\n- Help the student understand concepts, equations, derivations, and common pitfalls.\n- Be direct and efficient.\n\n--- GRAPH EDITING CAPABILITY ---\nYou can modify the lesson's graphs by including an edit command block in your response.\nThe current graph parameters are: ${JSON.stringify(graphParams)}\n\nTo edit a graph, include EXACTLY this format:\n<<EDIT_GRAPH>>{"graphKey": {"param": value}}<<END_EDIT>>\n\nOnly include an edit block when the user explicitly asks to change a graph.\n\n--- LESSON AUGMENTATION ---\nYou may proactively suggest adding content to the lesson when you identify a genuine gap in the student's understanding. Rules:\n- CONCISENESS is the top priority. Every word must earn its place.\n- Only suggest if it would genuinely help understanding -- do not saturate the lesson.\n- Short additions (1-3 lines): suggest mode="inline"\n- Longer explanations: suggest mode="collapsible"\n- Content not tied to a specific paragraph: suggest type="faq"\n- Give your explanation in the chat first. Then, if you think it belongs in the lesson, append:\n\n<<SUGGEST type="lesson|faq" section="exact-section-title" title="Short Title" mode="inline|collapsible">>\n[JSX content using existing components: <P>, <Eq m={...}/>, <M>, <KeyConcept label="...">, inline SVG if needed]\n<<END_SUGGEST>>\n\nThe user will see [Add to lesson] [Add to FAQ] [No] buttons. If approved, you will receive a follow-up -- then make the edit to src/bonding_crystals.jsx.\n\n--- THREAD SYSTEM ---\nSome messages begin with [THREAD:id | "snippet"]. These are inline side-threads where the student is clarifying a specific part of your previous response.\n- Respond concisely and targeted to the quoted snippet\n- Prefix your response with [THREAD:id] matching the incoming tag\n- When responding to untagged main messages, ignore thread history -- treat threads as resolved asides\n- Keep thread responses brief: 1-4 sentences unless more is clearly needed${isolationBlock}`;
+    return `You are a concise tutor for ECE 109 (Principles of Electronic Materials) at the University of Waterloo. ${LESSON_CONTEXT}\n\nFull lesson topics for cross-reference:\n${allTopicCtx}\n\nYou have access to the lesson codebase. Edits to the JSX file hot-reload automatically. Help the student understand concepts, equations, derivations, and common pitfalls. Be concise: every sentence must advance understanding. Cut filler, preamble, and repetition. Prefer equations and visuals over lengthy prose.\n\nFORMATTING RULES:\n- Wrap ALL math in dollar signs: $...$ inline, $$...$$ display. This includes variables ($x$, $T$), subscripts ($E_g$), Greek letters ($\\alpha$), and compound expressions ($\\frac{2m_e}{\\hbar^2}$). Never write bare math.\n- Use **bold** for emphasis, \`code\` for code, markdown headers/lists/fenced blocks freely.\n\n--- GRAPH EDITING ---\nCurrent graph parameters: ${JSON.stringify(graphParams)}\n\nTo edit a graph (only when the user asks), include EXACTLY:\n<<EDIT_GRAPH>>{"graphKey": {"param": value}}<<END_EDIT>>\n\n--- RESEARCH & VERIFICATION ---\nUse WebSearch/WebFetch to verify equations, constants, derivations, and reference data before stating them.\n\nSource tiers:\n- TRUSTED: textbook publishers, NIST, .edu courses, peer-reviewed papers, well-sourced Wikipedia\n- ACCEPTABLE: Physics Stack Exchange (check votes), HyperPhysics, MIT OCW\n- REJECT: random forums, unattributed blogs, AI-generated content farms\n\nCite briefly inline (e.g. "per Kasap Table 4.1", "NIST CODATA 2018"). If only low-quality sources exist, state the uncertainty.\nWhen you use sources, collect them at the end of your response:\n<<SOURCES>>\n- Source name or title (URL if available)\n<<END_SOURCES>>\nThis renders as a collapsed "Sources" dropdown.\n\n--- VISUAL GENERATION ---\nGenerate visuals beyond inline SVG graphs. Decide how many to include based on what the explanation needs. Always verify output before presenting.\n\n1. MATPLOTLIB: For plots (3D, heatmaps, multi-panel). Run python3 via Bash, save to public/images/.\n2. MANIM: For animations. Spawn an Agent: write script, render, copy .mp4 to public/videos/, edit JSX to add <video> tag.\n3. WEB IMAGES: Fetch images using Bash(curl -o public/images/<name>.<ext> "URL"). Read the downloaded file to visually inspect it (you can see images). If suitable, use in chat as ![alt](/images/name.ext) or edit JSX to add <img>. Only use freely licensed or educational-source images. Delete unsuitable downloads.\n4. PLAYWRIGHT: Playwright is installed. Use it to screenshot and verify rendered pages or elements:\n   - Write a short Node script: require(\'playwright\'), launch chromium, navigate to the page, screenshot, close.\n   - Read the screenshot PNG to visually inspect the result.\n   - Use after editing lesson graphs, adding images to JSX, or when the student reports something looks wrong.\n   - For a specific element, use page.locator(\'.selector\').screenshot() instead of full-page.\n\n--- AGENT-BASED REVIEW ---\nUse the Agent tool for verification after generating visuals, multi-file edits, or complex derivations. Spawn with a specific task (e.g. "Read the SVG at X. Verify the curve matches y = sin(kx) for k=2pi. Check labels and scale."). Do not spawn agents for tasks you can do directly.\n\n--- CONVERSATION ANALYSIS ---\nSilently assess every response. Do NOT output your analysis; use it to guide action.\n\nBREAKTHROUGH DETECTION:\nSignals of pivotal understanding:\n- Student connects previously separate concepts\n- Student shifts from "what" to "why" or "what if" questions\n- Student self-corrects a misconception or applies a concept to a new context unprompted\n- A stuck exchange suddenly resolves\n\nOn breakthrough:\n1. Acknowledge briefly (1 sentence, not patronizing)\n2. If the insight reveals a gap the lesson does not cover and is general enough to help future readers, use <<SUGGEST>> to propose a KeyConcept or bridging paragraph\n\nVISUALIZATION OPPORTUNITIES:\nGenerate a visual when explaining spatial relationships, parameter-dependent curves, or inherently visual confusion. Skip when the concept is purely algebraic, an existing lesson graph covers it, the question is about notation, or adding more visuals would not clarify the explanation.\n\nInline demo format:\n<<DEMO title="Short Title">>\n<svg viewBox="0 0 W H" style="width:100%;max-width:Wpx;display:block;margin:8px auto">\n  <!-- gold=#c8a45a, blue=#4a90d9, red=#e06c75, green=#69b578, axis=#6b7084, text=#9498ac -->\n  <!-- Keep it clean: labeled axes, clear annotations -->\n</svg>\n<<END_DEMO>>\n\nFor complex visuals needing many SVG elements, consider a lesson graph edit instead. If generalizable, also append a <<SUGGEST>> block.\n\n--- LESSON AUGMENTATION ---\nSuggest lesson additions only for genuine understanding gaps. Every word must earn its place.\n- Reusable <<DEMO>> visuals can be promoted via <<SUGGEST>> with the SVG in a collapsible.\n- Short additions (1-3 lines): mode="inline". Longer: mode="collapsible". Untied to a paragraph: type="faq".\n- Explain in chat first, then append if it belongs in the lesson:\n\n<<SUGGEST type="lesson|faq" section="exact-section-title" title="Short Title" mode="inline|collapsible">>\n[JSX content using existing components: <P>, <Eq m={...}/>, <M>, <KeyConcept label="...">, inline SVG if needed]\n<<END_SUGGEST>>\n\nThe user will see [Add to lesson] [Add to FAQ] [No] buttons. If approved, you will receive a follow-up -- then make the edit to src/bonding_crystals.jsx.\n\n--- THREAD SYSTEM ---\nMessages starting with [THREAD:id | "snippet"] are side-threads on a specific part of your previous response.\n- Prefix replies with [THREAD:id]. Keep thread responses appropriately scoped to the snippet.\n- Ignore thread history when responding to untagged main messages.${isolationBlock}`;
   }, [graphParams]);
 
   const createSessionForTab = useCallback(async (tabId) => {
@@ -2014,7 +2179,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     })();
   }, [activeTab?.sessionStatus]);
 
-  const addTab = useCallback(async () => {
+  const addTab = useCallback(() => {
     const newTab = makeTab();
     let newIdx;
     setTabs(prev => {
@@ -2022,17 +2187,8 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
       return [...prev, newTab];
     });
     setActiveTabIdx(newIdx);
-    try {
-      const list = await fetchSessions();
-      const available = list.filter(s => !s.open);
-      if (available.length > 0) {
-        setServerSessions(list);
-        updateTab(newTab.id, { sessionStatus: "picking" });
-        return;
-      }
-    } catch (_) {}
     createSessionForTab(newTab.id);
-  }, [createSessionForTab, fetchSessions, updateTab]);
+  }, [createSessionForTab]);
 
   const closeTab = useCallback(async (tabId) => {
     const tab = tabsRef.current.find(t => t.id === tabId);
@@ -2108,6 +2264,23 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
         display = display.replace(match[0], "");
       } catch (e) { /* ignore malformed */ }
     }
+    // Extract inline demo blocks and convert to rendered HTML
+    const demoRe = /<<DEMO\s+title="([^"]*)"?>>([\s\S]*?)<<END_DEMO>>/g;
+    display = display.replace(demoRe, (_, title, svgContent) => {
+      const cleanSvg = svgContent.trim();
+      if (!cleanSvg.startsWith('<svg')) return '';
+      return `<div class="chat-demo-block"><div class="chat-demo-title">${title}</div>${cleanSvg}</div>`;
+    });
+    // Convert <<SOURCES>> block to collapsible dropdown
+    display = display.replace(/<<SOURCES>>([\s\S]*?)<<END_SOURCES>>/g, (_, content) => {
+      const items = content.trim().split('\n').filter(l => l.trim().startsWith('-')).map(l => {
+        let text = l.trim().replace(/^-\s*/, '');
+        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        return `<li>${text}</li>`;
+      });
+      if (items.length === 0) return '';
+      return `<details class="chat-sources"><summary>Sources</summary><ul>${items.join('')}</ul></details>`;
+    });
     let suggestion = null;
     const suggestRe = /<<SUGGEST\s+([^>]*)>>([\s\S]*?)<<END_SUGGEST>>/;
     const suggestMatch = display.match(suggestRe);
@@ -2137,6 +2310,23 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
       if (key.startsWith(tab.id + ':')) { try { _cs.threadAborts[key].abort(); } catch (_) {} delete _cs.threadAborts[key]; }
     }
   };
+
+  const killSession = useCallback(() => {
+    if (!activeTab) return;
+    cancelRequest();
+    if (activeTab.sessionId) {
+      fetch("/session/close", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId: activeTab.sessionId, keepContext: false }),
+      }).catch(() => {});
+    }
+    updateTab(activeTab.id, {
+      sessionId: null, chatNum: null, sessionStatus: "idle",
+      loading: false, statusText: "",
+      messages: [...activeTab.messages, { role: "assistant", content: "Session killed." }],
+    });
+  }, [activeTab, cancelRequest, updateTab]);
 
   const sendMessage = async (overrideText) => {
     const tab = tabsRef.current[activeTabIdxRef.current];
@@ -2367,14 +2557,30 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     }));
   }, []);
 
-  const sendThreadMessage = async (tabId, msgIdx, threadId, snippet, text) => {
+  const deleteThread = useCallback((tabId, msgIdx, threadId) => {
+    setTabs(prev => prev.map(t => {
+      if (t.id !== tabId) return t;
+      const msgs = [...t.messages];
+      const m = { ...msgs[msgIdx] };
+      m.threads = (m.threads || []).filter(th => th.id !== threadId);
+      msgs[msgIdx] = m;
+      return { ...t, messages: msgs };
+    }));
+  }, []);
+
+  const sendThreadMessage = async (tabId, msgIdx, threadId, snippet, text, context) => {
     const tab = tabsRef.current.find(t => t.id === tabId);
     if (!tab || !tab.sessionId) return;
 
     addThreadMsg(tabId, msgIdx, threadId, { role: "user", content: text });
     updateThread(tabId, msgIdx, threadId, { loading: true });
 
-    const tagged = `[THREAD:${threadId} | "${snippet.slice(0, 60)}"]\n\n${text}`;
+    let apiText = text;
+    if (context && context.length > 0) {
+      const ctxBlock = context.map((s, i) => `[Context ${i + 1} -- ${s.source}]: ${s.text}`).join("\n");
+      apiText = `${ctxBlock}\n\nQuestion: ${apiText}`;
+    }
+    const tagged = `[THREAD:${threadId} | "${snippet.slice(0, 60)}"]\n\n${apiText}`;
     _cs.activeThread[tabId] = { msgIdx, threadId };
 
     const controller = new AbortController();
@@ -2561,6 +2767,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
             <button className="chat-expand-btn" onClick={() => { if (!activeTab) return; updateTab(activeTab.id, { keepContext: !activeTab.keepContext }); _ss.setItem("keepContext", (!activeTab.keepContext) ? "true" : "false"); }} title={keepContext ? "Keep context ON: session survives reload" : "Keep context OFF: new session on reload"} style={{ background: keepContext ? "var(--accent)" : undefined, color: keepContext ? "var(--bg-main)" : undefined }}>
               {keepContext ? "KC" : "kc"}
             </button>
+            <button className="chat-kill-btn" onClick={killSession} title="Kill session and stop all processes">KILL</button>
             <button className="chat-expand-btn" onClick={toggleExpand} title={expanded ? "Shrink" : "Expand"}>
               {expanded ? "\u2296" : "\u2295"}
             </button>
@@ -2635,7 +2842,9 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
                 key={threadId}
                 thread={thread}
                 onToggleCollapse={() => updateThread(activeTab.id, msgIdx, threadId, { collapsed: !thread.collapsed })}
-                onSend={(text) => sendThreadMessage(activeTab.id, msgIdx, threadId, thread.snippet, text)}
+                onSend={(text, ctx) => sendThreadMessage(activeTab.id, msgIdx, threadId, thread.snippet, text, ctx)}
+                onDelete={() => deleteThread(activeTab.id, msgIdx, threadId)}
+                contextTrigger={threadCtxTrigger}
               />,
               el
             );
@@ -2688,6 +2897,7 @@ export default function LessonApp() {
   const mouseDownPos = useRef(null);
   const [ctxMenu, setCtxMenu] = useState(null);
   const [threadTrigger, setThreadTrigger] = useState(null);
+  const [threadCtxTrigger, setThreadCtxTrigger] = useState(null);
 
   G = THEMES_G[theme];
 
@@ -2696,6 +2906,19 @@ export default function LessonApp() {
       if (e.ctrlKey && e.key === "/") {
         e.preventDefault();
         setChatOpen(o => !o);
+      }
+      // Ctrl+Shift+F: add selection to thread context (if inside a thread panel)
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "f") {
+        const sel = window.getSelection();
+        const text = sel ? sel.toString().trim() : "";
+        if (text.length < 3) return;
+        const threadEl = sel.anchorNode?.parentElement?.closest('.thread-panel[data-thread-id]');
+        if (threadEl) {
+          e.preventDefault();
+          const tid = threadEl.getAttribute('data-thread-id');
+          setThreadCtxTrigger({ threadId: tid, text, source: "thread selection", ts: Date.now() });
+          sel.removeAllRanges();
+        }
       }
     };
     window.addEventListener("keydown", handleKey);
@@ -2772,6 +2995,7 @@ export default function LessonApp() {
       const text = sel ? sel.toString().trim() : "";
       if (text.length > 2) {
         addSnippet(text, "selection");
+        setTimeout(() => document.querySelector(".chat-input")?.focus(), 0);
         try {
           const range = sel.getRangeAt(0);
           const rect = range.getBoundingClientRect();
@@ -2783,7 +3007,6 @@ export default function LessonApp() {
           setTimeout(() => flash.remove(), 800);
         } catch (err) {}
         sel.removeAllRanges();
-        setTimeout(() => document.querySelector(".chat-input")?.focus(), 0);
       }
     }, 10);
   }, [chatOpen, addSnippet]);
@@ -2813,7 +3036,9 @@ export default function LessonApp() {
         }
       }
     }
-    setCtxMenu({ x: Math.min(e.clientX, window.innerWidth - 160), y: Math.min(e.clientY, window.innerHeight - 60), text, chatMsgIdx, chatBlockIdx });
+    const threadPanel = e.target.closest('.thread-panel[data-thread-id]');
+    const threadId = threadPanel ? threadPanel.getAttribute('data-thread-id') : null;
+    setCtxMenu({ x: Math.min(e.clientX, window.innerWidth - 160), y: Math.min(e.clientY, window.innerHeight - 80), text, chatMsgIdx, chatBlockIdx, threadId });
   }, [chatOpen]);
 
   useEffect(() => {
@@ -2834,6 +3059,13 @@ export default function LessonApp() {
   const handleCtxOpenThread = useCallback(() => {
     if (!ctxMenu || ctxMenu.chatMsgIdx == null) return;
     setThreadTrigger({ text: ctxMenu.text, msgIdx: ctxMenu.chatMsgIdx, blockIdx: ctxMenu.chatBlockIdx, ts: Date.now() });
+    setCtxMenu(null);
+    window.getSelection()?.removeAllRanges();
+  }, [ctxMenu]);
+
+  const handleCtxReplyInThread = useCallback(() => {
+    if (!ctxMenu || !ctxMenu.threadId) return;
+    setThreadCtxTrigger({ threadId: ctxMenu.threadId, text: ctxMenu.text, source: "thread selection", ts: Date.now() });
     setCtxMenu(null);
     window.getSelection()?.removeAllRanges();
   }, [ctxMenu]);
@@ -2895,12 +3127,15 @@ export default function LessonApp() {
       </div>
       <Chatbot topicId={active.id} topicTitle={active.title} contextSnippets={contextSnippets}
         onClearSnippet={handleClearSnippet} onClearAllSnippets={handleClearAllSnippets}
-        open={chatOpen} setOpen={setChatOpen} onEditGraph={handleEditGraph} graphParams={graphParams} addSnippet={addSnippet} threadTrigger={threadTrigger} />
+        open={chatOpen} setOpen={setChatOpen} onEditGraph={handleEditGraph} graphParams={graphParams} addSnippet={addSnippet} threadTrigger={threadTrigger} threadCtxTrigger={threadCtxTrigger} />
       {ctxMenu && (
         <div className="ctx-menu" style={{ left: ctxMenu.x, top: ctxMenu.y }}>
           <button className="ctx-menu-item" onClick={handleCtxReply}>Reply</button>
           {ctxMenu.chatMsgIdx != null && (
             <button className="ctx-menu-item" onClick={handleCtxOpenThread}>Reply in thread</button>
+          )}
+          {ctxMenu.threadId && (
+            <button className="ctx-menu-item" onClick={handleCtxReplyInThread}>Reply in this thread</button>
           )}
         </div>
       )}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="109" height="127.971">
+<g transform="matrix(.525744 0 0 .525744 -2.102974 -1.051487)">
+<g fill="#ccc"><circle cx="100.5" cy="116.5" r="7"/><circle cx="157" cy="155" r="7"/><path d="M44 79l113 76m-146 0l179-76M44 225L157 9M11 9l179 216" stroke="#ccc" stroke-width="2"/></g>
+<g fill="none" stroke-width="3"><path d="M157 155l33 70M11 155h146V9" stroke="#ccc"/><path d="M44 79h146v146H44z" stroke="#000"/><path d="M11 155l33 70M157 9l33 70M11 9l33 70M157 9H11v146" stroke="#000"/></g></g>
+<g><circle cx="97.788" cy="40.482" r="3.68"/><circle cx="80.439" cy="3.68" r="3.68"/><circle cx="3.68" cy="3.68" r="3.68"/><circle cx="3.68" cy="80.439" r="3.68"/><circle cx="21.03" cy="117.241" r="3.68"/><circle cx="97.788" cy="117.241" r="3.68"/><circle cx="21.03" cy="40.482" r="3.68"/></g>
+<g font-family="Times" font-size="35" font-style="italic" transform="matrix(.525744 0 0 .525744 -2.102974 -1.051487)"><text x="193" y="157">a</text><text x="106" y="245">a</text><text x="8" y="206">a</text></g>
+</svg>

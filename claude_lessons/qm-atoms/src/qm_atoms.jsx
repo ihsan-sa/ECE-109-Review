@@ -22,7 +22,7 @@ function M({ children }) { return <Eq display={false}>{children}</Eq>; }
 const TOPIC_CONTEXT = {
   "finite-well": `Topic: Finite Potential Well. Covers the 1D finite well of depth V_0 and width a. Three regions: I (x<0, V=V_0), II (0<x<a, V=0), III (x>a, V=V_0). Inside well: sinusoidal psi with wavenumber k = sqrt(2m_e E)/hbar. Outside: exponential decay psi ~ exp(-alpha x) where alpha = sqrt(2m_e(V_0 - E)/hbar^2). Boundary conditions: psi and dpsi/dx continuous at x=0 and x=a. Transcendental equation alpha = k tan(ka/2) for even states. Penetration depth delta = 1/alpha. Fewer bound states than infinite well; energy levels are lower. For a=2nm, V_0=0.5eV: E_1=0.057eV, E_2=0.22eV.`,
   "tunneling": `Topic: Quantum Tunneling. A particle with energy E encounters a barrier of height V_0 > E and width a. Transmission coefficient T = 1/(1 + D sinh^2(alpha a)) where D = V_0^2/(4E(V_0-E)) and alpha = sqrt(2m_e(V_0-E)/hbar^2). For thick barriers: T ~ exp(-2 alpha a). Reflection coefficient R = 1 - T. Applications: Scanning Tunneling Microscope (STM) uses exponential sensitivity of tunnel current to gap distance. Alpha decay: nuclear particle tunnels through Coulomb barrier. Tunnel diode: electrons tunnel through thin depletion region.`,
-  "uncertainty": `Topic: Heisenberg Uncertainty Principle. Position-momentum: Delta_x * Delta_p >= hbar/2. Energy-time: Delta_E * Delta_t >= hbar/2. Impossible to simultaneously know both position and momentum with arbitrary precision. Consequence: zero-point energy in confined systems (E_1 > 0 for particle in a box). Natural linewidth of spectral lines from energy-time uncertainty. The ground state energy of a confined electron is never zero.`,
+  "uncertainty": `Topic: Heisenberg Uncertainty Principle. Position-momentum: Delta_x * Delta_p >= hbar/2. Energy-time: Delta_E * Delta_t >= hbar/2. Impossible to simultaneously know both position and momentum with arbitrary precision. Consequence: zero-point energy in confined systems (E_1 > 0 for particle in a box). Natural linewidth of spectral lines from energy-time uncertainty: Delta_E = hbar/tau_r, so Delta_f ~ 1/(2*pi*tau_r); for tau_r ~ 10^-8 s, Delta_f ~ 10^7 Hz. The ground state energy of a confined electron is never zero.`,
   "hydrogen": `Topic: Hydrogen Atom. 3D Schrodinger equation with Coulomb potential V(r) = -Ze^2/(4 pi epsilon_0 r). Wavefunction psi(r,theta,phi) = R_{n,l}(r) Y_{l,m_l}(theta,phi). Three quantum numbers from 3D box: n (principal, n=1,2,3,...), l (orbital angular momentum, l=0,...,n-1), m_l (magnetic, m_l=-l,...,+l). Fourth quantum number m_s = +/- 1/2 (spin). Energy levels E_n = -13.6 eV/n^2 (for hydrogen, Z=1). Bohr radius a_0 = 0.0529 nm. Orbital labels: l=0 is s, l=1 is p, l=2 is d, l=3 is f. Degeneracy: n^2 states per energy level (ignoring spin), 2n^2 with spin.`,
   "periodic-table": `Topic: Atoms and the Periodic Table. Multi-electron atoms: electron-electron repulsion breaks l-degeneracy. Pauli exclusion principle: no two electrons can have the same set of four quantum numbers. Aufbau principle: fill orbitals from lowest energy up. Hund's rule: maximize spin in degenerate orbitals. Shielding effect: inner electrons screen nuclear charge, so effective Z depends on orbital. Shell filling order: 1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, ... Periodic trends: ionization energy generally increases across period, decreases down group. Electronegativity follows similar trend. Atomic radius decreases across period, increases down group.`,
   "graph-preview": `Graph Preview tab. Shows all lesson graphs for visual inspection. The user can screenshot this tab and send it to the chatbot for review and corrections.`,
@@ -41,8 +41,8 @@ const EFFORT_LEVELS = ["low", "medium", "high", "max"];
 // ─── Theme-Aware Graph Colors (copy verbatim) ───
 
 const THEMES_G = {
-  dark:  { bg: "#13151c", ax: "#6b7084", gold: "#c8a45a", blue: "#4a90d9", red: "#e06c75", grn: "#69b578", txt: "#9498ac", ltxt: "#b0b4c4" },
-  light: { bg: "#f0efe8", ax: "#888", gold: "#9a7b2e", blue: "#2a6abf", red: "#c0392b", grn: "#2d8a4e", txt: "#555", ltxt: "#333" },
+  dark:  { bg: "#13151c", ax: "#6b7084", gold: "#c8a45a", blue: "#4a90d9", red: "#e06c75", grn: "#69b578", txt: "#9498ac", ltxt: "#b0b4c4", purple: "#a077d4", orange: "#e0a060" },
+  light: { bg: "#f0efe8", ax: "#888", gold: "#9a7b2e", blue: "#2a6abf", red: "#c0392b", grn: "#2d8a4e", txt: "#555", ltxt: "#333", purple: "#7b5bb5", orange: "#c4822e" },
 };
 let G = THEMES_G.light;
 
@@ -110,6 +110,7 @@ function FiniteWellWavefunctions({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Wavefunctions in a finite potential well with evanescent tails</title>
         <defs>
           <marker id={`ahFW${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -198,6 +199,7 @@ function FiniteWellProbDensity({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Probability density for finite well bound states</title>
         <defs>
           <marker id={`ahPD${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -265,6 +267,7 @@ function TunnelingProbability({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Tunneling transmission coefficient versus barrier width</title>
         <defs>
           <marker id={`ahTP${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -336,6 +339,7 @@ function HydrogenEnergyLevels({ params, mid = "" }) {
   return (
     <div className="eq-block" style={{ padding: "16px", overflow: "hidden" }}>
       <svg viewBox={`0 0 ${w} ${h}`} style={{ width: "100%", maxWidth: w, display: "block", margin: "0 auto" }}>
+        <title>Hydrogen atom energy levels with subshell labels</title>
         <defs>
           <marker id={`ahHL${mid}`} markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6" fill="none" stroke={G.ax} strokeWidth="1"/>
@@ -478,10 +482,15 @@ function TunnelingWavefunctionAnimation() {
   const decayPath = [];
   const ampAtLeft = amp;
   const ampAtRight = amp * Math.max(sqrtT, 0.02);
+  const yEntryVal = Math.sin(k * barrierLeft - phase);
+  const yExitVal = Math.sin(k * barrierRight - phase);
   for (let x = barrierLeft; x <= barrierRight; x += 2) {
     const frac = (x - barrierLeft) / barrierW;
     const localAmp = ampAtLeft * Math.exp(-decayRate * frac);
-    const y = midY - localAmp * Math.sin(k * x - phase);
+    const exitAmp = ampAtRight;
+    const blend = frac;
+    const envelope = localAmp * yEntryVal * (1 - blend) + exitAmp * yExitVal * blend;
+    const y = midY - envelope;
     decayPath.push(`${x === barrierLeft ? "M" : "L"}${x},${y.toFixed(1)}`);
   }
 
@@ -500,6 +509,7 @@ function TunnelingWavefunctionAnimation() {
       <span className="kc-label">Tunneling Wavefunction Animation</span>
       <div className="kc-body" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <svg viewBox={`0 0 ${w} ${h}`} width="100%" style={{ background: G.bg, borderRadius: 6, border: `1px solid ${G.ax}33` }}>
+          <title>Animated tunneling wavefunction through a potential barrier</title>
           <rect x={barrierLeft} y={20} width={barrierW} height={h - 40} fill={G.ax} fillOpacity={0.18} stroke={G.ax} strokeWidth={1} strokeDasharray="4,3" />
           <text x={(barrierLeft + barrierRight) / 2} y={16} textAnchor="middle" fill={G.txt} fontSize={10} fontFamily="'IBM Plex Mono', monospace">Classically Forbidden</text>
           <path d={incidentPath.join("")} fill="none" stroke={G.blue} strokeWidth={2} />
@@ -511,7 +521,7 @@ function TunnelingWavefunctionAnimation() {
           <text x={w - 10} y={18} textAnchor="end" fill={G.txt} fontSize={10} fontFamily="'IBM Plex Mono', monospace">T = {T.toExponential(2)}</text>
         </svg>
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-          <button onClick={e => { e.stopPropagation(); setPlaying(p => !p); }} style={{ padding: "4px 14px", borderRadius: 4, border: `1px solid var(--accent)`, background: playing ? "var(--accent)" : "transparent", color: playing ? "#fff" : "var(--accent)", cursor: "pointer", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600 }}>{playing ? "Pause" : "Play"}</button>
+          <button className="ctrl-btn" onClick={e => { e.stopPropagation(); setPlaying(p => !p); }}>{playing ? "Pause" : "Play"}</button>
           <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "var(--text-dim)" }}>E = 1.0 eV (fixed)</span>
         </div>
         <div onClick={e => e.stopPropagation()}>
@@ -521,6 +531,10 @@ function TunnelingWavefunctionAnimation() {
         <div onClick={e => e.stopPropagation()}>
           <div style={labelStyle}><span>Barrier width d</span><span style={valStyle}>{dBarrier.toFixed(1)} nm</span></div>
           <input type="range" min="0.2" max="2.0" step="0.1" value={dBarrier} onChange={e => setDBarrier(parseFloat(e.target.value))} style={sliderStyle} onClick={e => e.stopPropagation()} />
+        </div>
+        <div onClick={e => e.stopPropagation()}>
+          <div style={labelStyle}><span>Phase offset</span><span style={valStyle}>{(phase % (2 * Math.PI)).toFixed(2)} rad</span></div>
+          <input type="range" min="0" max={2 * Math.PI} step="0.05" value={phase % (2 * Math.PI)} onChange={e => { setPlaying(false); setPhase(parseFloat(e.target.value)); }} style={sliderStyle} onClick={e => e.stopPropagation()} />
         </div>
       </div>
     </div>
@@ -564,7 +578,7 @@ function OrbitalProbabilityCloud() {
     for (let i = 0; i < 2000; i++) {
       const r = Math.random() * maxR;
       const theta = Math.random() * Math.PI;
-      const val = psiSq(r, theta);
+      const val = r * r * psiSq(r, theta);
       if (val > maxPsi) maxPsi = val;
     }
 
@@ -575,7 +589,7 @@ function OrbitalProbabilityCloud() {
       const theta = Math.random() * Math.PI * 2;
       const cosTheta3D = Math.random() * 2 - 1;
       const theta3D = Math.acos(cosTheta3D);
-      const prob = psiSq(r, theta3D);
+      const prob = r * r * psiSq(r, theta3D);
       if (Math.random() < prob / maxPsi) {
         const phi = Math.random() * 2 * Math.PI;
         const xProj = r * Math.sin(theta3D) * Math.cos(phi);
@@ -609,6 +623,7 @@ function OrbitalProbabilityCloud() {
           <button onClick={e => { e.stopPropagation(); setDots(generateDots(orbital)); }} style={{ padding: "3px 12px", borderRadius: 4, border: "1px solid var(--accent)", background: "transparent", color: "var(--accent)", cursor: "pointer", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600 }}>Regenerate</button>
         </div>
         <svg viewBox={`0 0 ${svgSize} ${svgSize}`} width="100%" style={{ background: G.bg, borderRadius: 6, border: `1px solid ${G.ax}33`, maxWidth: 400 }}>
+          <title>Orbital probability cloud dot plot for hydrogen atom</title>
           <line x1={0} y1={cy} x2={svgSize} y2={cy} stroke={G.ax} strokeWidth={0.5} strokeOpacity={0.3} />
           <line x1={cx} y1={0} x2={cx} y2={svgSize} stroke={G.ax} strokeWidth={0.5} strokeOpacity={0.3} />
           {dots.map((d, i) => (
@@ -839,6 +854,11 @@ const TOPICS = [
             where <M>{"\\phi"}</M> is the average work function and <M>{"d"}</M> is the tip-sample gap. The current is exponentially sensitive to <M>{"d"}</M>: a change of 0.1 nm changes the current by roughly one order of magnitude. Two operating modes exist: constant-current (feedback loop adjusts tip height to maintain fixed current, mapping topography) and constant-height (tip scans at fixed height, current variations map the surface).
           </KeyConcept>
 
+          <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
+            <img src="/images/stm_gold_atomic_resolution.jpg" alt="Scanning tunneling microscope image of gold Au(100) surface at atomic resolution showing individual atoms" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>STM image of Au(100) surface at atomic resolution. The STM itself operates via quantum tunneling. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, Public Domain</span></figcaption>
+          </figure>
+
           <KeyConcept label="Alpha Decay">
             An alpha particle inside a nucleus is confined by the Coulomb barrier. Even though its energy is less than the barrier height, it has a small but nonzero probability of tunneling through. The decay rate depends exponentially on the barrier parameters, explaining the enormous range of half-lives observed in nature.
           </KeyConcept>
@@ -952,6 +972,11 @@ const TOPICS = [
           <Eq>{"E_n = \\frac{-13.6 \\text{ eV}}{n^2}"}</Eq>
           <P>The energy depends only on <M>{"n"}</M>, not on <M>{"\\ell"}</M> or <M>{"m_\\ell"}</M>. This means all subshells within the same shell are degenerate in hydrogen. The Bohr radius is <M>{"a_0 = 0.0529"}</M> nm.</P>
           <HydrogenEnergyLevels params={gp.hydrogenLevels} mid="t4" />
+
+          <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
+            <img src="/images/hydrogen_spectrum_photo.jpg" alt="Photograph of hydrogen gas discharge tube emission spectrum showing Balmer series visible spectral lines" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Hydrogen emission spectrum: discrete Balmer series lines (H-alpha 656nm red, H-beta 486nm cyan, H-gamma 434nm blue-violet) from quantized energy transitions. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC0 (Public Domain)</span></figcaption>
+          </figure>
         </Section>
 
         <Section title="Orbital Probability Clouds">
@@ -1223,6 +1248,9 @@ const STYLES = `
 .para b { color: var(--text-primary); font-weight: 600; }
 .para i { color: var(--text-muted); }
 
+.ctrl-btn { padding: 6px 16px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-primary); font-family: 'IBM Plex Mono', monospace; font-size: 12px; cursor: pointer; transition: background 0.15s; }
+.ctrl-btn:hover { background: var(--accent); color: var(--bg-main); }
+
 .eq-block { margin: 12px 0; padding: 14px 18px; background: var(--bg-eq); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; overflow-x: auto; }
 .eq-block .katex { font-size: 1.15em; }
 .eq-block .katex-html { color: var(--chat-katex); }
@@ -1268,6 +1296,8 @@ const STYLES = `
 .chat-model-select option { background: var(--bg-panel); color: var(--text-muted); }
 .chat-expand-btn { background: none; border: 1px solid var(--border); border-radius: 5px; color: var(--text-dim); font-size: 14px; cursor: pointer; padding: 2px 6px; font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; transition: color 0.15s; line-height: 1; }
 .chat-expand-btn:hover { color: var(--accent); border-color: var(--chat-chip-border); }
+.chat-kill-btn { padding: 2px 6px; border-radius: 5px; border: 1px solid var(--chat-stop-color); background: none; color: var(--chat-stop-color); font-size: 10px; font-family: 'IBM Plex Mono', monospace; font-weight: 700; cursor: pointer; letter-spacing: 0.05em; flex-shrink: 0; line-height: 1; }
+.chat-kill-btn:hover { background: var(--chat-stop-color); color: var(--bg-main); }
 
 .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
 .chat-empty { font-size: 15px; color: var(--text-dim); line-height: 1.6; padding: 24px 8px; text-align: center; }
@@ -1372,6 +1402,33 @@ const STYLES = `
 .collapsible-toggle:hover { color: var(--accent); }
 .collapsible-content { padding: 12px 14px; background: var(--bg-card); }
 
+.graph-controls { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; padding: 6px 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
+.graph-controls label { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 180px; }
+.graph-ctrl-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); font-weight: 500; white-space: nowrap; min-width: 120px; }
+.graph-slider { flex: 1; min-width: 100px; height: 4px; accent-color: var(--accent); cursor: pointer; }
+.graph-select { background: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; color: var(--text-muted); font-size: 11px; font-family: 'IBM Plex Mono', monospace; padding: 3px 6px; cursor: pointer; }
+.graph-select:focus { border-color: var(--accent); outline: none; }
+.graph-select option { background: var(--bg-panel); color: var(--text-muted); }
+
+/* --- Inline demo blocks --- */
+.chat-demo-block { margin: 8px 0; padding: 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.chat-demo-title { font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--accent); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.chat-demo-block svg { display: block; margin: 0 auto; }
+
+/* --- Media blocks (images, videos, standalone SVGs) --- */
+.chat-media-block { margin: 8px 0; padding: 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; text-align: center; }
+.chat-media-block img, .chat-media-block video { max-width: 100%; border-radius: 6px; display: block; margin: 0 auto; }
+.chat-media-block svg { display: block; margin: 0 auto; max-width: 100%; }
+
+/* --- Sources dropdown --- */
+.chat-sources { margin: 10px 0 4px 0; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; background: var(--bg-eq); }
+.chat-sources summary { padding: 6px 10px; cursor: pointer; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; }
+.chat-sources summary:hover { color: var(--accent); }
+.chat-sources ul { padding: 6px 10px 8px 24px; margin: 0; list-style: disc; }
+.chat-sources li { color: var(--text-muted); margin: 2px 0; line-height: 1.5; }
+.chat-sources a { color: var(--accent); text-decoration: none; }
+.chat-sources a:hover { text-decoration: underline; }
+
 /* --- Suggestion bar --- */
 .suggestion-bar { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding: 6px 10px; background: var(--bg-eq); border: 1px solid var(--border); border-radius: 6px; flex-wrap: wrap; }
 .suggestion-label { font-size: 12px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; flex: 1; min-width: 120px; }
@@ -1390,6 +1447,8 @@ const STYLES = `
 .thread-collapse-btn:hover { color: var(--accent); }
 .thread-snippet { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-muted); font-style: italic; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .thread-count { font-size: 11px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; }
+.thread-close-btn { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 10px; padding: 0 2px; flex-shrink: 0; margin-left: auto; opacity: 0.5; }
+.thread-close-btn:hover { opacity: 1; color: var(--chat-stop-color); }
 .thread-portal-slot { margin: 4px 0; }
 .thread-body { padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; }
 .thread-msg { display: flex; flex-direction: column; }
@@ -1406,6 +1465,7 @@ const STYLES = `
 .thread-input:focus { border-color: var(--chat-chip-border); }
 .thread-send { width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-card); color: var(--accent); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .thread-send:hover { background: var(--bg-panel); }
+.thread-ctx-bar { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px 0; }
 `;
 
 // ─── Chat Message Renderer (copy verbatim) ───
@@ -1418,9 +1478,32 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
   useEffect(() => {
     if (!ref.current || role !== "assistant" || !window.katex) return;
     const fencedBlocks = [];
-    let s = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    // Extract demo blocks before any escaping (they contain raw HTML/SVG)
+    const demoBlocks = [];
+    let s = text.replace(/<div class="chat-demo-block"><div class="chat-demo-title">[\s\S]*?<\/div>[\s\S]*?<\/div>/g, (match) => {
+      demoBlocks.push(match);
+      return `\x00DB${demoBlocks.length - 1}\x00`;
+    });
+    // Extract sources dropdowns (from processResponse)
+    s = s.replace(/<details class="chat-sources">[\s\S]*?<\/details>/g, (match) => {
+      demoBlocks.push(match);
+      return `\x00DB${demoBlocks.length - 1}\x00`;
+    });
+    s = s.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
       fencedBlocks.push(`<pre class="chat-pre"><code class="chat-code-block">${code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`);
       return `\x00FB${fencedBlocks.length - 1}\x00`;
+    });
+    // Extract raw SVG, img, video blocks and markdown images (after code fences, before escaping)
+    const mediaBlocks = [];
+    s = s.replace(/<svg\b[\s\S]*?<\/svg>/g, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/<img\s[^>]*\/?>/gi, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/<video\b[\s\S]*?<\/video>/gi, (match) => { mediaBlocks.push(`<div class="chat-media-block">${match}</div>`); return `\x00ME${mediaBlocks.length - 1}\x00`; });
+    s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
+      const isVid = /\.(mp4|webm|mov|ogg)$/i.test(src);
+      mediaBlocks.push(isVid
+        ? `<div class="chat-media-block"><video controls src="${src}" style="max-width:100%"><p>${alt || 'Video'}</p></video></div>`
+        : `<div class="chat-media-block"><img src="${src}" alt="${alt}" style="max-width:100%"/></div>`);
+      return `\x00ME${mediaBlocks.length - 1}\x00`;
     });
     const inlineCode = [];
     s = s.replace(/`([^`]+)`/g, (_, code) => {
@@ -1554,11 +1637,13 @@ function ChatBubble({ text, role, onReplyBlock, streaming }) {
     s = s.replace(/((?:<li class="chat-li">.*<\/li>\n?)+)/g, '<ul class="chat-ul">$1</ul>');
     s = s.replace(/^\d+\. (.+)$/gm, '<li class="chat-oli">$1</li>');
     s = s.replace(/((?:<li class="chat-oli">.*<\/li>\n?)+)/g, '<ol class="chat-ol">$1</ol>');
+    s = s.replace(/\n/g, '<br/>');
     s = s.replace(/\x00FB(\d+)\x00/g, (_, i) => fencedBlocks[parseInt(i)]);
     s = s.replace(/\x00IC(\d+)\x00/g, (_, i) => inlineCode[parseInt(i)]);
-    s = s.replace(/\n/g, '<br/>');
-    s = s.replace(/(<\/pre>|<\/h[34]>|<\/ul>|<\/ol>|<\/div>|<\/table>|<hr[^>]*>)<br\/>/g, '$1');
-    s = s.replace(/<br\/>(<pre |<h[34] |<ul |<ol |<div class="chat-eq|<table |<hr )/g, '$1');
+    s = s.replace(/\x00DB(\d+)\x00/g, (_, i) => demoBlocks[parseInt(i)]);
+    s = s.replace(/\x00ME(\d+)\x00/g, (_, i) => mediaBlocks[parseInt(i)]);
+    s = s.replace(/(<\/pre>|<\/h[34]>|<\/ul>|<\/ol>|<\/div>|<\/details>|<\/table>|<hr[^>]*>)<br\/>/g, '$1');
+    s = s.replace(/<br\/>(<pre |<h[34] |<ul |<ol |<div class="chat-eq|<div class="chat-demo|<div class="chat-media|<details |<table |<hr )/g, '$1');
     ref.current.innerHTML = s;
   }, [text, role, streaming]);
 
@@ -1659,47 +1744,85 @@ const _ss = window["session" + "Storage"];
 
 // ─── Thread Panel Component ───
 
-function ThreadPanel({ thread, onToggleCollapse, onSend }) {
+function ThreadPanel({ thread, onToggleCollapse, onSend, onDelete, contextTrigger }) {
   const [threadInput, setThreadInput] = useState("");
+  const [threadCtx, setThreadCtx] = useState([]);
   const threadInputRef = useRef(null);
   const snippetPreview = thread.snippet.length > 50 ? thread.snippet.slice(0, 50) + "\u2026" : thread.snippet;
+  // Mount-only: intentional empty deps for initial focus
   useEffect(() => {
     if (thread.messages.length === 0 && threadInputRef.current) threadInputRef.current.focus();
-  }, []); // focus on mount when thread is new
+  }, []);
   useEffect(() => {
     if (threadInputRef.current) threadInputRef.current.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }, [thread.messages.length, thread.loading]);
+
+  const addThreadCtx = useCallback((text, source) => {
+    const clean = text.replace(/\s+/g, " ").trim();
+    if (!clean || clean.length < 3) return;
+    setThreadCtx(prev => prev.some(s => s.text === clean) ? prev : [...prev, { text: clean, source }]);
+    setTimeout(() => threadInputRef.current?.focus(), 0);
+  }, []);
+
+  // Watch for external context trigger (from context menu "Reply in this thread")
+  useEffect(() => {
+    if (contextTrigger && contextTrigger.threadId === thread.id) {
+      addThreadCtx(contextTrigger.text, contextTrigger.source || "selection");
+    }
+  }, [contextTrigger, thread.id, addThreadCtx]);
+
+  const handleSend = useCallback(() => {
+    const text = threadInput.trim();
+    if (!text) return;
+    onSend(text, threadCtx.length > 0 ? [...threadCtx] : null);
+    setThreadInput("");
+    setThreadCtx([]);
+  }, [threadInput, threadCtx, onSend]);
+
   return (
-    <div className={`thread-panel ${thread.collapsed ? "thread-collapsed" : ""}`}>
+    <div className={`thread-panel ${thread.collapsed ? "thread-collapsed" : ""}`} data-thread-id={thread.id}>
       <div className="thread-header" onClick={onToggleCollapse}>
         <button className="thread-collapse-btn" title={thread.collapsed ? "Expand thread" : "Collapse thread"}>
           {thread.collapsed ? "\u25B6" : "\u25BC"}
         </button>
         <span className="thread-snippet">"{snippetPreview}"</span>
         <span className="thread-count">{thread.messages.length > 0 ? `${thread.messages.length}` : "new"}</span>
+        <button className="thread-close-btn" onClick={(e) => { e.stopPropagation(); onDelete(); }} title="Delete thread">{"\u2715"}</button>
       </div>
       {!thread.collapsed && (
         <div className="thread-body">
           {thread.messages.map((m, i) => (
             <div key={i} className={`thread-msg thread-msg-${m.role}`}>
-              <ChatBubble text={m.content} role={m.role} streaming={!!m._streaming} />
+              <ChatBubble text={m.content} role={m.role} onReplyBlock={addThreadCtx} streaming={!!m._streaming} />
             </div>
           ))}
           {thread.loading && <div className="thread-loading"><span /><span /><span /></div>}
           {!thread.loading && (
-            <div className="thread-input-row">
-              <textarea
-                ref={threadInputRef}
-                className="thread-input"
-                value={threadInput}
-                onChange={e => setThreadInput(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); if (threadInput.trim()) { onSend(threadInput.trim()); setThreadInput(""); } } }}
-                onClick={e => e.stopPropagation()}
-                placeholder="Reply to thread..."
-                rows={1}
-              />
-              <button className="thread-send" onClick={() => { if (threadInput.trim()) { onSend(threadInput.trim()); setThreadInput(""); } }}>{"\u2192"}</button>
-            </div>
+            <>
+              {threadCtx.length > 0 && (
+                <div className="thread-ctx-bar">
+                  {threadCtx.map((s, i) => (
+                    <div key={i} className="chat-ctx-chip">
+                      <span className="chat-ctx-chip-text">{"+ "}{s.text.length > 30 ? s.text.slice(0, 30) + "\u2026" : s.text}</span>
+                      <button className="chat-ctx-chip-x" onClick={(e) => { e.stopPropagation(); setThreadCtx(prev => prev.filter((_, idx) => idx !== i)); }}>{"\u2715"}</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="thread-input-row">
+                <textarea
+                  ref={threadInputRef}
+                  className="thread-input"
+                  value={threadInput}
+                  onChange={e => setThreadInput(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
+                  onClick={e => e.stopPropagation()}
+                  placeholder={threadCtx.length > 0 ? `${threadCtx.length} context item${threadCtx.length > 1 ? "s" : ""} attached...` : "Reply to thread..."}
+                  rows={1}
+                />
+                <button className="thread-send" onClick={handleSend}>{"\u2192"}</button>
+              </div>
+            </>
           )}
         </div>
       )}
@@ -1709,7 +1832,7 @@ function ThreadPanel({ thread, onToggleCollapse, onSend }) {
 
 // ─── Chatbot Component ───
 
-function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClearAllSnippets, open, setOpen, onEditGraph, graphParams, addSnippet, threadTrigger }) {
+function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClearAllSnippets, open, setOpen, onEditGraph, graphParams, addSnippet, threadTrigger, threadCtxTrigger }) {
   const [tabs, setTabs] = useState([]);
   const [activeTabIdx, setActiveTabIdx] = useState(0);
   const [input, setInput] = useState("");
@@ -1874,7 +1997,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     const isolationBlock = isolatedFlag
       ? `\n\n--- ISOLATION MODE ---\nThis session is ISOLATED. Do NOT read, write, or reference any files in ~/.claude/memory/ or ~/.claude/projects/. Do NOT use the auto-memory system. Do NOT persist any information between sessions. Treat this as a completely fresh session with no prior knowledge from other chats.`
       : `\n\n--- SHARED MEMORY MODE ---\nYou may read and use your persistent memory files in ~/.claude/ and CLAUDE.md project files for context. You may write to memory if the user asks you to remember something.`;
-    return `You are a concise tutor for ECE 109 (Principles of Electronic Materials for Engineering) at the University of Waterloo. ${LESSON_CONTEXT}\n\nFull lesson topics for cross-reference:\n${allTopicCtx}\n\nYou have access to the lesson codebase in the current directory. You can read and edit files when asked. When you edit the lesson JSX file, the browser will hot-reload automatically.\n\nCRITICAL FORMATTING RULES (you MUST follow these exactly):\n- EVERY mathematical expression MUST be wrapped in dollar signs. Use $...$ for inline math (e.g. $E = hf$, $V_{GS}$, $m_e^*$) and $$...$$ for display math on its own line.\n- This includes ALL variables ($x$, $n$, $T$), subscripted terms ($E_g$, $k_B T$), Greek letters ($\\alpha$, $\\lambda$), and operators.\n- NEVER write bare math without dollar signs. Wrong: E = mc^2. Right: $E = mc^2$.\n- When referencing mathematical expressions inline, always render them in LaTeX (e.g. $\\frac{2m_e}{\\hbar^2}$, $\\nabla^2 \\psi$), never as plain text like 2m/hbar^2.\n- Use **bold** for emphasis and \`code\` for code.\n- Use markdown headers, lists, and fenced code blocks freely.\n- Help the student understand concepts, equations, derivations, and common pitfalls.\n- Be direct and efficient.\n\n--- GRAPH EDITING CAPABILITY ---\nYou can modify the lesson's graphs by including an edit command block in your response.\nThe current graph parameters are: ${JSON.stringify(graphParams)}\n\nTo edit a graph, include EXACTLY this format:\n<<EDIT_GRAPH>>{"graphKey": {"param": value}}<<END_EDIT>>\n\nOnly include an edit block when the user explicitly asks to change a graph.\n\n--- LESSON AUGMENTATION ---\nYou may proactively suggest adding content to the lesson when you identify a genuine gap in the student's understanding. Rules:\n- CONCISENESS is the top priority. Every word must earn its place.\n- Only suggest if it would genuinely help understanding -- do not saturate the lesson.\n- Short additions (1-3 lines): suggest mode="inline"\n- Longer explanations: suggest mode="collapsible"\n- Content not tied to a specific paragraph: suggest type="faq"\n- Give your explanation in the chat first. Then, if you think it belongs in the lesson, append:\n\n<<SUGGEST type="lesson|faq" section="exact-section-title" title="Short Title" mode="inline|collapsible">>\n[JSX content using existing components: <P>, <Eq m={...}/>, <M>, <KeyConcept label="...">, inline SVG if needed]\n<<END_SUGGEST>>\n\nThe user will see [Add to lesson] [Add to FAQ] [No] buttons. If approved, you will receive a follow-up -- then make the edit to src/qm_atoms.jsx.\n\n--- THREAD SYSTEM ---\nSome messages begin with [THREAD:id | "snippet"]. These are inline side-threads where the student is clarifying a specific part of your previous response.\n- Respond concisely and targeted to the quoted snippet\n- Prefix your response with [THREAD:id] matching the incoming tag\n- When responding to untagged main messages, ignore thread history -- treat threads as resolved asides\n- Keep thread responses brief: 1-4 sentences unless more is clearly needed${isolationBlock}`;
+    return `You are a concise tutor for ECE 109 (Principles of Electronic Materials for Engineering) at the University of Waterloo. ${LESSON_CONTEXT}\n\nFull lesson topics for cross-reference:\n${allTopicCtx}\n\nYou have access to the lesson codebase. Edits to the JSX file hot-reload automatically. Help the student understand concepts, equations, derivations, and common pitfalls. Be concise: every sentence must advance understanding. Cut filler, preamble, and repetition. Prefer equations and visuals over lengthy prose.\n\nFORMATTING RULES:\n- Wrap ALL math in dollar signs: $...$ inline, $$...$$ display. This includes variables ($x$, $T$), subscripts ($E_g$), Greek letters ($\\alpha$), and compound expressions ($\\frac{2m_e}{\\hbar^2}$). Never write bare math.\n- Use **bold** for emphasis, \`code\` for code, markdown headers/lists/fenced blocks freely.\n\n--- GRAPH EDITING ---\nCurrent graph parameters: ${JSON.stringify(graphParams)}\n\nTo edit a graph (only when the user asks), include EXACTLY:\n<<EDIT_GRAPH>>{"graphKey": {"param": value}}<<END_EDIT>>\n\n--- RESEARCH & VERIFICATION ---\nUse WebSearch/WebFetch to verify equations, constants, derivations, and reference data before stating them.\n\nSource tiers:\n- TRUSTED: textbook publishers, NIST, .edu courses, peer-reviewed papers, well-sourced Wikipedia\n- ACCEPTABLE: Physics Stack Exchange (check votes), HyperPhysics, MIT OCW\n- REJECT: random forums, unattributed blogs, AI-generated content farms\n\nCite briefly inline (e.g. "per Kasap Table 4.1", "NIST CODATA 2018"). If only low-quality sources exist, state the uncertainty.\nWhen you use sources, collect them at the end of your response:\n<<SOURCES>>\n- Source name or title (URL if available)\n<<END_SOURCES>>\nThis renders as a collapsed "Sources" dropdown.\n\n--- VISUAL GENERATION ---\nGenerate visuals beyond inline SVG graphs. Decide how many to include based on what the explanation needs. Always verify output before presenting.\n\n1. MATPLOTLIB: For plots (3D, heatmaps, multi-panel). Run python3 via Bash, save to public/images/.\n2. MANIM: For animations. Spawn an Agent: write script, render, copy .mp4 to public/videos/, edit JSX to add <video> tag.\n3. WEB IMAGES: Fetch images using Bash(curl -o public/images/<name>.<ext> "URL"). Read the downloaded file to visually inspect it (you can see images). If suitable, use in chat as ![alt](/images/name.ext) or edit JSX to add <img>. Only use freely licensed or educational-source images. Delete unsuitable downloads.\n4. PLAYWRIGHT: Playwright is installed. Use it to screenshot and verify rendered pages or elements:\n   - Write a short Node script: require(\'playwright\'), launch chromium, navigate to the page, screenshot, close.\n   - Read the screenshot PNG to visually inspect the result.\n   - Use after editing lesson graphs, adding images to JSX, or when the student reports something looks wrong.\n   - For a specific element, use page.locator(\'.selector\').screenshot() instead of full-page.\n\n--- AGENT-BASED REVIEW ---\nUse the Agent tool for verification after generating visuals, multi-file edits, or complex derivations. Spawn with a specific task (e.g. "Read the SVG at X. Verify the curve matches y = sin(kx) for k=2pi. Check labels and scale."). Do not spawn agents for tasks you can do directly.\n\n--- CONVERSATION ANALYSIS ---\nSilently assess every response. Do NOT output your analysis; use it to guide action.\n\nBREAKTHROUGH DETECTION:\nSignals of pivotal understanding:\n- Student connects previously separate concepts\n- Student shifts from "what" to "why" or "what if" questions\n- Student self-corrects a misconception or applies a concept to a new context unprompted\n- A stuck exchange suddenly resolves\n\nOn breakthrough:\n1. Acknowledge briefly (1 sentence, not patronizing)\n2. If the insight reveals a gap the lesson does not cover and is general enough to help future readers, use <<SUGGEST>> to propose a KeyConcept or bridging paragraph\n\nVISUALIZATION OPPORTUNITIES:\nGenerate a visual when explaining spatial relationships, parameter-dependent curves, or inherently visual confusion. Skip when the concept is purely algebraic, an existing lesson graph covers it, the question is about notation, or adding more visuals would not clarify the explanation.\n\nInline demo format:\n<<DEMO title="Short Title">>\n<svg viewBox="0 0 W H" style="width:100%;max-width:Wpx;display:block;margin:8px auto">\n  <!-- gold=#c8a45a, blue=#4a90d9, red=#e06c75, green=#69b578, axis=#6b7084, text=#9498ac -->\n  <!-- Keep it clean: labeled axes, clear annotations. -->\n</svg>\n<<END_DEMO>>\n\nFor complex visuals needing many SVG elements, consider a lesson graph edit instead. If generalizable, also append a <<SUGGEST>> block.\n\n--- LESSON AUGMENTATION ---\nSuggest lesson additions only for genuine understanding gaps. Every word must earn its place.\n- Reusable <<DEMO>> visuals can be promoted via <<SUGGEST>> with the SVG in a collapsible.\n- Short additions (1-3 lines): mode="inline". Longer: mode="collapsible". Untied to a paragraph: type="faq".\n- Explain in chat first, then append if it belongs in the lesson:\n\n<<SUGGEST type="lesson|faq" section="exact-section-title" title="Short Title" mode="inline|collapsible">>\n[JSX content using existing components: <P>, <Eq m={...}/>, <M>, <KeyConcept label="...">, inline SVG if needed]\n<<END_SUGGEST>>\n\nThe user will see [Add to lesson] [Add to FAQ] [No] buttons. If approved, you will receive a follow-up -- then make the edit to src/qm_atoms.jsx.\n\n--- THREAD SYSTEM ---\nMessages starting with [THREAD:id | "snippet"] are side-threads on a specific part of your previous response.\n- Prefix replies with [THREAD:id]. Keep thread responses appropriately scoped to the snippet.\n- Ignore thread history when responding to untagged main messages.${isolationBlock}`;
   }, [graphParams]);
 
   const createSessionForTab = useCallback(async (tabId) => {
@@ -2011,7 +2134,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     })();
   }, [activeTab?.sessionStatus]);
 
-  const addTab = useCallback(async () => {
+  const addTab = useCallback(() => {
     const newTab = makeTab();
     let newIdx;
     setTabs(prev => {
@@ -2019,17 +2142,8 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
       return [...prev, newTab];
     });
     setActiveTabIdx(newIdx);
-    try {
-      const list = await fetchSessions();
-      const available = list.filter(s => !s.open);
-      if (available.length > 0) {
-        setServerSessions(list);
-        updateTab(newTab.id, { sessionStatus: "picking" });
-        return;
-      }
-    } catch (_) {}
     createSessionForTab(newTab.id);
-  }, [createSessionForTab, fetchSessions, updateTab]);
+  }, [createSessionForTab]);
 
   const closeTab = useCallback(async (tabId) => {
     const tab = tabsRef.current.find(t => t.id === tabId);
@@ -2105,6 +2219,23 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
         display = display.replace(match[0], "");
       } catch (e) { /* ignore malformed */ }
     }
+    // Extract inline demo blocks and convert to rendered HTML
+    const demoRe = /<<DEMO\s+title="([^"]*)"?>>([\s\S]*?)<<END_DEMO>>/g;
+    display = display.replace(demoRe, (_, title, svgContent) => {
+      const cleanSvg = svgContent.trim();
+      if (!cleanSvg.startsWith('<svg')) return '';
+      return `<div class="chat-demo-block"><div class="chat-demo-title">${title}</div>${cleanSvg}</div>`;
+    });
+    // Convert <<SOURCES>> block to collapsible dropdown
+    display = display.replace(/<<SOURCES>>([\s\S]*?)<<END_SOURCES>>/g, (_, content) => {
+      const items = content.trim().split('\n').filter(l => l.trim().startsWith('-')).map(l => {
+        let text = l.trim().replace(/^-\s*/, '');
+        text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+        return `<li>${text}</li>`;
+      });
+      if (items.length === 0) return '';
+      return `<details class="chat-sources"><summary>Sources</summary><ul>${items.join('')}</ul></details>`;
+    });
     let suggestion = null;
     const suggestRe = /<<SUGGEST\s+([^>]*)>>([\s\S]*?)<<END_SUGGEST>>/;
     const suggestMatch = display.match(suggestRe);
@@ -2134,6 +2265,23 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
       if (key.startsWith(tab.id + ':')) { try { _cs.threadAborts[key].abort(); } catch (_) {} delete _cs.threadAborts[key]; }
     }
   };
+
+  const killSession = useCallback(() => {
+    if (!activeTab) return;
+    cancelRequest();
+    if (activeTab.sessionId) {
+      fetch("/session/close", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId: activeTab.sessionId, keepContext: false }),
+      }).catch(() => {});
+    }
+    updateTab(activeTab.id, {
+      sessionId: null, chatNum: null, sessionStatus: "idle",
+      loading: false, statusText: "",
+      messages: [...activeTab.messages, { role: "assistant", content: "Session killed." }],
+    });
+  }, [activeTab, cancelRequest, updateTab]);
 
   const sendMessage = async (overrideText) => {
     const tab = tabsRef.current[activeTabIdxRef.current];
@@ -2353,14 +2501,30 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
     }));
   }, []);
 
-  const sendThreadMessage = async (tabId, msgIdx, threadId, snippet, text) => {
+  const deleteThread = useCallback((tabId, msgIdx, threadId) => {
+    setTabs(prev => prev.map(t => {
+      if (t.id !== tabId) return t;
+      const msgs = [...t.messages];
+      const m = { ...msgs[msgIdx] };
+      m.threads = (m.threads || []).filter(th => th.id !== threadId);
+      msgs[msgIdx] = m;
+      return { ...t, messages: msgs };
+    }));
+  }, []);
+
+  const sendThreadMessage = async (tabId, msgIdx, threadId, snippet, text, context) => {
     const tab = tabsRef.current.find(t => t.id === tabId);
     if (!tab || !tab.sessionId) return;
 
     addThreadMsg(tabId, msgIdx, threadId, { role: "user", content: text });
     updateThread(tabId, msgIdx, threadId, { loading: true });
 
-    const tagged = `[THREAD:${threadId} | "${snippet.slice(0, 60)}"]\n\n${text}`;
+    let apiText = text;
+    if (context && context.length > 0) {
+      const ctxBlock = context.map((s, i) => `[Context ${i + 1} -- ${s.source}]: ${s.text}`).join("\n");
+      apiText = `${ctxBlock}\n\nQuestion: ${apiText}`;
+    }
+    const tagged = `[THREAD:${threadId} | "${snippet.slice(0, 60)}"]\n\n${apiText}`;
     _cs.activeThread[tabId] = { msgIdx, threadId };
 
     const controller = new AbortController();
@@ -2547,6 +2711,7 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
             <button className="chat-expand-btn" onClick={() => { if (!activeTab) return; updateTab(activeTab.id, { keepContext: !activeTab.keepContext }); _ss.setItem("keepContext", (!activeTab.keepContext) ? "true" : "false"); }} title={keepContext ? "Keep context ON: session survives reload" : "Keep context OFF: new session on reload"} style={{ background: keepContext ? "var(--accent)" : undefined, color: keepContext ? "var(--bg-main)" : undefined }}>
               {keepContext ? "KC" : "kc"}
             </button>
+            <button className="chat-kill-btn" onClick={killSession} title="Kill session and stop all processes">KILL</button>
             <button className="chat-expand-btn" onClick={toggleExpand} title={expanded ? "Shrink" : "Expand"}>
               {expanded ? "\u2296" : "\u2295"}
             </button>
@@ -2621,7 +2786,9 @@ function Chatbot({ topicId, topicTitle, contextSnippets, onClearSnippet, onClear
                 key={threadId}
                 thread={thread}
                 onToggleCollapse={() => updateThread(activeTab.id, msgIdx, threadId, { collapsed: !thread.collapsed })}
-                onSend={(text) => sendThreadMessage(activeTab.id, msgIdx, threadId, thread.snippet, text)}
+                onSend={(text, ctx) => sendThreadMessage(activeTab.id, msgIdx, threadId, thread.snippet, text, ctx)}
+                onDelete={() => deleteThread(activeTab.id, msgIdx, threadId)}
+                contextTrigger={threadCtxTrigger}
               />,
               el
             );
@@ -2674,11 +2841,30 @@ export default function LessonApp() {
   const mouseDownPos = useRef(null);
   const [ctxMenu, setCtxMenu] = useState(null);
   const [threadTrigger, setThreadTrigger] = useState(null);
+  const [threadCtxTrigger, setThreadCtxTrigger] = useState(null);
 
   G = THEMES_G[theme];
 
   useEffect(() => {
-    const handleKey = (e) => { if (e.ctrlKey && e.key === "/") { e.preventDefault(); setChatOpen(o => !o); } };
+    const handleKey = (e) => {
+      if (e.ctrlKey && e.key === "/") {
+        e.preventDefault();
+        setChatOpen(o => !o);
+      }
+      // Ctrl+Shift+F: add selection to thread context (if inside a thread panel)
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "f") {
+        const sel = window.getSelection();
+        const text = sel ? sel.toString().trim() : "";
+        if (text.length < 3) return;
+        const threadEl = sel.anchorNode?.parentElement?.closest('.thread-panel[data-thread-id]');
+        if (threadEl) {
+          e.preventDefault();
+          const tid = threadEl.getAttribute('data-thread-id');
+          setThreadCtxTrigger({ threadId: tid, text, source: "thread selection", ts: Date.now() });
+          sel.removeAllRanges();
+        }
+      }
+    };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
@@ -2734,9 +2920,9 @@ export default function LessonApp() {
       const text = sel ? sel.toString().trim() : "";
       if (text.length > 2) {
         addSnippet(text, "selection");
+        setTimeout(() => document.querySelector(".chat-input")?.focus(), 0);
         try { const range = sel.getRangeAt(0); const rect = range.getBoundingClientRect(); const flash = document.createElement("div"); flash.className = "ctx-sel-flash"; flash.textContent = "+ added"; flash.style.cssText = `position:fixed;left:${rect.left}px;top:${rect.top - 24}px;`; document.body.appendChild(flash); setTimeout(() => flash.remove(), 800); } catch (err) {}
         sel.removeAllRanges();
-        setTimeout(() => document.querySelector(".chat-input")?.focus(), 0);
       }
     }, 10);
   }, [chatOpen, addSnippet]);
@@ -2766,7 +2952,9 @@ export default function LessonApp() {
         }
       }
     }
-    setCtxMenu({ x: Math.min(e.clientX, window.innerWidth - 160), y: Math.min(e.clientY, window.innerHeight - 60), text, chatMsgIdx, chatBlockIdx });
+    const threadPanel = e.target.closest('.thread-panel[data-thread-id]');
+    const threadId = threadPanel ? threadPanel.getAttribute('data-thread-id') : null;
+    setCtxMenu({ x: Math.min(e.clientX, window.innerWidth - 160), y: Math.min(e.clientY, window.innerHeight - 80), text, chatMsgIdx, chatBlockIdx, threadId });
   }, [chatOpen]);
 
   useEffect(() => {
@@ -2787,6 +2975,13 @@ export default function LessonApp() {
   const handleCtxOpenThread = useCallback(() => {
     if (!ctxMenu || ctxMenu.chatMsgIdx == null) return;
     setThreadTrigger({ text: ctxMenu.text, msgIdx: ctxMenu.chatMsgIdx, blockIdx: ctxMenu.chatBlockIdx, ts: Date.now() });
+    setCtxMenu(null);
+    window.getSelection()?.removeAllRanges();
+  }, [ctxMenu]);
+
+  const handleCtxReplyInThread = useCallback(() => {
+    if (!ctxMenu || !ctxMenu.threadId) return;
+    setThreadCtxTrigger({ threadId: ctxMenu.threadId, text: ctxMenu.text, source: "thread selection", ts: Date.now() });
     setCtxMenu(null);
     window.getSelection()?.removeAllRanges();
   }, [ctxMenu]);
@@ -2848,12 +3043,15 @@ export default function LessonApp() {
       </div>
       <Chatbot topicId={active.id} topicTitle={active.title} contextSnippets={contextSnippets}
         onClearSnippet={handleClearSnippet} onClearAllSnippets={handleClearAllSnippets}
-        open={chatOpen} setOpen={setChatOpen} onEditGraph={handleEditGraph} graphParams={graphParams} addSnippet={addSnippet} threadTrigger={threadTrigger} />
+        open={chatOpen} setOpen={setChatOpen} onEditGraph={handleEditGraph} graphParams={graphParams} addSnippet={addSnippet} threadTrigger={threadTrigger} threadCtxTrigger={threadCtxTrigger} />
       {ctxMenu && (
         <div className="ctx-menu" style={{ left: ctxMenu.x, top: ctxMenu.y }}>
           <button className="ctx-menu-item" onClick={handleCtxReply}>Reply</button>
           {ctxMenu.chatMsgIdx != null && (
             <button className="ctx-menu-item" onClick={handleCtxOpenThread}>Reply in thread</button>
+          )}
+          {ctxMenu.threadId && (
+            <button className="ctx-menu-item" onClick={handleCtxReplyInThread}>Reply in this thread</button>
           )}
         </div>
       )}

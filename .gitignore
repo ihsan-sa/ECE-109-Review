@@ -13,8 +13,10 @@ __pycache__/
 .vite/
 dist/
 
-# Development screenshots
-*.png
+# Development screenshots and misc images
+screenshots/
+/images/
+chat_*.png
 
 # Lock files
 package-lock.json
