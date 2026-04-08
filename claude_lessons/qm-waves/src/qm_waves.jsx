@@ -40,6 +40,9 @@ const EFFORT_LEVELS = ["low", "medium", "high", "max"];
 
 // ─── Theme-Aware Graph Colors (copy verbatim) ───
 
+const IMG = import.meta.env.BASE_URL + "images/";
+const VID = import.meta.env.BASE_URL + "videos/";
+
 const THEMES_G = {
   dark:  { bg: "#13151c", ax: "#6b7084", gold: "#c8a45a", blue: "#4a90d9", red: "#e06c75", grn: "#69b578", txt: "#9498ac", ltxt: "#b0b4c4", purple: "#a077d4", orange: "#e0a060" },
   light: { bg: "#f0efe8", ax: "#888", gold: "#9a7b2e", blue: "#2a6abf", red: "#c0392b", grn: "#2d8a4e", txt: "#555", ltxt: "#333", purple: "#7b5bb5", orange: "#c4822e" },
@@ -1332,12 +1335,12 @@ const TOPICS = [
           </KeyConcept>
 
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="images/double_slit_tonomura.jpg" alt="Buildup of electron interference pattern in double-slit experiment by Tonomura, showing individual electron hits forming wave-like fringes over time" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src={IMG + "double_slit_tonomura.jpg"} alt="Buildup of electron interference pattern in double-slit experiment by Tonomura, showing individual electron hits forming wave-like fringes over time" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Tonomura double-slit experiment: individual electron hits (a-e) gradually build an interference pattern, proving wave-particle duality. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
 
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="images/double_slit_diffraction_photo.jpg" alt="Photograph of laser light diffraction through two adjacent slits showing interference fringes" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src={IMG + "double_slit_diffraction_photo.jpg"} alt="Photograph of laser light diffraction through two adjacent slits showing interference fringes" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Laser light diffraction through two slits, showing the characteristic interference fringe pattern. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY 4.0</span></figcaption>
           </figure>
         </Section>
@@ -1378,15 +1381,15 @@ const TOPICS = [
           <div style={{display: "flex", flexDirection: "column", gap: "1.2rem", margin: "1.2rem 0"}}>
             <div>
               <P><b>Animation: Double-Slit Geometry</b> -- paths r1, r2 from each slit to point P, and how the path difference changes as P moves along the screen.</P>
-              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="videos/DoubleSlitGeometry.mp4" />
+              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src={VID + "DoubleSlitGeometry.mp4"} />
             </div>
             <div>
               <P><b>Animation: Wave Superposition</b> -- two waves adding constructively (phase diff = 0), destructively (phase diff = pi), and everything in between.</P>
-              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="videos/WaveSuperposition.mp4" />
+              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src={VID + "WaveSuperposition.mp4"} />
             </div>
             <div>
               <P><b>Animation: Interference Pattern</b> -- expanding wavefronts from each slit and the resulting intensity distribution on the screen.</P>
-              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src="videos/InterferencePattern.mp4" />
+              <video controls style={{width: "100%", maxWidth: 720, borderRadius: 8, border: "1px solid #333"}} src={VID + "InterferencePattern.mp4"} />
             </div>
           </div>
           <KeyConcept label="Electron Double-Slit Experiment">

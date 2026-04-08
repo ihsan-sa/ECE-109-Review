@@ -40,6 +40,9 @@ const EFFORT_LEVELS = ["low", "medium", "high", "max"];
 
 // ─── Theme-Aware Graph Colors (copy verbatim) ───
 
+const IMG = import.meta.env.BASE_URL + "images/";
+const VID = import.meta.env.BASE_URL + "videos/";
+
 const THEMES_G = {
   dark:  { bg: "#13151c", ax: "#6b7084", gold: "#c8a45a", blue: "#4a90d9", red: "#e06c75", grn: "#69b578", txt: "#9498ac", ltxt: "#b0b4c4", purple: "#a077d4", orange: "#e0a060" },
   light: { bg: "#f0efe8", ax: "#888", gold: "#9a7b2e", blue: "#2a6abf", red: "#c0392b", grn: "#2d8a4e", txt: "#555", ltxt: "#333", purple: "#7b5bb5", orange: "#c4822e" },
@@ -976,7 +979,7 @@ const TOPICS = [
             In modern CMOS technology, SiO2 gate oxides became too thin to prevent tunneling leakage. High-k dielectrics (like HfO2) provide the same capacitance with a physically thicker layer, reducing leakage while maintaining electrostatic control.
           </KeyConcept>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="images/mlcc_cross_section.jpg" alt="Microscope cross-section of a multilayer ceramic capacitor showing alternating electrode layers and ceramic dielectric" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src={IMG + "mlcc_cross_section.jpg"} alt="Microscope cross-section of a multilayer ceramic capacitor showing alternating electrode layers and ceramic dielectric" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>MLCC cross-section (630V, 0.1uF): alternating metal electrode layers separated by ceramic dielectric, illustrating the parallel-plate capacitor principle at microscale. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 4.0</span></figcaption>
           </figure>
         </Section>
@@ -1046,7 +1049,7 @@ const TOPICS = [
             Quartz oscillators achieve frequency stability of parts per million (ppm) or better. The AT-cut crystal orientation minimizes the frequency-temperature coefficient near 25 degrees C, making it ideal for electronic timing applications.
           </KeyConcept>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="images/crystal_oscillator_internals.jpg" alt="Internal components of a crystal oscillator at 16.257 MHz, showing the quartz crystal disc and circuit board" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src={IMG + "crystal_oscillator_internals.jpg"} alt="Internal components of a crystal oscillator at 16.257 MHz, showing the quartz crystal disc and circuit board" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Inside a Kyocera crystal oscillator: the quartz disc vibrates at a precise piezoelectric resonance frequency (16.257 MHz). <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
         </Section>

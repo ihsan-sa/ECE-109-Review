@@ -41,6 +41,9 @@ const EFFORT_LEVELS = ["low", "medium", "high", "max"];
 
 // ─── Theme-Aware Graph Colors (copy verbatim) ───
 
+const IMG = import.meta.env.BASE_URL + "images/";
+const VID = import.meta.env.BASE_URL + "videos/";
+
 const THEMES_G = {
   dark:  { bg: "#13151c", ax: "#6b7084", gold: "#c8a45a", blue: "#4a90d9", red: "#e06c75", grn: "#69b578", txt: "#9498ac", ltxt: "#b0b4c4", purple: "#a077d4", orange: "#e0a060" },
   light: { bg: "#f0efe8", ax: "#888", gold: "#9a7b2e", blue: "#2a6abf", red: "#c0392b", grn: "#2d8a4e", txt: "#555", ltxt: "#333", purple: "#7b5bb5", orange: "#c4822e" },
@@ -913,11 +916,11 @@ const TOPICS = [
             </table>
           </div>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="images/thermoelectric_seebeck_module.jpg" alt="Thermoelectric Seebeck power module showing the hot side ceramic plate with electrical leads" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src={IMG + "thermoelectric_seebeck_module.jpg"} alt="Thermoelectric Seebeck power module showing the hot side ceramic plate with electrical leads" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Thermoelectric generator (TEG) module: converts temperature differences directly to voltage via the Seebeck effect. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="images/peltier_element.jpg" alt="Peltier thermoelectric cooler showing ice formation on the cold side with a copper heat sink beneath" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src={IMG + "peltier_element.jpg"} alt="Peltier thermoelectric cooler showing ice formation on the cold side with a copper heat sink beneath" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Peltier cooler in operation: ice forms on the cold side (-8C) while the hot side reaches +30C. The reverse Seebeck (Peltier) effect. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
         </Section>
@@ -985,7 +988,7 @@ const TOPICS = [
           <Eq>{"n^2(\\lambda) = 1 + \\sum_i \\frac{B_i \\lambda^2}{\\lambda^2 - C_i}"}</Eq>
           <P>where <M>{"B_i"}</M> and <M>{"C_i"}</M> are material-specific constants. The refractive index decreases with increasing wavelength in normal dispersion (away from absorption bands).</P>
           <figure className="eq-block" style={{ textAlign: "center", padding: "16px" }}>
-            <img src="images/dispersive_prism.jpg" alt="Glass prism refracting white light into a visible spectrum showing dispersion" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
+            <img src={IMG + "dispersive_prism.jpg"} alt="Glass prism refracting white light into a visible spectrum showing dispersion" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
             <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>Optical dispersion: a glass prism separates white light into its component wavelengths due to wavelength-dependent refractive index. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, CC BY-SA 3.0</span></figcaption>
           </figure>
           <RefractiveIndexDispersion params={gp.refractiveIndex} mid="t" interactive />
