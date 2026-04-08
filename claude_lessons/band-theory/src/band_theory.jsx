@@ -1126,7 +1126,7 @@ const TOPICS = [
           <P>Electrons are fermions and obey the <b>Fermi-Dirac distribution</b>:</P>
           <Eq>{"f(E) = \\frac{1}{1 + \\exp\\left(\\frac{E - E_F}{kT}\\right)}"}</Eq>
           <P>where <M>{"E_F"}</M> is the <b>Fermi energy</b> and <M>{"k_B = 1.381 \\times 10^{-23}"}</M> J/K is Boltzmann's constant (<M>{"k_B = 8.617 \\times 10^{-5}"}</M> eV/K).</P>
-          <KeyConcept label="Fermi Energy">
+          <KeyConcept label="Fermi Energy" tested>
             The energy at which the occupation probability is exactly 1/2. At E = E_F, f(E_F) = 1/2. This defines the boundary between mostly-occupied and mostly-empty states.
           </KeyConcept>
           <FermiDiracDistribution params={gp.fermiDirac} mid="-t6" />
@@ -1154,10 +1154,30 @@ const TOPICS = [
           <P>Temperature dependence of the Fermi energy:</P>
           <Eq>{"E_F(T) = E_{FO}\\left[1 - \\frac{\\pi^2}{12}\\left(\\frac{kT}{E_{FO}}\\right)^2\\right]"}</Eq>
           <P>The correction is very small: at room temperature, <M>{"kT \\approx 0.026"}</M> eV while <M>{"E_{FO}"}</M> is typically several eV, so <M>{"(kT/E_{FO})^2 \\sim 10^{-4}"}</M>.</P>
-          <KeyConcept label="Average Energy at T = 0 K">
+          <KeyConcept label="Average Energy at T = 0 K" tested>
             The average kinetic energy of electrons in a metal at absolute zero is not zero (unlike classical prediction). It equals 3/5 of the Fermi energy.
           </KeyConcept>
           <Eq>{"\\bar{E} = \\frac{3}{5}E_{FO}"}</Eq>
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW3" number="7" title="Temperature dependence of Fermi energy" points="20 pts">
+            <P>Cu: <M>{"E_{FO} = 7.0"}</M> eV. (a) Calculate <M>{"E_F"}</M> at 300 K and percentage change. (b) Average energy and mean speed at 0 K and 300 K.</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> <M>{"E_F(300) = 7.0[1 - (\\pi^2/12)(0.0259/7.0)^2] = 6.993"}</M> eV. Change: -0.0011% (negligible because <M>{"k_BT \\ll E_{FO}"}</M>).</P>
+              <P><b>(b)</b> At 0 K: <M>{"\\langle E \\rangle_0 = (3/5)E_{FO} = 4.2"}</M> eV. <M>{"\\langle v \\rangle_0 = \\sqrt{2 \\langle E \\rangle/m_e} = 1.215 \\times 10^6"}</M> m/s.</P>
+              <P>At 300 K: <M>{"\\langle E \\rangle = (3/5)E_{FO}[1 + (5\\pi^2/12)(k_BT/E_{FO})^2] = 4.200"}</M> eV. Speed barely changes (<M>{"1.2154 \\times 10^6"}</M> m/s).</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW3" number="8" title="Conduction electrons in copper" points="20 pts">
+            <P><M>{"E_F = 7.0"}</M> eV, drift mobility <M>{"\\mu = 33"}</M> cm<M>{"^2"}</M> V<M>{"^{-1}"}</M> s<M>{"^{-1}"}</M>. Find <M>{"v_F"}</M>, compare to thermal velocity, explain why <M>{"v_F \\gg v_{thermal}"}</M>.</P>
+            <CollapsibleBlock title="Solution">
+              <P><M>{"v_F = \\sqrt{2E_F/m_e} = \\sqrt{2 \\times 7.0 \\times 1.6 \\times 10^{-19}/9.109 \\times 10^{-31}} = 1.57 \\times 10^6"}</M> m/s</P>
+              <P>Thermal velocity (classical): <M>{"v_{th} = \\sqrt{2k_BT/m_e} = 9.5 \\times 10^4"}</M> m/s (or <M>{"v_{rms} = \\sqrt{3k_BT/m_e} = 1.17 \\times 10^5"}</M> m/s)</P>
+              <P><M>{"v_F/v_{th} \\approx 13{-}17"}</M>. <M>{"v_F \\gg v_{thermal}"}</M> because conduction electrons form a degenerate Fermi gas: they fill states up to <M>{"E_F = 7"}</M> eV, which is much greater than <M>{"k_BT = 0.026"}</M> eV at 300 K.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -1192,8 +1212,8 @@ function Section({ title, children }) {
   return <div className="section"><h3 className="section-title">{title}</h3>{children}</div>;
 }
 function P({ children }) { return <p className="para">{children}</p>; }
-function KeyConcept({ label, children }) {
-  return <div className="key-concept"><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
+function KeyConcept({ label, children, tested }) {
+  return <div className={`key-concept${tested ? " hw-tested" : ""}`}><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
 }
 
 // ─── Reference Image Component (copy verbatim) ───
@@ -1206,6 +1226,25 @@ function RefImg({ data, alt, caption }) {
            style={{ maxWidth: "100%", borderRadius: 4 }} />
       {caption && <p style={{ margin: "8px 0 0", fontSize: 11, color: "var(--text-dim)",
         fontFamily: "'IBM Plex Mono', monospace", fontStyle: "italic" }}>{caption}</p>}
+    </div>
+  );
+}
+
+// ─── HW Question Component ───
+
+function HWQuestion({ hw, number, title, points, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ margin: "12px 0", border: "1px solid #2d6b3f", borderRadius: 6, overflow: "hidden", background: "rgba(45,107,63,0.06)" }}>
+      <button onClick={() => setOpen(o => !o)} style={{
+        width: "100%", textAlign: "left", padding: "10px 14px", background: "rgba(45,107,63,0.12)",
+        border: "none", color: "#5cb85c", fontSize: 14, fontFamily: "'IBM Plex Mono', monospace",
+        cursor: "pointer", fontWeight: 600, display: "flex", justifyContent: "space-between", alignItems: "center"
+      }}>
+        <span>{open ? "\u25BC" : "\u25BA"} {hw} P{number}: {title}</span>
+        <span style={{ fontSize: 11, opacity: 0.7 }}>[{points}]</span>
+      </button>
+      {open && <div style={{ padding: "14px", background: "rgba(45,107,63,0.04)" }}>{children}</div>}
     </div>
   );
 }
@@ -1318,6 +1357,8 @@ const STYLES = `
 .key-concept { margin: 10px 0; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
 .kc-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
 .kc-body { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+.hw-tested { border-left: 3px solid #5cb85c !important; box-shadow: inset 4px 0 0 -1px rgba(92,184,92,0.15); }
+.hw-tested .kc-label::after { content: " [TESTED]"; color: #5cb85c; font-size: 11px; font-weight: 400; }
 
 .info-list { margin: 8px 0; padding-left: 20px; list-style: none; }
 .info-list li { position: relative; font-size: 15px; line-height: 2.2; color: var(--text-muted); padding-left: 4px; }

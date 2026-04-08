@@ -1357,7 +1357,7 @@ const TOPICS = [
           <P>When light shines on a metal surface, electrons are emitted. The maximum kinetic energy of the emitted electrons depends on the <b>frequency</b> (not intensity) of the light:</P>
           <Eq>{"KE_m = eV_0 = \\frac{1}{2}m_e v^2 = hf - \\Phi_{\\text{metal}}"}</Eq>
           <P>where <M>{"\\Phi_{\\text{metal}}"}</M> is the <b>work function</b> of the metal (minimum energy to liberate an electron) and <M>{"V_0"}</M> is the stopping voltage.</P>
-          <KeyConcept label="Photoelectric Effect">
+          <KeyConcept label="Photoelectric Effect" tested>
             Light intensity affects the number of emitted electrons (photocurrent), but the kinetic energy of each electron depends only on frequency. Below the threshold frequency, no electrons are emitted regardless of intensity. This proved light's particle nature.
           </KeyConcept>
         </Section>
@@ -1367,7 +1367,7 @@ const TOPICS = [
           <Eq>{"\\lambda = \\frac{h}{p} \\quad \\text{or equivalently} \\quad p = \\frac{h}{\\lambda}"}</Eq>
           <P>For an electron accelerated through voltage <M>{"V"}</M>: <M>{"KE = eV = p^2/(2m_e)"}</M>, giving <M>{"p = \\sqrt{2m_e eV}"}</M> and therefore:</P>
           <Eq>{"\\lambda = \\frac{h}{\\sqrt{2m_e eV}}"}</Eq>
-          <KeyConcept label="Example: Electron at 100V">
+          <KeyConcept label="Example: Electron at 100V" tested>
             An electron accelerated by 100 V has a de Broglie wavelength of approximately 0.123 nm, comparable to interatomic distances in solids. This is why electron diffraction is observed in crystals.
           </KeyConcept>
           <P>For a macroscopic object (e.g., a 50 g golf ball at 20 m/s), the wavelength is approximately <M>{"6.63 \\times 10^{-34}\\;\\text{m}"}</M>, far too small to observe.</P>
@@ -1396,6 +1396,59 @@ const TOPICS = [
             Electrons also produce interference fringes when passed through two slits, confirming that matter exhibits wave behavior. This is direct evidence of de Broglie's hypothesis.
           </KeyConcept>
         </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW1" number="1" title="Photons from an industrial CO2 laser" points="15 pts">
+            <P>A CO<sub>2</sub> laser has wavelength <M>{"\\lambda = 10.6\\,\\mu m"}</M>, average power 1 kW, duty cycle 60%, repetition frequency 1 kHz, beam diameter 10 mm.</P>
+            <P>(a) What is the photon energy?</P>
+            <P>(b) What are the peak and average photon flux densities (photons <M>{"s^{-1}cm^{-2}"}</M>)?</P>
+            <P>(c) What is the amplitude of the electric field in the radiation?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> <M>{"E = hc/\\lambda = (6.63 \\times 10^{-34})(3 \\times 10^8)/(10.6 \\times 10^{-6}) = 1.88 \\times 10^{-20}\\text{ J} = 0.12\\text{ eV}"}</M></P>
+              <P><b>(b)</b> Photon rate: <M>{"N/t = P_{avg}/E = 1000/1.88 \\times 10^{-20} = 5.33 \\times 10^{22}\\text{ photons/s}"}</M></P>
+              <P>Beam area: <M>{"A = \\pi r^2 = 0.785\\text{ cm}^2"}</M></P>
+              <P>Average flux: <M>{"\\Gamma_{avg} = 6.8 \\times 10^{22}\\text{ photons}\\cdot s^{-1}\\cdot cm^{-2}"}</M></P>
+              <P>Peak flux: <M>{"\\Gamma_{peak} = \\Gamma_{avg}/D = 1.13 \\times 10^{23}\\text{ photons}\\cdot s^{-1}\\cdot cm^{-2}"}</M></P>
+              <P><b>(c)</b> Peak intensity: <M>{"I_{peak} = P_{peak}/A = 1667/7.85 \\times 10^{-5} = 2.12 \\times 10^7\\text{ W/m}^2"}</M></P>
+              <P>From <M>{"I = \\frac{1}{2}c\\varepsilon_0 E_0^2"}</M>: <M>{"E_0 = \\sqrt{2I/(c\\varepsilon_0)} = 1.26 \\times 10^5\\text{ V/m}"}</M></P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW1" number="2" title="Photoelectric effect and quantum efficiency" points="20 pts">
+            <P>Caesium photocathode with work function <M>{"\\Phi = 1.9"}</M> eV.</P>
+            <P>(a) What is the longest wavelength for photoemission?</P>
+            <P>(b) KE of photoelectrons for <M>{"\\lambda = 450"}</M> nm blue light?</P>
+            <P>(c) Stopping voltage?</P>
+            <P>(d) Photoelectric current for intensity 30 mW/cm<sup>2</sup>, diameter 6 mm, QE = 25%?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> <M>{"\\lambda_{max} = hc/\\Phi = (6.63 \\times 10^{-34})(3 \\times 10^8)/((1.9)(1.6 \\times 10^{-19})) = 654\\text{ nm}"}</M></P>
+              <P><b>(b)</b> <M>{"KE = hc/\\lambda - \\Phi = 2.76 - 1.9 = 0.86\\text{ eV}"}</M></P>
+              <P><b>(c)</b> <M>{"V_{stop} = KE/e = 0.86\\text{ V}"}</M></P>
+              <P><b>(d)</b> Incident photons/s: <M>{"N_{inc} = I \\cdot A/(hc/\\lambda) = 1.92 \\times 10^{16}"}</M> photons/s</P>
+              <P>Current: <M>{"I = e \\cdot QE \\cdot N_{inc} = (1.6 \\times 10^{-19})(0.25)(1.92 \\times 10^{16}) = 0.768\\text{ mA}"}</M></P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW1" number="3" title="Light bulb and laser" points="10 pts">
+            <P>(a) Find peak intensity wavelength <M>{"\\lambda_{max}"}</M> for a 40 W light bulb at 2400 C.</P>
+            <P>(b) Frequency difference in GHz between lasers at 630.0 nm and 630.1 nm?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> Wien's law: <M>{"\\lambda_{max} = b/T = 2.89 \\times 10^{-3}/(2400 + 273) = 1081\\text{ nm}"}</M></P>
+              <P><b>(b)</b> <M>{"\\Delta f = c/\\lambda_1 - c/\\lambda_2 = 4.76190 \\times 10^{14} - 4.76115 \\times 10^{14} = 75.6\\text{ GHz}"}</M></P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW1" number="5" title="Quantum vs classical" points="10 pts">
+            <P>QM is relevant when <M>{"\\lambda_B = h/\\sqrt{3mk_BT} > d"}</M> (interatomic spacing). Use Si (diamond, <M>{"a = 5.43"}</M> A, <M>{"d = \\sqrt{3}a/4 \\approx 0.235"}</M> nm).</P>
+            <P>(a) Below what temperature are free electrons quantum mechanical?</P>
+            <P>(b) Below what temperature are the nuclei quantum mechanical?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> <M>{"T_c = h^2/(3m_e k_B d^2) = (6.626 \\times 10^{-34})^2/(3 \\times 9.109 \\times 10^{-31} \\times 1.38 \\times 10^{-23} \\times (0.235 \\times 10^{-9})^2) \\approx 2.1 \\times 10^5\\text{ K}"}</M></P>
+              <P>Since <M>{"T_{room} \\ll T_c"}</M>, electrons are quantum mechanical.</P>
+              <P><b>(b)</b> For Si nuclei (<M>{"m_{Si} = 4.66 \\times 10^{-26}"}</M> kg): <M>{"T_c \\approx 4.12\\text{ K}"}</M>. Since <M>{"T_{room} \\gg T_c"}</M>, nuclei are classical.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1410,7 +1463,7 @@ const TOPICS = [
           <P>A <b>wave</b> is a periodically repeating (in space and time) disturbance in the value of some quantity <M>{"u(x,y,z,t)"}</M>. The general wave equation is:</P>
           <Eq>{"\\nabla^2 u - \\frac{1}{c^2}\\frac{\\partial^2 u}{\\partial t^2} = 0"}</Eq>
           <P>where <M>{"c"}</M> is the wave's phase velocity (speed of propagation) and <M>{"\\nabla^2"}</M> is the Laplacian operator.</P>
-          <KeyConcept label="Superposition Principle">
+          <KeyConcept label="Superposition Principle" tested>
             The wave equation is a linear differential equation: if f(x,y,z,t) and g(x,y,z,t) are both solutions, then h(x,y,z,t) = f + g is also a solution. This is the mathematical basis of interference.
           </KeyConcept>
           <details style={{ margin: "16px 0", borderRadius: 8, border: "1px solid rgba(200,164,90,0.25)", overflow: "hidden" }}>
@@ -1615,6 +1668,26 @@ const TOPICS = [
             </div>
           </KeyConcept>
         </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW1" number="4" title="Standing wave" points="10 pts">
+            <P>Show that two counter-propagating plane waves produce a standing wave <M>{"\\sim \\cos(kz)\\cos(\\omega t)"}</M>. What is the distance between nodes?</P>
+            <CollapsibleBlock title="Solution">
+              <P><M>{"E_1 = E_0\\cos(kz - \\omega t)"}</M>, <M>{"E_2 = E_0\\cos(kz + \\omega t)"}</M></P>
+              <P>Sum: <M>{"E = E_1 + E_2 = 2E_0\\cos(kz)\\cos(\\omega t)"}</M> (using cos A + cos B identity)</P>
+              <P>Nodes where <M>{"\\cos(kz) = 0"}</M>, i.e. <M>{"kz_n = (n + 1/2)\\pi"}</M>.</P>
+              <P>Node spacing: <M>{"\\Delta z = \\pi/k = \\lambda/2"}</M>. The distance between nodes is <b>half the wavelength</b>.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW1" number="8" title="Interference pattern" points="20 pts">
+            <P>Two monochromatic plane waves (<M>{"\\lambda = 500"}</M> nm) incident on a screen at z=0. The second wave has a 5 degree incidence angle. Sketch and calculate fringe spacing.</P>
+            <CollapsibleBlock title="Solution">
+              <P>The fringe spacing on the screen is: <M>{"d = \\lambda/\\sin\\theta = 500\\text{ nm}/\\sin(5^\\circ) \\approx 5.74\\,\\mu m"}</M></P>
+              <P>Bright fringes where path difference is <M>{"n\\lambda"}</M>, dark fringes at <M>{"(n+1/2)\\lambda"}</M>. The pattern consists of straight parallel fringes spaced 5.74 um apart.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1699,6 +1772,20 @@ const TOPICS = [
           <CollapsibleBlock title={<span>Why not apply the operator to <M>{"|\\psi|^2"}</M> directly?</span>}>
             <P><M>{"|\\psi|^2"}</M> discards the <b>phase</b> of <M>{"\\psi"}</M>, and phase carries observable information. For <M>{"\\psi = e^{ikx}"}</M>, <M>{"|\\psi|^2 = 1"}</M> everywhere, so <M>{"\\hat{p}|\\psi|^2 = -i\\hbar\\frac{d}{dx}(1) = 0"}</M> — the wrong answer. The correct structure <M>{"\\psi^*(\\hat{p}\\,\\psi)"}</M> lets the operator act on <M>{"\\psi"}</M> first (seeing the phase), then <M>{"\\psi^*"}</M> extracts a real, integrable result.</P>
           </CollapsibleBlock>
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW1" number="7" title="Wave function" points="25 pts">
+            <P>At <M>{"t = 0"}</M>, a particle has wavefunction: <M>{"\\Psi(x,0) = A \\cdot x/a"}</M> for <M>{"0 \\le x \\le a"}</M>, <M>{"A(b-x)/(b-a)"}</M> for <M>{"a \\le x \\le b"}</M>, 0 otherwise.</P>
+            <P>(a) Normalize (find A). (b) Sketch. (c) Probability to left of a? (d) <M>{"\\langle x \\rangle"}</M>? (e) <M>{"\\langle p \\rangle"}</M>?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> <M>{"\\int|\\Psi|^2 dx = A^2[a/3 + (b-a)/3] = A^2 b/3 = 1 \\implies A = \\sqrt{3/b}"}</M></P>
+              <P><b>(b)</b> Triangle: rises linearly from 0 to <M>{"A"}</M> at <M>{"x=a"}</M>, then drops linearly to 0 at <M>{"x=b"}</M>.</P>
+              <P><b>(c)</b> <M>{"P(x \\lt a) = A^2 \\cdot a/3 = (3/b)(a/3) = a/b"}</M>. Check: <M>{"a=b \\implies P=1"}</M>, <M>{"b=2a \\implies P=1/2"}</M>.</P>
+              <P><b>(d)</b> <M>{"\\langle x \\rangle = a/2 + b/4 = (2a+b)/4"}</M></P>
+              <P><b>(e)</b> <M>{"\\langle p \\rangle = 0"}</M> since <M>{"\\Psi(0) = \\Psi(b) = 0"}</M> and <M>{"\\Psi"}</M> is real.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -1829,6 +1916,19 @@ const TOPICS = [
             <InfiniteWell2D />
           </CollapsibleBlock>
         </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW2" number="3" title="Non-stationary wavefunction" points="20 pts">
+            <P>Electron in infinite well <M>{"a = 2"}</M> nm with <M>{"\\Psi(x,0) = \\frac{1}{\\sqrt{2}}\\psi_1(x) + \\frac{1}{\\sqrt{2}}\\psi_2(x)"}</M>.</P>
+            <P>(a) <M>{"P(x \\lt 1\\text{ nm})"}</M> at <M>{"t=0"}</M>? (b) Same probability at <M>{"t = 2m_ea^2/(3h\\pi)"}</M>?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> At <M>{"t=0"}</M>: <M>{"|\\Psi|^2 = \\frac{1}{2}(|\\psi_1|^2 + |\\psi_2|^2 + 2\\psi_1\\psi_2\\cos(0))"}</M></P>
+              <P><M>{"P(x \\lt a/2) = 1/2 + 4/(3\\pi) \\approx 0.924"}</M></P>
+              <P><b>(b)</b> At the given time, <M>{"\\cos(\\Delta E \\cdot t/\\hbar) = \\cos(\\pi) = -1"}</M>, so the cross term flips sign.</P>
+              <P><M>{"P(x \\lt a/2) = 1/2 - 4/(3\\pi) \\approx 0.076"}</M>. The electron has moved to the right half of the well.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1862,7 +1962,7 @@ const TOPICS = [
           <Eq>{"\\Delta E_n = E_{n+1} - E_n = \\frac{(2n+1)h^2}{8m_e a^2}"}</Eq>
           <P>Energy grows as <M>{"n^2"}</M>, so higher levels are spaced further apart.</P>
           <EnergyLevelDiagram params={gp.energyLevelDiagram} mid="t" />
-          <KeyConcept label="Zero-Point Energy">
+          <KeyConcept label="Zero-Point Energy" tested>
             The lowest energy state is <M>{"n = 1"}</M> (not <M>{"n = 0"}</M>), giving <M>{"E_1 = h^2/(8m_e a^2)"}</M>. A confined quantum particle always has nonzero kinetic energy, unlike a classical particle which can be at rest. This is a consequence of the Heisenberg uncertainty principle.
           </KeyConcept>
         </Section>
@@ -1924,6 +2024,26 @@ const TOPICS = [
             </KeyConcept>
           </CollapsibleBlock>
         </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW1" number="6a" title="Infinite well energy levels" points="5 pts">
+            <P>Calculate the first three energy levels of an infinite well of width 1 nm.</P>
+            <CollapsibleBlock title="Solution">
+              <P><M>{"E_n = \\frac{n^2 \\pi^2 \\hbar^2}{2m_e a^2}"}</M> with <M>{"a = 10^{-9}"}</M> m:</P>
+              <P><M>{"E_1 = 0.376\\text{ eV}"}</M>, <M>{"E_2 = 4 \\times 0.376 = 1.504\\text{ eV}"}</M>, <M>{"E_3 = 9 \\times 0.376 = 3.385\\text{ eV}"}</M></P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW2" number="2" title="Rudimentary quantum dot" points="10 pts">
+            <P>Model a quantum dot as a 3D infinite box with <M>{"a = b = c"}</M>. Find <M>{"a"}</M> so a 920 nm photon is emitted in the (2,1,1) to (1,1,1) transition.</P>
+            <CollapsibleBlock title="Solution">
+              <P><M>{"E_{n_1,n_2,n_3} = \\frac{h^2}{8m_ea^2}(n_1^2 + n_2^2 + n_3^2)"}</M></P>
+              <P><M>{"\\Delta E = E_{2,1,1} - E_{1,1,1} = \\frac{3h^2}{8m_ea^2}"}</M></P>
+              <P>Set <M>{"\\Delta E = hc/\\lambda"}</M>: <M>{"a = \\sqrt{3\\lambda h/(8m_e c)} \\approx 0.95"}</M> nm</P>
+              <P>Compare to real InGaAs QDs: measured sizes ~5 nm height x 20 nm base, so the infinite box is a rough approximation.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1966,8 +2086,8 @@ function Section({ title, children }) {
   return <div className="section"><h3 className="section-title">{title}</h3>{children}</div>;
 }
 function P({ children }) { return <p className="para">{children}</p>; }
-function KeyConcept({ label, children }) {
-  return <div className="key-concept"><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
+function KeyConcept({ label, children, tested }) {
+  return <div className={`key-concept${tested ? " hw-tested" : ""}`}><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
 }
 
 // ─── Reference Image Component (copy verbatim) ───
@@ -1980,6 +2100,23 @@ function RefImg({ data, alt, caption }) {
            style={{ maxWidth: "100%", borderRadius: 4 }} />
       {caption && <p style={{ margin: "8px 0 0", fontSize: 11, color: "var(--text-dim)",
         fontFamily: "'IBM Plex Mono', monospace", fontStyle: "italic" }}>{caption}</p>}
+    </div>
+  );
+}
+
+function HWQuestion({ hw, number, title, points, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ margin: "12px 0", border: "1px solid #2d6b3f", borderRadius: 6, overflow: "hidden", background: "rgba(45,107,63,0.06)" }}>
+      <button onClick={() => setOpen(o => !o)} style={{
+        width: "100%", textAlign: "left", padding: "10px 14px", background: "rgba(45,107,63,0.12)",
+        border: "none", color: "#5cb85c", fontSize: 14, fontFamily: "'IBM Plex Mono', monospace",
+        cursor: "pointer", fontWeight: 600, display: "flex", justifyContent: "space-between", alignItems: "center"
+      }}>
+        <span>{open ? "\u25BC" : "\u25BA"} {hw} P{number}: {title}</span>
+        <span style={{ fontSize: 11, opacity: 0.7 }}>[{points}]</span>
+      </button>
+      {open && <div style={{ padding: "14px", background: "rgba(45,107,63,0.04)" }}>{children}</div>}
     </div>
   );
 }
@@ -2090,6 +2227,8 @@ const STYLES = `
 .key-concept { margin: 10px 0; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
 .kc-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
 .kc-body { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+.hw-tested { border-left: 3px solid #5cb85c !important; box-shadow: inset 4px 0 0 -1px rgba(92,184,92,0.15); }
+.hw-tested .kc-label::after { content: " [TESTED]"; color: #5cb85c; font-size: 11px; font-weight: 400; }
 
 .info-list { margin: 8px 0; padding-left: 20px; list-style: none; }
 .info-list li { position: relative; font-size: 15px; line-height: 2.2; color: var(--text-muted); padding-left: 4px; }

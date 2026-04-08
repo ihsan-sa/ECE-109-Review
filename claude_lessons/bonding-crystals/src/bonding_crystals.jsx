@@ -724,7 +724,7 @@ const TOPICS = [
           <P>For the complete crystal lattice, the <b>Madelung constant</b> <M>{"M"}</M> accounts for the sum of all Coulomb interactions beyond the nearest pair. The lattice potential energy per pair becomes:</P>
           <Eq>{"E_{\\text{lattice}}(r) = -\\frac{M \\cdot e^2}{4\\pi \\varepsilon_0 \\, r} + \\frac{B}{r^m}"}</Eq>
           <P>For NaCl, <M>{"M = 1.748"}</M>.</P>
-          <KeyConcept label="Madelung Constant">
+          <KeyConcept label="Madelung Constant" tested>
             The Madelung constant sums the Coulomb contributions from all ions in the crystal: nearest neighbors are attracted, next-nearest repelled, etc. For the NaCl structure, <M>{"M = 1.748"}</M>. The value depends only on the geometry of the crystal, not on the specific ions.
           </KeyConcept>
           <P>The graph above plots the single-pair potential with <M>{"A \\approx 1.436"}</M> eV-nm. With <M>{"m = 8"}</M> and <M>{"r_0 = 0.28"}</M> nm, the bond energy per ion pair is:</P>
@@ -736,6 +736,18 @@ const TOPICS = [
           <P>The force is the negative derivative of the PE: <M>{"F(r) = -dE/dr"}</M>. The force curve crosses zero at <M>{"r_0"}</M>.</P>
           <InteratomicForce params={gp.interatomicForce} mid="t1" />
           <P>For <M>{"r \\lt r_0"}</M>, the net force is repulsive (positive). For <M>{"r \\gt r_0"}</M>, the net force is attractive (negative). This restoring force makes the bond act like a spring near equilibrium.</P>
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW3" number="1" title="Ionic bonding in CsCl" points="20 pts">
+            <P>CsCl crystal: <M>{"E(r) = -e^2M/(4\\pi\\varepsilon_0 r) + B/r^m"}</M> with <M>{"M = 1.763"}</M>, <M>{"B = 1.192 \\times 10^{-104}"}</M> J m<M>{"^9"}</M>, <M>{"m = 9"}</M>.</P>
+            <P>Find <M>{"r_0"}</M>, ionic bonding energy, and compare to experimental 657 kJ/mol. Calculate atomic cohesive energy given Cs ionization energy 3.89 eV and Cl electron affinity 3.61 eV.</P>
+            <CollapsibleBlock title="Solution">
+              <P>At equilibrium: <M>{"dE/dr = 0 \\implies r_0 = (mB \\cdot 4\\pi\\varepsilon_0/(e^2M))^{1/(m-1)} \\approx 0.257"}</M> nm</P>
+              <P><M>{"E(r_0) \\approx -6.32"}</M> eV <M>{"\\implies"}</M> 609.3 kJ/mol (within ~7% of 657 kJ/mol)</P>
+              <P>Atomic cohesive energy: <M>{"U_{atomic} = |E(r_0)| - (IE_{Cs} - EA_{Cl}) = 6.32 - (3.89 - 3.61) = 6.04"}</M> eV/pair = 582.9 kJ/mol</P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -843,6 +855,27 @@ const TOPICS = [
               </tbody>
             </table>
           </div>
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW2" number="6" title="Atomic mass and molar fractions" points="20 pts">
+            <P>(a) For CdSe: find weight fractions and grams of Cd and Se needed for 100 g.</P>
+            <P>(b) Se-Te-P glass alloy (77 wt% Se, 20 wt% Te, 3 wt% P): find atomic fractions.</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> <M>{"M_{CdSe} = 112.41 + 78.96 = 191.37"}</M> g/mol. Cd: 58.7% (58.7 g), Se: 41.3% (41.3 g).</P>
+              <P><b>(b)</b> Convert wt% to moles: Se: 77/78.96 = 0.975, Te: 20/127.6 = 0.157, P: 3/30.97 = 0.097. Total = 1.229 mol.</P>
+              <P>Atomic fractions: Se = 0.794, Te = 0.128, P = 0.079.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW3" number="6" title="Diamond bandgap estimate" points="10 pts">
+            <P>Ge, Si, diamond all have the diamond crystal structure with sp<M>{"^3"}</M> hybridization. Bonding energies: diamond 3.60 eV, Si 1.84 eV, Ge 1.7 eV. Si bandgap 1.12 eV, Ge 0.77 eV. Estimate diamond's bandgap.</P>
+            <CollapsibleBlock title="Solution">
+              <P>Ratio <M>{"E_g(Si)/E_b(Si) = 1.12/1.84 = 0.609"}</M>. If proportional:</P>
+              <P><M>{"E_g(diamond) = E_b(diamond) \\times 0.609 = 3.60 \\times 0.609 = 2.19"}</M> eV</P>
+              <P>Actual experimental value: 5.5 eV. The estimate is low because 2p orbitals in carbon are smaller and closer to the nucleus, causing less band dispersion and a larger gap.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -1028,6 +1061,27 @@ const TOPICS = [
           <img src={IMG + "nacl-unit-cell.png"} alt="Ball-and-stick model of NaCl unit cell showing alternating sodium and chlorine ions in a face-centered cubic arrangement" style={{ maxWidth: "100%", maxHeight: 350, borderRadius: 6, border: `1px solid ${G.ax}` }} />
           <figcaption style={{ color: G.txt, fontSize: 11, fontFamily: "'IBM Plex Mono'", marginTop: 8 }}>NaCl (rock salt) unit cell: alternating Na+ and Cl- ions in an FCC arrangement with coordination number 6. <span style={{ opacity: 0.5 }}>Source: Wikimedia Commons, Public Domain</span></figcaption>
         </figure>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW3" number="2" title="BCC and FCC crystals" points="20 pts">
+            <P>(a) Tungsten (BCC, R = 0.1371 nm, M = 183.8 g/mol): atoms per unit volume and density.</P>
+            <P>(b) Platinum (FCC, R = 0.1386 nm, M = 195.09 g/mol): atoms per unit volume and density.</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a) W (BCC):</b> <M>{"a = 4R/\\sqrt{3} = 0.3166"}</M> nm. 2 atoms/cell.</P>
+              <P><M>{"n = 2/a^3 = 6.30 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M>. Density: <M>{"\\rho = n \\times M/N_A = 19.23"}</M> g/cm<M>{"^3"}</M>.</P>
+              <P><b>(b) Pt (FCC):</b> <M>{"a = 2\\sqrt{2}R = 0.3922"}</M> nm. 4 atoms/cell.</P>
+              <P><M>{"n = 6.64 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M>. Density: <M>{"\\rho = 21.51"}</M> g/cm<M>{"^3"}</M>.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW3" number="3" title="Diamond and zinc blende" points="20 pts">
+            <P>Si (diamond, a = 0.543 nm) and GaAs (zinc blende, a = 0.565 nm). Calculate density and atomic concentration.</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>Si:</b> 8 atoms/cell. <M>{"\\rho = 8 \\times 28.08/(N_A \\times a^3) = 2.33"}</M> g/cm<M>{"^3"}</M>. Atomic conc: <M>{"4.99 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M>.</P>
+              <P><b>GaAs:</b> 4 Ga + 4 As per cell. <M>{"\\rho = 4(69.73 + 74.92)/(N_A \\times a^3) = 5.33"}</M> g/cm<M>{"^3"}</M>. Atomic conc: <M>{"4.44 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M>.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1089,6 +1143,18 @@ const TOPICS = [
 
         <Section title="Powder Diffraction">
           <P>In <b>powder diffraction</b>, a polycrystalline sample (many small randomly oriented crystallites) is exposed to monochromatic X-rays. Because all orientations are present, each set of (hkl) planes produces a cone of diffracted beams, forming rings on a detector. The angular positions of these rings give the d-spacings, identifying the crystal structure.</P>
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW3" number="4" title="Si and SiO2 planar densities" points="20 pts">
+            <P>(a) Si atoms per unit volume (a = 0.543 nm). (b) Planar density on (100), (110), (111). Which has most? (c) SiO<M>{"_2"}</M> density 2.27 g/cm<M>{"^{-3}"}</M>: molecules per unit volume?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> <M>{"n = 8/a^3 = 4.997 \\times 10^{22}"}</M> atoms/cm<M>{"^3"}</M></P>
+              <P><b>(b)</b> (100): area <M>{"a^2"}</M>, 2 atoms <M>{"\\implies 6.78 \\times 10^{14}"}</M>/cm<M>{"^2"}</M>. (110): area <M>{"\\sqrt{2}a^2"}</M>, 4 atoms <M>{"\\implies 9.59 \\times 10^{14}"}</M>/cm<M>{"^2"}</M>. (111): 2 atoms <M>{"\\implies 7.83 \\times 10^{14}"}</M>/cm<M>{"^2"}</M>.</P>
+              <P><b>(110) has the highest planar density.</b></P>
+              <P><b>(c)</b> <M>{"n_{SiO_2} = \\rho N_A/M = 2.27 \\times 6.022 \\times 10^{23}/(28.09 + 32) = 2.28 \\times 10^{22}"}</M> molecules/cm<M>{"^3"}</M>. Fewer Si atoms than crystal Si; each Si is surrounded by O, spreading atoms apart.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -1191,6 +1257,17 @@ const TOPICS = [
           <P>This animation shows a 2D square lattice where atoms vibrate around their equilibrium positions. Adjust the temperature to see how vibration amplitude increases. Note the vacancy (dashed outline) and interstitial (small red atom) defects.</P>
           <ThermalVibrationAnimation />
         </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW3" number="5" title="Vacancies in silicon" points="10 pts">
+            <P>Si vacancy formation energy <M>{"E_v = 3.6"}</M> eV. Find equilibrium vacancy concentration at 1000 C.</P>
+            <CollapsibleBlock title="Solution">
+              <P><M>{"n_v/N = \\exp(-E_v/(k_BT))"}</M> with <M>{"T = 1273"}</M> K:</P>
+              <P><M>{"n_v/N = \\exp(-3.6/(8.617 \\times 10^{-5} \\times 1273)) = \\exp(-32.8) \\approx 5.6 \\times 10^{-15}"}</M></P>
+              <P>With <M>{"N = 4.996 \\times 10^{22}"}</M>/cm<M>{"^3"}</M>: <M>{"n_v \\approx 2.8 \\times 10^8"}</M> vacancies/cm<M>{"^3"}</M></P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1218,8 +1295,8 @@ function Section({ title, children }) {
   return <div className="section"><h3 className="section-title">{title}</h3>{children}</div>;
 }
 function P({ children }) { return <p className="para">{children}</p>; }
-function KeyConcept({ label, children }) {
-  return <div className="key-concept"><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
+function KeyConcept({ label, children, tested }) {
+  return <div className={`key-concept${tested ? " hw-tested" : ""}`}><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
 }
 
 // ─── Reference Image Component (copy verbatim) ───
@@ -1232,6 +1309,23 @@ function RefImg({ data, alt, caption }) {
            style={{ maxWidth: "100%", borderRadius: 4 }} />
       {caption && <p style={{ margin: "8px 0 0", fontSize: 11, color: "var(--text-dim)",
         fontFamily: "'IBM Plex Mono', monospace", fontStyle: "italic" }}>{caption}</p>}
+    </div>
+  );
+}
+
+function HWQuestion({ hw, number, title, points, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ margin: "12px 0", border: "1px solid #2d6b3f", borderRadius: 6, overflow: "hidden", background: "rgba(45,107,63,0.06)" }}>
+      <button onClick={() => setOpen(o => !o)} style={{
+        width: "100%", textAlign: "left", padding: "10px 14px", background: "rgba(45,107,63,0.12)",
+        border: "none", color: "#5cb85c", fontSize: 14, fontFamily: "'IBM Plex Mono', monospace",
+        cursor: "pointer", fontWeight: 600, display: "flex", justifyContent: "space-between", alignItems: "center"
+      }}>
+        <span>{open ? "\u25BC" : "\u25BA"} {hw} P{number}: {title}</span>
+        <span style={{ fontSize: 11, opacity: 0.7 }}>[{points}]</span>
+      </button>
+      {open && <div style={{ padding: "14px", background: "rgba(45,107,63,0.04)" }}>{children}</div>}
     </div>
   );
 }
@@ -1342,6 +1436,8 @@ const STYLES = `
 .key-concept { margin: 10px 0; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
 .kc-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
 .kc-body { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+.hw-tested { border-left: 3px solid #5cb85c !important; box-shadow: inset 4px 0 0 -1px rgba(92,184,92,0.15); }
+.hw-tested .kc-label::after { content: " [TESTED]"; color: #5cb85c; font-size: 11px; font-weight: 400; }
 
 .info-list { margin: 8px 0; padding-left: 20px; list-style: none; }
 .info-list li { position: relative; font-size: 15px; line-height: 2.2; color: var(--text-muted); padding-left: 4px; }

@@ -776,12 +776,25 @@ const TOPICS = [
           <Eq>{"E_{\\text{loc}} = E + \\frac{P}{3\\varepsilon_0}"}</Eq>
           <P>The relationship between the macroscopic permittivity <M>{"\\varepsilon_r"}</M> and the microscopic polarizability <M>{"\\alpha_e"}</M> is given by the <b>Clausius-Mossotti relation</b>:</P>
           <Eq>{"\\frac{\\varepsilon_r - 1}{\\varepsilon_r + 2} = \\frac{N \\alpha_e}{3 \\varepsilon_0}"}</Eq>
-          <KeyConcept label="Clausius-Mossotti Relation">
+          <KeyConcept label="Clausius-Mossotti Relation" tested>
             This equation bridges microscopic (atomic polarizability) and macroscopic (dielectric constant) properties. It is valid for non-polar materials with cubic symmetry or isotropic structure. For polar molecules (with permanent dipoles), modifications are needed.
           </KeyConcept>
           <P>The <b>induced dipole moment</b> of a single atom or molecule is:</P>
           <Eq>{"\\mathbf{p} = \\alpha_e \\mathbf{E}_{\\text{loc}}"}</Eq>
           <P>where <M>{"\\alpha_e"}</M> is the <b>electronic polarizability</b> (units: F m^2).</P>
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW4" number="6" title="Ionic polarizability in KCl (bonus)" points="15 pts">
+            <P>KCl (NaCl structure, a = 0.629 nm). Electronic polarizabilities: <M>{"\\alpha_e(K^+) = 0.92 \\times 10^{-40}"}</M> F m<M>{"^2"}</M>, <M>{"\\alpha_e(Cl^-) = 4.0 \\times 10^{-40}"}</M> F m<M>{"^2"}</M>. Dielectric constant at 1 MHz: <M>{"\\varepsilon_0 = 4.80"}</M>.</P>
+            <P>Find mean ionic polarizability <M>{"\\alpha_i"}</M> and <M>{"\\varepsilon_{rop}"}</M> at optical frequencies.</P>
+            <CollapsibleBlock title="Solution">
+              <P><M>{"N = 4/a^3 = 1.607 \\times 10^{28}"}</M> m<M>{"^{-3}"}</M> (4 ion pairs per FCC cell)</P>
+              <P>From Clausius-Mossotti at 1 MHz: <M>{"\\alpha = 3\\varepsilon_0(\\varepsilon_r - 1)/(N(\\varepsilon_r + 2)) = 9.235 \\times 10^{-40}"}</M> F m<M>{"^2"}</M></P>
+              <P><M>{"\\alpha_i = \\alpha - \\alpha_e(K^+) - \\alpha_e(Cl^-) = 4.315 \\times 10^{-40}"}</M> F m<M>{"^2"}</M></P>
+              <P>At optical frequencies (only electronic): <M>{"\\varepsilon_{rop} \\approx 2.27"}</M></P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -899,6 +912,17 @@ const TOPICS = [
           <KeyConcept label="Deviations from Debye Behavior">
             Real materials often show depressed semicircles (center below the real axis), indicating a distribution of relaxation times rather than a single <M>{"\\tau"}</M>. This is modeled by the Cole-Cole equation <M>{"\\varepsilon^* = \\varepsilon_{r\\infty} + (\\varepsilon_{rs} - \\varepsilon_{r\\infty})/(1 + (j\\omega\\tau)^{1-\\alpha})"}</M>, where <M>{"\\alpha = 0"}</M> recovers the ideal Debye semicircle and <M>{"\\alpha \\to 1"}</M> gives the broadest distribution.
           </KeyConcept>
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW4" number="4" title="Wave attenuation in lossy dielectric" points="15 pts">
+            <P>830 nm laser through atmosphere modeled as <M>{"\\varepsilon_r = 1 + i\\,1.14 \\times 10^{-11}"}</M>, thickness 8.5 km. Estimate power fraction delivered.</P>
+            <CollapsibleBlock title="Solution">
+              <P>For a low-loss dielectric (<M>{"\\varepsilon'' \\ll \\varepsilon'"}</M>): <M>{"\\alpha \\approx \\pi\\varepsilon''/\\lambda\\varepsilon'"}</M></P>
+              <P><M>{"\\alpha = \\pi \\times 1.14 \\times 10^{-11}/(830 \\times 10^{-9} \\times 1) = 4.47 \\times 10^{-5}"}</M> Np/m</P>
+              <P>Power: <M>{"e^{-2\\alpha z} = e^{-0.76} \\approx 0.47"}</M> (47% transmitted)</P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -1129,8 +1153,8 @@ function Section({ title, children }) {
   return <div className="section"><h3 className="section-title">{title}</h3>{children}</div>;
 }
 function P({ children }) { return <p className="para">{children}</p>; }
-function KeyConcept({ label, children }) {
-  return <div className="key-concept"><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
+function KeyConcept({ label, children, tested }) {
+  return <div className={`key-concept${tested ? " hw-tested" : ""}`}><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
 }
 
 // ─── Reference Image Component (copy verbatim) ───
@@ -1155,6 +1179,23 @@ function CollapsibleBlock({ title, children, defaultOpen = false }) {
         {open ? "\u25BC" : "\u25BA"} {title}
       </button>
       {open && <div className="collapsible-content">{children}</div>}
+    </div>
+  );
+}
+
+function HWQuestion({ hw, number, title, points, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ margin: "12px 0", border: "1px solid #2d6b3f", borderRadius: 6, overflow: "hidden", background: "rgba(45,107,63,0.06)" }}>
+      <button onClick={() => setOpen(o => !o)} style={{
+        width: "100%", textAlign: "left", padding: "10px 14px", background: "rgba(45,107,63,0.12)",
+        border: "none", color: "#5cb85c", fontSize: 14, fontFamily: "'IBM Plex Mono', monospace",
+        cursor: "pointer", fontWeight: 600, display: "flex", justifyContent: "space-between", alignItems: "center"
+      }}>
+        <span>{open ? "\u25BC" : "\u25BA"} {hw} P{number}: {title}</span>
+        <span style={{ fontSize: 11, opacity: 0.7 }}>[{points}]</span>
+      </button>
+      {open && <div style={{ padding: "14px", background: "rgba(45,107,63,0.04)" }}>{children}</div>}
     </div>
   );
 }
@@ -1253,6 +1294,8 @@ const STYLES = `
 .key-concept { margin: 10px 0; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
 .kc-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
 .kc-body { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+.hw-tested { border-left: 3px solid #5cb85c !important; box-shadow: inset 4px 0 0 -1px rgba(92,184,92,0.15); }
+.hw-tested .kc-label::after { content: " [TESTED]"; color: #5cb85c; font-size: 11px; font-weight: 400; }
 
 .info-list { margin: 8px 0; padding-left: 20px; list-style: none; }
 .info-list li { position: relative; font-size: 15px; line-height: 2.2; color: var(--text-muted); padding-left: 4px; }

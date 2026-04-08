@@ -770,7 +770,7 @@ const TOPICS = [
         </Section>
 
         <Section title="Penetration Depth">
-          <KeyConcept label="Penetration Depth">
+          <KeyConcept label="Penetration Depth" tested>
             The distance over which the wavefunction decays to 1/e of its boundary value:
             <Eq>{"\\delta = \\frac{1}{\\alpha} = \\frac{\\hbar}{\\sqrt{2m_e(V_0 - E)}}"}</Eq>
             Higher-energy states penetrate further into the barrier. As <M>{"E \\to V_0"}</M>, <M>{"\\delta \\to \\infty"}</M> and the state becomes unbound.
@@ -800,6 +800,45 @@ const TOPICS = [
         <Section title="Finite Well Wavefunctions">
           <FiniteWellWavefunctions params={gp.finiteWell} mid="t1" />
           <FiniteWellProbDensity params={gp.finiteWell} mid="t1pd" />
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW1" number="6b,c" title="Finite well comparison and penetration depth" points="10 pts">
+            <P>A finite PE well of width 1 nm and barrier height <M>{"V_0 = 2.0"}</M> eV has three energy levels: <M>{"E_1 = 0.23"}</M>, <M>{"E_2 = 0.89"}</M>, <M>{"E_3 = 1.81"}</M> eV.</P>
+            <P>(b) Are the finite well levels higher or lower than the infinite well levels?</P>
+            <P>(c) Find the penetration depth for each energy level.</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(b)</b> Finite well levels are <b>lower</b> than infinite well levels because the wavefunction can penetrate into the barrier, effectively increasing the well width and lowering energies.</P>
+              <P><b>(c)</b> Penetration depth <M>{"\\delta = \\hbar/\\sqrt{2m_e(V_0 - E)}"}</M>:</P>
+              <P><M>{"\\delta_1 = 1.054 \\times 10^{-34}/\\sqrt{2(9.109 \\times 10^{-31})(2.0 - 0.23)(1.6 \\times 10^{-19})} \\approx 0.147"}</M> nm</P>
+              <P><M>{"\\delta_2 \\approx 0.185"}</M> nm, <M>{"\\delta_3 \\approx 0.448"}</M> nm</P>
+              <P>Note: <M>{"\\delta \\to 0"}</M> as <M>{"V_0 \\to \\infty"}</M> (recovers infinite well).</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW2" number="1" title="Double well" points="30 pts">
+            <P>Qualitative problem. Consider a double square well potential (two wells of width <M>{"a"}</M>, depth <M>{"V_0"}</M>, separated by barrier of width <M>{"b"}</M>).</P>
+            <P>(a) Sketch ground state <M>{"\\psi_1"}</M> and first excited state <M>{"\\psi_2"}</M> for (i) <M>{"b \\ll a"}</M>, (ii) <M>{"b \\approx a"}</M>, (iii) <M>{"b \\gg a"}</M>.</P>
+            <P>(b) How do <M>{"E_1(b)"}</M> and <M>{"E_2(b)"}</M> vary as <M>{"b"}</M> goes from 0 to infinity?</P>
+            <P>(c) Does the electron tend to draw the nuclei together or push them apart?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> For <M>{"b \\ll a"}</M>: effectively one wide well of width <M>{"\\sim 2a"}</M>. <M>{"\\psi_1"}</M> has one peak, <M>{"\\psi_2"}</M> has a node in the center.</P>
+              <P>For <M>{"b \\approx a"}</M>: tunneling couples the two wells. <M>{"\\psi_1"}</M> (symmetric) has equal peaks in both wells; <M>{"\\psi_2"}</M> (antisymmetric) has opposite-sign peaks.</P>
+              <P>For <M>{"b \\gg a"}</M>: two isolated finite wells. <M>{"\\psi_1"}</M> and <M>{"\\psi_2"}</M> are degenerate, each localized in one well.</P>
+              <P><b>(b)</b> As <M>{"b"}</M> increases: <M>{"E_1"}</M> increases (effective well width decreases from <M>{"2a"}</M> to <M>{"a"}</M>). <M>{"E_2"}</M> starts higher and decreases. Both converge to the single-well value as <M>{"b \\to \\infty"}</M>.</P>
+              <P><b>(c)</b> To minimize energy, the electron wants <M>{"E_1"}</M> as low as possible, which means small <M>{"b"}</M>. The electron tends to <b>draw the nuclei together</b>, forming a bond.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW2" number="4" title="Asymmetric potential well" points="20 pts">
+            <P>A particle of mass <M>{"m"}</M> in potential: <M>{"V = \\infty"}</M> for <M>{"x \\lt 0"}</M>, <M>{"V = -32\\hbar^2/(ma^2)"}</M> for <M>{"0 \\le x \\le a"}</M>, <M>{"V = 0"}</M> for <M>{"x > a"}</M>.</P>
+            <P>(a) How many bound states? (b) Probability of particle being outside the well in the highest-energy bound state?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> Setting up the transcendental equation from boundary conditions at <M>{"x = a"}</M>: <M>{"z\\cot(z) = -\\sqrt{64 - z^2}"}</M> where <M>{"z = ka"}</M>.</P>
+              <P>Solving numerically (or graphically): intercepts at <M>{"z_1 = 2.786"}</M>, <M>{"z_2 = 5.521"}</M>, <M>{"z_3 = 7.957"}</M>. There are <b>3 bound states</b>.</P>
+              <P><b>(b)</b> For the highest state (<M>{"z_3 = 7.957"}</M>): <M>{"P_{outside} \\approx 0.53"}</M> (53% probability outside the well). The particle is barely bound.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -1024,6 +1063,20 @@ const TOPICS = [
           <Eq>{"\\Delta \\ell = \\pm 1, \\quad \\Delta m_\\ell = 0, \\pm 1"}</Eq>
           <P>For example, a transition from 2p to 1s is allowed (<M>{"\\Delta \\ell = -1"}</M>), but 2s to 1s is forbidden by the electric dipole selection rule (<M>{"\\Delta \\ell = 0"}</M>).</P>
         </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW2" number="5" title="Virial theorem (Li ionization energy)" points="20 pts">
+            <P>Li has nuclear charge <M>{"+3e"}</M>, full 1s shell, single 2s valence electron. Atomic radius 0.17 nm.</P>
+            <P>(a) Using virial theorem with <M>{"Z_{eff} = 1"}</M> (perfect shielding by 1s electrons), estimate ionization energy. Compare to experimental 5.39 eV.</P>
+            <P>(b) Repeat with <M>{"Z_{eff} = 1.25"}</M> (imperfect shielding).</P>
+            <CollapsibleBlock title="Solution">
+              <P>By the virial theorem: <M>{"\\langle T \\rangle = -E"}</M>, <M>{"\\langle V \\rangle = 2E"}</M>. Ionization energy <M>{"I = -E = Z_{eff}^2 e^2/(8\\pi\\varepsilon_0 r_0)"}</M>.</P>
+              <P><b>(a)</b> With <M>{"Z_{eff} = 1"}</M>, <M>{"r_0 = 0.17"}</M> nm: <M>{"I \\approx 4.24"}</M> eV (lower than experimental 5.39 eV).</P>
+              <P><b>(b)</b> With <M>{"Z_{eff} = 1.25"}</M>: <M>{"I \\approx 5.25"}</M> eV, much closer to experimental value.</P>
+              <P>Conclusion: the 1s electrons do not perfectly shield the nuclear charge; the 2s electron feels <M>{"Z_{eff} \\approx 1.25"}</M>, not 1.0.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1139,8 +1192,8 @@ function Section({ title, children }) {
   return <div className="section"><h3 className="section-title">{title}</h3>{children}</div>;
 }
 function P({ children }) { return <p className="para">{children}</p>; }
-function KeyConcept({ label, children }) {
-  return <div className="key-concept"><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
+function KeyConcept({ label, children, tested }) {
+  return <div className={`key-concept${tested ? " hw-tested" : ""}`}><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
 }
 
 // ─── Reference Image Component (copy verbatim) ───
@@ -1153,6 +1206,23 @@ function RefImg({ data, alt, caption }) {
            style={{ maxWidth: "100%", borderRadius: 4 }} />
       {caption && <p style={{ margin: "8px 0 0", fontSize: 11, color: "var(--text-dim)",
         fontFamily: "'IBM Plex Mono', monospace", fontStyle: "italic" }}>{caption}</p>}
+    </div>
+  );
+}
+
+function HWQuestion({ hw, number, title, points, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ margin: "12px 0", border: "1px solid #2d6b3f", borderRadius: 6, overflow: "hidden", background: "rgba(45,107,63,0.06)" }}>
+      <button onClick={() => setOpen(o => !o)} style={{
+        width: "100%", textAlign: "left", padding: "10px 14px", background: "rgba(45,107,63,0.12)",
+        border: "none", color: "#5cb85c", fontSize: 14, fontFamily: "'IBM Plex Mono', monospace",
+        cursor: "pointer", fontWeight: 600, display: "flex", justifyContent: "space-between", alignItems: "center"
+      }}>
+        <span>{open ? "\u25BC" : "\u25BA"} {hw} P{number}: {title}</span>
+        <span style={{ fontSize: 11, opacity: 0.7 }}>[{points}]</span>
+      </button>
+      {open && <div style={{ padding: "14px", background: "rgba(45,107,63,0.04)" }}>{children}</div>}
     </div>
   );
 }
@@ -1263,6 +1333,8 @@ const STYLES = `
 .key-concept { margin: 10px 0; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
 .kc-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
 .kc-body { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+.hw-tested { border-left: 3px solid #5cb85c !important; box-shadow: inset 4px 0 0 -1px rgba(92,184,92,0.15); }
+.hw-tested .kc-label::after { content: " [TESTED]"; color: #5cb85c; font-size: 11px; font-weight: 400; }
 
 .info-list { margin: 8px 0; padding-left: 20px; list-style: none; }
 .info-list li { position: relative; font-size: 15px; line-height: 2.2; color: var(--text-muted); padding-left: 4px; }

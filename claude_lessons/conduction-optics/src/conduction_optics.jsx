@@ -797,9 +797,32 @@ const TOPICS = [
           <Eq>{"v_F = \\sqrt{\\frac{2E_F}{m_e}}"}</Eq>
           <P>For Cu (<M>{"E_F = 7.0"}</M> eV), <M>{"v_F \\approx 1.57 \\times 10^6"}</M> m/s. The <b>mean free path</b> between scattering events is:</P>
           <Eq>{"l = v_F \\cdot \\tau"}</Eq>
-          <KeyConcept label="Why Only Electrons Near E_F Matter">
+          <KeyConcept label="Why Only Electrons Near E_F Matter" tested>
             Only electrons within <M>{"\\sim kT"}</M> of <M>{"E_F"}</M> can be scattered into empty states and contribute to transport. Electrons deep in the Fermi sea have no empty states nearby and are effectively frozen.
           </KeyConcept>
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW4" number="1a" title="Electrons in gold" points="15 pts">
+            <P>Gold: M = 196.97 g/mol, density 19300 kg/m<M>{"^3"}</M>, valency 1, resistivity 22 n<M>{"\\Omega"}</M> m.</P>
+            <P>Calculate Fermi energy at 0 K and mean free path of conduction electrons.</P>
+            <CollapsibleBlock title="Solution">
+              <P><M>{"n = Z \\times d \\times N_A/M = 5.9 \\times 10^{28}"}</M> m<M>{"^{-3}"}</M></P>
+              <P><M>{"E_{FO} = (h^2/8m_e)(3n/\\pi)^{2/3} = 5.53"}</M> eV</P>
+              <P><M>{"v_F = \\sqrt{2E_F/m_e} = 1.39 \\times 10^6"}</M> m/s</P>
+              <P>From Drude: <M>{"\\tau = m_e/(ne^2\\rho) = 2.73 \\times 10^{-14}"}</M> s</P>
+              <P><M>{"l = v_F\\tau = 38.1"}</M> nm</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW4" number="1c" title="2D goldene monolayer" points="15 pts">
+            <P>A free-standing monolayer of gold atoms ("goldene") has <M>{"E_F \\approx 0.5"}</M> eV at 0 K. Estimate the 2D density of states and states per unit volume near <M>{"E_F"}</M>. Monolayer thickness <M>{"d \\approx 0.288"}</M> nm.</P>
+            <CollapsibleBlock title="Solution">
+              <P>2D DOS (per unit area): <M>{"g_A = 4\\pi m_e/h^2 = 4.18 \\times 10^{18}"}</M> eV<M>{"^{-1}"}</M>m<M>{"^{-2}"}</M></P>
+              <P>Per unit volume: <M>{"g_V = g_A/d = 1.45 \\times 10^{28}"}</M> eV<M>{"^{-1}"}</M>m<M>{"^{-3}"}</M></P>
+              <P>Number of states up to <M>{"E_F"}</M>: <M>{"S_V = 4\\pi m_e E_F/(h^2 d) = 7.23 \\times 10^{27}"}</M> m<M>{"^{-3}"}</M></P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -816,7 +839,7 @@ const TOPICS = [
           <Eq>{"v_{dx} = \\frac{1}{N}[v_{x1} + v_{x2} + \\cdots + v_{xN}]"}</Eq>
           <P>Between collisions, an electron accelerates for a mean free time <M>{"\\tau"}</M>:</P>
           <Eq>{"v_{dx} = \\int_0^\\tau a\\,dt \\approx a\\tau = \\frac{F}{m_e}\\tau = \\frac{eE_x}{m_e}\\tau = \\mu E_x"}</Eq>
-          <KeyConcept label="Electron Mobility">
+          <KeyConcept label="Electron Mobility" tested>
             <M>{"\\mu = \\frac{e\\tau}{m_e}"}</M> is the electron mobility (units: m^2/(V*s)). It measures how easily electrons drift in response to an electric field.
           </KeyConcept>
         </Section>
@@ -850,6 +873,16 @@ const TOPICS = [
         <Section title="Interactive: Electron Drift">
           <P>Watch how conduction electrons behave with and without an applied electric field. Without the field, electrons move randomly (thermal velocity) with zero average drift. Toggle the field to see a net drift velocity emerge.</P>
           <ElectronDriftAnimation mid="t" />
+        </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW4" number="1b" title="Red adamantium resistivity" points="15 pts">
+            <P>Red adamantium: <M>{"E_F = 28.0"}</M> eV at room temperature, drift mobility <M>{"\\mu = 4.1"}</M> cm<M>{"^2"}</M>V<M>{"^{-1}"}</M>s<M>{"^{-1}"}</M>. Estimate resistivity.</P>
+            <CollapsibleBlock title="Solution">
+              <P>Since <M>{"E_F \\approx E_{FO}"}</M> at room temperature: <M>{"n = (\\pi/3)(8m_eE_{FO}/h^2)^{3/2} = 6.74 \\times 10^{29}"}</M> m<M>{"^{-3}"}</M></P>
+              <P><M>{"\\rho = 1/(ne\\mu) = 1/((6.74 \\times 10^{29})(1.6 \\times 10^{-19})(4.1 \\times 10^{-4})) = 2.26 \\times 10^{-8}\\;\\Omega"}</M>m</P>
+            </CollapsibleBlock>
+          </HWQuestion>
         </Section>
       </div>
     ),
@@ -973,6 +1006,25 @@ const TOPICS = [
             The refractive index <M>{"n = \\sqrt{\\varepsilon_r}"}</M> relates the speed of light in vacuum to the phase velocity in the medium. For glass, <M>{"n \\approx 1.5"}</M>; for diamond, <M>{"n \\approx 2.42"}</M>.
           </KeyConcept>
         </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW4" number="2" title="Optical conveyor belt (tractor beam)" points="20 pts">
+            <P>Two counter-propagating beams of slightly different frequencies form a moving standing wave. For <M>{"\\lambda = 1064"}</M> nm, find the speed of movement of the antinodes per MHz of frequency detuning.</P>
+            <CollapsibleBlock title="Solution">
+              <P>The total field: <M>{"E_{total} = 2E_0\\cos((k - \\pi\\sigma/c)z - \\pi\\sigma t)"}</M> where <M>{"\\sigma"}</M> is the detuning.</P>
+              <P>Phase velocity of antinodes: <M>{"v = \\pi\\sigma/(k - \\pi\\sigma/c) \\approx \\pi\\sigma/k"}</M> for small <M>{"\\sigma"}</M>.</P>
+              <P>With <M>{"k = 2\\pi/\\lambda"}</M> and <M>{"\\sigma = 1"}</M> MHz: <M>{"v = \\lambda\\sigma/2 = 1064 \\times 10^{-9} \\times 10^6/2 = 532"}</M> mm/s per MHz.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW4" number="4" title="Powering Hubble" points="15 pts">
+            <P>830 nm laser through atmosphere (8.5 km, <M>{"\\varepsilon_r = 1 + i\\,1.14 \\times 10^{-11}"}</M>). What fraction of power reaches the Hubble mirror?</P>
+            <CollapsibleBlock title="Solution">
+              <P>Attenuation constant: <M>{"\\alpha = \\pi\\varepsilon''/\\lambda\\varepsilon' = \\pi \\times 1.14 \\times 10^{-11}/(830 \\times 10^{-9}) = 4.47 \\times 10^{-5}"}</M> Np/m</P>
+              <P>Power fraction: <M>{"e^{-2\\alpha z} = e^{-2 \\times 4.47 \\times 10^{-5} \\times 8500} = 0.47"}</M>. About 47% of the power reaches Hubble.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1034,6 +1086,30 @@ const TOPICS = [
           <P>Adjust the angle of incidence and refractive indices to see reflection and refraction in real time. When the incident angle exceeds the critical angle (with n1 greater than n2), total internal reflection occurs.</P>
           <RefractionRayDiagram mid="t" />
         </Section>
+
+        <Section title="Homework Problems">
+          <HWQuestion hw="HW4" number="3" title="Polarization games" points="30 pts">
+            <P>(a) Write the Jones matrix for an ideal x-polarizer, then for a realistic one with losses <M>{"\\alpha"}</M> and <M>{"\\beta"}</M>. [10 pts]</P>
+            <P>(b) Explain why polarized sunglasses suppress glare from water/road surfaces. What polarization do they block? [20 pts]</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> Ideal: <M>{"T = \\begin{pmatrix} 1 & 0 \\\\ 0 & 0 \\end{pmatrix}"}</M>. Realistic: <M>{"T = \\begin{pmatrix} 1-\\alpha & 0 \\\\ 0 & \\beta \\end{pmatrix}"}</M></P>
+              <P><b>(b)</b> Sunlight reflecting off a horizontal surface (water, road) at shallow angles (~45-60 degrees, near Brewster angle <M>{"\\theta_B = \\arctan(n_{water}/n_{air}) \\approx 53^\\circ"}</M>) is predominantly s-polarized (horizontal E-field).</P>
+              <P>Polarized sunglasses contain a vertical polarizer that absorbs horizontally polarized light, thus suppressing the glare while transmitting vertically polarized light.</P>
+            </CollapsibleBlock>
+          </HWQuestion>
+
+          <HWQuestion hw="HW4" number="5" title="Optical fiber" points="20 pts">
+            <P>Fiber: core <M>{"n_1 = 1.4510"}</M>, cladding <M>{"n_2 = 1.4477"}</M>, both at 1550 nm.</P>
+            <P>(a) Maximum angle a ray can make with the fiber axis while propagating via TIR?</P>
+            <P>(b) Maximum acceptance angle at the fiber input face?</P>
+            <CollapsibleBlock title="Solution">
+              <P><b>(a)</b> Critical angle: <M>{"\\theta_c = \\arcsin(n_2/n_1) = \\arcsin(1.4477/1.4510) = 86.13^\\circ"}</M></P>
+              <P>Max angle with fiber axis: <M>{"90^\\circ - 86.13^\\circ = 3.87^\\circ"}</M></P>
+              <P><b>(b)</b> By Snell's law at the air-core interface: <M>{"\\sin(\\theta_{in,max}) = (n_1/n_{air})\\sin(3.87^\\circ) = 1.451 \\times 0.0675 = 0.098"}</M></P>
+              <P><M>{"\\theta_{in,max} = 5.62^\\circ"}</M></P>
+            </CollapsibleBlock>
+          </HWQuestion>
+        </Section>
       </div>
     ),
   },
@@ -1076,8 +1152,8 @@ function Section({ title, children }) {
   return <div className="section"><h3 className="section-title">{title}</h3>{children}</div>;
 }
 function P({ children }) { return <p className="para">{children}</p>; }
-function KeyConcept({ label, children }) {
-  return <div className="key-concept"><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
+function KeyConcept({ label, children, tested }) {
+  return <div className={`key-concept${tested ? " hw-tested" : ""}`}><span className="kc-label">{label}</span><div className="kc-body">{children}</div></div>;
 }
 
 // ─── Reference Image Component (copy verbatim) ───
@@ -1102,6 +1178,23 @@ function CollapsibleBlock({ title, children, defaultOpen = false }) {
         {open ? "\u25BC" : "\u25BA"} {title}
       </button>
       {open && <div className="collapsible-content">{children}</div>}
+    </div>
+  );
+}
+
+function HWQuestion({ hw, number, title, points, children }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ margin: "12px 0", border: "1px solid #2d6b3f", borderRadius: 6, overflow: "hidden", background: "rgba(45,107,63,0.06)" }}>
+      <button onClick={() => setOpen(o => !o)} style={{
+        width: "100%", textAlign: "left", padding: "10px 14px", background: "rgba(45,107,63,0.12)",
+        border: "none", color: "#5cb85c", fontSize: 14, fontFamily: "'IBM Plex Mono', monospace",
+        cursor: "pointer", fontWeight: 600, display: "flex", justifyContent: "space-between", alignItems: "center"
+      }}>
+        <span>{open ? "\u25BC" : "\u25BA"} {hw} P{number}: {title}</span>
+        <span style={{ fontSize: 11, opacity: 0.7 }}>[{points}]</span>
+      </button>
+      {open && <div style={{ padding: "14px", background: "rgba(45,107,63,0.04)" }}>{children}</div>}
     </div>
   );
 }
@@ -1200,6 +1293,8 @@ const STYLES = `
 .key-concept { margin: 10px 0; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
 .kc-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
 .kc-body { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
+.hw-tested { border-left: 3px solid #5cb85c !important; box-shadow: inset 4px 0 0 -1px rgba(92,184,92,0.15); }
+.hw-tested .kc-label::after { content: " [TESTED]"; color: #5cb85c; font-size: 11px; font-weight: 400; }
 
 .info-list { margin: 8px 0; padding-left: 20px; list-style: none; }
 .info-list li { position: relative; font-size: 15px; line-height: 2.2; color: var(--text-muted); padding-left: 4px; }
