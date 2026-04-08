@@ -36,6 +36,9 @@ cat > "$OUT/index.html" <<'HTML'
 </head>
 <body>
 <h1>ECE 109 Interactive Lessons</h1>
+<div style="margin-bottom: 24px; padding: 14px 18px; background: rgba(200,164,90,0.08); border: 1px solid rgba(200,164,90,0.25); border-radius: 6px; font-size: 13px; line-height: 1.7; color: #b0b4c4;">
+  <b style="color: #c8a45a;">Disclaimer:</b> While globally approved by the professor, there may be errors or content missing. In some cases, the lesson goes into more detail than needed. Keep this in mind when using this resource. This is not a step-by-step guide with exactly what will be on the exam. It is a tool. Content for these lessons has been compiled from lecture notes, the textbook, and online using Claude Code, generally the Opus 4.6 model on max effort. The lessons are built using many rounds of thorough multi-agent review and graphics are verified before being added. However, there is still potential for mistakes. I am not responsible in any way for any ensuing repercussions.
+</div>
 <ul>
   <li><a href="/qm-waves/">Quantum Mechanics: Waves</a><div class="note">Waves, Schrodinger equation, infinite well</div></li>
   <li><a href="/qm-atoms/">Quantum Mechanics: Atoms</a><div class="note">Finite wells, tunneling, hydrogen atom</div></li>
