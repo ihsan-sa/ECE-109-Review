@@ -1425,7 +1425,7 @@ const TOPICS = [
                 </svg>
               </div>
               <P>Peak power: <M>{"P_{peak} = P_{avg}/D = 1000/0.6 = 1667"}</M> W. During each pulse the laser is brighter; between pulses it is off.</P>
-              <P>Photon rate: <M>{"\\dot{N} = P_{avg}/E_{ph} = 1000/1.88 \\times 10^{-20} = 5.33 \\times 10^{22}"}</M> photons/s</P>
+              <P>Photon rate: <M>{"\\dot{N} = \\frac{P_{avg}}{E_{ph}} = \\frac{1000}{1.88 \\times 10^{-20}} = 5.33 \\times 10^{22}"}</M> photons/s</P>
               <P>Beam area: <M>{"A = \\pi(d/2)^2 = \\pi(0.5)^2 = 0.785"}</M> cm<sup>2</sup></P>
               <Eq>{"\\Gamma_{avg} = \\dot{N}/A = 6.8 \\times 10^{22}\\;\\text{photons}\\cdot s^{-1}\\cdot cm^{-2}"}</Eq>
               <Eq>{"\\Gamma_{peak} = \\Gamma_{avg}/D = 1.13 \\times 10^{23}\\;\\text{photons}\\cdot s^{-1}\\cdot cm^{-2}"}</Eq>
