@@ -1,0 +1,558 @@
+\documentclass[9pt]{extarticle}
+\usepackage[letterpaper,margin=0.45in]{geometry}
+\usepackage{multicol}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+
+% --- Spacing ---
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\setlength{\columnsep}{14pt}
+\setlength{\columnseprule}{0.2pt}
+\raggedcolumns
+
+% --- Section formatting ---
+\definecolor{gold}{HTML}{B8943E}
+\definecolor{desc}{HTML}{444444}
+\titleformat{\subsection}{\normalfont\bfseries\small\color{gold}}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{5pt}{2pt}
+
+% --- Header/Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\footnotesize\textcopyright{} 2026 Ihsan S. All rights reserved.}
+\fancyfoot[R]{\footnotesize\thepage/4}
+
+% --- Compact list ---
+\setlist{nosep,leftmargin=*,topsep=0pt}
+
+% --- Shortcuts ---
+\newcommand{\eqlabel}[1]{\textbf{\scriptsize #1}\;}
+\newcommand{\desc}[1]{{\small\color{desc}#1}}
+
+\begin{document}
+\begin{multicols}{2}
+
+% ============================================================
+% QUANTUM MECHANICS (Lessons 1--2)
+% ============================================================
+
+\subsection{Physical Constants}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}l@{\;\;}l@{}}
+$h$ & $6.626\times10^{-34}$ J\,s \\
+$\hbar = h/2\pi$ & $1.055\times10^{-34}$ J\,s \\
+$hc$ & $1240$ eV\,nm \\
+$m_e$ & $9.109\times10^{-31}$ kg \\
+$e$ & $1.602\times10^{-19}$ C \\
+$k_B$ & $1.381\times10^{-23}$ J/K = $8.617\times10^{-5}$ eV/K \\
+$\varepsilon_0$ & $8.854\times10^{-12}$ F/m \\
+$\mu_0$ & $4\pi\times10^{-7}$ N/A$^2$ \\
+$c_0$ & $3.0\times10^{8}$ m/s \\
+$N_A$ & $6.022\times10^{23}$ mol$^{-1}$ \\
+$a_0$ & $0.0529$ nm (Bohr radius) \\
+$e^2/(4\pi\varepsilon_0)$ & $1.44$ eV\,nm (Coulomb shortcut) \\
+$k_BT|_{300\text{K}}$ & $0.02585$ eV \\
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\subsection{Wave--Particle Duality}
+\[E = hf = \hbar\omega\]
+\desc{Energy of a photon; $f$ = frequency, $\omega = 2\pi f$}
+\[p = \frac{h}{\lambda} = \frac{hf}{c}\]
+\desc{Photon momentum}
+\[\text{Photoelectric: } KE_{\max} = hf - \Phi\]
+\desc{$\Phi$ = work function (min.\ energy to extract electron)}
+\[\lambda = \frac{h}{p} = \frac{h}{\sqrt{2m_e\,eV}}\]
+\desc{de Broglie wavelength; second form for electron through potential $V$}
+
+\eqlabel{Wien} $\lambda_{\max}T = 2.898\times10^{-3}$ m\,K
+
+\desc{Peak wavelength of blackbody radiation}
+
+\eqlabel{Photon flux} $\dot{N} = \dfrac{P}{E_{ph}} = \dfrac{P\lambda}{hc}$
+
+\desc{Photon rate from source of power $P$}
+
+\eqlabel{Thermal $\lambda$} $\lambda_B = h/\sqrt{3mk_BT}$
+
+\desc{Thermal de Broglie wavelength; quantum regime when $\lambda_B \gtrsim$ interparticle spacing}
+
+\subsection{Schr\"odinger Equation}
+\eqlabel{Momentum op.}
+$\hat{p} = -i\hbar\dfrac{\partial}{\partial x}$
+
+\eqlabel{Expectation}
+$\langle A \rangle = \displaystyle\int \psi^* \hat{A}\,\psi\,dx$
+
+\desc{Mean value of observable $A$; $\hat{A}$ is the quantum operator}
+
+\eqlabel{Normalization}
+$\displaystyle\int_{-\infty}^{\infty}|\psi|^2\,dx = 1$
+
+\eqlabel{TDSE}
+$i\hbar\dfrac{\partial}{\partial t}|\psi\rangle = \hat{H}|\psi\rangle$
+
+\desc{Time-dependent Schr\"odinger equation}
+
+\eqlabel{Hamiltonian}
+$\hat{H} = -\dfrac{\hbar^2}{2m}\nabla^2 + V(\mathbf{r})$
+
+\desc{Total energy operator = kinetic + potential}
+
+\eqlabel{TISE}
+$\dfrac{d^2\psi}{dx^2} + \dfrac{2m_e}{\hbar^2}(E - V)\psi = 0$
+
+\desc{Time-independent form; solve for stationary states}
+
+\subsection{Infinite Potential Well}
+\desc{Particle confined to $0 < x < a$, $V = \infty$ outside}
+\[\psi_n(x) = \sqrt{\frac{2}{a}}\sin\!\left(\frac{n\pi x}{a}\right)\]
+\[E_n = \frac{n^2\pi^2\hbar^2}{2m_ea^2} = \frac{n^2 h^2}{8m_ea^2}\]
+\desc{$a$ = well width, $n = 1,2,3,\ldots$ (quantum number)}
+\[|\psi_n|^2 = \frac{2}{a}\sin^2\!\left(\frac{n\pi x}{a}\right)\]
+\desc{Probability density; peaks at antinodes}
+\[\Delta E_n = E_{n+1} - E_n = \frac{(2n+1)h^2}{8m_ea^2}\]
+
+\eqlabel{3D box}
+$E_{n_1n_2n_3} = \dfrac{h^2}{8m_e}\!\left(\dfrac{n_1^2}{a^2}+\dfrac{n_2^2}{b^2}+\dfrac{n_3^2}{c^2}\right)$
+
+\desc{$a,b,c$ = box dimensions; degeneracy when $a=b=c$}
+
+\subsection{Finite Potential Well}
+$k^2 = \dfrac{2m_eE}{\hbar^2},\quad \alpha^2 = \dfrac{2m_e(V_0-E)}{\hbar^2}$
+
+\desc{$k$ = wavevector inside well, $\alpha$ = decay constant outside}
+
+\eqlabel{Even} $\alpha = k\tan\!\left(\dfrac{ka}{2}\right)$
+
+\eqlabel{Odd} $\alpha = -k\cot\!\left(\dfrac{ka}{2}\right)$
+
+\desc{Transcendental equations; solve graphically for bound state energies}
+
+\eqlabel{Penetration} $\delta = \dfrac{1}{\alpha} = \dfrac{\hbar}{\sqrt{2m_e(V_0 - E)}}$
+
+\desc{Depth of wavefunction tail into classically forbidden region}
+
+\eqlabel{Bound states} $N \leq \left\lfloor \tfrac{1}{2} + \tfrac{a}{\pi}\sqrt{\tfrac{2m_eV_0}{\hbar^2}}\right\rfloor$
+
+\subsection{Quantum Tunneling}
+\[T = \frac{1}{1 + D\,\sinh^2(\alpha a)}\]
+\[D = \frac{V_0^2}{4E(V_0-E)},\quad \alpha = \frac{\sqrt{2m_e(V_0-E)}}{\hbar}\]
+\desc{$T$ = transmission probability through barrier of height $V_0$, width $a$}
+
+\eqlabel{Thick barrier} $T \approx T_0\,e^{-2\alpha a},\; T_0 = \dfrac{16E(V_0-E)}{V_0^2}$
+
+\desc{Valid when $\alpha a \gg 1$ (opaque barrier)}
+
+\eqlabel{STM current} $I \propto V_b\,e^{-2\alpha d},\; \alpha = \dfrac{\sqrt{2m_e\phi}}{\hbar}$
+
+\desc{Scanning tunneling microscope; $d$ = tip--sample gap, $\phi$ = avg.\ work function}
+
+\subsection{Uncertainty Principle}
+\[\Delta x\cdot\Delta p \geq \frac{\hbar}{2},\qquad \Delta E\cdot\Delta t \geq \frac{\hbar}{2}\]
+\desc{Fundamental limits on simultaneous measurement precision}
+
+\subsection{Hydrogen Atom}
+\[V(r) = \frac{-Ze^2}{4\pi\varepsilon_0 r}\]
+\desc{Coulomb potential; $Z$ = atomic number (1 for H)}
+\[E_n = \frac{-13.6\text{ eV}}{n^2}\]
+\desc{$n$ = principal quantum number; ground state $n=1$}
+\[L = \hbar\sqrt{\ell(\ell+1)},\quad L_z = m_\ell\hbar\]
+\desc{Orbital angular momentum; $\ell = 0\ldots n-1$}
+\[S = \hbar\sqrt{s(s+1)} = \frac{\sqrt{3}}{2}\hbar,\quad S_z = m_s\hbar\]
+\desc{Spin; $s = 1/2$ for electrons, $m_s = \pm 1/2$}
+
+Quantum numbers: $n=1,2,\ldots;\; \ell=0\ldots n\!-\!1;\; m_\ell=-\ell\ldots+\ell;\; m_s=\pm\tfrac{1}{2}$
+
+Degeneracy: $n^2$ orbitals, $2n^2$ states per shell
+
+\eqlabel{Selection rules} $\Delta\ell=\pm1,\;\Delta m_\ell=0,\pm1$
+
+\desc{Allowed electric dipole transitions}
+
+\eqlabel{Virial} $\langle T \rangle = -E,\quad \langle V \rangle = 2E$
+
+\desc{Avg.\ kinetic and potential energy from total $E$}
+
+\eqlabel{Ionization} $I = -E_n = 13.6/n^2$ eV
+
+\eqlabel{Bohr radius} $a_0 = \dfrac{4\pi\varepsilon_0\hbar^2}{m_e e^2} = 0.0529$ nm
+
+% ============================================================
+% SOLIDS (Lessons 3--4)
+% ============================================================
+
+\subsection{Interatomic Bonding}
+\[E(r) = -\frac{A}{r} + \frac{B}{r^m}\]
+\desc{Pair potential: attractive ($-A/r$) + repulsive ($B/r^m$, $m \approx 6$--$12$)}
+
+\eqlabel{Ionic} $A = \dfrac{Me^2}{4\pi\varepsilon_0}$
+
+\desc{$M$ = Madelung constant (depends on crystal geometry)}
+
+\[E_{\text{lattice}}(r) = -\frac{Me^2}{4\pi\varepsilon_0\,r} + \frac{B}{r^m}\]
+\[E_{\text{bond}} = \frac{A}{r_0}\left(1 - \frac{1}{m}\right)\]
+\desc{Cohesive energy at equilibrium separation $r_0$}
+
+\eqlabel{Equilibrium} $\left.\dfrac{dE}{dr}\right|_{r_0}=0$
+
+$r_0 = \left(\dfrac{mB\cdot 4\pi\varepsilon_0}{e^2 M}\right)^{1/(m-1)}$
+
+\subsection{Crystal Structures}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l c c c l@{}}
+\toprule
+& \small atoms & \small CN & \small APF & \small $r(a)$ \\
+\midrule
+SC & 1 & 6 & 0.52 & $a/2$ \\
+BCC & 2 & 8 & 0.68 & $a\sqrt{3}/4$ \\
+FCC & 4 & 12 & 0.74 & $a\sqrt{2}/4$ \\
+DC & 8 & 4 & 0.34 & $a\sqrt{3}/8$ \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\desc{CN = coordination number, APF = atomic packing fraction}
+
+\smallskip
+\eqlabel{Density} $\rho = \dfrac{n_c\,M_a}{N_A\,a^3}$
+
+\desc{$n_c$ = atoms/cell, $M_a$ = molar mass, $a$ = lattice constant}
+
+\eqlabel{NaCl} $M = 1.748$\quad \eqlabel{CsCl} $M = 1.763$
+
+\eqlabel{Surface} $\sigma_{100} = \dfrac{2}{a^2}$, \; $\sigma_{110} = \dfrac{2\sqrt{2}}{a^2}$, \; $\sigma_{111} = \dfrac{4}{\sqrt{3}\,a^2}$
+
+\desc{Planar atomic density for diamond cubic (Si) [atoms/area]}
+
+\subsection{X-ray Diffraction}
+\[d_{hkl} = \frac{a}{\sqrt{h^2+k^2+l^2}}\]
+\desc{Interplanar spacing for cubic crystals}
+\[2d\sin\theta = n\lambda \quad\text{(Bragg's law)}\]
+\desc{$\theta$ = diffraction angle, $n$ = order, $\lambda$ = X-ray wavelength}
+
+Systematic absences:
+
+BCC: $h\!+\!k\!+\!l$ = even \quad FCC: $h,k,l$ all odd or all even
+
+\subsection{Crystal Defects}
+\[n_v = N\exp\!\left(-\frac{E_v}{k_BT}\right)\]
+\desc{$n_v$ = vacancy concentration, $E_v$ = vacancy formation energy}
+
+\subsection{Stoichiometry}
+$w_A = \dfrac{x\,M_A}{x\,M_A + y\,M_B}$, \quad $x_i = \dfrac{n_i}{\sum_j n_j}$
+
+\desc{$w_A$ = weight fraction, $x_i$ = mole fraction}
+
+\subsection{Band Theory}
+\[E_g = E_c - E_v\]
+\desc{$E_g$ = band gap; $E_c$ = conduction band edge; $E_v$ = valence band edge}
+
+\eqlabel{Photoemission}
+Metal: $hf > \Phi$, \; $KE = hf - \Phi$
+
+Semiconductor: $hf > E_g + \chi$
+
+\desc{$\chi$ = electron affinity ($E_{\text{vac}} - E_c$); $\Phi$ = work function ($E_{\text{vac}} - E_F$)}
+
+\subsection{E--k Dispersion \& Effective Mass}
+\[E = \frac{\hbar^2 k^2}{2m_e^*}\]
+\desc{Parabolic approximation near band extrema}
+\[\frac{1}{m_e^*} = \frac{1}{\hbar^2}\frac{d^2E}{dk^2}\]
+\desc{Effective mass from curvature of $E$-$k$ band}
+
+\subsection{Density of States}
+\[g(E) = 8\pi\sqrt{2}\left(\frac{m_e}{h^2}\right)^{3/2}E^{1/2}\]
+\desc{States per unit energy per unit volume (3D free electron)}
+\[S_v(E') = \frac{\pi(8m_eE')^{3/2}}{3h^3}\]
+\desc{Cumulative states up to energy $E'$}
+
+\subsection{Fermi--Dirac Statistics}
+\[f(E) = \frac{1}{1+\exp\!\left(\dfrac{E-E_F}{k_BT}\right)}\]
+\desc{Probability that state at energy $E$ is occupied; $E_F$ = Fermi energy}
+
+\eqlabel{Boltzmann approx.} $f \approx e^{-(E-E_F)/(k_BT)}$ for $E-E_F \gg k_BT$
+
+\eqlabel{Boltzmann ratio} $\dfrac{N_2}{N_1} = \exp\!\left(-\dfrac{E_2-E_1}{k_BT}\right)$
+
+\[E_{F0} = \frac{h^2}{8m_e}\left(\frac{3n}{\pi}\right)^{2/3}\]
+\desc{Fermi energy at $T=0$; $n$ = free electron concentration}
+\[E_F(T) = E_{F0}\!\left[1 - \frac{\pi^2}{12}\!\left(\frac{k_BT}{E_{F0}}\right)^{\!2}\right]\]
+\[\bar{E} = \frac{3}{5}E_{F0}\]
+\desc{Average electron energy at $T = 0$}
+\[\langle E \rangle(T) = \tfrac{3}{5}E_{F0}\!\left[1 + \tfrac{5\pi^2}{12}\!\left(\tfrac{k_BT}{E_{F0}}\right)^{\!2}\right]\]
+\desc{Temperature-corrected average energy}
+
+\eqlabel{Fermi vel.} $v_F = \sqrt{2E_F/m_e}$
+
+\eqlabel{Thermal vel.} $v_{\text{rms}} = \sqrt{3k_BT/m_e}$
+
+\eqlabel{Inverse} $n = \dfrac{\pi}{3}\!\left(\dfrac{8m_eE_{F0}}{h^2}\right)^{3/2}$
+
+\desc{Electron concentration from Fermi energy (inverted $E_{F0}$ formula)}
+
+\eqlabel{2D DOS} $g_{2D} = \dfrac{4\pi m_e}{h^2}$ \desc{(energy-independent, per unit area)}
+
+% ============================================================
+% CONDUCTION \& OPTICS (Lesson 5)
+% ============================================================
+
+\subsection{Drude Model \& Conduction}
+\[v_F = \sqrt{\frac{2E_F}{m_e}},\qquad l = v_F\tau\]
+\desc{$v_F$ = Fermi velocity, $l$ = mean free path, $\tau$ = mean free time}
+\[v_{dx} = \frac{eE_x}{m_e}\tau = \mu E_x\]
+\desc{$v_{dx}$ = drift velocity in applied field $E_x$}
+\[\mu = \frac{e\tau}{m_e}\]
+\desc{$\mu$ = electron mobility [m$^2$/(V\,s)]}
+\[J_x = en\,v_{dx} = \sigma E_x\]
+\desc{$J_x$ = current density [A/m$^2$]}
+\[\sigma = \frac{ne^2\tau}{m_e} = ne\mu\]
+\desc{$\sigma$ = electrical conductivity [S/m]}
+\[R = \frac{\rho\,L}{A},\qquad \rho = \frac{1}{\sigma}\]
+\desc{$R$ = resistance, $\rho$ = resistivity, $L$ = length, $A$ = cross-section}
+
+\eqlabel{Band model} $\sigma = \tfrac{1}{3}e^2v_F^2\tau\,g(E_F)$
+
+\desc{Quantum conductivity from Fermi surface scattering}
+
+\eqlabel{Electron conc.} $n = \dfrac{Z\cdot d\cdot N_A}{M_{at}}$
+
+\desc{$Z$ = valence electrons, $d$ = mass density, $M_{at}$ = atomic mass}
+
+\eqlabel{Mean free time} $\tau = \dfrac{m_e}{ne^2\rho}$
+
+\desc{Extract $\tau$ from measured resistivity}
+
+\subsection{Resistivity Temperature Dependence}
+\[\rho(T) \approx \rho_0[1 + \alpha_0(T - T_0)]\]
+\desc{Linear approximation; $\alpha_0$ = temperature coefficient of resistivity}
+
+\eqlabel{Matthiessen} $\rho = \rho_T + \rho_I$
+
+\desc{Total = thermal scattering + impurity scattering (additive)}
+
+\subsection{Thermoelectrics}
+\[S = \frac{dV}{dT} \quad\text{(Seebeck coeff.)}\]
+\desc{Voltage generated per unit temperature difference [V/K]}
+\[V_{AB} = \int_{T_0}^{T}(S_A - S_B)\,dT\]
+\desc{Thermocouple voltage between materials $A$ and $B$}
+
+\eqlabel{Contact potential} $\Delta V = \dfrac{\Phi_1 - \Phi_2}{e}$
+
+\desc{Built-in voltage from work function difference at junction}
+
+\subsection{Maxwell's Equations}
+\begin{align*}
+\nabla\cdot\vec{D} &= \rho_{\text{free}} & \nabla\cdot\vec{B} &= 0 \\
+\nabla\times\vec{E} &= -\frac{\partial\vec{B}}{\partial t} & \nabla\times\vec{H} &= \vec{J} + \frac{\partial\vec{D}}{\partial t}
+\end{align*}
+
+\subsection{EM Waves \& Optics}
+\[\nabla^2\mathbf{E} - \frac{1}{c^2}\frac{\partial^2\mathbf{E}}{\partial t^2} = 0\]
+\desc{Wave equation in a linear medium}
+\[c_0 = \frac{1}{\sqrt{\varepsilon_0\mu_0}},\quad n = \sqrt{\varepsilon_r},\quad c = \frac{c_0}{n}\]
+\desc{$n$ = refractive index, $\varepsilon_r$ = relative permittivity}
+
+\eqlabel{Intensity} $I = \tfrac{1}{2}c\varepsilon_0 E_0^2$
+
+\desc{Time-averaged power per unit area for plane wave}
+
+\eqlabel{Sellmeier} $n^2(\lambda) = 1 + \displaystyle\sum_i\frac{B_i\lambda^2}{\lambda^2 - C_i}$
+
+\desc{Empirical dispersion; $B_i$, $C_i$ = material coefficients}
+
+\[v_g = \frac{c}{N_g},\quad N_g = n - \lambda\frac{dn}{d\lambda}\]
+\desc{$v_g$ = group velocity, $N_g$ = group index}
+
+\eqlabel{Plane wave} $E(z,t) = E_0\cos(kz - \omega t + \phi_0)$
+
+$k = \dfrac{2\pi}{\lambda},\quad \omega = 2\pi f,\quad v = f\lambda = \dfrac{\omega}{k}$
+
+\subsection{Snell's Law \& Fresnel}
+\[n_1\sin\theta_i = n_2\sin\theta_t\]
+\desc{$\theta_i$ = angle of incidence, $\theta_t$ = angle of transmission}
+\[R_s = \left(\frac{n_1\cos\theta_i - n_2\cos\theta_t}{n_1\cos\theta_i + n_2\cos\theta_t}\right)^{\!2}\]
+\desc{$s$-polarized reflectance ($\perp$ to plane of incidence)}
+\[R_p = \left(\frac{n_2\cos\theta_i - n_1\cos\theta_t}{n_2\cos\theta_i + n_1\cos\theta_t}\right)^{\!2}\]
+\desc{$p$-polarized reflectance ($\parallel$ to plane of incidence)}
+
+\eqlabel{Normal inc.} $R = \left(\dfrac{n_1-n_2}{n_1+n_2}\right)^{\!2}$
+
+\[\tan\theta_B = \frac{n_2}{n_1} \quad\text{(Brewster)}\]
+\desc{Angle where $R_p = 0$; reflected light is purely $s$-polarized}
+\[\theta_c = \arcsin\!\left(\frac{n_2}{n_1}\right) \quad\text{(Critical)}\]
+\desc{Total internal reflection for $\theta_i > \theta_c$ (requires $n_1 > n_2$)}
+
+\eqlabel{Fiber NA} $\text{NA} = \sin\theta_{\text{in,max}} = \sqrt{n_1^2 - n_2^2}$
+
+\desc{Numerical aperture; max acceptance angle for waveguide}
+
+\subsection{Absorption \& Attenuation}
+\[I(z) = I_0\,e^{-\alpha z}\]
+\desc{Beer--Lambert law; $\alpha$ = absorption coefficient [Np/m]}
+\[\alpha = \frac{\pi\varepsilon_r''}{\lambda\sqrt{\varepsilon_r'}}\]
+\[\frac{P_{\text{out}}}{P_{\text{in}}} = e^{-2\alpha z}\]
+\desc{Power attenuation uses $2\alpha$ (intensity $\propto E^2$)}
+
+\subsection{Complex Refractive Index}
+$N = n + j\kappa$
+
+\desc{$n$ = refractive index, $\kappa$ = extinction coefficient}
+
+\eqlabel{Absorption} $\alpha = \dfrac{2\omega\kappa}{c} = \dfrac{4\pi\kappa}{\lambda}$
+
+% ============================================================
+% DIELECTRICS (Lesson 6)
+% ============================================================
+
+\subsection{Electric Polarization}
+\[\mathbf{D} = \varepsilon_0\mathbf{E} + \mathbf{P} = \varepsilon_r\varepsilon_0\mathbf{E}\]
+\desc{$\mathbf{D}$ = displacement field, $\mathbf{P}$ = polarization}
+\[\mathbf{P} = \chi_e\varepsilon_0\mathbf{E},\qquad \varepsilon_r = 1 + \chi_e\]
+\desc{$\chi_e$ = electric susceptibility}
+$\mathbf{P} = N\cdot\mathbf{p}_{\text{avg}}$, \quad $\mathbf{p} = \alpha_e\,\mathbf{E}_{\text{loc}}$
+
+\desc{$N$ = number density, $\alpha_e$ = polarizability}
+\[E_{\text{loc}} = E + \frac{P}{3\varepsilon_0}\]
+\desc{Lorentz local field at atomic site $\neq$ applied field}
+
+\subsection{Clausius--Mossotti}
+\[\frac{\varepsilon_r - 1}{\varepsilon_r + 2} = \frac{N\alpha_e}{3\varepsilon_0}\]
+\desc{Links macroscopic $\varepsilon_r$ to microscopic polarizability $\alpha_e$}
+
+Rearranged: $\alpha_{\text{total}} = \dfrac{3\varepsilon_0(\varepsilon_r - 1)}{N(\varepsilon_r + 2)}$
+
+\subsection{Polarizability Mechanisms}
+\[\alpha_{\text{total}} = \alpha_e + \alpha_i + \alpha_d\]
+\desc{Electronic + ionic + orientational (dipolar)}
+\[\alpha_e = 4\pi\varepsilon_0 R^3 \quad\text{(electronic)}\]
+\desc{$R$ = atomic/ionic radius; dominates at all frequencies}
+\[\alpha_d = \frac{p^2}{3k_BT} \quad\text{(orientational)}\]
+\desc{$p$ = permanent dipole moment; active only at low $\omega$}
+
+\eqlabel{Langevin} $L(x) = \coth(x) - \dfrac{1}{x},\; x = \dfrac{pE}{kT}$
+
+\desc{Exact orientational polarization; $\alpha_d$ is the weak-field limit}
+
+\subsection{Optical Permittivity}
+$\alpha_{\text{opt}} = \alpha_e(\text{cation}) + \alpha_e(\text{anion})$
+
+$\dfrac{\varepsilon_{rop}-1}{\varepsilon_{rop}+2} = \dfrac{N\alpha_{\text{opt}}}{3\varepsilon_0}$
+
+\desc{At optical frequencies only electronic polarizability contributes}
+
+\subsection{Debye Relaxation}
+\[\varepsilon_r(\omega) = \varepsilon_{r\infty} + \frac{\varepsilon_{rs}-\varepsilon_{r\infty}}{1+j\omega\tau}\]
+\desc{$\varepsilon_{rs}$ = static (DC), $\varepsilon_{r\infty}$ = high-freq., $\tau$ = relaxation time}
+\[\varepsilon_r' = \varepsilon_{r\infty} + \frac{\varepsilon_{rs}-\varepsilon_{r\infty}}{1+\omega^2\tau^2}, \quad \varepsilon_r'' = \frac{(\varepsilon_{rs}-\varepsilon_{r\infty})\omega\tau}{1+\omega^2\tau^2}\]
+\desc{$\varepsilon_r'$ = storage (real), $\varepsilon_r''$ = loss (imaginary)}
+\[\tan\delta = \frac{\varepsilon_r''}{\varepsilon_r'}\]
+\desc{Loss tangent; ratio of energy dissipated to stored per cycle}
+
+\desc{Peak of $\varepsilon_r''$ at $\omega\tau = 1$: \; $\varepsilon_{r,\text{peak}}'' = (\varepsilon_{rs}-\varepsilon_{r\infty})/2$}
+
+\eqlabel{Complex $\varepsilon$} $\varepsilon_r(\omega) = \varepsilon_r'(\omega) - j\varepsilon_r''(\omega)$
+
+\eqlabel{Complex $k$} $\tilde{k} = \dfrac{\omega}{c}\sqrt{\varepsilon_r} = k' + ik''$
+
+\subsection{Wave in Lossy Medium}
+\[E(z) = E_0\,e^{-k''z}\,e^{i(k'z-\omega t)}\]
+\desc{$k''$ attenuates amplitude; $k'$ determines phase velocity}
+
+\subsection{Gauss's Law for D}
+$\nabla\cdot\mathbf{D} = \rho_{\text{free}}$, \quad $\displaystyle\oint\mathbf{D}\cdot d\mathbf{A} = Q_{\text{free,enclosed}}$
+
+\eqlabel{Boundary} $D_{n1} - D_{n2} = \sigma_f$
+
+\desc{$\sigma_f$ = free surface charge density at interface}
+
+\subsection{Capacitors \& Energy}
+\[C = \frac{\varepsilon_r\varepsilon_0 A}{d}\]
+\desc{$A$ = plate area, $d$ = plate separation}
+\[u = \frac{1}{2}\varepsilon_r\varepsilon_0 E^2 = \frac{1}{2}\mathbf{D}\cdot\mathbf{E}\]
+\desc{Energy density [J/m$^3$]; total $U = \tfrac{1}{2}CV^2$}
+
+\eqlabel{Parallel} $C_{\text{tot}} = C_1 + C_2 + \cdots$
+\quad
+\eqlabel{Series} $1/C_{\text{tot}} = 1/C_1 + 1/C_2 + \cdots$
+
+\eqlabel{Multilayer} $C = \dfrac{\varepsilon_0 A}{d_1/\varepsilon_{r1} + d_2/\varepsilon_{r2}}$
+
+\desc{Two dielectric layers in series}
+
+\subsection{Piezoelectricity}
+\[P = d\cdot T \;\text{(direct)},\quad S = d\cdot E \;\text{(converse)}\]
+\desc{$d$ = piezoelectric coefficient, $T$ = stress, $S$ = strain}
+\[f = \frac{v}{2L} \quad\text{(resonance)},\quad Q = \frac{f_{\text{res}}}{\Delta f}\]
+\desc{$v$ = acoustic velocity in crystal, $L$ = thickness, $Q$ = quality factor}
+
+\subsection{Standing Waves \& Interference}
+\[E = 2E_0\cos(kz)\cos(\omega t)\]
+\desc{Superposition of counter-propagating waves; antinode spacing $\lambda/2$}
+
+\eqlabel{Double slit} $\Delta = d\sin\theta$
+
+\desc{Path difference; constructive $\Delta = n\lambda$, destructive $\Delta = (n+\tfrac{1}{2})\lambda$}
+
+\subsection{Superposition (Infinite Well)}
+\[\Psi(x,t) = c_1\varphi_1 e^{-iE_1t/\hbar} + c_2\varphi_2 e^{-iE_2t/\hbar}\]
+\[|\Psi|^2 = c_1^2\varphi_1^2 + c_2^2\varphi_2^2 + 2c_1c_2\varphi_1\varphi_2\cos\!\left(\frac{(E_2-E_1)t}{\hbar}\right)\]
+\desc{Oscillation frequency: $\omega_{21} = (E_2 - E_1)/\hbar$}
+
+\subsection{Material Properties}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l c c@{}}
+\toprule
+Material & $a$ (nm) & $E_g$ (eV) \\
+\midrule
+Si & 0.543 & 1.12 \\
+Ge & 0.566 & 0.66 \\
+GaAs & 0.565 & 1.42 \\
+Diamond & 0.357 & 5.5 \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\smallskip
+Si: $n_{\text{Si}} = 4.99\times10^{22}$ cm$^{-3}$, $\rho = 2.33$ g/cm$^3$
+
+$n_{\text{Si}}$(refractive) $= 3.48$, \; $n_{\text{SiO}_2} = 1.44$
+
+\subsection{Spectroscopic Notation}
+$\ell = 0,1,2,3 \to s,p,d,f$
+
+Shell capacity: $2(2\ell+1)$ electrons per subshell
+
+\subsection{Useful Identities \& Conversions}
+$1\text{ eV} = 1.602\times10^{-19}$ J, \; $1\text{ nm} = 10^{-9}$ m, \; $1\text{ \AA} = 0.1\text{ nm}$
+
+$E = hc/\lambda$: at $\lambda = 1240\text{ nm}$, $E = 1\text{ eV}$
+
+\eqlabel{Euler} $e^{i\theta} = \cos\theta + i\sin\theta$
+
+$\sinh(x) = (e^x - e^{-x})/2$, \; $\cosh(x) = (e^x + e^{-x})/2$
+
+\eqlabel{Stopping} $eV_{\text{stop}} = KE_{\max} = hf - \Phi$
+
+$\hbar c = 197.3$ eV\,nm, \; $m_ec^2 = 0.511$ MeV
+
+\eqlabel{Dispersion} $E = \hbar\omega$, $p = \hbar k$
+
+\eqlabel{Free electron} $\psi = Ae^{jkx}$, $k = \sqrt{2m_eE}/\hbar$
+
+$R + T = 1$ (reflection + transmission = 1)
+
+$N = n_c/a^3$ (number density from unit cell)
+
+\end{multicols}
+\end{document}

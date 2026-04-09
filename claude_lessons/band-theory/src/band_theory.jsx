@@ -3304,6 +3304,7 @@ export default function LessonApp() {
           )}
         </div>
       )}
+      <div style={{ textAlign: "center", padding: "16px 24px", marginTop: 24, borderTop: "1px solid var(--border)", fontSize: 12, color: "var(--text-dim)", fontFamily: "'IBM Plex Mono', monospace" }}>&copy; 2026 Ihsan S. All rights reserved.</div>
     </div>
   );
 }

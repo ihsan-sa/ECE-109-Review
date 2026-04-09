@@ -1104,6 +1104,9 @@ const TOPICS = [
     subtitle: "Direct and converse effects, quartz oscillators, applications",
     content: (gp) => (
       <div className="lesson-body">
+        <div style={{background:'rgba(200,164,90,0.12)',border:'1px solid #c8a45a',borderRadius:8,padding:'12px 18px',marginBottom:20,color:'#c8a45a',fontStyle:'italic',fontSize:'0.97em'}}>
+          This section is <b>not on the exam</b> and is included for anecdotal interest only.
+        </div>
         <Section title="The Piezoelectric Effect">
           <P><b>Piezoelectricity</b> is the ability of certain crystalline materials to develop an electric polarization (and hence a voltage) when subjected to mechanical stress, and conversely, to deform mechanically when an electric field is applied.</P>
           <div className="compare-grid">
@@ -3288,6 +3291,7 @@ export default function LessonApp() {
           )}
         </div>
       )}
+      <div style={{ textAlign: "center", padding: "16px 24px", marginTop: 24, borderTop: "1px solid var(--border)", fontSize: 12, color: "var(--text-dim)", fontFamily: "'IBM Plex Mono', monospace" }}>&copy; 2026 Ihsan S. All rights reserved.</div>
     </div>
   );
 }
