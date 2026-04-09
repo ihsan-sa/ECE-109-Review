@@ -1,0 +1,680 @@
+\documentclass[9pt]{extarticle}
+\usepackage[letterpaper,margin=0.45in]{geometry}
+\usepackage{multicol}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{array,booktabs}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+
+% --- Spacing ---
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+\setlength{\columnsep}{14pt}
+\setlength{\columnseprule}{0.2pt}
+\raggedcolumns
+
+% --- Section formatting ---
+\definecolor{gold}{HTML}{B8943E}
+\definecolor{desc}{HTML}{444444}
+\titleformat{\subsection}{\normalfont\bfseries\small\color{gold}}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{5pt}{2pt}
+
+% --- Header/Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\footnotesize\textcopyright{} 2026 Ihsan S. All rights reserved.}
+\fancyfoot[R]{\footnotesize ECE 109 Comprehensive Reference --- \thepage}
+
+% --- Compact list ---
+\setlist{nosep,leftmargin=*,topsep=0pt}
+
+% --- Shortcuts ---
+\newcommand{\eqlabel}[1]{\textbf{\scriptsize #1}\;}
+\newcommand{\desc}[1]{{\small\color{desc}#1}}
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries\color{gold} ECE 109: Comprehensive Equation Reference}\\[2pt]
+{\small Every Equation with Complete Variable Definitions (Lessons 1--6)}
+\end{center}
+\vspace{-4pt}
+
+\begin{multicols}{2}
+
+% ============================================================
+% QUANTUM MECHANICS (Lessons 1--2)
+% ============================================================
+
+\subsection{Physical Constants}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}l@{\;\;}l@{}}
+$h$ & $6.626\times10^{-34}$ J\,s \\
+$\hbar = h/2\pi$ & $1.055\times10^{-34}$ J\,s \\
+$hc$ & $1240$ eV\,nm \\
+$m_e$ & $9.109\times10^{-31}$ kg \\
+$e$ & $1.602\times10^{-19}$ C \\
+$k_B$ & $1.381\times10^{-23}$ J/K = $8.617\times10^{-5}$ eV/K \\
+$\varepsilon_0$ & $8.854\times10^{-12}$ F/m \\
+$\mu_0$ & $4\pi\times10^{-7}$ N/A$^2$ \\
+$c_0$ & $3.0\times10^{8}$ m/s \\
+$N_A$ & $6.022\times10^{23}$ mol$^{-1}$ \\
+$a_0$ & $0.0529$ nm (Bohr radius) \\
+$e^2/(4\pi\varepsilon_0)$ & $1.44$ eV\,nm (Coulomb shortcut) \\
+$k_BT|_{300\text{K}}$ & $0.02585$ eV \\
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\desc{$h$ = Planck's constant; $\hbar$ = reduced Planck's constant (``h-bar''); $m_e$ = electron rest mass; $e$ = elementary charge (magnitude of electron charge); $k_B$ = Boltzmann constant; $\varepsilon_0$ = permittivity of free space; $\mu_0$ = permeability of free space; $c_0$ = speed of light in vacuum; $N_A$ = Avogadro's number (atoms per mole); $a_0$ = Bohr radius (most probable electron--nucleus distance in hydrogen ground state). Constants are referenced by symbol throughout this document.}
+
+\subsection{Wave--Particle Duality}
+\[E = hf = \hbar\omega\]
+\desc{Planck--Einstein relation: energy of a single photon. $E$ = photon energy [J or eV]; $h$ = Planck's constant; $f$ = frequency of the electromagnetic radiation [Hz]; $\hbar = h/(2\pi)$; $\omega = 2\pi f$ = angular frequency [rad/s].}
+
+\[p = \frac{h}{\lambda} = \frac{hf}{c}\]
+\desc{Photon momentum. $p$ = momentum of the photon [kg\,m/s]; $\lambda$ = wavelength of the radiation [m]; $c$ = speed of light in the medium [m/s].}
+
+\[\text{Photoelectric: } KE_{\max} = hf - \Phi\]
+\desc{Photoelectric effect: maximum kinetic energy of electrons ejected from a surface by incident light. $KE_{\max}$ = maximum kinetic energy of emitted photoelectrons [J or eV]; $hf$ = energy of the incident photon; $\Phi$ = work function of the material, the minimum energy required to extract an electron from the surface [eV]. No emission occurs if $hf < \Phi$.}
+
+\[\lambda = \frac{h}{p} = \frac{h}{\sqrt{2m_e\,eV}}\]
+\desc{de Broglie wavelength: every particle with momentum $p$ has an associated wavelength. $\lambda$ = de Broglie wavelength [m]; $p$ = particle momentum [kg\,m/s]; $m_e$ = electron mass; $e$ = elementary charge [C]; $V$ = accelerating potential difference the electron has been accelerated through [V]. The second form applies to an electron accelerated from rest through potential $V$, using $KE = eV = p^2/(2m_e)$.}
+
+\eqlabel{Wien} $\lambda_{\max}T = 2.898\times10^{-3}$ m\,K
+
+\desc{Wien's displacement law: relates the peak emission wavelength of a blackbody to its temperature. $\lambda_{\max}$ = wavelength at which spectral radiance is maximum [m]; $T$ = absolute temperature of the blackbody [K]. Hotter objects emit at shorter wavelengths.}
+
+\eqlabel{Photon flux} $\dot{N} = \dfrac{P}{E_{ph}} = \dfrac{P\lambda}{hc}$
+
+\desc{Rate of photon emission from a monochromatic source. $\dot{N}$ = number of photons emitted per second [photons/s]; $P$ = total radiated power of the source [W]; $E_{ph} = hf = hc/\lambda$ = energy of a single photon [J]; $\lambda$ = wavelength [m].}
+
+\eqlabel{Thermal $\lambda$} $\lambda_B = h/\sqrt{3mk_BT}$
+
+\desc{Thermal de Broglie wavelength. $\lambda_B$ = de Broglie wavelength of a particle at thermal equilibrium [m]; $m$ = particle mass [kg]; $k_B$ = Boltzmann constant; $T$ = absolute temperature [K]. Quantum effects become important when $\lambda_B$ approaches the average interparticle spacing.}
+
+\subsection{Schr\"odinger Equation}
+\eqlabel{Momentum op.}
+$\hat{p} = -i\hbar\dfrac{\partial}{\partial x}$
+
+\desc{Quantum mechanical momentum operator (1D). $\hat{p}$ = momentum operator; $i = \sqrt{-1}$ = imaginary unit; $\hbar$ = reduced Planck's constant; $\partial/\partial x$ = partial derivative with respect to position $x$ [m]. Applied to $\psi(x)$ to extract momentum information.}
+
+\eqlabel{Expectation}
+$\langle A \rangle = \displaystyle\int \psi^* \hat{A}\,\psi\,dx$
+
+\desc{Expectation value of an observable. $\langle A \rangle$ = average value of observable $A$ over many measurements; $\psi^*$ = complex conjugate of the wavefunction $\psi$; $\hat{A}$ = quantum operator corresponding to observable $A$ (e.g., $\hat{p}$ for momentum, $\hat{H}$ for energy); $\psi$ = wavefunction of the particle; $dx$ = integration over all space.}
+
+\eqlabel{Normalization}
+$\displaystyle\int_{-\infty}^{\infty}|\psi|^2\,dx = 1$
+
+\desc{Born interpretation: the particle must be found somewhere. $|\psi(x)|^2$ = probability density, the probability of finding the particle per unit length at position $x$ [m$^{-1}$]; the integral of this over all space equals 1.}
+
+\eqlabel{TDSE}
+$i\hbar\dfrac{\partial}{\partial t}|\psi\rangle = \hat{H}|\psi\rangle$
+
+\desc{Time-dependent Schr\"odinger equation: governs how a quantum state evolves in time. $i$ = imaginary unit; $\hbar$ = reduced Planck's constant; $\partial/\partial t$ = partial time derivative; $|\psi\rangle$ = quantum state (wavefunction); $\hat{H}$ = Hamiltonian operator (total energy operator).}
+
+\eqlabel{Hamiltonian}
+$\hat{H} = -\dfrac{\hbar^2}{2m}\nabla^2 + V(\mathbf{r})$
+
+\desc{Hamiltonian: total energy operator = kinetic + potential. $\hat{H}$ = Hamiltonian operator; $\hbar$ = reduced Planck's constant; $m$ = particle mass [kg]; $\nabla^2 = \partial^2/\partial x^2 + \partial^2/\partial y^2 + \partial^2/\partial z^2$ = Laplacian operator (3D second spatial derivative); $V(\mathbf{r})$ = potential energy as a function of position [J].}
+
+\eqlabel{TISE}
+$\dfrac{d^2\psi}{dx^2} + \dfrac{2m_e}{\hbar^2}(E - V)\psi = 0$
+
+\desc{Time-independent Schr\"odinger equation (1D). $\psi(x)$ = spatial part of the wavefunction (depends only on position); $x$ = position [m]; $m_e$ = electron mass; $\hbar$ = reduced Planck's constant; $E$ = total energy of the particle [J or eV]; $V = V(x)$ = potential energy at position $x$ [J or eV]. Solutions give the stationary (time-independent) states.}
+
+\subsection{Infinite Potential Well}
+\desc{Particle confined to $0 < x < a$ by infinitely high walls: $V = 0$ inside, $V = \infty$ outside.}
+\[\psi_n(x) = \sqrt{\frac{2}{a}}\sin\!\left(\frac{n\pi x}{a}\right)\]
+\desc{Normalized wavefunctions. $\psi_n(x)$ = wavefunction for the $n$th quantum state; $a$ = width of the well [m]; $n = 1, 2, 3, \ldots$ = quantum number (positive integer; $n = 1$ is the ground state); $x$ = position within the well [m]. The $\sqrt{2/a}$ prefactor ensures normalization.}
+
+\[E_n = \frac{n^2\pi^2\hbar^2}{2m_ea^2} = \frac{n^2 h^2}{8m_ea^2}\]
+\desc{Quantized energy levels. $E_n$ = energy of the $n$th state [J or eV]; $n$ = quantum number; $\hbar$ = reduced Planck's constant; $h$ = Planck's constant; $m_e$ = electron mass; $a$ = well width [m]. Both forms are equivalent. Energy scales as $n^2$ and as $1/a^2$.}
+
+\[|\psi_n|^2 = \frac{2}{a}\sin^2\!\left(\frac{n\pi x}{a}\right)\]
+\desc{Probability density for the $n$th state. $|\psi_n(x)|^2$ = probability per unit length of finding the particle at position $x$ [m$^{-1}$]. Maxima (antinodes) occur at positions where $\sin^2$ peaks; state $n$ has $n$ antinodes.}
+
+\[\Delta E_n = E_{n+1} - E_n = \frac{(2n+1)h^2}{8m_ea^2}\]
+\desc{Energy spacing between adjacent levels. $\Delta E_n$ = energy gap between states $n$ and $n+1$ [J or eV]. Spacing increases with $n$ and decreases with well width $a$.}
+
+\eqlabel{3D box}
+$E_{n_1n_2n_3} = \dfrac{h^2}{8m_e}\!\left(\dfrac{n_1^2}{a^2}+\dfrac{n_2^2}{b^2}+\dfrac{n_3^2}{c^2}\right)$
+
+\desc{Energy levels for a particle in a 3D rectangular box. $n_1, n_2, n_3 = 1, 2, 3, \ldots$ = independent quantum numbers for each spatial dimension; $a, b, c$ = box dimensions along $x, y, z$ respectively [m]. When $a = b = c$ (cubic box), different $(n_1, n_2, n_3)$ combinations can yield the same energy (degeneracy).}
+
+\subsection{Finite Potential Well}
+$k^2 = \dfrac{2m_eE}{\hbar^2},\quad \alpha^2 = \dfrac{2m_e(V_0-E)}{\hbar^2}$
+
+\desc{Wavevector and decay parameters. $k$ = wavevector inside the well where $E > 0$ [m$^{-1}$], determines the oscillatory behavior of $\psi$ inside; $\alpha$ = decay constant outside the well where $E < V_0$ [m$^{-1}$], determines how fast $\psi$ decays into the barrier; $m_e$ = electron mass; $E$ = particle's total energy [J or eV]; $V_0$ = depth of the potential well (barrier height) [J or eV]; $\hbar$ = reduced Planck's constant.}
+
+\eqlabel{Even} $\alpha = k\tan\!\left(\dfrac{ka}{2}\right)$
+
+\eqlabel{Odd} $\alpha = -k\cot\!\left(\dfrac{ka}{2}\right)$
+
+\desc{Transcendental equations for bound state energies. ``Even'' and ``Odd'' refer to the parity (symmetry) of the wavefunction about the well center. $\alpha$ = decay constant outside; $k$ = wavevector inside; $a$ = well width [m]. These equations have no closed-form solution; each graphical intersection of left and right sides gives one bound state energy.}
+
+\eqlabel{Penetration} $\delta = \dfrac{1}{\alpha} = \dfrac{\hbar}{\sqrt{2m_e(V_0 - E)}}$
+
+\desc{Penetration depth. $\delta$ = characteristic distance the wavefunction extends into the classically forbidden region outside the well [m]; $\alpha$ = decay constant [m$^{-1}$]; $V_0$ = barrier height [J or eV]; $E$ = particle energy [J or eV]. The probability density decays as $e^{-2x/\delta}$ outside the well.}
+
+\eqlabel{Bound states} $N \leq \left\lfloor \tfrac{1}{2} + \tfrac{a}{\pi}\sqrt{\tfrac{2m_eV_0}{\hbar^2}}\right\rfloor$
+
+\desc{Maximum number of bound states. $N$ = number of bound states the well can support; $\lfloor\cdot\rfloor$ = floor function (round down); $a$ = well width [m]; $m_e$ = electron mass; $V_0$ = well depth [J or eV]; $\hbar$ = reduced Planck's constant. A finite well always has at least one bound state ($N \geq 1$).}
+
+\subsection{Quantum Tunneling}
+\[T = \frac{1}{1 + D\,\sinh^2(\alpha a)}\]
+\[D = \frac{V_0^2}{4E(V_0-E)},\quad \alpha = \frac{\sqrt{2m_e(V_0-E)}}{\hbar}\]
+\desc{Exact transmission coefficient through a rectangular potential barrier. $T$ = transmission probability (dimensionless, $0 \leq T \leq 1$), the probability that a particle incident on the barrier passes through it; $D$ = dimensionless barrier shape parameter; $V_0$ = barrier height [J or eV]; $E$ = kinetic energy of the incident particle [J or eV], with $E < V_0$; $\alpha$ = decay constant inside the barrier [m$^{-1}$]; $a$ = barrier width (thickness) [m]; $m_e$ = electron mass; $\hbar$ = reduced Planck's constant; $\sinh(x) = (e^x - e^{-x})/2$ = hyperbolic sine.}
+
+\eqlabel{Thick barrier} $T \approx T_0\,e^{-2\alpha a},\; T_0 = \dfrac{16E(V_0-E)}{V_0^2}$
+
+\desc{Approximate transmission for an opaque barrier ($\alpha a \gg 1$). $T_0$ = pre-exponential factor (dimensionless); the exponential $e^{-2\alpha a}$ dominates, making $T$ extremely sensitive to barrier width $a$ and the energy deficit $V_0 - E$.}
+
+\eqlabel{STM current} $I \propto V_b\,e^{-2\alpha d},\; \alpha = \dfrac{\sqrt{2m_e\phi}}{\hbar}$
+
+\desc{Scanning tunneling microscope. $I$ = tunneling current between tip and sample [A]; $V_b$ = bias voltage applied across the junction [V]; $d$ = tip-to-sample gap distance [m]; $\phi$ = average work function of tip and sample [eV]; $\alpha$ = decay constant [m$^{-1}$]; $m_e$ = electron mass; $\hbar$ = reduced Planck's constant. Current is exponentially sensitive to $d$, enabling sub-angstrom height resolution.}
+
+\subsection{Uncertainty Principle}
+\[\Delta x\cdot\Delta p \geq \frac{\hbar}{2},\qquad \Delta E\cdot\Delta t \geq \frac{\hbar}{2}\]
+\desc{Heisenberg uncertainty relations: fundamental quantum limits on simultaneous knowledge of conjugate variables. $\Delta x$ = standard deviation (uncertainty) of position measurements [m]; $\Delta p$ = standard deviation of momentum measurements [kg\,m/s]; $\Delta E$ = uncertainty in energy [J or eV]; $\Delta t$ = uncertainty in time, or the duration over which the energy is measured [s]; $\hbar/2$ = minimum allowed product. These are intrinsic limits of nature, not limitations of measurement apparatus.}
+
+\subsection{Hydrogen Atom}
+\[V(r) = \frac{-Ze^2}{4\pi\varepsilon_0 r}\]
+\desc{Coulomb potential energy between the nucleus and electron. $V(r)$ = potential energy as a function of distance [J or eV]; $Z$ = atomic number (number of protons in the nucleus; $Z = 1$ for hydrogen); $e$ = elementary charge; $\varepsilon_0$ = permittivity of free space; $r$ = radial distance between electron and nucleus [m]. Negative sign indicates electrostatic attraction.}
+
+\[E_n = \frac{-13.6\text{ eV}}{n^2}\]
+\desc{Quantized energy levels of the hydrogen atom. $E_n$ = energy of the $n$th level [eV]; $n = 1, 2, 3, \ldots$ = principal quantum number. $n = 1$ is the ground state ($E_1 = -13.6$ eV); $n = \infty$ corresponds to ionization ($E = 0$). Negative energies indicate bound states.}
+
+\[L = \hbar\sqrt{\ell(\ell+1)},\quad L_z = m_\ell\hbar\]
+\desc{Orbital angular momentum. $L$ = magnitude of the electron's orbital angular momentum [J\,s or kg\,m$^2$/s]; $\ell = 0, 1, 2, \ldots, n-1$ = orbital (azimuthal) angular momentum quantum number; $L_z$ = component of angular momentum along the $z$-axis (the measurement axis); $m_\ell = -\ell, -\ell+1, \ldots, 0, \ldots, +\ell$ = magnetic quantum number ($2\ell + 1$ values).}
+
+\[S = \hbar\sqrt{s(s+1)} = \frac{\sqrt{3}}{2}\hbar,\quad S_z = m_s\hbar\]
+\desc{Electron spin angular momentum. $S$ = magnitude of the intrinsic spin angular momentum [J\,s]; $s = 1/2$ for all electrons (fixed); $S_z$ = $z$-component of spin; $m_s = +1/2$ (spin-up) or $m_s = -1/2$ (spin-down) = spin magnetic quantum number.}
+
+Quantum numbers: $n=1,2,\ldots;\; \ell=0\ldots n\!-\!1;\; m_\ell=-\ell\ldots+\ell;\; m_s=\pm\tfrac{1}{2}$
+
+\desc{Summary of allowed quantum numbers. Each electron state is uniquely specified by $(n, \ell, m_\ell, m_s)$.}
+
+Degeneracy: $n^2$ orbitals, $2n^2$ states per shell
+
+\desc{$n^2$ = number of distinct spatial orbitals (unique $\ell, m_\ell$ combinations) in shell $n$; $2n^2$ = total states including both spin orientations ($m_s = \pm 1/2$).}
+
+\eqlabel{Selection rules} $\Delta\ell=\pm1,\;\Delta m_\ell=0,\pm1$
+
+\desc{Rules for allowed electric dipole transitions (photon emission or absorption). $\Delta\ell$ = change in orbital quantum number; $\Delta m_\ell$ = change in magnetic quantum number. Transitions violating these rules are ``forbidden'' (occur with negligible probability).}
+
+\eqlabel{Virial} $\langle T \rangle = -E,\quad \langle V \rangle = 2E$
+
+\desc{Virial theorem for the Coulomb ($1/r$) potential. $\langle T \rangle$ = time-averaged kinetic energy [eV]; $\langle V \rangle$ = time-averaged potential energy [eV]; $E$ = total energy of the state [eV]. For the ground state: $E = -13.6$ eV, so $\langle T \rangle = +13.6$ eV and $\langle V \rangle = -27.2$ eV.}
+
+\eqlabel{Ionization} $I = -E_n = 13.6/n^2$ eV
+
+\desc{Ionization energy. $I$ = minimum energy needed to completely remove the electron from level $n$ to $r = \infty$ ($E = 0$) [eV]; $E_n$ = energy of the bound state (negative).}
+
+\eqlabel{Bohr radius} $a_0 = \dfrac{4\pi\varepsilon_0\hbar^2}{m_e e^2} = 0.0529$ nm
+
+\desc{Bohr radius: characteristic length scale of the hydrogen atom. $a_0$ = most probable distance between electron and nucleus in the ground state [m]; $\varepsilon_0$ = permittivity of free space; $\hbar$ = reduced Planck's constant; $m_e$ = electron mass; $e$ = elementary charge.}
+
+% ============================================================
+% SOLIDS (Lessons 3--4)
+% ============================================================
+
+\subsection{Interatomic Bonding}
+\[E(r) = -\frac{A}{r} + \frac{B}{r^m}\]
+\desc{General interatomic pair potential. $E(r)$ = potential energy between two atoms as a function of their separation $r$ [J or eV]; $r$ = interatomic distance [m]; $-A/r$ = long-range attractive term (Coulombic, van der Waals, etc.); $+B/r^m$ = short-range repulsive term (Pauli exclusion, electron cloud overlap); $A$ = attractive constant [eV\,m]; $B$ = repulsive constant [eV\,m$^m$]; $m \approx 6$--$12$ = repulsive exponent (always $m > 1$). Equilibrium occurs at the minimum of $E(r)$.}
+
+\eqlabel{Ionic} $A = \dfrac{Me^2}{4\pi\varepsilon_0}$
+
+\desc{Attractive constant for ionic bonding. $M$ = Madelung constant (dimensionless), accounts for the summed Coulomb interactions with all ions in the crystal lattice (geometry-dependent); $e$ = elementary charge; $\varepsilon_0$ = permittivity of free space.}
+
+\[E_{\text{lattice}}(r) = -\frac{Me^2}{4\pi\varepsilon_0\,r} + \frac{B}{r^m}\]
+\desc{Total lattice energy per ion pair in an ionic crystal. Same variables as above; this is the pair potential with the Madelung-corrected attractive term that accounts for the entire crystal.}
+
+\[E_{\text{bond}} = \frac{A}{r_0}\left(1 - \frac{1}{m}\right)\]
+\desc{Cohesive (binding) energy at equilibrium. $E_{\text{bond}}$ = depth of the potential energy minimum [eV], the energy required to separate the ion pair to infinity; $A$ = attractive constant [eV\,m]; $r_0$ = equilibrium bond distance [m] where $dE/dr = 0$; $m$ = repulsive exponent.}
+
+\eqlabel{Equilibrium} $\left.\dfrac{dE}{dr}\right|_{r_0}=0$
+
+$r_0 = \left(\dfrac{mB\cdot 4\pi\varepsilon_0}{e^2 M}\right)^{1/(m-1)}$
+
+\desc{Equilibrium separation. $r_0$ = bond length where attractive and repulsive forces balance [m]; found by setting the derivative of $E(r)$ to zero and solving. $m$ = repulsive exponent; $B$ = repulsive constant; $\varepsilon_0$ = permittivity of free space; $e$ = elementary charge; $M$ = Madelung constant.}
+
+\subsection{Crystal Structures}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l c c c l@{}}
+\toprule
+& \small atoms & \small CN & \small APF & \small $r(a)$ \\
+\midrule
+SC & 1 & 6 & 0.52 & $a/2$ \\
+BCC & 2 & 8 & 0.68 & $a\sqrt{3}/4$ \\
+FCC & 4 & 12 & 0.74 & $a\sqrt{2}/4$ \\
+DC & 8 & 4 & 0.34 & $a\sqrt{3}/8$ \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\desc{Crystal structure properties. SC = simple cubic; BCC = body-centered cubic; FCC = face-centered cubic; DC = diamond cubic (e.g., Si, Ge). ``atoms'' = number of atoms per conventional unit cell; CN = coordination number (number of nearest neighbors per atom); APF = atomic packing fraction (volume of atoms / volume of cell); $r(a)$ = relationship between atomic radius $r$ and lattice constant $a$ [m], derived from geometry of touching spheres along the close-packed direction.}
+
+\smallskip
+\eqlabel{Density} $\rho = \dfrac{n_c\,M_a}{N_A\,a^3}$
+
+\desc{Mass density of a crystal. $\rho$ = density [kg/m$^3$]; $n_c$ = number of atoms per unit cell (from table above); $M_a$ = molar mass (atomic weight) [kg/mol]; $N_A$ = Avogadro's number [mol$^{-1}$]; $a$ = lattice constant (side length of the cubic unit cell) [m]. The denominator $N_A \cdot a^3$ converts from per-cell to per-volume.}
+
+\eqlabel{NaCl} $M = 1.748$\quad \eqlabel{CsCl} $M = 1.763$
+
+\desc{Madelung constants for common ionic crystal structures. $M$ = dimensionless sum over the crystal lattice accounting for alternating signs of ionic charges and their distances.}
+
+\eqlabel{Surface} $\sigma_{100} = \dfrac{2}{a^2}$, \; $\sigma_{110} = \dfrac{2\sqrt{2}}{a^2}$, \; $\sigma_{111} = \dfrac{4}{\sqrt{3}\,a^2}$
+
+\desc{Planar atomic density for diamond cubic (Si). $\sigma_{hkl}$ = number of atoms per unit area on the $(hkl)$ crystal plane [atoms/m$^2$]; $a$ = lattice constant [m]; $(hkl)$ = Miller indices specifying the crystal plane orientation.}
+
+\subsection{X-ray Diffraction}
+\[d_{hkl} = \frac{a}{\sqrt{h^2+k^2+l^2}}\]
+\desc{Interplanar spacing for cubic crystals. $d_{hkl}$ = perpendicular distance between adjacent $(hkl)$ lattice planes [m]; $a$ = lattice constant [m]; $h, k, l$ = Miller indices (integers specifying the plane family orientation).}
+
+\[2d\sin\theta = n\lambda \quad\text{(Bragg's law)}\]
+\desc{Condition for constructive X-ray diffraction from crystal planes. $d$ = interplanar spacing [m]; $\theta$ = Bragg angle, the angle between the incident X-ray beam and the crystal plane (not the surface normal) [rad or degrees]; $n = 1, 2, 3, \ldots$ = diffraction order (integer); $\lambda$ = X-ray wavelength [m].}
+
+Systematic absences:
+
+BCC: $h\!+\!k\!+\!l$ = even \quad FCC: $h,k,l$ all odd or all even
+
+\desc{Extinction rules: certain reflections are missing due to destructive interference from basis atoms within the unit cell. BCC allows diffraction only when $h + k + l$ is even; FCC allows diffraction only when $h, k, l$ are all odd or all even.}
+
+\subsection{Crystal Defects}
+\[n_v = N\exp\!\left(-\frac{E_v}{k_BT}\right)\]
+\desc{Equilibrium vacancy concentration (Arrhenius relation). $n_v$ = number of vacancies per unit volume [m$^{-3}$]; $N$ = total number of atomic sites per unit volume [m$^{-3}$]; $E_v$ = vacancy formation energy (energy cost to create one vacancy) [J or eV]; $k_B$ = Boltzmann constant; $T$ = absolute temperature [K]. Vacancy concentration increases exponentially with temperature.}
+
+\subsection{Stoichiometry}
+$w_A = \dfrac{x\,M_A}{x\,M_A + y\,M_B}$, \quad $x_i = \dfrac{n_i}{\sum_j n_j}$
+
+\desc{Composition measures. $w_A$ = weight fraction of element $A$ in compound $A_x B_y$ (dimensionless, $0 \leq w \leq 1$); $x, y$ = number of atoms of $A$ and $B$ per formula unit; $M_A, M_B$ = molar masses of elements $A$ and $B$ [g/mol]; $x_i$ = mole fraction of component $i$ (dimensionless); $n_i$ = number of moles of component $i$ [mol]; $\sum_j n_j$ = total moles of all components.}
+
+\subsection{Band Theory}
+\[E_g = E_c - E_v\]
+\desc{Band gap energy. $E_g$ = band gap [eV], the energy range with no allowed electron states in a semiconductor or insulator; $E_c$ = energy of the conduction band edge (bottom of conduction band) [eV]; $E_v$ = energy of the valence band edge (top of valence band) [eV].}
+
+\eqlabel{Photoemission}
+Metal: $hf > \Phi$, \; $KE = hf - \Phi$
+
+Semiconductor: $hf > E_g + \chi$
+
+\desc{Conditions for photoemission. In metals: a photon of energy $hf$ must exceed the work function $\Phi$ (energy from Fermi level to vacuum). In semiconductors: $hf$ must exceed $E_g + \chi$ to free an electron from the valence band to vacuum. $\chi$ = electron affinity, the energy from the conduction band edge $E_c$ to the vacuum level $E_{\text{vac}}$ [eV]; $\Phi$ = work function, the energy from the Fermi level $E_F$ to the vacuum level [eV]; $KE$ = kinetic energy of the emitted electron.}
+
+\subsection{E--k Dispersion \& Effective Mass}
+\[E = \frac{\hbar^2 k^2}{2m_e^*}\]
+\desc{Parabolic band approximation near a band extremum. $E$ = electron energy measured from the band edge [J or eV]; $\hbar$ = reduced Planck's constant; $k$ = crystal wavevector (related to the electron's crystal momentum $p = \hbar k$) [m$^{-1}$]; $m_e^*$ = effective mass of the electron in the crystal [kg]. The effective mass accounts for the periodic potential of the lattice, so the electron behaves as a free particle with mass $m_e^*$ instead of $m_e$.}
+
+\[\frac{1}{m_e^*} = \frac{1}{\hbar^2}\frac{d^2E}{dk^2}\]
+\desc{Effective mass from band curvature. $m_e^*$ = effective mass [kg]; $\hbar$ = reduced Planck's constant; $d^2E/dk^2$ = second derivative of the energy dispersion $E(k)$ with respect to wavevector [J\,m$^2$]. A sharply curved band (large $d^2E/dk^2$) gives a small effective mass (light carriers). Negative curvature gives negative effective mass, which defines holes in the valence band.}
+
+\subsection{Density of States}
+\[g(E) = 8\pi\sqrt{2}\left(\frac{m_e}{h^2}\right)^{3/2}E^{1/2}\]
+\desc{Density of states for 3D free electrons. $g(E)$ = number of available quantum states per unit energy per unit volume [states/(eV\,m$^3$) or J$^{-1}$m$^{-3}$]; $m_e$ = electron mass (or $m_e^*$ in a crystal); $h$ = Planck's constant; $E$ = electron energy measured from the band bottom [J or eV]. The $\sqrt{E}$ dependence means more states are available at higher energies.}
+
+\[S_v(E') = \frac{\pi(8m_eE')^{3/2}}{3h^3}\]
+\desc{Cumulative (integrated) density of states. $S_v(E')$ = total number of states per unit volume with energy up to $E'$ [states/m$^3$]; $m_e$ = electron mass; $E'$ = upper energy limit [J]; $h$ = Planck's constant.}
+
+\subsection{Fermi--Dirac Statistics}
+\[f(E) = \frac{1}{1+\exp\!\left(\dfrac{E-E_F}{k_BT}\right)}\]
+\desc{Fermi--Dirac distribution: probability that a quantum state at energy $E$ is occupied by an electron. $f(E)$ = occupation probability (dimensionless, $0 \leq f \leq 1$); $E$ = energy of the state [eV]; $E_F$ = Fermi energy, the energy at which $f = 1/2$ [eV]; $k_B$ = Boltzmann constant; $T$ = absolute temperature [K]. At $T = 0$, $f$ is a step function: $f = 1$ for $E < E_F$, $f = 0$ for $E > E_F$.}
+
+\eqlabel{Boltzmann approx.} $f \approx e^{-(E-E_F)/(k_BT)}$ for $E-E_F \gg k_BT$
+
+\desc{Classical (Boltzmann) approximation to Fermi--Dirac, valid when the state energy is far above the Fermi level. Same variables as above.}
+
+\eqlabel{Boltzmann ratio} $\dfrac{N_2}{N_1} = \exp\!\left(-\dfrac{E_2-E_1}{k_BT}\right)$
+
+\desc{Ratio of populations in two energy levels at thermal equilibrium. $N_1, N_2$ = number of particles occupying states at energies $E_1$ and $E_2$ respectively; $E_2 - E_1$ = energy difference between the two states [J or eV]; $k_B$ = Boltzmann constant; $T$ = temperature [K].}
+
+\[E_{F0} = \frac{h^2}{8m_e}\left(\frac{3n}{\pi}\right)^{2/3}\]
+\desc{Fermi energy at absolute zero ($T = 0$). $E_{F0}$ = Fermi energy at $T = 0$ [J or eV]; $h$ = Planck's constant; $m_e$ = electron mass; $n$ = free electron concentration (number density of conduction electrons) [m$^{-3}$]. Higher electron density gives higher Fermi energy.}
+
+\[E_F(T) = E_{F0}\!\left[1 - \frac{\pi^2}{12}\!\left(\frac{k_BT}{E_{F0}}\right)^{\!2}\right]\]
+\desc{Temperature-corrected Fermi energy. $E_F(T)$ = Fermi energy at temperature $T$ [eV]; $E_{F0}$ = Fermi energy at $T = 0$; $k_B$ = Boltzmann constant; $T$ = temperature [K]. The correction is small for metals at room temperature since $k_BT \ll E_{F0}$.}
+
+\[\bar{E} = \frac{3}{5}E_{F0}\]
+\desc{Average energy per electron at $T = 0$. $\bar{E}$ = mean kinetic energy of all free electrons at absolute zero [eV]; $E_{F0}$ = Fermi energy at $T = 0$. Even at absolute zero, electrons have significant kinetic energy due to the Pauli exclusion principle.}
+
+\[\langle E \rangle(T) = \tfrac{3}{5}E_{F0}\!\left[1 + \tfrac{5\pi^2}{12}\!\left(\tfrac{k_BT}{E_{F0}}\right)^{\!2}\right]\]
+\desc{Temperature-corrected average electron energy. $\langle E \rangle(T)$ = mean energy per electron at temperature $T$ [eV]; other variables as above.}
+
+\eqlabel{Fermi vel.} $v_F = \sqrt{2E_F/m_e}$
+
+\desc{Fermi velocity: speed of electrons at the Fermi energy. $v_F$ = Fermi velocity [m/s]; $E_F$ = Fermi energy [J]; $m_e$ = electron mass. Derived from $\frac{1}{2}m_ev_F^2 = E_F$. For metals, typically $v_F \sim 10^6$ m/s.}
+
+\eqlabel{Thermal vel.} $v_{\text{rms}} = \sqrt{3k_BT/m_e}$
+
+\desc{Root-mean-square thermal velocity (classical). $v_{\text{rms}}$ = rms speed [m/s]; $k_B$ = Boltzmann constant; $T$ = temperature [K]; $m_e$ = electron mass. For metals at room temperature, $v_{\text{rms}} \ll v_F$.}
+
+\eqlabel{Inverse} $n = \dfrac{\pi}{3}\!\left(\dfrac{8m_eE_{F0}}{h^2}\right)^{3/2}$
+
+\desc{Electron concentration from Fermi energy (inverted $E_{F0}$ formula). $n$ = free electron concentration [m$^{-3}$]; $m_e$ = electron mass; $E_{F0}$ = Fermi energy at $T = 0$ [J]; $h$ = Planck's constant.}
+
+\eqlabel{2D DOS} $g_{2D} = \dfrac{4\pi m_e}{h^2}$
+
+\desc{Density of states for a 2D electron gas. $g_{2D}$ = number of states per unit energy per unit area [states/(eV\,m$^2$)]; $m_e$ = electron mass (or effective mass $m_e^*$); $h$ = Planck's constant. Unlike 3D, the 2D DOS is constant (independent of energy).}
+
+% ============================================================
+% CONDUCTION \& OPTICS (Lesson 5)
+% ============================================================
+
+\subsection{Drude Model \& Conduction}
+\[v_F = \sqrt{\frac{2E_F}{m_e}},\qquad l = v_F\tau\]
+\desc{Fermi velocity and mean free path. $v_F$ = Fermi velocity (speed of conduction electrons at the Fermi energy) [m/s]; $E_F$ = Fermi energy [J]; $m_e$ = electron mass; $l$ = mean free path (average distance an electron travels between scattering events) [m]; $\tau$ = mean free time (average time between collisions) [s].}
+
+\[v_{dx} = \frac{eE_x}{m_e}\tau = \mu E_x\]
+\desc{Drift velocity in an applied electric field. $v_{dx}$ = drift velocity, the net average velocity of electrons along the field direction [m/s]; $e$ = elementary charge; $E_x$ = applied electric field in the $x$-direction [V/m]; $m_e$ = electron mass; $\tau$ = mean free time [s]; $\mu$ = electron drift mobility [m$^2$/(V\,s)].}
+
+\[\mu = \frac{e\tau}{m_e}\]
+\desc{Electron drift mobility. $\mu$ = mobility [m$^2$/(V\,s)], a measure of how easily electrons move through the material under an electric field; $e$ = elementary charge; $\tau$ = mean free time between scattering events [s]; $m_e$ = electron mass (or $m_e^*$ in semiconductors).}
+
+\[J_x = en\,v_{dx} = \sigma E_x\]
+\desc{Current density (Ohm's law in microscopic form). $J_x$ = current density in the $x$-direction [A/m$^2$]; $e$ = elementary charge; $n$ = free electron concentration (number of conduction electrons per unit volume) [m$^{-3}$]; $v_{dx}$ = drift velocity [m/s]; $\sigma$ = electrical conductivity [S/m]; $E_x$ = applied electric field [V/m].}
+
+\[\sigma = \frac{ne^2\tau}{m_e} = ne\mu\]
+\desc{Electrical conductivity (Drude formula). $\sigma$ = conductivity [S/m], inverse of resistivity; $n$ = free electron concentration [m$^{-3}$]; $e$ = elementary charge; $\tau$ = mean free time [s]; $m_e$ = electron mass; $\mu$ = electron mobility [m$^2$/(V\,s)]. Higher electron density or longer time between collisions gives higher conductivity.}
+
+\[R = \frac{\rho\,L}{A},\qquad \rho = \frac{1}{\sigma}\]
+\desc{Resistance and resistivity. $R$ = electrical resistance of a conductor [$\Omega$]; $\rho$ = resistivity [$\Omega$\,m], an intrinsic material property (inverse of conductivity $\sigma$); $L$ = length of the conductor along the current flow direction [m]; $A$ = cross-sectional area perpendicular to current flow [m$^2$].}
+
+\eqlabel{Band model} $\sigma = \tfrac{1}{3}e^2v_F^2\tau\,g(E_F)$
+
+\desc{Quantum (band theory) conductivity. $\sigma$ = conductivity [S/m]; $e$ = elementary charge; $v_F$ = Fermi velocity [m/s]; $\tau$ = mean free time at the Fermi energy [s]; $g(E_F)$ = density of states evaluated at the Fermi energy [states/(J\,m$^3$)]. Only electrons near $E_F$ participate in conduction; this formula accounts for that quantum mechanical fact.}
+
+\eqlabel{Electron conc.} $n = \dfrac{Z\cdot d\cdot N_A}{M_{at}}$
+
+\desc{Free electron concentration from material properties. $n$ = conduction electron density [m$^{-3}$]; $Z$ = valence (number of conduction electrons contributed per atom); $d$ = mass density of the material [kg/m$^3$]; $N_A$ = Avogadro's number; $M_{at}$ = molar (atomic) mass [kg/mol].}
+
+\eqlabel{Mean free time} $\tau = \dfrac{m_e}{ne^2\rho}$
+
+\desc{Mean free time extracted from measured resistivity. $\tau$ = average time between electron scattering events [s]; $m_e$ = electron mass; $n$ = electron concentration [m$^{-3}$]; $e$ = elementary charge; $\rho$ = measured resistivity [$\Omega$\,m]. Derived from $\rho = 1/\sigma = m_e/(ne^2\tau)$.}
+
+\subsection{Resistivity Temperature Dependence}
+\[\rho(T) \approx \rho_0[1 + \alpha_0(T - T_0)]\]
+\desc{Linear approximation for resistivity vs.\ temperature. $\rho(T)$ = resistivity at temperature $T$ [$\Omega$\,m]; $\rho_0$ = resistivity at reference temperature $T_0$ [$\Omega$\,m]; $\alpha_0$ = temperature coefficient of resistivity at $T_0$ [K$^{-1}$]; $T$ = temperature [K]; $T_0$ = reference temperature [K]. Valid for small temperature changes near $T_0$.}
+
+\eqlabel{Matthiessen} $\rho = \rho_T + \rho_I$
+
+\desc{Matthiessen's rule: resistivity contributions are additive. $\rho$ = total resistivity [$\Omega$\,m]; $\rho_T$ = contribution from thermal vibrations (phonon scattering), which increases with $T$; $\rho_I$ = contribution from impurities and defects (temperature-independent). Each scattering mechanism contributes independently.}
+
+\subsection{Thermoelectrics}
+\[S = \frac{dV}{dT} \quad\text{(Seebeck coeff.)}\]
+\desc{Seebeck coefficient (thermopower). $S$ = Seebeck coefficient [V/K]; $dV$ = open-circuit voltage developed across a material [V]; $dT$ = temperature difference causing that voltage [K]. $S > 0$ for p-type, $S < 0$ for n-type conductors.}
+
+\[V_{AB} = \int_{T_0}^{T}(S_A - S_B)\,dT\]
+\desc{Thermocouple voltage. $V_{AB}$ = voltage measured between the two ends of a thermocouple [V]; $S_A, S_B$ = Seebeck coefficients of materials $A$ and $B$ [V/K]; $T_0$ = cold junction temperature [K]; $T$ = hot junction temperature [K].}
+
+\eqlabel{Contact potential} $\Delta V = \dfrac{\Phi_1 - \Phi_2}{e}$
+
+\desc{Contact (Volta) potential at a metal--metal junction. $\Delta V$ = built-in voltage at the junction [V]; $\Phi_1, \Phi_2$ = work functions of materials 1 and 2 [J or eV]; $e$ = elementary charge. Electrons flow from the lower work function material to the higher until Fermi levels align.}
+
+\subsection{Maxwell's Equations}
+\begin{align*}
+\nabla\cdot\vec{D} &= \rho_{\text{free}} & \nabla\cdot\vec{B} &= 0 \\
+\nabla\times\vec{E} &= -\frac{\partial\vec{B}}{\partial t} & \nabla\times\vec{H} &= \vec{J} + \frac{\partial\vec{D}}{\partial t}
+\end{align*}
+\desc{Maxwell's equations governing all classical electromagnetism. $\nabla\cdot$ = divergence operator; $\nabla\times$ = curl operator; $\vec{D}$ = electric displacement field [C/m$^2$]; $\rho_{\text{free}}$ = free charge density [C/m$^3$]; $\vec{B}$ = magnetic flux density [T]; $\vec{E}$ = electric field [V/m]; $\vec{H}$ = magnetic field intensity [A/m]; $\vec{J}$ = free current density [A/m$^2$]; $\partial/\partial t$ = partial time derivative [s$^{-1}$]. First eq.: charges produce electric fields. Second: no magnetic monopoles. Third (Faraday): changing $\vec{B}$ induces $\vec{E}$. Fourth (Amp\`ere--Maxwell): currents and changing $\vec{D}$ produce $\vec{H}$.}
+
+\subsection{EM Waves \& Optics}
+\[\nabla^2\mathbf{E} - \frac{1}{c^2}\frac{\partial^2\mathbf{E}}{\partial t^2} = 0\]
+\desc{Electromagnetic wave equation in a linear, lossless medium. $\nabla^2$ = Laplacian operator; $\mathbf{E}$ = electric field vector [V/m]; $c$ = phase velocity of light in the medium [m/s]; $t$ = time [s]. Derived from Maxwell's equations in the absence of free charges and currents.}
+
+\[c_0 = \frac{1}{\sqrt{\varepsilon_0\mu_0}},\quad n = \sqrt{\varepsilon_r},\quad c = \frac{c_0}{n}\]
+\desc{Speed of light and refractive index. $c_0$ = speed of light in vacuum [m/s]; $\varepsilon_0$ = permittivity of free space; $\mu_0$ = permeability of free space; $n$ = refractive index of the medium (dimensionless, $n \geq 1$ for normal materials); $\varepsilon_r$ = relative permittivity (dielectric constant) of the medium; $c$ = phase velocity of light in the medium [m/s].}
+
+\eqlabel{Intensity} $I = \tfrac{1}{2}c\varepsilon_0 E_0^2$
+
+\desc{Time-averaged intensity (irradiance) of a plane electromagnetic wave. $I$ = power per unit area [W/m$^2$]; $c$ = speed of light in the medium [m/s]; $\varepsilon_0$ = permittivity of free space; $E_0$ = peak (amplitude) of the electric field [V/m]. The factor $1/2$ comes from time-averaging $\cos^2$.}
+
+\eqlabel{Sellmeier} $n^2(\lambda) = 1 + \displaystyle\sum_i\frac{B_i\lambda^2}{\lambda^2 - C_i}$
+
+\desc{Sellmeier dispersion equation: empirical model for wavelength-dependent refractive index. $n(\lambda)$ = refractive index at wavelength $\lambda$; $\lambda$ = free-space wavelength [m]; $B_i$ = dimensionless strength coefficients for each resonance; $C_i$ = resonance wavelength parameters [m$^2$] (related to absorption frequencies of the material). Material-specific; typically 2--3 terms.}
+
+\[v_g = \frac{c}{N_g},\quad N_g = n - \lambda\frac{dn}{d\lambda}\]
+\desc{Group velocity and group index. $v_g$ = group velocity, the speed at which a wave packet (pulse) propagates [m/s]; $c$ = speed of light in vacuum; $N_g$ = group index (dimensionless); $n$ = phase refractive index; $\lambda$ = wavelength [m]; $dn/d\lambda$ = dispersion of the refractive index [m$^{-1}$]. In normal dispersion ($dn/d\lambda < 0$), $N_g > n$ so $v_g < c/n$.}
+
+\eqlabel{Plane wave} $E(z,t) = E_0\cos(kz - \omega t + \phi_0)$
+
+$k = \dfrac{2\pi}{\lambda},\quad \omega = 2\pi f,\quad v = f\lambda = \dfrac{\omega}{k}$
+
+\desc{Monochromatic plane wave propagating in the $+z$ direction. $E(z,t)$ = electric field at position $z$ and time $t$ [V/m]; $E_0$ = amplitude (peak value) [V/m]; $k$ = wavenumber [m$^{-1}$], the spatial frequency; $z$ = position along propagation direction [m]; $\omega$ = angular frequency [rad/s]; $t$ = time [s]; $\phi_0$ = initial phase [rad]; $\lambda$ = wavelength [m]; $f$ = frequency [Hz]; $v$ = phase velocity [m/s].}
+
+\subsection{Snell's Law \& Fresnel}
+\[n_1\sin\theta_i = n_2\sin\theta_t\]
+\desc{Snell's law of refraction. $n_1$ = refractive index of the incident medium; $\theta_i$ = angle of incidence (measured from the surface normal) [rad or degrees]; $n_2$ = refractive index of the transmitted medium; $\theta_t$ = angle of transmission (refraction) [rad or degrees].}
+
+\[R_s = \left(\frac{n_1\cos\theta_i - n_2\cos\theta_t}{n_1\cos\theta_i + n_2\cos\theta_t}\right)^{\!2}\]
+\desc{Fresnel reflectance for $s$-polarization (TE). $R_s$ = fraction of incident power reflected for light polarized perpendicular to the plane of incidence (dimensionless, $0 \leq R_s \leq 1$); $n_1, n_2$ = refractive indices of media 1 and 2; $\theta_i$ = angle of incidence; $\theta_t$ = angle of transmission (from Snell's law).}
+
+\[R_p = \left(\frac{n_2\cos\theta_i - n_1\cos\theta_t}{n_2\cos\theta_i + n_1\cos\theta_t}\right)^{\!2}\]
+\desc{Fresnel reflectance for $p$-polarization (TM). $R_p$ = fraction of incident power reflected for light polarized parallel to the plane of incidence. Same variables as $R_s$. Note the swapped positions of $n_1$ and $n_2$ compared to $R_s$.}
+
+\eqlabel{Normal inc.} $R = \left(\dfrac{n_1-n_2}{n_1+n_2}\right)^{\!2}$
+
+\desc{Reflectance at normal incidence ($\theta_i = 0$). $R$ = fraction of power reflected (dimensionless); $n_1, n_2$ = refractive indices. At normal incidence $R_s = R_p = R$; polarization does not matter.}
+
+\[\tan\theta_B = \frac{n_2}{n_1} \quad\text{(Brewster)}\]
+\desc{Brewster's angle. $\theta_B$ = Brewster angle [rad or degrees], the angle of incidence at which $R_p = 0$ (no $p$-polarized reflection); $n_1, n_2$ = refractive indices. At $\theta_B$, reflected light is purely $s$-polarized.}
+
+\[\theta_c = \arcsin\!\left(\frac{n_2}{n_1}\right) \quad\text{(Critical)}\]
+\desc{Critical angle for total internal reflection (TIR). $\theta_c$ = critical angle [rad or degrees]; $n_1$ = refractive index of the denser medium (where light originates); $n_2$ = refractive index of the less dense medium ($n_2 < n_1$ required). For $\theta_i > \theta_c$, all light is reflected; none is transmitted.}
+
+\eqlabel{Fiber NA} $\text{NA} = \sin\theta_{\text{in,max}} = \sqrt{n_1^2 - n_2^2}$
+
+\desc{Numerical aperture of an optical fiber (or waveguide). NA = numerical aperture (dimensionless), characterizes the range of angles over which the fiber accepts light; $\theta_{\text{in,max}}$ = maximum acceptance half-angle at the fiber input [rad or degrees]; $n_1$ = refractive index of the fiber core; $n_2$ = refractive index of the cladding ($n_2 < n_1$).}
+
+\subsection{Absorption \& Attenuation}
+\[I(z) = I_0\,e^{-\alpha z}\]
+\desc{Beer--Lambert law: exponential attenuation of light intensity in an absorbing medium. $I(z)$ = intensity (irradiance) at depth $z$ [W/m$^2$]; $I_0$ = incident intensity at $z = 0$; $\alpha$ = absorption coefficient [m$^{-1}$ or Np/m], a measure of how strongly the medium absorbs; $z$ = propagation distance into the medium [m].}
+
+\[\alpha = \frac{\pi\varepsilon_r''}{\lambda\sqrt{\varepsilon_r'}}\]
+\desc{Absorption coefficient from complex permittivity. $\alpha$ = absorption coefficient [m$^{-1}$]; $\varepsilon_r''$ = imaginary part of relative permittivity (loss factor); $\lambda$ = free-space wavelength [m]; $\varepsilon_r'$ = real part of relative permittivity.}
+
+\[\frac{P_{\text{out}}}{P_{\text{in}}} = e^{-2\alpha z}\]
+\desc{Power attenuation through an absorbing medium. $P_{\text{out}}$ = output power [W]; $P_{\text{in}}$ = input power [W]; $\alpha$ = absorption coefficient [m$^{-1}$]; $z$ = propagation distance [m]. The factor of 2 appears because power is proportional to $E^2$, so $P \propto I \propto E^2 \propto e^{-2\alpha z}$.}
+
+\subsection{Complex Refractive Index}
+$N = n + j\kappa$
+
+\desc{Complex refractive index. $N$ = complex refractive index (not to be confused with number density); $n$ = real part, the ordinary refractive index (determines phase velocity); $j = \sqrt{-1}$ = imaginary unit; $\kappa$ = extinction coefficient (dimensionless), quantifies absorption (rate of amplitude decay).}
+
+\eqlabel{Absorption} $\alpha = \dfrac{2\omega\kappa}{c} = \dfrac{4\pi\kappa}{\lambda}$
+
+\desc{Absorption coefficient from extinction coefficient. $\alpha$ = absorption coefficient [m$^{-1}$]; $\omega = 2\pi f$ = angular frequency [rad/s]; $\kappa$ = extinction coefficient; $c$ = speed of light in vacuum [m/s]; $\lambda$ = free-space wavelength [m].}
+
+% ============================================================
+% DIELECTRICS (Lesson 6)
+% ============================================================
+
+\subsection{Electric Polarization}
+\[\mathbf{D} = \varepsilon_0\mathbf{E} + \mathbf{P} = \varepsilon_r\varepsilon_0\mathbf{E}\]
+\desc{Constitutive relation for a linear dielectric. $\mathbf{D}$ = electric displacement field [C/m$^2$], accounts for both free and bound charges; $\varepsilon_0$ = permittivity of free space; $\mathbf{E}$ = applied electric field [V/m]; $\mathbf{P}$ = polarization (electric dipole moment per unit volume) [C/m$^2$]; $\varepsilon_r$ = relative permittivity (dielectric constant) of the material (dimensionless, $\varepsilon_r \geq 1$).}
+
+\[\mathbf{P} = \chi_e\varepsilon_0\mathbf{E},\qquad \varepsilon_r = 1 + \chi_e\]
+\desc{Polarization and susceptibility. $\mathbf{P}$ = polarization [C/m$^2$]; $\chi_e$ = electric susceptibility (dimensionless), measures how easily the material polarizes; $\varepsilon_0$ = permittivity of free space; $\mathbf{E}$ = electric field [V/m]; $\varepsilon_r$ = relative permittivity. The ``1'' in $\varepsilon_r = 1 + \chi_e$ represents the vacuum contribution.}
+
+$\mathbf{P} = N\cdot\mathbf{p}_{\text{avg}}$, \quad $\mathbf{p} = \alpha_e\,\mathbf{E}_{\text{loc}}$
+
+\desc{Microscopic origin of polarization. $\mathbf{P}$ = macroscopic polarization [C/m$^2$]; $N$ = number density of polarizable units (atoms, ions, or molecules) [m$^{-3}$]; $\mathbf{p}_{\text{avg}}$ = average induced dipole moment per unit [C\,m]; $\mathbf{p}$ = induced dipole moment of a single atom/ion [C\,m]; $\alpha_e$ = atomic/ionic polarizability [F\,m$^2$ or C$^2$\,s$^2$/(kg\,m$^3$)]; $\mathbf{E}_{\text{loc}}$ = local electric field actually experienced by the atom (differs from the applied field $\mathbf{E}$) [V/m].}
+
+\[E_{\text{loc}} = E + \frac{P}{3\varepsilon_0}\]
+\desc{Lorentz local field at an atomic site in a cubic crystal. $E_{\text{loc}}$ = local electric field [V/m]; $E$ = applied (macroscopic) electric field [V/m]; $P$ = polarization [C/m$^2$]; $\varepsilon_0$ = permittivity of free space. The $P/(3\varepsilon_0)$ term is the depolarization correction from surrounding dipoles.}
+
+\subsection{Clausius--Mossotti}
+\[\frac{\varepsilon_r - 1}{\varepsilon_r + 2} = \frac{N\alpha_e}{3\varepsilon_0}\]
+\desc{Clausius--Mossotti relation: connects the macroscopic dielectric constant to the microscopic polarizability. $\varepsilon_r$ = relative permittivity (macroscopic, measurable); $N$ = number density of polarizable units [m$^{-3}$]; $\alpha_e$ = polarizability per unit [F\,m$^2$]; $\varepsilon_0$ = permittivity of free space. Valid for non-polar, cubic-symmetry materials.}
+
+Rearranged: $\alpha_{\text{total}} = \dfrac{3\varepsilon_0(\varepsilon_r - 1)}{N(\varepsilon_r + 2)}$
+
+\desc{Inverse form: extract total polarizability from measured $\varepsilon_r$. $\alpha_{\text{total}}$ = total polarizability per formula unit [F\,m$^2$]. All other variables as above.}
+
+\subsection{Polarizability Mechanisms}
+\[\alpha_{\text{total}} = \alpha_e + \alpha_i + \alpha_d\]
+\desc{Total polarizability has three contributions. $\alpha_{\text{total}}$ = total polarizability [F\,m$^2$]; $\alpha_e$ = electronic polarizability (displacement of electron cloud relative to nucleus; active at all frequencies including optical); $\alpha_i$ = ionic polarizability (displacement of cations relative to anions; active up to infrared frequencies); $\alpha_d$ = dipolar (orientational) polarizability (rotation of permanent dipoles to align with field; active only at low frequencies, below microwave).}
+
+\[\alpha_e = 4\pi\varepsilon_0 R^3 \quad\text{(electronic)}\]
+\desc{Electronic polarizability of a spherical atom/ion. $\alpha_e$ = electronic polarizability [F\,m$^2$]; $\varepsilon_0$ = permittivity of free space; $R$ = radius of the atom or ion [m]. Larger atoms/ions are more polarizable because the electron cloud is more loosely bound.}
+
+\[\alpha_d = \frac{p^2}{3k_BT} \quad\text{(orientational)}\]
+\desc{Orientational (dipolar) polarizability in the weak-field, high-temperature limit. $\alpha_d$ = dipolar polarizability [F\,m$^2$]; $p$ = magnitude of the permanent electric dipole moment of the molecule [C\,m]; $k_B$ = Boltzmann constant; $T$ = absolute temperature [K]. Thermal agitation opposes alignment, so $\alpha_d$ decreases with increasing $T$.}
+
+\eqlabel{Langevin} $L(x) = \coth(x) - \dfrac{1}{x},\; x = \dfrac{pE}{kT}$
+
+\desc{Langevin function: exact expression for orientational polarization (valid at any field strength). $L(x)$ = Langevin function (dimensionless, approaches 1 for $x \to \infty$); $x$ = ratio of dipole alignment energy to thermal energy; $p$ = permanent dipole moment [C\,m]; $E$ = electric field [V/m]; $k = k_B$ = Boltzmann constant; $T$ = temperature [K]. In the weak-field limit ($x \ll 1$), $L(x) \approx x/3$, which yields $\alpha_d = p^2/(3k_BT)$.}
+
+\subsection{Optical Permittivity}
+$\alpha_{\text{opt}} = \alpha_e(\text{cation}) + \alpha_e(\text{anion})$
+
+$\dfrac{\varepsilon_{rop}-1}{\varepsilon_{rop}+2} = \dfrac{N\alpha_{\text{opt}}}{3\varepsilon_0}$
+
+\desc{Clausius--Mossotti at optical frequencies. $\alpha_{\text{opt}}$ = total optical polarizability per ion pair [F\,m$^2$], the sum of electronic polarizabilities of the cation and anion (only $\alpha_e$ contributes at optical frequencies; $\alpha_i$ and $\alpha_d$ are too slow to follow); $\varepsilon_{rop}$ = optical (high-frequency) relative permittivity; $N$ = number density of ion pairs [m$^{-3}$]; $\varepsilon_0$ = permittivity of free space.}
+
+\subsection{Debye Relaxation}
+\[\varepsilon_r(\omega) = \varepsilon_{r\infty} + \frac{\varepsilon_{rs}-\varepsilon_{r\infty}}{1+j\omega\tau}\]
+\desc{Debye relaxation model: frequency-dependent complex permittivity for a single relaxation process. $\varepsilon_r(\omega)$ = complex relative permittivity at angular frequency $\omega$; $\varepsilon_{rs}$ = static (DC, $\omega = 0$) relative permittivity; $\varepsilon_{r\infty}$ = high-frequency ($\omega \to \infty$) relative permittivity; $j = \sqrt{-1}$; $\omega = 2\pi f$ = angular frequency [rad/s]; $\tau$ = Debye relaxation time [s], the characteristic time for dipoles to respond to a changing field.}
+
+\[\varepsilon_r' = \varepsilon_{r\infty} + \frac{\varepsilon_{rs}-\varepsilon_{r\infty}}{1+\omega^2\tau^2}, \quad \varepsilon_r'' = \frac{(\varepsilon_{rs}-\varepsilon_{r\infty})\omega\tau}{1+\omega^2\tau^2}\]
+\desc{Real and imaginary parts of the Debye permittivity. $\varepsilon_r'(\omega)$ = real part (storage component), represents energy stored per cycle; $\varepsilon_r''(\omega)$ = imaginary part (loss component), represents energy dissipated per cycle. $\varepsilon_r'$ decreases monotonically from $\varepsilon_{rs}$ to $\varepsilon_{r\infty}$ as $\omega$ increases. $\varepsilon_r''$ peaks at $\omega\tau = 1$.}
+
+\[\tan\delta = \frac{\varepsilon_r''}{\varepsilon_r'}\]
+\desc{Loss tangent (dissipation factor). $\tan\delta$ = ratio of energy dissipated to energy stored per cycle (dimensionless); $\delta$ = loss angle [rad]; $\varepsilon_r''$ = imaginary part of permittivity (loss); $\varepsilon_r'$ = real part (storage). Low $\tan\delta$ is desirable for capacitor dielectrics.}
+
+\desc{Peak of $\varepsilon_r''$ occurs at $\omega\tau = 1$: \; $\varepsilon_{r,\text{peak}}'' = (\varepsilon_{rs}-\varepsilon_{r\infty})/2$}
+
+\eqlabel{Complex $\varepsilon$} $\varepsilon_r(\omega) = \varepsilon_r'(\omega) - j\varepsilon_r''(\omega)$
+
+\desc{General complex permittivity notation. The negative sign convention ensures that $\varepsilon_r'' > 0$ corresponds to loss (energy absorption). $\varepsilon_r'$ and $\varepsilon_r''$ are both real, positive quantities.}
+
+\eqlabel{Complex $k$} $\tilde{k} = \dfrac{\omega}{c}\sqrt{\varepsilon_r} = k' + ik''$
+
+\desc{Complex wavevector in a lossy medium. $\tilde{k}$ = complex wavenumber [m$^{-1}$]; $\omega$ = angular frequency [rad/s]; $c$ = speed of light in vacuum [m/s]; $\varepsilon_r$ = complex relative permittivity; $k'$ = real part (propagation constant, determines phase velocity $v_p = \omega/k'$) [m$^{-1}$]; $k''$ = imaginary part (attenuation constant, determines amplitude decay) [m$^{-1}$].}
+
+\subsection{Wave in Lossy Medium}
+\[E(z) = E_0\,e^{-k''z}\,e^{i(k'z-\omega t)}\]
+\desc{Electric field of a plane wave in an absorbing (lossy) medium. $E(z)$ = electric field at position $z$ and time $t$ [V/m]; $E_0$ = initial amplitude [V/m]; $e^{-k''z}$ = exponential decay envelope (attenuation); $k''$ = imaginary part of the complex wavevector [m$^{-1}$]; $z$ = propagation distance [m]; $k'$ = real part of the wavevector [m$^{-1}$]; $\omega$ = angular frequency [rad/s]; $t$ = time [s]. The wave both propagates (via $k'$) and decays (via $k''$).}
+
+\subsection{Gauss's Law for D}
+$\nabla\cdot\mathbf{D} = \rho_{\text{free}}$, \quad $\displaystyle\oint\mathbf{D}\cdot d\mathbf{A} = Q_{\text{free,enclosed}}$
+
+\desc{Gauss's law in differential and integral form. $\nabla\cdot\mathbf{D}$ = divergence of the displacement field; $\rho_{\text{free}}$ = volume density of free charges [C/m$^3$]; $\oint\mathbf{D}\cdot d\mathbf{A}$ = flux of $\mathbf{D}$ through a closed surface; $d\mathbf{A}$ = outward-pointing area element [m$^2$]; $Q_{\text{free,enclosed}}$ = total free charge enclosed by the surface [C]. Bound (polarization) charges are absorbed into $\mathbf{D}$.}
+
+\eqlabel{Boundary} $D_{n1} - D_{n2} = \sigma_f$
+
+\desc{Boundary condition for the normal component of $\mathbf{D}$ at an interface. $D_{n1}$ = normal component of $\mathbf{D}$ in medium 1 [C/m$^2$]; $D_{n2}$ = normal component in medium 2; $\sigma_f$ = free surface charge density at the interface [C/m$^2$]. If no free surface charge ($\sigma_f = 0$), then $D_{n1} = D_{n2}$.}
+
+\subsection{Capacitors \& Energy}
+\[C = \frac{\varepsilon_r\varepsilon_0 A}{d}\]
+\desc{Capacitance of a parallel-plate capacitor. $C$ = capacitance [F]; $\varepsilon_r$ = relative permittivity of the dielectric between plates; $\varepsilon_0$ = permittivity of free space; $A$ = area of each plate [m$^2$]; $d$ = separation between plates [m].}
+
+\[u = \frac{1}{2}\varepsilon_r\varepsilon_0 E^2 = \frac{1}{2}\mathbf{D}\cdot\mathbf{E}\]
+\desc{Energy density stored in an electric field. $u$ = energy per unit volume [J/m$^3$]; $\varepsilon_r$ = relative permittivity; $\varepsilon_0$ = permittivity of free space; $E$ = electric field magnitude [V/m]; $\mathbf{D}$ = displacement field [C/m$^2$]. Total stored energy: $U = \frac{1}{2}CV^2$, where $V$ = voltage across the capacitor [V].}
+
+\eqlabel{Parallel} $C_{\text{tot}} = C_1 + C_2 + \cdots$
+\quad
+\eqlabel{Series} $1/C_{\text{tot}} = 1/C_1 + 1/C_2 + \cdots$
+
+\desc{Capacitors in parallel and in series. $C_{\text{tot}}$ = total equivalent capacitance [F]; $C_1, C_2, \ldots$ = individual capacitances. Parallel: same voltage, charges add. Series: same charge, voltages add.}
+
+\eqlabel{Multilayer} $C = \dfrac{\varepsilon_0 A}{d_1/\varepsilon_{r1} + d_2/\varepsilon_{r2}}$
+
+\desc{Capacitance with two dielectric layers in series. $C$ = total capacitance [F]; $\varepsilon_0$ = permittivity of free space; $A$ = plate area [m$^2$]; $d_1, d_2$ = thicknesses of dielectric layers 1 and 2 [m]; $\varepsilon_{r1}, \varepsilon_{r2}$ = relative permittivities of the two layers. Each layer acts as a capacitor in series.}
+
+\subsection{Piezoelectricity}
+\[P = d\cdot T \;\text{(direct)},\quad S = d\cdot E \;\text{(converse)}\]
+\desc{Piezoelectric effect. Direct effect: mechanical stress produces polarization. Converse effect: electric field produces strain. $P$ = induced polarization [C/m$^2$]; $d$ = piezoelectric coefficient [C/N or m/V]; $T$ = applied mechanical stress [N/m$^2$ = Pa]; $S$ = induced mechanical strain (fractional deformation, dimensionless); $E$ = applied electric field [V/m]. Note: $d$ has the same numerical value in both equations.}
+
+\[f = \frac{v}{2L} \quad\text{(resonance)},\quad Q = \frac{f_{\text{res}}}{\Delta f}\]
+\desc{Resonance of a piezoelectric crystal. $f$ = fundamental resonant frequency [Hz]; $v$ = speed of sound (acoustic velocity) in the crystal [m/s]; $L$ = thickness of the crystal in the vibration direction [m]; the crystal resonates when $L$ equals half an acoustic wavelength. $Q$ = quality factor (dimensionless), measures the sharpness of the resonance; $f_{\text{res}}$ = resonant frequency [Hz]; $\Delta f$ = full width at half maximum (FWHM) of the resonance peak [Hz]. Higher $Q$ means lower energy loss per cycle.}
+
+\subsection{Standing Waves \& Interference}
+\[E = 2E_0\cos(kz)\cos(\omega t)\]
+\desc{Standing wave formed by superposition of two counter-propagating plane waves of equal amplitude. $E$ = electric field [V/m]; $E_0$ = amplitude of each individual wave [V/m]; $k = 2\pi/\lambda$ = wavenumber [m$^{-1}$]; $z$ = position [m]; $\omega = 2\pi f$ = angular frequency [rad/s]; $t$ = time [s]. Nodes (zero amplitude) are spaced $\lambda/2$ apart; antinodes (maximum amplitude $2E_0$) are halfway between nodes.}
+
+\eqlabel{Double slit} $\Delta = d\sin\theta$
+
+\desc{Path difference in Young's double-slit experiment. $\Delta$ = path length difference between waves from the two slits arriving at angle $\theta$ [m]; $d$ = slit separation (distance between the two slits) [m]; $\theta$ = observation angle from the central axis [rad or degrees]. Constructive interference: $\Delta = n\lambda$ ($n = 0, 1, 2, \ldots$). Destructive interference: $\Delta = (n + 1/2)\lambda$.}
+
+\subsection{Superposition (Infinite Well)}
+\[\Psi(x,t) = c_1\varphi_1 e^{-iE_1t/\hbar} + c_2\varphi_2 e^{-iE_2t/\hbar}\]
+\desc{Time-dependent superposition of two stationary states. $\Psi(x,t)$ = total wavefunction; $c_1, c_2$ = expansion coefficients (probability amplitudes, dimensionless, with $|c_1|^2 + |c_2|^2 = 1$); $\varphi_1, \varphi_2$ = spatial wavefunctions of states 1 and 2 (e.g., $\sqrt{2/a}\sin(n\pi x/a)$); $E_1, E_2$ = energies of states 1 and 2 [J]; $\hbar$ = reduced Planck's constant; $t$ = time [s]; $i = \sqrt{-1}$. The $e^{-iEt/\hbar}$ factors are the time-evolution phases.}
+
+\[|\Psi|^2 = c_1^2\varphi_1^2 + c_2^2\varphi_2^2 + 2c_1c_2\varphi_1\varphi_2\cos\!\left(\frac{(E_2-E_1)t}{\hbar}\right)\]
+\desc{Probability density of the superposition state (assuming real $c_1, c_2$). The first two terms are the static contributions from each state; the third (cross) term oscillates in time. Oscillation angular frequency: $\omega_{21} = (E_2 - E_1)/\hbar$ [rad/s]. The probability density ``sloshes'' back and forth in the well at this frequency.}
+
+\subsection{Material Properties}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l c c@{}}
+\toprule
+Material & $a$ (nm) & $E_g$ (eV) \\
+\midrule
+Si & 0.543 & 1.12 \\
+Ge & 0.566 & 0.66 \\
+GaAs & 0.565 & 1.42 \\
+Diamond & 0.357 & 5.5 \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\desc{$a$ = cubic lattice constant [nm]; $E_g$ = band gap energy at room temperature [eV]. Si and Ge are indirect-gap semiconductors (diamond cubic); GaAs is direct-gap (zinc blende).}
+
+\smallskip
+Si: $n_{\text{Si}} = 4.99\times10^{22}$ cm$^{-3}$, $\rho = 2.33$ g/cm$^3$
+
+$n_{\text{Si}}$(refractive) $= 3.48$, \; $n_{\text{SiO}_2} = 1.44$
+
+\desc{$n_{\text{Si}}$ (first) = atomic number density of silicon [cm$^{-3}$]; $\rho$ = mass density [g/cm$^3$]; $n_{\text{Si}}$ (refractive) = refractive index of silicon at $\sim$1550 nm; $n_{\text{SiO}_2}$ = refractive index of silicon dioxide (glass).}
+
+\subsection{Spectroscopic Notation}
+$\ell = 0,1,2,3 \to s,p,d,f$
+
+Shell capacity: $2(2\ell+1)$ electrons per subshell
+
+\desc{Mapping of orbital quantum number $\ell$ to letter labels. $\ell = 0 \to s$, $\ell = 1 \to p$, $\ell = 2 \to d$, $\ell = 3 \to f$. Each subshell with quantum number $\ell$ holds up to $2(2\ell+1)$ electrons: $s$ holds 2, $p$ holds 6, $d$ holds 10, $f$ holds 14. The factor 2 accounts for spin ($m_s = \pm 1/2$); $(2\ell+1)$ counts the allowed $m_\ell$ values.}
+
+\subsection{Useful Identities \& Conversions}
+$1\text{ eV} = 1.602\times10^{-19}$ J, \; $1\text{ nm} = 10^{-9}$ m, \; $1\text{ \AA} = 0.1\text{ nm}$
+
+$E = hc/\lambda$: at $\lambda = 1240\text{ nm}$, $E = 1\text{ eV}$
+
+\eqlabel{Euler} $e^{i\theta} = \cos\theta + i\sin\theta$
+
+\desc{Euler's formula. $e$ = base of the natural logarithm ($\approx 2.718$); $i = \sqrt{-1}$; $\theta$ = angle [rad]. Connects complex exponentials to trigonometric functions; fundamental to wave physics.}
+
+$\sinh(x) = (e^x - e^{-x})/2$, \; $\cosh(x) = (e^x + e^{-x})/2$
+
+\desc{Hyperbolic sine and cosine. Used in tunneling transmission ($\sinh$) and standing wave analysis ($\cosh$). $x$ = argument (dimensionless in physics applications).}
+
+\eqlabel{Stopping} $eV_{\text{stop}} = KE_{\max} = hf - \Phi$
+
+\desc{Stopping potential in the photoelectric effect. $V_{\text{stop}}$ = stopping voltage [V], the reverse bias needed to halt the most energetic photoelectrons; $e$ = elementary charge; $KE_{\max}$ = maximum kinetic energy [J or eV]; $hf$ = photon energy; $\Phi$ = work function. Measuring $V_{\text{stop}}$ vs.\ $f$ gives $h/e$ as the slope and $-\Phi/e$ as the intercept.}
+
+$\hbar c = 197.3$ eV\,nm, \; $m_ec^2 = 0.511$ MeV
+
+\desc{Useful constants. $\hbar c$ = product of reduced Planck's constant and speed of light [eV\,nm]; $m_ec^2$ = electron rest mass energy [MeV].}
+
+\eqlabel{Dispersion} $E = \hbar\omega$, $p = \hbar k$
+
+\desc{Dispersion relations connecting energy/momentum to wave properties. $E$ = energy [J]; $\hbar$ = reduced Planck's constant; $\omega$ = angular frequency [rad/s]; $p$ = momentum [kg\,m/s]; $k$ = wavevector [m$^{-1}$].}
+
+\eqlabel{Free electron} $\psi = Ae^{jkx}$, $k = \sqrt{2m_eE}/\hbar$
+
+\desc{Free electron (plane wave) wavefunction. $\psi$ = wavefunction; $A$ = normalization constant; $j = \sqrt{-1}$; $k$ = wavevector [m$^{-1}$]; $x$ = position [m]; $m_e$ = electron mass; $E$ = kinetic energy [J]; $\hbar$ = reduced Planck's constant.}
+
+$R + T = 1$ (reflection + transmission = 1)
+
+\desc{Conservation of probability (or power). $R$ = reflection coefficient (probability of reflection); $T$ = transmission coefficient (probability of transmission). All incident flux must be either reflected or transmitted.}
+
+$N = n_c/a^3$ (number density from unit cell)
+
+\desc{Number density of atoms/ions. $N$ = number of atoms or ion pairs per unit volume [m$^{-3}$]; $n_c$ = number of atoms (or formula units) per unit cell; $a$ = lattice constant [m]; $a^3$ = volume of the cubic unit cell [m$^3$].}
+
+\end{multicols}
+\end{document}
